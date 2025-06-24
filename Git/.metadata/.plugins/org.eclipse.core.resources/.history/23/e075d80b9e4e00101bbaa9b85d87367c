@@ -1,0 +1,1107 @@
+package runner_Execution;
+
+import java.awt.AWTException;
+import java.awt.Desktop;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.testng.Assert;
+import org.testng.ITestContext;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.MediaEntityBuilder;
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import com.aventstack.extentreports.reporter.configuration.Theme;
+
+import base.BasicFunctions;
+import browsers.BrowserManager;
+import dataProcessing.ReadPdfData;
+import dataProcessing.ReadPdfDataFiles;
+import io.reactivex.rxjava3.functions.Action;
+import pageModules.AttendanceTheoryPage;
+import pageModules.DashboardPage;
+import pageModules.LoginPage;
+import pageModules.MasterPage;
+import pageModules.Nizam;
+import pageModules.ReportCoursePage;
+import pageModules.ReportEnrollmentPage;
+import pageModules.ReportEnrollmentPageForGrade;
+import pageModules.ReprortEnrollmentPageForAddtionalParameter;
+import pageModules.ResultDeliverablesPage;
+import pageModules.ResultTRDataPage;
+import pageModules.RetryAnalyzer;
+import pageModules.Scte_Vt;
+import pageModules.Scte_Vt2;
+import pageModules.SettingsAssingCoursePage;
+
+
+public class Exceution extends BrowserManager {
+
+public Object[][] data1;
+public Object[][] data2;
+
+public Object[][] data3;
+public Object[][] data4;
+public Object[][] ScTEVTLoginExcel;
+public Object[][] ScTEVTStudentDetailsExcel;
+
+
+//Declare a static flag outside for the stop print the same word in report again and again
+
+private static boolean isTestCaseCourseSet = false;
+private static boolean isTestCaseEnrollSet1 = false;
+	// private ExtentReports extent;
+	
+
+	 ExtentReports extentReport ;
+	 ExtentSparkReporter report ;
+	 ExtentTest testCaseName;
+
+	 ReadPdfDataFiles ReadPdf = new ReadPdfDataFiles();
+	 
+	 
+	LoginPage login = new LoginPage();
+	DashboardPage Dashboard = new DashboardPage();
+	MasterPage Master = new MasterPage();
+	ReportEnrollmentPage Enrollment = new  ReportEnrollmentPage();
+	ReportEnrollmentPageForGrade EnrollmentPageForGrade = new ReportEnrollmentPageForGrade();
+	ReprortEnrollmentPageForAddtionalParameter EnrollmentPageForAdditionalParameter = new ReprortEnrollmentPageForAddtionalParameter();
+	ReportCoursePage Coursewise = new  ReportCoursePage();
+	ResultDeliverablesPage ResultDeliverables = new ResultDeliverablesPage();
+	
+	SettingsAssingCoursePage SetAssignCourse = new SettingsAssingCoursePage();
+	ResultTRDataPage TRData = new ResultTRDataPage();
+	AttendanceTheoryPage Therory = new AttendanceTheoryPage();
+	ReadPdfData PDF = new ReadPdfData();
+	Scte_Vt ScteVt = new Scte_Vt();
+	Scte_Vt2 ScteVt2 = new Scte_Vt2();
+	
+	@DataProvider(name ="KNR_RC")
+	public Object[][]ReadExcelEnroll() throws IOException,InvalidFormatException {
+		
+//		Object[][] data = dataProcessing.ReadExcelFiles.readExcel("file1","file1");
+	
+		data1 = dataProcessing.ReadExcelFiles.readExcel("excel.file1", "excel.file1");
+
+		
+		
+//	System.out.println("Data size: " + data.length);
+for (Object[] row : data1) {
+//    System.out.println(Arrays.toString(row));
+}
+return data1;
+	} 
+	
+	
+	@DataProvider(name ="KNR_Course")
+	public Object[][]ReadExcelCourse() throws IOException,InvalidFormatException {
+		
+//		Object[][] data = dataProcessing.ReadExcelFiles.readExcel("file1","file1");
+	
+	
+
+		data2= dataProcessing.ReadExcelFiles.readExcel("excel.file2", "excel.file2");
+		
+//	System.out.println("Data size: " + data.length);
+for (Object[] row : data2) {
+//    System.out.println(Arrays.toString(row));
+}
+return data2;	
+	}	
+	
+	
+	@DataProvider(name ="KNR_ResultDeliverables")
+	public Object[][]ReadExcelResultDeliverables() throws IOException,InvalidFormatException {
+		
+//		Object[][] data = dataProcessing.ReadExcelFiles.readExcel("file1","file1");
+	
+	
+
+		data3= dataProcessing.ReadExcelFiles.readExcel("excel.file3", "excel.file3");
+		
+//	System.out.println("Data size: " + data.length);
+for (Object[] row : data3) {
+//    System.out.println(Arrays.toString(row));
+}
+return data3;	
+	}		
+@DataProvider(name ="ScTE&VT")
+	public Object[][]ReadExcelScTEandVT() throws IOException,InvalidFormatException {
+		
+//		Object[][] data = dataProcessing.ReadExcelFiles.readExcel("file1","file1");
+	
+	
+
+		data4= dataProcessing.ReadExcelFiles.readExcel("excel.file4", "excel.file4");
+		
+//	System.out.println("Data size: " + data.length);
+for (Object[] row : data4) {
+//    System.out.println(Arrays.toString(row));
+}
+return data4;	
+	}			
+	
+@DataProvider(name ="ScTE&VT2")
+public Object[][]ReadExcelScTEandVT2() throws IOException,InvalidFormatException {
+	
+//	Object[][] data = dataProcessing.ReadExcelFiles.readExcel("file1","file1");
+
+
+
+	ScTEVTLoginExcel= dataProcessing.ReadExcelFiles.readExcel("excel.file5", "excel.file5");
+	ScTEVTStudentDetailsExcel = dataProcessing.ReadExcelFiles.readExcel("excel.file6", "excel.file6");
+//System.out.println("Data size: " + data.length);
+
+	 List<Object[]> combined = new ArrayList<>();
+
+	    for (Object[] loginRow : ScTEVTLoginExcel) {
+	        for (Object[] studentRow : ScTEVTStudentDetailsExcel) {
+	            Object[] merged = new Object[loginRow.length + studentRow.length];
+	            System.arraycopy(loginRow, 0, merged, 0, loginRow.length);
+	            System.arraycopy(studentRow, 0, merged, loginRow.length, studentRow.length);
+	            combined.add(merged);
+	        }
+	    }
+
+	    return combined.toArray(new Object[0][0]);
+
+}			
+	
+	
+	
+	
+	
+	
+	
+	private static int totalPassed = 0;
+	private static int totalFailed = 0;
+
+
+
+
+	
+//General login and logout
+@Test(priority = 1, enabled = false)
+public void testCase1() throws InterruptedException, IOException {
+	testCaseName = extentReport.createTest("Login Page Actions");
+	
+	System.out.println("This is a Normal Test Case1");
+
+   
+
+  
+    // Perform LoginPage Actions
+	    login.DirectSignIn();
+	    login.DirectPassEntry();
+	    login.DirectUserEntry();
+
+ 	    // Validate Login Failures and Success
+	    login.LoginInFail();
+//	   	login.Login();
+
+//	    SetAssignCourse.check();
+	    // Perform Logout and Re-login
+	
+//	    
+//	    Therory.AttendanceMarkNavigation();
+//	    Therory.TheroryAttendanceNavigation();
+//	    Therory.TheroryAttendanceBrowse();
+//	    TRData.ResultDeliverablesNavigation();
+//	    TRData.ResultDeliverablesTRDataClgWiseNavigation();
+
+	}	
+	
+
+
+//General login and logout
+@Test(priority = 2, enabled = false)
+public void testCase2() throws InterruptedException, IOException, AWTException {
+	
+	testCaseName = extentReport.createTest("DashBoard Page Actions");
+ System.out.println("This is a Normal Test Case1");
+
+ ExtentSparkReporter sparkReporter = new ExtentSparkReporter("extentReport.html");
+ ExtentReports extent = new ExtentReports();
+ extent.attachReporter(sparkReporter);
+ 
+
+ ExtentTest test = extent.createTest("Sample Test", "This is a test description");
+ test.pass("Test passed successfully");
+ 
+  // Perform DashBoardPage Actions
+ Browser_Launch();
+ login.Login();
+//	    Dashboard.EntriesPerPage();
+//	    Dashboard.DashBoardColumn();
+//	    Dashboard.DashBoardSearch();
+//	    Dashboard.PageNavigation(); 
+//	    Master.MasterNavigation();
+//	    Master.CollegeMasterNavigation();
+//	    Master.CollegeMasterEntriesPerPage();
+//	    Master.CollegeMasterColumn();
+//	    Master.CollegeMasterSearch();
+//	    Master.CollegeMasterPageNavigation();
+	    Master.MasterNavigation();
+//	    Master.CourseMasterNavigation();
+//	    Master.CourseMasterEntriesPerPage();
+//	    Master.CourseMasterColumn();
+//	    Master.CourseMasterSearch();
+//	    Master.CollegeMasterPageNavigation();
+
+	    test.pass("Test passed successfully done");
+	}	
+	
+
+
+//for KNR
+
+
+
+
+//for result download
+@Test(priority = 3, enabled = false, dataProvider = "KNR_ResultDeliverables")
+public void testCaseResult(Object clgCode,Object examdate, Object awardName,Object regulation,Object semester , Object examType,Object programcourseCode) throws IOException, InterruptedException, InvalidFormatException, AWTException {
+	
+	
+	  // Set the test case name only once
+	 
+    
+	   
+    if(!isTestCaseCourseSet) {
+    testCaseName = extentReport.createTest("Report Card Course wise Page Actions");
+    
+    isTestCaseCourseSet = true;   // Mark it as set
+    Browser_Launch();
+    ResultDeliverables.ResultDeliverablesPageNavigation(testCaseName); 	
+    } 
+	
+    System.out.println("Starting testCase4 execution for the following clg code: " + clgCode);
+	
+
+    ResultDeliverables.TRDataCollegewiseNavigation(testCaseName);
+    
+    ResultDeliverables.handleCollegeCode(clgCode,testCaseName);
+
+    // Process other details dynamically
+
+    ResultDeliverables.handleOtherParameters(examdate, awardName,regulation,semester,examType,testCaseName);
+  
+    ResultDeliverables.handleProgramCourse(programcourseCode,testCaseName);
+
+//	Enrollment.downloadPdfReportValidation(testCaseName);
+	
+    Enrollment.submitButton(testCaseName);
+    
+    ResultDeliverables.DownloadReport();
+    		 
+	System.out.println("Reached end of testCase4 execution for the following clg code: " + clgCode + " and exam type " + examType +" and course code " +programcourseCode );
+//	PDF.validatePDF(null);
+}
+
+
+
+
+
+
+
+
+
+//for KNR course download
+@Test(priority = 4, enabled = false, dataProvider = "KNR_Course")
+public void testCase4(Object clgCode,Object examdate, Object awardName,Object regulation,Object semester , Object examType,Object programcourse) throws IOException, InterruptedException, InvalidFormatException, AWTException {
+	
+	
+	  // Set the test case name only once
+	 
+    
+	   
+    if(!isTestCaseCourseSet) {
+    testCaseName = extentReport.createTest("Report Card Course wise Page Actions");
+    
+    isTestCaseCourseSet = true;   // Mark it as set
+    Browser_Launch();
+    Coursewise.ReportCardNavigation(testCaseName);
+    } 
+	
+    System.out.println("Starting testCase4 execution for the following clg code: " + clgCode);
+	
+
+    Coursewise.ReportCardCourseNavigation(testCaseName);
+
+    // Handle College Code
+    Coursewise.handleCollegeCode(clgCode,testCaseName);
+
+    // Process other details dynamically
+
+	Coursewise.handleOtherParameters(examdate, awardName,regulation,semester,examType,testCaseName);
+  
+	Coursewise.handleProgramCourse(programcourse,testCaseName);
+	
+	Enrollment.submitButton(testCaseName);
+	
+//	Enrollment.downloadPdfReportValidation(testCaseName);
+	
+	
+	System.out.println("Reached end of testCase4 execution for the following clg code: " + clgCode);
+//	PDF.validatePDF(null);
+}
+	
+	
+	
+//for knr some project
+// if the excel has no paper 1 and paper 2 columns	
+@Test(priority = 5, enabled = false, dataProvider = "KNR_RC")
+public void testCase6(Object Regno, Object examdate, Object awardName, Object semester, 
+                      Object regulation, Object examType, Object paper1, 
+                      Object paper2, Object paper3, Object theroryExam, 
+                      Object praticalExam, Object examTotal,String subjectToFind) 
+                      throws InterruptedException, IOException, AWTException {
+    // Set the test case name only once
+ 
+    
+	
+
+	 if(!isTestCaseEnrollSet1) {testCaseName =
+	  extentReport.createTest("Report Card Enrollment Page Actions");
+	  
+	  isTestCaseEnrollSet1 = true; // Mark it as set
+	  monitorNetworkDuringTest(testCaseName,Regno, subjectToFind);
+	  Browser_Launch();
+	
+	  login.Login();
+	  Enrollment.ReportCardNavigation(testCaseName);
+
+	  }
+	 
+	 monitorNetworkDuringTest(testCaseName,Regno, subjectToFind);
+//	testCaseName = extentReport.createTest("Enrollment Page Actions");
+	System.out.println("=========================");
+	
+	System.out.println("This is a Normal Test Case5");
+    System.out.println("Starting testCase5 execution for the reg: " + Regno +" for the Subject: " + subjectToFind);
+  
+   
+    System.out.println("=========================");
+ try {
+	ArrayList<String> windowHandles = new ArrayList<>(driver.getWindowHandles());
+    
+	if(driver.switchTo().window(windowHandles.get(1))!=null) {
+		driver.switchTo().window(windowHandles.get(1));
+
+		driver.close();
+	    	
+	}}
+	
+	catch(Exception e) {
+		
+	}
+	// Switch to the second window (index 1 in the list)
+
+	// Perform actions in the new window/tab
+
+
+	
+	  // Navigate to the Enrollment Page
+	  Enrollment.ReportCardEnrollNavigation(testCaseName);
+	  
+	  
+	  //For validation the final rocess score and scoe files
+	 /*  Enrollment.checkValidationResult(Regno, examdate, awardName, semester, 
+	            regulation, examType,  paper1, 
+	             paper2,  paper3,  theroryExam, 
+	            praticalExam, examTotal,subjectToFind,testCaseName); */
+	           
+	             
+	
+	
+	  Enrollment.EnrollmentRegNo(Regno, testCaseName);
+	  Enrollment.EnrollmentExamDate(examdate,testCaseName);
+	  Enrollment.EnrollmentAwardName(awardName,testCaseName);
+	  Enrollment.EnrollmentSemester(semester,testCaseName);
+	  Enrollment.EnrollmentRegulation(regulation,testCaseName);
+	  Enrollment.EnrollmentExamType(examType,testCaseName);
+	 Enrollment.submitButton(testCaseName);
+	  Enrollment.downloadPdfReportValidation(testCaseName,Regno,
+	  paper1,paper2,paper3,praticalExam,theroryExam,examTotal,subjectToFind);
+	 
+
+
+//Need to Create the separte methos in one class for the below ones exam,awardName,etcc
+
+    // Handle other details like exam date, award name, semester, etc.
+ //   Enrollment.processOtherDetails(examdate, awardName, semester, regulation, examType);
+
+    // Validate paper results and scores
+ //  Enrollment.validatePaperResults(Regno, paper1, paper2, paper3, praticalExam, theroryExam, examTotal);
+
+	System.out.println("=====================");
+    System.out.println("Reached end of testCase5 execution for: " + Regno +" and subject: "+ subjectToFind );
+    // **Stop execution if any cell is null or empty**
+    if (Regno == null || Regno.toString().trim().isEmpty()) {
+        System.out.println("Execution stopped: Found a null or empty cell in Excel.");
+        System.exit(0); // **Stops the program immediately**
+    }
+}
+
+
+//For bsc nuring sem one and other grade type patterns
+@Test(priority = 6, enabled = false, dataProvider = "KNR_RC")
+public void testCaseGrade(Object Regno, Object examdate, Object awardName, Object semester, 
+                      Object regulation, Object examType, Object paper1, 
+                      Object paper2, Object paper3, Object theroryExam, 
+                      Object praticalExam, Object examTotal,String subjectToFind,Object gradeSecured,Object gradeLetter,Object gradePoint) 
+                      throws InterruptedException, IOException, AWTException {
+    // Set the test case name only once
+ 
+    
+   
+
+	 if(!isTestCaseEnrollSet1) { testCaseName =
+	  extentReport.createTest("Report Card Enrollment Page Actions");
+	  
+	  isTestCaseEnrollSet1 = true; // Mark it as set
+	  Browser_Launch();
+	  login.Login();
+	  EnrollmentPageForGrade.ReportCardNavigation(testCaseName);
+
+
+	  }
+	 
+	
+//	testCaseName = extentReport.createTest("Enrollment Page Actions");
+	System.out.println("=========================");
+	
+	System.out.println("This is a Normal Test Case5");
+    System.out.println("Starting testCase6 execution for the reg: " + Regno +" for the Subject: " + subjectToFind);
+    System.out.println("=========================");
+ 
+    
+	  // Navigate to the Enrollment Page
+    EnrollmentPageForGrade.ReportCardEnrollNavigation(testCaseName);
+	  
+	  
+	  //For validation the final rocess score and scoe files
+	 /*  Enrollment.checkValidationResult(Regno, examdate, awardName, semester, 
+	            regulation, examType,  paper1, 
+	             paper2,  paper3,  theroryExam, 
+	            praticalExam, examTotal,subjectToFind,testCaseName); */
+	           
+	             
+	
+	
+    EnrollmentPageForGrade.EnrollmentRegNo(Regno,testCaseName);
+    EnrollmentPageForGrade.EnrollmentExamDate(examdate,testCaseName);
+    EnrollmentPageForGrade.EnrollmentAwardName(awardName,testCaseName);
+    EnrollmentPageForGrade.EnrollmentSemester(semester,testCaseName);
+    EnrollmentPageForGrade.EnrollmentRegulation(regulation,testCaseName);
+    EnrollmentPageForGrade.EnrollmentExamType(examType,testCaseName);
+    EnrollmentPageForGrade.submitButton(testCaseName);
+    EnrollmentPageForGrade.downloadPdfReportValidation(testCaseName,Regno,
+	  paper1,paper2,paper3,theroryExam,praticalExam,examTotal,subjectToFind,gradeSecured,gradeLetter,gradePoint);
+
+
+
+//Need to Create the separte methos in one class for the below ones exam,awardName,etcc
+
+    // Handle other details like exam date, award name, semester, etc.
+ //   Enrollment.processOtherDetails(examdate, awardName, semester, regulation, examType);
+
+    // Validate paper results and scores
+ //  Enrollment.validatePaperResults(Regno, paper1, paper2, paper3, praticalExam, theroryExam, examTotal);
+
+	System.out.println("=====================");
+    System.out.println("Reached end of testCase5 execution for: " + Regno +" and subject: "+ subjectToFind );
+    // **Stop execution if any cell is null or empty**
+    if (Regno == null || Regno.toString().trim().isEmpty()) {
+        System.out.println("Execution stopped: Found a null or empty cell in Excel.");
+        System.exit(0); // **Stops the program immediately**
+    }
+}
+
+//for bnys pattern
+@Test(priority = 7, enabled = false, dataProvider = "KNR_RC",description = "KNR_RC")
+public void knr_RC(Object Regno, Object examdate, Object awardName, Object semester, 
+                      Object regulation, Object examType, Object paper1, 
+                      Object paper2, Object paper3, Object theroryExam, 
+                      Object praticalExam, Object examTotal,String subjectToFind,Object theoryInt,Object theoryTh,Object praticalInt,Object praticalPractical, Object praticalViva) 
+                      throws InterruptedException, IOException, AWTException {
+    // Set the test case name only once
+ 
+    
+   
+
+	 if(!isTestCaseEnrollSet1) { testCaseName =
+	  extentReport.createTest("Report Card Enrollment Page Actions");
+	  
+	  isTestCaseEnrollSet1 = true; // Mark it as set
+	  Browser_Launch();
+	  login.Login();
+	  EnrollmentPageForAdditionalParameter.ReportCardNavigation(testCaseName);
+
+
+	  }
+	 
+	
+//	testCaseName = extentReport.createTest("Enrollment Page Actions");
+	System.out.println("=========================");
+	
+	System.out.println("This is a Normal Test Case5");
+    System.out.println("Starting testCase7 execution for the reg: " + Regno +" for the Subject: " + subjectToFind);
+    System.out.println("=========================");
+ 
+    
+	  // Navigate to the Enrollment Page
+    EnrollmentPageForAdditionalParameter.ReportCardEnrollNavigation(testCaseName);
+	  
+	  
+	  //For validation the final rocess score and scoe files
+	 /*  Enrollment.checkValidationResult(Regno, examdate, awardName, semester, 
+	            regulation, examType,  paper1, 
+	             paper2,  paper3,  theroryExam, 
+	            praticalExam, examTotal,subjectToFind,testCaseName); */
+	           
+	             
+	
+	
+    EnrollmentPageForAdditionalParameter.EnrollmentRegNo(Regno,testCaseName);
+    EnrollmentPageForAdditionalParameter.EnrollmentExamDate(examdate,testCaseName);
+    EnrollmentPageForAdditionalParameter.EnrollmentAwardName(awardName,testCaseName);
+    EnrollmentPageForAdditionalParameter.EnrollmentSemester(semester,testCaseName);
+    EnrollmentPageForAdditionalParameter.EnrollmentRegulation(regulation,testCaseName);
+    EnrollmentPageForAdditionalParameter.EnrollmentExamType(examType,testCaseName);
+    EnrollmentPageForAdditionalParameter.submitButton(testCaseName);
+    EnrollmentPageForAdditionalParameter.downloadPdfReportValidation(testCaseName,Regno,
+	  paper1,paper2,paper3,praticalExam,theroryExam,examTotal,subjectToFind,theoryInt,theoryTh,praticalInt,praticalPractical,praticalViva);
+	 
+
+
+//Need to Create the separte methos in one class for the below ones exam,awardName,etcc
+
+    // Handle other details like exam date, award name, semester, etc.
+ //   Enrollment.processOtherDetails(examdate, awardName, semester, regulation, examType);
+
+    // Validate paper results and scores
+ //  Enrollment.validatePaperResults(Regno, paper1, paper2, paper3, praticalExam, theroryExam, examTotal);
+
+	System.out.println("=====================");
+    System.out.println("Reached end of testCase5 execution for: " + Regno +" and subject: "+ subjectToFind );
+    // **Stop execution if any cell is null or empty**
+    if (Regno == null || Regno.toString().trim().isEmpty()) {
+        System.out.println("Execution stopped: Found a null or empty cell in Excel.");
+        System.exit(0); // **Stops the program immediately**
+    }
+}
+
+//for Gita projects
+//readpdf write excel
+//it will take the first downloaded fil so no need to give file path here
+
+@Test(priority = 8, enabled = false,description = "GITA")
+
+public void gita() {
+
+	   
+	
+	
+	try {
+	        	
+		 if(!isTestCaseEnrollSet1) { testCaseName =
+				  extentReport.createTest("GITA Actions");
+	       System.out.println("Starting PDF Data Read Test...");	  
+				  isTestCaseEnrollSet1 = true; // Mark it as set
+				  
+			      System.out.println("=====================");
+		            
+		            ReadPdf.readPdfData(testCaseName);
+
+		            System.out.println("PDF Data Read Test Completed.");
+				  }        	
+	     
+	       //     ReadPdfData.readPdfData();
+	           
+			/*
+			 * if(!isTestCaseEnrollSet1) { testCaseName =
+			 * extentReport.createTest("Read PDF write Excel");
+			 * 
+			 * isTestCaseEnrollSet1 = true; // Mark it as set
+			 * 
+			 * }
+			 */
+	            
+	            
+	            
+	            
+	      
+	            
+	            
+	           
+	        } catch (IOException e) {
+	            System.err.println("Error during PDF Data Read Test: " + e.getMessage());
+	            e.printStackTrace();
+	        }
+	    }
+
+//Fpr SCTE&VT project
+@Test(priority = 9, enabled = false, dataProvider = "ScTE&VT",description = "ScTEVT")
+public void ScTEandVT(Object regno, Object sycode, Object finalMark,String mark) throws InterruptedException, IOException, AWTException {
+    if (testCaseName == null) {
+        testCaseName = extentReport.createTest("SCET&VT Actions");
+ 
+  	  Browser_Launch();
+    }
+
+    System.out.println("Starting testCase execution for the semester " + sycode +" and the reg: " + regno);
+    System.out.println("=========================");
+
+    try {
+        // Perform LoginPage Actions
+    
+        ScteVt.ScTEVT(regno, sycode, finalMark,mark, testCaseName);
+
+        // If no exception, count as pass
+        totalPassed++;
+    } catch (Exception e) {
+        totalFailed++;
+        testCaseName.fail("Test failed for reg: " + regno + " due to " + e.getMessage());
+    }
+
+    System.out.println("=========================");
+    System.out.println("Ended testCase execution for the reg: " + regno);
+}
+
+
+
+@Test(priority = 10, enabled = true,description = "GITA")
+
+public void nizam() {
+
+	   
+	
+	
+	try {
+	        	
+		 if(!isTestCaseEnrollSet1) { testCaseName =
+				  extentReport.createTest("Nizam Actions");
+	       System.out.println("Starting PDF Data Read Test...");	  
+				  isTestCaseEnrollSet1 = true; // Mark it as set
+				  
+			      System.out.println("=====================");
+		            
+		            Nizam nizam = new Nizam();
+					nizam.readPdfData(testCaseName);
+		            System.out.println("PDF Data Read Test Completed.");
+				  }        	
+	     
+	       //     ReadPdfData.readPdfData();
+	           
+			/*
+			 * if(!isTestCaseEnrollSet1) { testCaseName =
+			 * extentReport.createTest("Read PDF write Excel");
+			 * 
+			 * isTestCaseEnrollSet1 = true; // Mark it as set
+			 * 
+			 * }
+			 */
+	            
+	            
+	            
+	            
+	      
+	            
+	            
+	           
+	        } catch (IOException e) {
+	            System.err.println("Error during PDF Data Read Test: " + e.getMessage());
+	            e.printStackTrace();
+	        }
+	    }
+
+
+
+
+//Fpr SCTE&VT project
+@Test(priority = 11, enabled = false, dataProvider = "ScTE&VT2",description = "ScTEVT")
+public void ScTEandVT2(String admin , String passWord, String regno, String semester) throws InterruptedException, IOException, AWTException {
+  if (testCaseName == null) {
+      testCaseName = extentReport.createTest("SCET&VT Actions");
+
+	  Browser_Launch();
+	  ScteVt2.ScTEVT2(admin, passWord, testCaseName);
+	  ScteVt2.resultPageNavigation(admin, passWord, testCaseName);
+  }
+
+  System.out.println("Starting testCase execution for the semester " + admin +" and the reg: " + admin);
+  System.out.println("=========================");
+  
+  System.out.println("Admin: " + admin);
+  System.out.println("Password: " + passWord);
+  System.out.println("regno: " + regno);
+  System.out.println("subjectName: " + semester);
+
+  	ScteVt2.regnoEnter(regno, semester, testCaseName);
+  	ScteVt2.regnoEnter1(regno, semester, testCaseName);
+  try {
+      // Perform LoginPage Actions
+  
+
+      // If no exception, count as pass
+      totalPassed++;
+  } catch (Exception e) {
+      totalFailed++;
+      testCaseName.fail("Test failed for reg: " + admin + " due to " + e.getMessage());
+  }
+
+  System.out.println("=========================");
+  System.out.println("Ended testCase execution for the reg: " + admin);
+}
+
+
+	@BeforeMethod
+	public void beforeMethod() throws IOException, InterruptedException {
+		System.out.println("This will execute foruth before every Method and after the before class");
+//		ReadExcelData.ExcelReader(C:\\Users\\User\\Downloads\\DumpScore.xlsx,"mds");
+	//	ReadExcelData.getColumnData()
+		
+	
+	}
+
+	@AfterMethod
+	public void afterMethod() {
+		System.out.println("This will execute after every Method");
+		  Properties prop = new Properties();
+	        try {
+	            // Load the properties file
+	      	  FileInputStream fileInputStream = new FileInputStream("src/main/resources/config.properties");
+	            prop.load(fileInputStream);
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	        // Flush Extent Report
+	        extentReport.flush();
+	}
+
+	@BeforeClass
+	public void beforeClass() {
+		System.out.println("This will execute third before the Class and after the befortest");
+		  // Set up ExtentReports
+     
+	}
+
+	@AfterClass
+	public void afterClass() {
+		System.out.println("This will execute after the Class");
+
+	}
+
+	@BeforeTest
+	public void beforeTest() {
+		System.out.println("This will execute second before the Test and after the before test suite");
+	  // Check if the driver is not already initialized
+			
+		
+	}
+	
+	@AfterTest
+	public void afterTest() {
+		System.out.println("This will execute after the Test");
+		 Properties prop = new Properties();
+
+	     try {
+	          // Load the properties file
+	    	  FileInputStream fileInputStream = new FileInputStream("src/main/resources/config.properties");
+	        
+	          prop.load(fileInputStream);
+	      } catch (IOException e) {
+	          e.printStackTrace();
+	      }
+		 
+	        String reportPath = prop.getProperty("report.path").replace("\\", "/"); // Convert to valid URI format
+			
+		
+	
+		 try {
+	            Desktop.getDesktop().browse(new URI("file:///" + reportPath));
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }	  // Ensure the browser is closed after the test
+		
+	}
+	
+	@BeforeSuite
+	public void beforeSuite() throws InterruptedException, FileNotFoundException {
+		System.out.println("This will execute first before the Test Suite");
+//		report = new 
+
+
+	
+	
+	  Properties prop = new Properties();
+      try {
+          // Load the properties file
+    	  FileInputStream fileInputStream = new FileInputStream("src/main/resources/config.properties");
+        
+          prop.load(fileInputStream);
+      } catch (IOException e) {
+          e.printStackTrace();
+      }
+
+      // Read properties
+      String reportPath = prop.getProperty("report.path").replace("\\", "/"); // Convert to valid URI format
+      String theme = prop.getProperty("report.theme");
+      String documentTitle = prop.getProperty("report.documentTitle");
+      String reportName = prop.getProperty("report.reportName");
+
+      // Set up Extent Reports
+      ExtentSparkReporter report = new ExtentSparkReporter(reportPath);
+      report.config().setDocumentTitle(documentTitle);
+      report.config().setReportName(reportName);
+
+      // Set Theme based on config
+      if ("DARK".equalsIgnoreCase(theme)) {
+          report.config().setTheme(Theme.DARK);
+      } else {
+          report.config().setTheme(Theme.STANDARD);
+      }
+
+  	  extentReport =new ExtentReports(); 
+      extentReport.attachReporter(report);
+     
+
+      System.out.println("Extent Report generated successfully at: " + reportPath);
+  
+	
+	  
+   
+	}
+
+
+	@AfterSuite
+	public void afterSuite(ITestContext context) throws IOException, URISyntaxException {
+     
+		
+		
+	    Properties prop = new Properties();
+
+
+ 
+        String reportPath = prop.getProperty("report.path").replace("\\", "/"); // Convert to valid URI format
+		
+		System.out.println("This will execute after the Test Suite");
+
+        // Log file path (replace with actual path)
+    
+        boolean logContainsFailure = false;
+
+        // Check if the log contains "failed"
+        try {
+            List<String> lines = Files.readAllLines(Paths.get(reportPath));
+            for (String line : lines) {
+                if (line.toLowerCase().equals("FAIL")) {  // 🔍 Check for failure in logs
+                    logContainsFailure = true;
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("❌ Error reading log file: " + e.getMessage());
+        }
+
+        // Fetch current test execution counts
+        int totalTests = context.getAllTestMethods().length;
+        int passedTests = context.getPassedTests().size();
+        int failedTests = context.getFailedTests().size();
+        int skippedTests = context.getSkippedTests().size();
+
+        // If failure is detected in logs, increase failure count
+        if (logContainsFailure) {
+            failedTests++; // Increase failures count
+            passedTests--; // Decrease passes count
+            System.out.println("❌ FAILURE DETECTED IN LOGS! Marking test as failed.");
+        }
+
+        // Display updated test summary
+        System.out.println("\n========== TEST EXECUTION SUMMARY ==========");
+        System.out.println("Total tests run: " + totalTests);
+        System.out.println("Passes: " + passedTests);
+        System.out.println("Failures: " + failedTests);
+        System.out.println("Skips: " + skippedTests);
+        System.out.println("=============================================\n");
+
+        // Update Extent Report
+//        if (failedTests == 0) {
+//            extentReport.createTest("SCET&VT_SEM_5 Actions Final Status")
+//                        .pass("All tests executed successfully.");
+//        } else {
+//            extentReport.createTest("SCET&VT_SEM_5 Actions Final Status")
+//                        .fail("Some tests failed during execution.");
+//            throw new AssertionError("⚠️ Test execution failed due to failure logs found!");
+//        }
+    
+        // Open the report in the default browser
+       
+    }
+
+	 @Test(priority = 0, enabled = false)
+	 public void monitorNetworkDuringTest(ExtentTest testCaseName,Object regno,String subjectToFind) throws InterruptedException, IOException, AWTException {
+		  // Single method to setup report, check internet, and log the result
+		    ExtentTest testCaseScenario = testCaseName
+		            .createNode("Internet Connectivity Check for the following register number"+ regno +" and subjectame "+ subjectToFind );
+		 try {
+	
+  // Load config file and fetch the report path
+		        Properties properties = new Properties();
+		        try (FileInputStream fileInputStream = new FileInputStream("src/main/resources/config.properties")) {
+		        	
+		        	
+		      	 
+		            properties.load(fileInputStream);
+		        } catch (IOException e) {
+		            e.printStackTrace();
+		        }
+
+		    
+		        // Start the test and check internet connectivity
+		    
+		    		        try {
+		            InetAddress address = InetAddress.getByName("google.com");
+		            if (address.isReachable(3000)) {
+		          //  	testCaseScenario.log(Status.INFO, "Internet is connected.");
+		                System.out.println("Internet is connected.");
+		             	testCaseScenario.info("Network status for the following register number"+ regno +" and subject name "+ subjectToFind  +" is connected"); 
+		                   
+		             	try {
+		             		WebElement networkTryAgainBtn = driver.findElement(By.xpath("//button[@id='neterrorTryAgainButton']"));
+		             	if(networkTryAgainBtn.isDisplayed()) {
+		            		Thread.sleep(200);
+		            		
+		            	networkTryAgainBtn.click();
+		            	
+//		            	driver.navigate().back();
+//		            	Thread.sleep(5000);
+//		            	driver.navigate().back();
+		            	
+		            
+		             		}
+		             
+		             	else {
+      		WebElement dashBoard = driver.findElement(By.xpath("//span[contains(text(),'Dashboard')])"));
+		             		
+		             		if(dashBoard.isDisplayed()) {
+		             			  Enrollment.ReportCardNavigation(testCaseName);
+		             		}
+		             	}
+		             	
+		             	}
+		             	
+		             	catch(Exception e2) {
+		             		
+		       
+		             		
+		             	}
+		            } else {
+		  
+		            //	testCaseScenario.fail("Network status for the following register number"+ regno +" and subjectame "+ subjectToFind  +" is not connected");
+		                System.out.println( "Network status for the following register number"+ regno +" and subject name "+ subjectToFind  +" is not connected Internet is NOT connected.");
+		                driver.navigate().refresh();
+		            	testCaseScenario.skip("Network status for the following register number"+ regno +" and subjectame "+ subjectToFind  +" is not connected"
+		            			,	MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build()); 
+				           
+		            }
+		        } catch (Exception e) {
+		        	
+		        	
+		        	
+		        	
+		        	
+		       
+		         
+			          
+			            try {
+			              	testCaseScenario.warning("Network status for the following register number"+ regno +" and subjectame "+ subjectToFind  +" is not connected"
+			              			
+			              			
+			              			,	MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build()); 
+			 		       // 	testCaseScenario.log(Status.WARNING, "Internet is NOT connected.");
+			 		            System.out.println("Network status for the following register number"+ regno +" and subjectame "+ subjectToFind  +" is not connected please check Internet is NOT connected.");
+			 		            
+			 		            
+			          driver.navigate().refresh();
+		            	
+		            	
+		            
+		            }
+		            	
+		            	
+		            
+			            
+			            catch(Exception e2) {
+
+			            	Thread.sleep(5000);
+			          
+			          	  WebElement networkTryAgainBtn = driver.findElement(By.xpath("//button[@id='neterrorTryAgainButton']"));
+			          	 
+			            	while(networkTryAgainBtn.isDisplayed()) {
+			            		Thread.sleep(200);
+			            		
+			            	networkTryAgainBtn.click();
+			            	
+			            	
+			            	
+			            
+			            }
+			            	WebElement userName = driver.findElement(By.xpath("//input[@id='username']"));
+			            	
+			            	if(userName.isDisplayed()) {
+			            	
+			            	
+			            		  Enrollment.ReportCardNavigation(testCaseName);
+			            		  
+			            	}
+			            }
+		            
+		        }
+		        
+		 }//try
+		 
+		 catch(Exception e3){
+			
+			 testCaseScenario.log(Status.FAIL,e3.getMessage());
+		 }
+
+		    }
+		
+
+
+		public boolean isNetworkAvailable() {
+		    try {
+		        return InetAddress.getByName("google.com").isReachable(2000);
+		    } catch (IOException e) {
+		        return false;
+		    }
+		}
+	
+}
