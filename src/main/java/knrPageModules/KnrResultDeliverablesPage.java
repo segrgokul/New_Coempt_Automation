@@ -18,7 +18,7 @@ import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 
 import base.BasicFunctions;
-import pageObjMod.knrPom;
+import pageObjMod.KnrPom;
 
 public class KnrResultDeliverablesPage extends BasicFunctions {
 	public Object[][] data1;
@@ -43,24 +43,24 @@ public class KnrResultDeliverablesPage extends BasicFunctions {
 		ExtentTest testCaseScenario = testCaseName.createNode("Result Deliverables Navigation");
 		
 		implicitWait( 30);
-		explicitWait( knrPom.getInstanceCourseXP().loginTags, 30);
+		explicitWait( KnrPom.getInstanceCourseXP().loginTags, 30);
 
-		if (knrPom.getInstanceCourseXP().loginTags.isDisplayed()) {
+		if (KnrPom.getInstanceCourseXP().loginTags.isDisplayed()) {
 
 			implicitWait( 30);
-			explicitWait( knrPom.getInstanceCourseXP().loginTags, 30);
+			explicitWait( KnrPom.getInstanceCourseXP().loginTags, 30);
 
 		//	testCaseName.log(Status.INFO, "Report Card Navigation");
-			scrollTillWebElement( knrPom.getInstanceResultDeliverablesCP().resultDeliverablesOption);
+			scrollTillWebElement( KnrPom.getInstanceResultDeliverablesCP().resultDeliverablesOption);
 
 			implicitWait( 30);
 			
 		
 			
-			if(knrPom.getInstanceResultDeliverablesCP().resultDeliverablesOption.isDisplayed()) {
+			if(KnrPom.getInstanceResultDeliverablesCP().resultDeliverablesOption.isDisplayed()) {
 			
-			explicitWait( knrPom.getInstanceResultDeliverablesCP().resultDeliverablesOption, 30);
-			click( knrPom.getInstanceResultDeliverablesCP().resultDeliverablesOption);
+			explicitWait( KnrPom.getInstanceResultDeliverablesCP().resultDeliverablesOption, 30);
+			click( KnrPom.getInstanceResultDeliverablesCP().resultDeliverablesOption);
 			testCaseScenario.log(Status.PASS, "result Deliverables Option page is Navigated sucessfully");
 			
 		
@@ -86,19 +86,19 @@ public class KnrResultDeliverablesPage extends BasicFunctions {
 		ExtentTest testCaseScenario = testCaseName.createNode("TR Data College wise navigation");
 		
 		implicitWait( 30);
-		explicitWait( knrPom.getInstanceResultDeliverablesCP().TRDataCollegewiseOption, 30);
+		explicitWait( KnrPom.getInstanceResultDeliverablesCP().TRDataCollegewiseOption, 30);
 
-		scrollTillWebElement(  knrPom.getInstanceResultDeliverablesCP().TRDataCollegewiseOption);
+		scrollTillWebElement(  KnrPom.getInstanceResultDeliverablesCP().TRDataCollegewiseOption);
 
 		implicitWait( 30);
 		
 		
 		try {
-		if( knrPom.getInstanceResultDeliverablesCP().TRDataCollegewiseOption.isDisplayed()) {
+		if( KnrPom.getInstanceResultDeliverablesCP().TRDataCollegewiseOption.isDisplayed()) {
 			implicitWait( 30);		
 		
-		explicitWait( knrPom.getInstanceResultDeliverablesCP().TRDataCollegewiseOption, 30);
-		click( knrPom.getInstanceResultDeliverablesCP().TRDataCollegewiseOption);
+		explicitWait( KnrPom.getInstanceResultDeliverablesCP().TRDataCollegewiseOption, 30);
+		click( KnrPom.getInstanceResultDeliverablesCP().TRDataCollegewiseOption);
 		testCaseScenario.log(Status.PASS, "TR Data College wise navigation sucessfully");
 	
 		
@@ -124,30 +124,30 @@ public class KnrResultDeliverablesPage extends BasicFunctions {
 		// Wait for the dropdown and textbox elements
 		implicitWait( 50);
 		
-		knrPom.getInstanceCourseXP().clgDropDown.isDisplayed();
+		KnrPom.getInstanceCourseXP().clgDropDown.isDisplayed();
 		
-		explicitWait( knrPom.getInstanceCourseXP().clgDropDown, 30);
+		explicitWait( KnrPom.getInstanceCourseXP().clgDropDown, 30);
 	
 		// Click the college dropdown
-		click( knrPom.getInstanceCourseXP().clgDropDown);
+		click( KnrPom.getInstanceCourseXP().clgDropDown);
 		
 		// Wait for the textbox to become clickable
 		implicitWait( 30);
-		explicitWait( knrPom.getInstanceCourseXP().clgTextBox, 30);
+		explicitWait( KnrPom.getInstanceCourseXP().clgTextBox, 30);
 		
 		// Enter the college code in the textbox
-		click( knrPom.getInstanceCourseXP().clgTextBox);
+		click( KnrPom.getInstanceCourseXP().clgTextBox);
 		Thread.sleep(1000);  // Sleep to ensure the textbox is fully active
 		implicitWait( 30);
-		sendKeys(knrPom.getInstanceCourseXP().clgTextBox, String.valueOf(clgCode));
+		sendKeys(KnrPom.getInstanceCourseXP().clgTextBox, String.valueOf(clgCode));
 		
 		// Wait for the dropdown results to load
 		implicitWait( 30);
-		explicitWait( knrPom.getInstanceCourseXP().clgDropDownResults.get(0), 30);
+		explicitWait( KnrPom.getInstanceCourseXP().clgDropDownResults.get(0), 30);
 	
 		// Click the first result in the dropdown
-		if (knrPom.getInstanceCourseXP().clgDropDownResults.get(0).isDisplayed()) {
-			click( knrPom.getInstanceCourseXP().clgDropDownResults.get(0));
+		if (KnrPom.getInstanceCourseXP().clgDropDownResults.get(0).isDisplayed()) {
+			click( KnrPom.getInstanceCourseXP().clgDropDownResults.get(0));
 			testCaseScenario.log(Status.PASS, "College code has entered sucessfully");
 			
 			
@@ -213,10 +213,10 @@ public class KnrResultDeliverablesPage extends BasicFunctions {
 	
 		// Wait for the dropdown and textbox elements
 		implicitWait( 30);
-		explicitWait( knrPom.getInstanceCourseXP().ProgramCourse, 30);
+		explicitWait( KnrPom.getInstanceCourseXP().ProgramCourse, 30);
 	
 		// Click the college dropdown
-		click( knrPom.getInstanceCourseXP().ProgramCourse);
+		click( KnrPom.getInstanceCourseXP().ProgramCourse);
 		
 		Thread.sleep(1000);  // Sleep to ensure the textbox is fully active
 	   		implicitWait(30);	
@@ -228,10 +228,10 @@ public class KnrResultDeliverablesPage extends BasicFunctions {
 //		click(yearSessionOption);
 //		    	
 	// System.out.println(yearSessionOption.isDisplayed());
-				click( knrPom.getInstanceCourseXP().programCourseTextBox);
+				click( KnrPom.getInstanceCourseXP().programCourseTextBox);
 				Thread.sleep(1000);  // Sleep to ensure the textbox is fully active
 				implicitWait( 30);
-			//	sendKeys(knrPom.getInstanceCourseXP().clgTextBox, String.valueOf(programcourseCode));
+			//	sendKeys(KnrPom.getInstanceCourseXP().clgTextBox, String.valueOf(programcourseCode));
 				
 				// Wait for the dropdown results to load
 				implicitWait( 30);
@@ -244,10 +244,10 @@ public class KnrResultDeliverablesPage extends BasicFunctions {
 				
 				
 				
-//				explicitWait( knrPom.getInstanceCourseXP().clgDropDownResults.get(0), 30);
+//				explicitWait( KnrPom.getInstanceCourseXP().clgDropDownResults.get(0), 30);
 //			
 //				// Click the first result in the dropdown
-//				if (knrPom.getInstanceCourseXP().clgDropDownResults.get(0).isDisplayed()) {
+//				if (KnrPom.getInstanceCourseXP().clgDropDownResults.get(0).isDisplayed()) {
 //					
 //					testCaseScenario.log(Status.PASS, "College code has entered sucessfully");
 //					click(ProgramCourseOption);
@@ -280,10 +280,10 @@ public class KnrResultDeliverablesPage extends BasicFunctions {
 		
 		else {
 			implicitWait( 30);
-			explicitWait(  knrPom.getInstanceCourseXP().ProgramCourse, 30);
-			click(  knrPom.getInstanceCourseXP().ProgramCourse);
+			explicitWait(  KnrPom.getInstanceCourseXP().ProgramCourse, 30);
+			click(  KnrPom.getInstanceCourseXP().ProgramCourse);
 			implicitWait( 30);
-			explicitWait( knrPom.getInstanceCourseXP().ProgramCourse, 30);
+			explicitWait( KnrPom.getInstanceCourseXP().ProgramCourse, 30);
 			click( ProgramCourseOption);
 			testCaseScenario.log(Status.FAIL, "Program course has not entered ", MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
 //
@@ -312,15 +312,15 @@ public class KnrResultDeliverablesPage extends BasicFunctions {
 
 			implicitWait(30);
 
-//			action.moveToElement(knrPom.getInstanceEnrollXP().reportCardExportTo).perform();
+//			action.moveToElement(KnrPom.getInstanceEnrollXP().reportCardExportTo).perform();
 
-			action.moveToElement(knrPom.getInstanceResultDeliverablesCP().reportCardExportTo).click().perform();
+			action.moveToElement(KnrPom.getInstanceResultDeliverablesCP().reportCardExportTo).click().perform();
 
 			implicitWait(30);
 
-//			action.moveToElement(knrPom.getInstanceEnrollXP().reportCardExportToPdf).perform();
+//			action.moveToElement(KnrPom.getInstanceEnrollXP().reportCardExportToPdf).perform();
 
-			action.moveToElement(knrPom.getInstanceResultDeliverablesCP().reportCardExportToPdf).click().perform();
+			action.moveToElement(KnrPom.getInstanceResultDeliverablesCP().reportCardExportToPdf).click().perform();
 
 			implicitWait(30);
 

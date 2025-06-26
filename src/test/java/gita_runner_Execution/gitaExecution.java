@@ -30,10 +30,11 @@ import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 
 import browsers.BrowserManager;
-import gitaProject.gitaReadPdfFiles;
+import gitaProject.GitaReadPdfFiles;
 
 
-public class gitaExecution extends BrowserManager {
+
+public class GitaExecution extends BrowserManager {
 
 	// private ExtentReports extent;
 	
@@ -42,7 +43,7 @@ public class gitaExecution extends BrowserManager {
 	 ExtentSparkReporter report ;
 	 ExtentTest testCaseName;
 
-	 gitaReadPdfFiles ReadPdf = new gitaReadPdfFiles();
+	 GitaReadPdfFiles ReadPdf = new GitaReadPdfFiles();
 //General login and logout
 @Test(priority = 1, enabled = true,description = "GITA")
 public void testCase1() throws InterruptedException, IOException {

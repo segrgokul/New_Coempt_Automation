@@ -3,19 +3,19 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="sctevt_runner_Execution.sctevtExceution">
+      <class name="sctevt_runner_Execution.SctevtExceution">
         <methods>
+          <include name="ScTEandVT" invocation-numbers="0"/>
+          <include name="afterClass"/>
           <include name="beforeTest"/>
           <include name="afterMethod"/>
-          <include name="ScTEandVT"/>
-          <include name="afterClass"/>
-          <include name="beforeSuite"/>
+          <include name="beforeMethod"/>
           <include name="afterSuite"/>
           <include name="afterTest"/>
-          <include name="beforeMethod"/>
+          <include name="beforeSuite"/>
           <include name="beforeClass"/>
         </methods>
-      </class> <!-- sctevt_runner_Execution.sctevtExceution -->
+      </class> <!-- sctevt_runner_Execution.SctevtExceution -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

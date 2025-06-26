@@ -17,9 +17,9 @@ import knrWebElement.KnrSettingsAssignCoursePageXpaths;
 
 
 
-	public class knrPom  extends BrowserManager{
+	public class KnrPom  extends BrowserManager{
 
-				private static knrPom instance; // Singleton instance
+				private static KnrPom instance; // Singleton instance
 				public static KnrLoginPageXPaths loginXP ;
 		
 				private static KnrReportEnrollmentPageXpaths EnrollmentXP;
@@ -36,7 +36,7 @@ import knrWebElement.KnrSettingsAssignCoursePageXpaths;
 				// Use a different name for the static instance
 		
 				// Constructor to initialize the WebDriver when the class is instantiated
-   public knrPom(WebDriver driver) {
+   public KnrPom(WebDriver driver) {
 						// Initialize the driver when the class is instantiated
 						this.driver = driver;
 		    }

@@ -17,7 +17,7 @@ import org.apache.pdfbox.text.PDFTextStripper;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 
-public class gitaReadPdfFiles {
+public class GitaReadPdfFiles {
 
     static String downloadsFolder = System.getProperty("user.home") + "/Downloads";
 
@@ -471,7 +471,7 @@ while (subjectAndMarksmatcher.find() ) {
     
     
     // Writing data to Excel
-    gitaCreateAndWriteExcel.writeExcelData(
+    GitaCreateAndWriteExcel.writeExcelData(
         rowIndex, studentRegno, currentSemester, serialNo, subjectNames, subjectCode, credit, type, 
         st, qt, as, mte, emptyColumn1, emptyColumn2, emptyColumn3, to40, endSemExam, to100, totalMarks, grade,
         totalCredit,sgpa,cgpa,totalTO100,totalTM);

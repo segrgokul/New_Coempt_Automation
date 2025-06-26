@@ -8,7 +8,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import base.BasicFunctions;
 import browsers.BrowserManager;
 
-import pageObjMod.knrPom;
+import pageObjMod.KnrPom;
 
 public class KnrLoginPage extends BasicFunctions {
 
@@ -24,15 +24,15 @@ public class KnrLoginPage extends BasicFunctions {
     	try {
     	
 			implicitWait(30);	
-			explicitWait(knrPom.getInstanceLoginXP().signinBtn,30);
-			click(knrPom.getInstanceLoginXP().signinBtn);
+			explicitWait(KnrPom.getInstanceLoginXP().signinBtn,30);
+			click(KnrPom.getInstanceLoginXP().signinBtn);
 			
-			if (knrPom.getInstanceLoginXP().invaidUserName.isDisplayed()) {
+			if (KnrPom.getInstanceLoginXP().invaidUserName.isDisplayed()) {
 
 	//			test.log(LogStatus.PASS, "User is unable to enter with direct signin button ");
 				 
 			 System.out.println("User is unable to enter with direct signin button");
-			 knrPom.getInstanceLoginXP().alertOkBtn.click();
+			 KnrPom.getInstanceLoginXP().alertOkBtn.click();
 		
 	 }
     	}
@@ -54,25 +54,25 @@ public class KnrLoginPage extends BasicFunctions {
 		
 
       	 implicitWait(30);
-		 explicitWait(knrPom.getInstanceLoginXP().userpass,30);
-       	 click(knrPom.getInstanceLoginXP().userpass);
+		 explicitWait(KnrPom.getInstanceLoginXP().userpass,30);
+       	 click(KnrPom.getInstanceLoginXP().userpass);
        	 implicitWait(30);
        	 
-       	 sendKeys(knrPom.getInstanceLoginXP().userpass,"Coempt@bpu");
+       	 sendKeys(KnrPom.getInstanceLoginXP().userpass,"Coempt@bpu");
 			    
        	implicitWait(30);	
-   		explicitWait(knrPom.getInstanceLoginXP().signinBtn,30);
-       	click(knrPom.getInstanceLoginXP().signinBtn);
+   		explicitWait(KnrPom.getInstanceLoginXP().signinBtn,30);
+       	click(KnrPom.getInstanceLoginXP().signinBtn);
     	implicitWait(30);	
        	
-		if (knrPom.getInstanceLoginXP().invaidUserName.isDisplayed()) {
+		if (KnrPom.getInstanceLoginXP().invaidUserName.isDisplayed()) {
 			
 			System.out.println("User is unable to enter with direct userpass");
 			implicitWait(30);	
-	   		explicitWait(knrPom.getInstanceLoginXP().alertOkBtn,30);
-			knrPom.getInstanceLoginXP().alertOkBtn.click();
+	   		explicitWait(KnrPom.getInstanceLoginXP().alertOkBtn,30);
+			KnrPom.getInstanceLoginXP().alertOkBtn.click();
 			implicitWait(30);	
-			knrPom.getInstanceLoginXP().userpass.clear();
+			KnrPom.getInstanceLoginXP().userpass.clear();
 			
 			
 	}}
@@ -82,26 +82,26 @@ public class KnrLoginPage extends BasicFunctions {
 
      	 implicitWait(30);
 		
-     	 explicitWait(knrPom.getInstanceLoginXP().userName,30);
+     	 explicitWait(KnrPom.getInstanceLoginXP().userName,30);
       	
-     	 click(knrPom.getInstanceLoginXP().userName);
+     	 click(KnrPom.getInstanceLoginXP().userName);
       	
       	 implicitWait(30);
       	 
-      	 sendKeys(knrPom.getInstanceLoginXP().userName,"admin");
+      	 sendKeys(KnrPom.getInstanceLoginXP().userName,"admin");
 			    
       	implicitWait(30);	
-  		explicitWait(knrPom.getInstanceLoginXP().signinBtn,30);
-      	click(knrPom.getInstanceLoginXP().signinBtn);
+  		explicitWait(KnrPom.getInstanceLoginXP().signinBtn,30);
+      	click(KnrPom.getInstanceLoginXP().signinBtn);
       	
-		if (knrPom.getInstanceLoginXP().invaidPassword.isDisplayed()) {
+		if (KnrPom.getInstanceLoginXP().invaidPassword.isDisplayed()) {
 			
 			System.out.println("User is unable to enter with direct username");
 			implicitWait(30);	
-	   		explicitWait(knrPom.getInstanceLoginXP().alertOkBtn,30);
-			knrPom.getInstanceLoginXP().alertOkBtn.click();
+	   		explicitWait(KnrPom.getInstanceLoginXP().alertOkBtn,30);
+			KnrPom.getInstanceLoginXP().alertOkBtn.click();
 			implicitWait(30);	
-			knrPom.getInstanceLoginXP().userName.clear();
+			KnrPom.getInstanceLoginXP().userName.clear();
 			
 			
 	}}
@@ -111,36 +111,36 @@ public class KnrLoginPage extends BasicFunctions {
 
     	 implicitWait(30);
 		
-    	 explicitWait(knrPom.getInstanceLoginXP().userName,30);
+    	 explicitWait(KnrPom.getInstanceLoginXP().userName,30);
      	
-    	 click(knrPom.getInstanceLoginXP().userName);
+    	 click(KnrPom.getInstanceLoginXP().userName);
      	
      	 implicitWait(30);
      	 
-     	 sendKeys(knrPom.getInstanceLoginXP().userName,RandomStringUtils.randomAlphanumeric(8));
+     	 sendKeys(KnrPom.getInstanceLoginXP().userName,RandomStringUtils.randomAlphanumeric(8));
 			    
      	 implicitWait(30);
-		 explicitWait(knrPom.getInstanceLoginXP().userpass,30);
-       	 click(knrPom.getInstanceLoginXP().userpass);
+		 explicitWait(KnrPom.getInstanceLoginXP().userpass,30);
+       	 click(KnrPom.getInstanceLoginXP().userpass);
        	 implicitWait(30);
        	 
-       	 sendKeys(knrPom.getInstanceLoginXP().userpass,RandomStringUtils.randomAlphanumeric(8));
+       	 sendKeys(KnrPom.getInstanceLoginXP().userpass,RandomStringUtils.randomAlphanumeric(8));
 			    
        	implicitWait(30);	
-   		explicitWait(knrPom.getInstanceLoginXP().signinBtn,30);
-       	click(knrPom.getInstanceLoginXP().signinBtn);
+   		explicitWait(KnrPom.getInstanceLoginXP().signinBtn,30);
+       	click(KnrPom.getInstanceLoginXP().signinBtn);
     	implicitWait(30);	
      	
-		if (knrPom.getInstanceLoginXP().loginFail.isDisplayed()) {
+		if (KnrPom.getInstanceLoginXP().loginFail.isDisplayed()) {
 			
 			System.out.println("User is unable to enter with direct username");
 			implicitWait(30);	
-	   		explicitWait(knrPom.getInstanceLoginXP().alertOkBtn,30);
-			knrPom.getInstanceLoginXP().alertOkBtn.click();
+	   		explicitWait(KnrPom.getInstanceLoginXP().alertOkBtn,30);
+			KnrPom.getInstanceLoginXP().alertOkBtn.click();
 			implicitWait(30);	
-			knrPom.getInstanceLoginXP().userName.clear();
+			KnrPom.getInstanceLoginXP().userName.clear();
 			implicitWait(30);
-			knrPom.getInstanceLoginXP().userpass.clear();
+			KnrPom.getInstanceLoginXP().userpass.clear();
 			
 	}}
 	
@@ -155,21 +155,21 @@ public class KnrLoginPage extends BasicFunctions {
 
           try {
           	BasicFunctions.implicitWait(30);
-          	BasicFunctions.explicitWait(knrPom.getInstanceLoginXP().userName, 30);
-          	BasicFunctions.click(knrPom.getInstanceLoginXP().userName);
+          	BasicFunctions.explicitWait(KnrPom.getInstanceLoginXP().userName, 30);
+          	BasicFunctions.click(KnrPom.getInstanceLoginXP().userName);
           	BasicFunctions.implicitWait(30);
-          	BasicFunctions.sendKeys(knrPom.getInstanceLoginXP().userName, username);
+          	BasicFunctions.sendKeys(KnrPom.getInstanceLoginXP().userName, username);
           	BasicFunctions.implicitWait(30);
-          	BasicFunctions.explicitWait(knrPom.getInstanceLoginXP().userpass, 30);
-          	BasicFunctions.click(knrPom.getInstanceLoginXP().userpass);
+          	BasicFunctions.explicitWait(KnrPom.getInstanceLoginXP().userpass, 30);
+          	BasicFunctions.click(KnrPom.getInstanceLoginXP().userpass);
           	BasicFunctions.implicitWait(30);
-          	BasicFunctions.sendKeys(knrPom.getInstanceLoginXP().userpass, password);
+          	BasicFunctions.sendKeys(KnrPom.getInstanceLoginXP().userpass, password);
           	BasicFunctions.implicitWait(30);
-          	BasicFunctions.explicitWait(knrPom.getInstanceLoginXP().signinBtn, 30);
-          	BasicFunctions.click(knrPom.getInstanceLoginXP().signinBtn);
+          	BasicFunctions.explicitWait(KnrPom.getInstanceLoginXP().signinBtn, 30);
+          	BasicFunctions.click(KnrPom.getInstanceLoginXP().signinBtn);
           	BasicFunctions.implicitWait(30);
-          	BasicFunctions.explicitWait(knrPom.getInstanceLoginXP().loginTags, 30);
-              if (knrPom.getInstanceLoginXP().loginTags.isDisplayed()) {
+          	BasicFunctions.explicitWait(KnrPom.getInstanceLoginXP().loginTags, 30);
+              if (KnrPom.getInstanceLoginXP().loginTags.isDisplayed()) {
                   System.out.println("The Admin Login Page has logged in, and the landing page of KNRUHS is displayed.");
               }
           } catch (Exception e) {
@@ -183,18 +183,18 @@ public class KnrLoginPage extends BasicFunctions {
 		
 
 		implicitWait(30);	
-   		explicitWait(knrPom.getInstanceLoginXP().loginTags,30);		
+   		explicitWait(KnrPom.getInstanceLoginXP().loginTags,30);		
 		
-			if (knrPom.getInstanceLoginXP().loginTags.isDisplayed()) {
+			if (KnrPom.getInstanceLoginXP().loginTags.isDisplayed()) {
 				
 				implicitWait(30);	
-		   		explicitWait(knrPom.getInstanceLoginXP().loginTags,30);
+		   		explicitWait(KnrPom.getInstanceLoginXP().loginTags,30);
 				
-				click(knrPom.getInstanceLoginXP().loginTags);
+				click(KnrPom.getInstanceLoginXP().loginTags);
 				
 				implicitWait(30);	
-		   		explicitWait(knrPom.getInstanceLoginXP().signOutBtn,30);
-		   		click(knrPom.getInstanceLoginXP().signOutBtn);
+		   		explicitWait(KnrPom.getInstanceLoginXP().signOutBtn,30);
+		   		click(KnrPom.getInstanceLoginXP().signOutBtn);
 			
 				
 				
@@ -221,62 +221,62 @@ public class KnrLoginPage extends BasicFunctions {
 //		
 //
 //		implicitWait(30);	
-//   		explicitWait(knrPom.getInstanceLoginXP().loginTags,30);		
+//   		explicitWait(KnrPom.getInstanceLoginXP().loginTags,30);		
 //		
-//			if (knrPom.getInstanceLoginXP().loginTags.isDisplayed()) {
+//			if (KnrPom.getInstanceLoginXP().loginTags.isDisplayed()) {
 //				
 //				implicitWait(30);	
-//		   		explicitWait(knrPom.getInstanceLoginXP().loginTags,30);
+//		   		explicitWait(KnrPom.getInstanceLoginXP().loginTags,30);
 //				
-//		   		jsScroll(knrPom.getInstanceLoginXP().reportCardOption);
+//		   		jsScroll(KnrPom.getInstanceLoginXP().reportCardOption);
 //			
 //				implicitWait(30);	
-//		   		explicitWait(knrPom.getInstanceLoginXP().reportCardOption,30);
-//		   		click(knrPom.getInstanceLoginXP().reportCardOption);
+//		   		explicitWait(KnrPom.getInstanceLoginXP().reportCardOption,30);
+//		   		click(KnrPom.getInstanceLoginXP().reportCardOption);
 //			
 //		   		implicitWait(30);	
-//		   		explicitWait(knrPom.getInstanceLoginXP().reportCardEnroll,30);
+//		   		explicitWait(KnrPom.getInstanceLoginXP().reportCardEnroll,30);
 //				
-//	    		jsScroll(knrPom.getInstanceLoginXP().reportCardEnroll);
+//	    		jsScroll(KnrPom.getInstanceLoginXP().reportCardEnroll);
 //				
 //				implicitWait(30);	
-//		   		explicitWait(knrPom.getInstanceLoginXP().reportCardEnroll,30);
-//		   		click(knrPom.getInstanceLoginXP().reportCardEnroll);
+//		   		explicitWait(KnrPom.getInstanceLoginXP().reportCardEnroll,30);
+//		   		click(KnrPom.getInstanceLoginXP().reportCardEnroll);
 //		
 //		   		implicitWait(30);	
-//		   		explicitWait(knrPom.getInstanceLoginXP().enrollNo,30);
-//        		click(knrPom.getInstanceLoginXP().enrollNo);
+//		   		explicitWait(KnrPom.getInstanceLoginXP().enrollNo,30);
+//        		click(KnrPom.getInstanceLoginXP().enrollNo);
 //		   		
 //		   		String str = String.valueOf(regno);
 //		   		System.out.println(str); 
 //		   		implicitWait(30);	
-//		   		explicitWait(knrPom.getInstanceLoginXP().enrollNo,30);
-//		   		sendKeys(knrPom.getInstanceLoginXP().enrollNo, str);
+//		   		explicitWait(KnrPom.getInstanceLoginXP().enrollNo,30);
+//		   		sendKeys(KnrPom.getInstanceLoginXP().enrollNo, str);
 //		   		implicitWait(30);	
-//////		   		explicitWait(knrPom.getInstanceLoginXP().submitBtn,30);
-//////		   		click(knrPom.getInstanceLoginXP().submitBtn);
+//////		   		explicitWait(KnrPom.getInstanceLoginXP().submitBtn,30);
+//////		   		click(KnrPom.getInstanceLoginXP().submitBtn);
 ////		   		
-//		   		explicitWait(knrPom.getInstanceLoginXP().examSeries,30);
-//		   		click(knrPom.getInstanceLoginXP().examSeries);
+//		   		explicitWait(KnrPom.getInstanceLoginXP().examSeries,30);
+//		   		click(KnrPom.getInstanceLoginXP().examSeries);
 //		   		
-//		   		explicitWait(knrPom.getInstanceLoginXP().examSeries,30);
-//		   		click(knrPom.getInstanceLoginXP().examSeries);
+//		   		explicitWait(KnrPom.getInstanceLoginXP().examSeries,30);
+//		   		click(KnrPom.getInstanceLoginXP().examSeries);
 ////		   		
-//		   		explicitWait(knrPom.getInstanceLoginXP().examSeries,30);
-//		   		click(knrPom.getInstanceLoginXP().examSeries);
+//		   		explicitWait(KnrPom.getInstanceLoginXP().examSeries,30);
+//		   		click(KnrPom.getInstanceLoginXP().examSeries);
 ////		   	
-////		if(knrPom.getInstanceLoginXP().alertOk.isDisplayed()) {
+////		if(KnrPom.getInstanceLoginXP().alertOk.isDisplayed()) {
 ////		   		
 ////		   		implicitWait(30);	
-////		   		explicitWait(knrPom.getInstanceLoginXP().alertOk,30);
-////		   		click(knrPom.getInstanceLoginXP().alertOk);
+////		   		explicitWait(KnrPom.getInstanceLoginXP().alertOk,30);
+////		   		click(KnrPom.getInstanceLoginXP().alertOk);
 ////			}
 //
 //		
 //		   		
 //		   		implicitWait(30);	
-//		   		explicitWait(knrPom.getInstanceLoginXP().examSeries,30);
-//    	   		click(knrPom.getInstanceLoginXP().examSeries);
+//		   		explicitWait(KnrPom.getInstanceLoginXP().examSeries,30);
+//    	   		click(KnrPom.getInstanceLoginXP().examSeries);
 ////		   		implicitWait(30);	
 ////		   		
 ////		   	//li[contains(@class,'select2-results__option')
@@ -285,11 +285,11 @@ public class KnrLoginPage extends BasicFunctions {
 //		   		
 //		   		click(examDateOption);
 //		    	
-////		   		dropDownClick(knrPom.getInstanceLoginXP().examSeriesOption,examdate);
+////		   		dropDownClick(KnrPom.getInstanceLoginXP().examSeriesOption,examdate);
 //		   		
 //		   		implicitWait(30);	
-//		   		explicitWait(knrPom.getInstanceLoginXP().awardName,30);
-//		   		click(knrPom.getInstanceLoginXP().awardName);
+//		   		explicitWait(KnrPom.getInstanceLoginXP().awardName,30);
+//		   		click(KnrPom.getInstanceLoginXP().awardName);
 ////
 ////		   	//li[contains(@class,'select2-results__option') and text()!='Select']
 ////		   	// Construct XPath with the dynamic text
@@ -298,8 +298,8 @@ public class KnrLoginPage extends BasicFunctions {
 //
 ////
 //		   		implicitWait(30);	
-//		   		explicitWait(knrPom.getInstanceLoginXP().yearSession,30);
-//		   		click(knrPom.getInstanceLoginXP().yearSession);
+//		   		explicitWait(KnrPom.getInstanceLoginXP().yearSession,30);
+//		   		click(KnrPom.getInstanceLoginXP().yearSession);
 ////		   		
 ////		   		implicitWait(30);	
 ////		   		
@@ -308,8 +308,8 @@ public class KnrLoginPage extends BasicFunctions {
 //		    	click(yearSessionOption);		    	
 ////		    	
 //		    	implicitWait(30);	
-//		   		explicitWait(knrPom.getInstanceLoginXP().regulation,30);
-//		   		click(knrPom.getInstanceLoginXP().regulation);
+//		   		explicitWait(KnrPom.getInstanceLoginXP().regulation,30);
+//		   		click(KnrPom.getInstanceLoginXP().regulation);
 //		   		implicitWait(30);	
 //		    	
 //		   		WebElement regulationOption  = driver.findElement(By.xpath("//li[@role='option' and text()='" + regulation + "']"));
@@ -317,22 +317,22 @@ public class KnrLoginPage extends BasicFunctions {
 //		    	
 //	    	
 //		    	implicitWait(30);	
-//		   		explicitWait(knrPom.getInstanceLoginXP().examType,30);
-//		   		click(knrPom.getInstanceLoginXP().examType);
+//		   		explicitWait(KnrPom.getInstanceLoginXP().examType,30);
+//		   		click(KnrPom.getInstanceLoginXP().examType);
 //	    		implicitWait(30);	
 //		    	
 //		   		WebElement examTypeOption  = driver.findElement(By.xpath("//li[@role='option' and text()='" + examType + "']"));
 //		    	click(examTypeOption);	
 //		    	
 //		    	implicitWait(30);	
-//		   		explicitWait(knrPom.getInstanceLoginXP().submitBtn,30);
-//		   		click(knrPom.getInstanceLoginXP().submitBtn);
+//		   		explicitWait(KnrPom.getInstanceLoginXP().submitBtn,30);
+//		   		click(KnrPom.getInstanceLoginXP().submitBtn);
 //	    	
 //     	   		String str = String.valueOf(regno);
 //		   		System.out.println(str); 
 //		   		implicitWait(30);	
-//		   		explicitWait(knrPom.getInstanceLoginXP().enrollNo,30);
-//		   		sendKeys(knrPom.getInstanceLoginXP().enrollNo, str );
+//		   		explicitWait(KnrPom.getInstanceLoginXP().enrollNo,30);
+//		   		sendKeys(KnrPom.getInstanceLoginXP().enrollNo, str );
 //	   		
 //}}
 	
@@ -342,7 +342,7 @@ public class KnrLoginPage extends BasicFunctions {
 			//input[@id='username']
 
 //	Actions actions = new Actions(driver);
-//	actions.moveToElement(knrPom.getInstanceLoginXP().userName).click().perform();
+//	actions.moveToElement(KnrPom.getInstanceLoginXP().userName).click().perform();
 
 //
 //		WebElement check= driver.findElement(By.xpath("//label[@class='form-label']"));
@@ -350,7 +350,7 @@ public class KnrLoginPage extends BasicFunctions {
 //		check.getText();
 //		System.out.println(check);
 		
-	//fluentWait(knrPom.getInstanceLoginXP().userName);
+	//fluentWait(KnrPom.getInstanceLoginXP().userName);
 //	
 //	
 //	
@@ -358,17 +358,17 @@ public class KnrLoginPage extends BasicFunctions {
 //	
 //	
 //		Thread.sleep(5000);
-//    fluentWait(knrPom.getInstanceLoginXP().userName);
-//	click( knrPom.getInstanceLoginXP().userName);
-//	implicitWait( knrPom.getInstanceLoginXP().userName, 5);
-//	sendKeys(knrPom.getInstanceLoginXP().userName, "admin");
+//    fluentWait(KnrPom.getInstanceLoginXP().userName);
+//	click( KnrPom.getInstanceLoginXP().userName);
+//	implicitWait( KnrPom.getInstanceLoginXP().userName, 5);
+//	sendKeys(KnrPom.getInstanceLoginXP().userName, "admin");
 //	
 //	
 		
 
 			
 
-//	implicitWait( knrPom.getInstanceLoginXP().userpass, 10);
+//	implicitWait( KnrPom.getInstanceLoginXP().userpass, 10);
 	
 	}
 	

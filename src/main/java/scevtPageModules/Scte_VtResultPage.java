@@ -18,7 +18,7 @@ import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 
 import base.BasicFunctions;
-import pageObjMod.sctevtPom;
+import pageObjMod.SctevtPom;
 
 public class Scte_VtResultPage  extends BasicFunctions {
 
@@ -36,24 +36,24 @@ public class Scte_VtResultPage  extends BasicFunctions {
 				String semester = sycode.toString();
 				switch (semester) {
 				    case "1":
-				        btnSemResult =sctevtPom.getInstanceSctevtResultXpaths().btn1stSemResult;
+				        btnSemResult =SctevtPom.getInstanceSctevtResultXpaths().btn1stSemResult;
 				        break;
 				    case "2":
-				        btnSemResult = sctevtPom.getInstanceSctevtResultXpaths().btn2ndSemResult;
+				        btnSemResult = SctevtPom.getInstanceSctevtResultXpaths().btn2ndSemResult;
 				        break;
 				        
 				    case "3":
-				        btnSemResult = sctevtPom.getInstanceSctevtResultXpaths().btn3rdSemResult;
+				        btnSemResult = SctevtPom.getInstanceSctevtResultXpaths().btn3rdSemResult;
 				        break;
 				    case "4":
-				        btnSemResult = sctevtPom.getInstanceSctevtResultXpaths().btn4thSemResult;
+				        btnSemResult = SctevtPom.getInstanceSctevtResultXpaths().btn4thSemResult;
 				        break;
 				    case "5":
-				        btnSemResult = sctevtPom.getInstanceSctevtResultXpaths().btn5thSemResult;
+				        btnSemResult = SctevtPom.getInstanceSctevtResultXpaths().btn5thSemResult;
 				        
 				        break;
 				    case "6":
-				        btnSemResult = sctevtPom.getInstanceSctevtResultXpaths().btn6thSemResult;
+				        btnSemResult = SctevtPom.getInstanceSctevtResultXpaths().btn6thSemResult;
 				 
 				        break;
 				    default:
@@ -86,7 +86,7 @@ public class Scte_VtResultPage  extends BasicFunctions {
 				driver.switchTo().window(windowHandles.get(1));
 
 					
-//				if(!sctevtPom.getInstanceSctevtResultXpaths().rollNoTB.isDisplayed()) {
+//				if(!SctevtPom.getInstanceSctevtResultXpaths().rollNoTB.isDisplayed()) {
 //					
 //				
 //					
@@ -102,51 +102,51 @@ public class Scte_VtResultPage  extends BasicFunctions {
 //				}
 
 				 implicitWait(50);	
-					explicitWait(sctevtPom.getInstanceSctevtResultXpaths().rollNoTB,30);	
+					explicitWait(SctevtPom.getInstanceSctevtResultXpaths().rollNoTB,30);	
 	
 					
-			//		click(sctevtPom.getInstanceSctevtResultXpaths().rollNoTB);
+			//		click(SctevtPom.getInstanceSctevtResultXpaths().rollNoTB);
 
-				  	 sendKeys(sctevtPom.getInstanceSctevtResultXpaths().rollNoTB,regno);
+				  	 sendKeys(SctevtPom.getInstanceSctevtResultXpaths().rollNoTB,regno);
 			
 				  	 testCaseScenario.log(Status.INFO, "Regno: " +regno + " and Sem: "+ sycode + " has entered sucessfully");
 				      	  		
-	//			 click(sctevtPom.getInstanceSctevtResultXpaths().rollNoTB);
+	//			 click(SctevtPom.getInstanceSctevtResultXpaths().rollNoTB);
 
 		 
 		 implicitWait(50);	
-			explicitWait(sctevtPom.getInstanceSctevtResultXpaths().dobTB,30);		
-				 sctevtPom.getInstanceSctevtResultXpaths().dobTB.click();
+			explicitWait(SctevtPom.getInstanceSctevtResultXpaths().dobTB,30);		
+				 SctevtPom.getInstanceSctevtResultXpaths().dobTB.click();
 				 
 			
-				if (sctevtPom.getInstanceSctevtResultXpaths().dobTB.isDisplayed()) {
+				if (SctevtPom.getInstanceSctevtResultXpaths().dobTB.isDisplayed()) {
 			
 				   	 implicitWait(3);
-		     	 click(sctevtPom.getInstanceSctevtResultXpaths().dobTB);
+		     	 click(SctevtPom.getInstanceSctevtResultXpaths().dobTB);
 		      	
 		      	 implicitWait(3);
 		      	 
-		     	 click(sctevtPom.getInstanceSctevtResultXpaths().dobPrev);
+		     	 click(SctevtPom.getInstanceSctevtResultXpaths().dobPrev);
 		      	 
 		      	
 		     	 implicitWait(3);
 		      	 
-		     	 click(sctevtPom.getInstanceSctevtResultXpaths().dobPrev);
+		     	 click(SctevtPom.getInstanceSctevtResultXpaths().dobPrev);
 		     	 implicitWait(3);
 		      	 
-		     	 click(sctevtPom.getInstanceSctevtResultXpaths().dobPrev);
+		     	 click(SctevtPom.getInstanceSctevtResultXpaths().dobPrev);
 		  	 
 		     	 	implicitWait(3);
 		      	 
-		     	 click(sctevtPom.getInstanceSctevtResultXpaths().dobPrevYear);
+		     	 click(SctevtPom.getInstanceSctevtResultXpaths().dobPrevYear);
 		      	implicitWait(3);
-		      	 click(sctevtPom.getInstanceSctevtResultXpaths().dobPrevMonth);
+		      	 click(SctevtPom.getInstanceSctevtResultXpaths().dobPrevMonth);
 		      	 
 		      	implicitWait(3);
-		      	 click(sctevtPom.getInstanceSctevtResultXpaths().dobPrevDate);
+		      	 click(SctevtPom.getInstanceSctevtResultXpaths().dobPrevDate);
 		      	 
 		     	implicitWait(3);
-		      	 click(sctevtPom.getInstanceSctevtResultXpaths().btnViewStudentResults);
+		      	 click(SctevtPom.getInstanceSctevtResultXpaths().btnViewStudentResults);
 				}//if
 					
 					}//if
@@ -268,20 +268,26 @@ public class Scte_VtResultPage  extends BasicFunctions {
 	      	    System.out.println("Theory Marks: " + marksTHText);
 	      	    System.out.println("IA Marks: " + marksIAText);
 	      	    System.out.println("Total Marks: " + marksTotalText);
-	      	    
+	      	  String newMark;
       	        System.out.println("========================");		      	    
 	      	    
       	        if(subjectNames.equals(subjectName)) {
       	      	System.out.println("yes");
-      	      String newMark;
+      	    
       	        if(mark.contains("AB")) {
       	        	
       	        	 newMark = mark.replace(mark, "A");
       	        	
       	        }
       	        else {
-      	        	newMark=mark;
+      	        	newMark=mark.replaceAll("\\.0+$", "");
       	        }
+      	        
+      	        System.out.println(marksTHText);
+      	        System.out.println(newMark);
+      	        System.out.println(mark);
+      	        
+      	        System.out.println(marksTHText.equals(newMark));
       	        
       	        	if(marksTHText.equals(newMark)) {
       	        	    System.out.println(subjectDetails + " subject Th Mark " +marksTHText +" from UI is Equals with Excel Mark " + newMark);
@@ -536,12 +542,12 @@ public class Scte_VtResultPage  extends BasicFunctions {
 	    		 }				
 				catch(Exception e){
 					
-					if(sctevtPom.getInstanceSctevtResultXpaths().btnAlertOk.isDisplayed()) {
+					if(SctevtPom.getInstanceSctevtResultXpaths().btnAlertOk.isDisplayed()) {
 
 				    	implicitWait(30);
 				    	testCaseScenario.log(Status.FAIL,"Please check the following regno " + regNo,	MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
 							
-						click(sctevtPom.getInstanceSctevtResultXpaths().btnAlertOk);
+						click(SctevtPom.getInstanceSctevtResultXpaths().btnAlertOk);
 						
 						System.out.println("Please check the following regno " + regNo);
 				
@@ -555,7 +561,7 @@ public class Scte_VtResultPage  extends BasicFunctions {
 						driver.switchTo().window(windowHandles.get(0));
 						
 			
-						  if(!sctevtPom.getInstanceSctevtResultXpaths().rollNoTB.isDisplayed()) {
+						  if(!SctevtPom.getInstanceSctevtResultXpaths().rollNoTB.isDisplayed()) {
 								
 								
 								

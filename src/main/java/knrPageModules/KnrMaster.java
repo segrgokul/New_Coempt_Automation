@@ -8,7 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import base.BasicFunctions;
-import pageObjMod.knrPom;
+import pageObjMod.KnrPom;
 
 public class KnrMaster  extends BasicFunctions {
 
@@ -19,18 +19,18 @@ public class KnrMaster  extends BasicFunctions {
 			
 		
 		implicitWait( 30);
-		explicitWait( knrPom.getInstanceCourseXP().loginTags, 30);
+		explicitWait( KnrPom.getInstanceCourseXP().loginTags, 30);
 
-		if (knrPom.getInstanceCourseXP().loginTags.isDisplayed()) {
-
-			implicitWait( 30);
-			explicitWait( knrPom.getInstanceCourseXP().loginTags, 30);
-
-		//	scroll( knrPom.getInstanceMasterXP().masterBtn);
+		if (KnrPom.getInstanceCourseXP().loginTags.isDisplayed()) {
 
 			implicitWait( 30);
-			explicitWait( knrPom.getInstanceMasterXP().masterBtn, 30);
-			click(knrPom.getInstanceMasterXP().masterBtn);
+			explicitWait( KnrPom.getInstanceCourseXP().loginTags, 30);
+
+		//	scroll( KnrPom.getInstanceMasterXP().masterBtn);
+
+			implicitWait( 30);
+			explicitWait( KnrPom.getInstanceMasterXP().masterBtn, 30);
+			click(KnrPom.getInstanceMasterXP().masterBtn);
 			
 			
 			List<WebElement>  textBox = driver.findElements(By.xpath("//input[@type='text']")); 
@@ -90,18 +90,18 @@ public class KnrMaster  extends BasicFunctions {
 			
 			
 		implicitWait( 30);
-		explicitWait( knrPom.getInstanceMasterXP().CollegeMasterOption, 30);
+		explicitWait( KnrPom.getInstanceMasterXP().CollegeMasterOption, 30);
 
-		if (knrPom.getInstanceMasterXP().CollegeMasterOption.isDisplayed()) {
+		if (KnrPom.getInstanceMasterXP().CollegeMasterOption.isDisplayed()) {
 
 			implicitWait( 30);
-			explicitWait( knrPom.getInstanceMasterXP().CollegeMasterOption, 30);
+			explicitWait( KnrPom.getInstanceMasterXP().CollegeMasterOption, 30);
 
 			
 
 			implicitWait( 30);
-			explicitWait( knrPom.getInstanceMasterXP().CollegeMasterOption, 30);
-			click(knrPom.getInstanceMasterXP().CollegeMasterOption);
+			explicitWait( KnrPom.getInstanceMasterXP().CollegeMasterOption, 30);
+			click(KnrPom.getInstanceMasterXP().CollegeMasterOption);
 			System.out.println("College Master Page is navigating sucessfully");
 			
 		}	
@@ -140,18 +140,18 @@ public class KnrMaster  extends BasicFunctions {
 			
 			
 			implicitWait( 30);
-			explicitWait( knrPom.getInstanceMasterXP().CourseMasterOption, 30);
+			explicitWait( KnrPom.getInstanceMasterXP().CourseMasterOption, 30);
 
-			if (knrPom.getInstanceMasterXP().CourseMasterOption.isDisplayed()) {
+			if (KnrPom.getInstanceMasterXP().CourseMasterOption.isDisplayed()) {
 
 				implicitWait( 30);
-				explicitWait( knrPom.getInstanceMasterXP().CourseMasterOption, 30);
+				explicitWait( KnrPom.getInstanceMasterXP().CourseMasterOption, 30);
 
 				
 
 				implicitWait( 30);
-				explicitWait( knrPom.getInstanceMasterXP().CourseMasterOption, 30);
-				click(knrPom.getInstanceMasterXP().CourseMasterOption);
+				explicitWait( KnrPom.getInstanceMasterXP().CourseMasterOption, 30);
+				click(KnrPom.getInstanceMasterXP().CourseMasterOption);
 				System.out.println("Course master Page is navigating sucessfully");
 				
 			}	

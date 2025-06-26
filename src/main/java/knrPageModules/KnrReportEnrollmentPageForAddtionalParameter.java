@@ -24,7 +24,7 @@ import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 
 import base.BasicFunctions;
-import pageObjMod.knrPom;
+import pageObjMod.KnrPom;
 
 
 public class KnrReportEnrollmentPageForAddtionalParameter  extends BasicFunctions {
@@ -124,13 +124,13 @@ public class KnrReportEnrollmentPageForAddtionalParameter  extends BasicFunction
 	    implicitWait(3);
 
 	    try {
-	        explicitWait(knrPom.getInstanceEnrollXP().enrollNo, 30);
-	        click(knrPom.getInstanceEnrollXP().enrollNo);
+	        explicitWait(KnrPom.getInstanceEnrollXP().enrollNo, 30);
+	        click(KnrPom.getInstanceEnrollXP().enrollNo);
 
-	        if (knrPom.getInstanceEnrollXP().enrollNo.isDisplayed()) {
+	        if (KnrPom.getInstanceEnrollXP().enrollNo.isDisplayed()) {
 	            implicitWait(3);
-	            explicitWait(knrPom.getInstanceEnrollXP().enrollNo, 30);
-	            sendKeys(knrPom.getInstanceEnrollXP().enrollNo, String.valueOf(regno));
+	            explicitWait(KnrPom.getInstanceEnrollXP().enrollNo, 30);
+	            sendKeys(KnrPom.getInstanceEnrollXP().enrollNo, String.valueOf(regno));
 	            testCaseScenario.log(Status.PASS, "Enrollment wise " + regno + " Register number has entered successfully");
 
 	        } else {
@@ -160,18 +160,18 @@ public class KnrReportEnrollmentPageForAddtionalParameter  extends BasicFunction
 	    implicitWait(3);
 
 	    try {
-	        explicitWait(knrPom.getInstanceEnrollXP().examSeries, 30);
-	        click(knrPom.getInstanceEnrollXP().examSeries);
+	        explicitWait(KnrPom.getInstanceEnrollXP().examSeries, 30);
+	        click(KnrPom.getInstanceEnrollXP().examSeries);
 
 	        implicitWait(3);
-	        explicitWait(knrPom.getInstanceEnrollXP().examSeries, 30);
-	        click(knrPom.getInstanceEnrollXP().examSeries);
+	        explicitWait(KnrPom.getInstanceEnrollXP().examSeries, 30);
+	        click(KnrPom.getInstanceEnrollXP().examSeries);
 
 	        implicitWait(3);
-	        explicitWait(knrPom.getInstanceEnrollXP().examSeries, 30);
+	        explicitWait(KnrPom.getInstanceEnrollXP().examSeries, 30);
 
-	        if (knrPom.getInstanceEnrollXP().examSeries.isDisplayed()) {
-	            click(knrPom.getInstanceEnrollXP().examSeries);
+	        if (KnrPom.getInstanceEnrollXP().examSeries.isDisplayed()) {
+	            click(KnrPom.getInstanceEnrollXP().examSeries);
 
 	            implicitWait(50);
 
@@ -220,11 +220,11 @@ public class KnrReportEnrollmentPageForAddtionalParameter  extends BasicFunction
 	    ExtentTest testCaseScenario = testCaseName.createNode("Award Name Test case has started running");
 
 	    implicitWait(3);
-	    explicitWait(knrPom.getInstanceEnrollXP().awardName, 30);
+	    explicitWait(KnrPom.getInstanceEnrollXP().awardName, 30);
 
 	    try {
-	        if (knrPom.getInstanceEnrollXP().awardName.isDisplayed()) {
-	            click(knrPom.getInstanceEnrollXP().awardName);
+	        if (KnrPom.getInstanceEnrollXP().awardName.isDisplayed()) {
+	            click(KnrPom.getInstanceEnrollXP().awardName);
 
 	            try {
 	                // Try to find the award option
@@ -268,11 +268,11 @@ public class KnrReportEnrollmentPageForAddtionalParameter  extends BasicFunction
 	    ExtentTest testCaseScenario = testCaseName.createNode("Semester Test case has started running");
 
 	    implicitWait(3);
-	    explicitWait(knrPom.getInstanceEnrollXP().yearSession, 30);
+	    explicitWait(KnrPom.getInstanceEnrollXP().yearSession, 30);
 
 	    try {
-	        if (knrPom.getInstanceEnrollXP().yearSession.isDisplayed()) {
-	            click(knrPom.getInstanceEnrollXP().yearSession);
+	        if (KnrPom.getInstanceEnrollXP().yearSession.isDisplayed()) {
+	            click(KnrPom.getInstanceEnrollXP().yearSession);
 	            implicitWait(3);
 
 	            try {
@@ -304,11 +304,11 @@ public class KnrReportEnrollmentPageForAddtionalParameter  extends BasicFunction
 	    ExtentTest testCaseScenario = testCaseName.createNode("Regulation Test case has started running");
 
 	    implicitWait(3);
-	    explicitWait(knrPom.getInstanceEnrollXP().regulation, 30);
+	    explicitWait(KnrPom.getInstanceEnrollXP().regulation, 30);
 
 	    try {
-	        if (knrPom.getInstanceEnrollXP().regulation.isDisplayed()) {
-	            click(knrPom.getInstanceEnrollXP().regulation);
+	        if (KnrPom.getInstanceEnrollXP().regulation.isDisplayed()) {
+	            click(KnrPom.getInstanceEnrollXP().regulation);
 	            implicitWait(3);
 
 	            try {
@@ -355,11 +355,11 @@ public class KnrReportEnrollmentPageForAddtionalParameter  extends BasicFunction
 	    ExtentTest testCaseScenario = testCaseName.createNode("Exam Type Test case has started running");
 
 	    implicitWait(3);
-	    explicitWait(knrPom.getInstanceEnrollXP().examType, 30);
+	    explicitWait(KnrPom.getInstanceEnrollXP().examType, 30);
 
 	    try {
-	        if (knrPom.getInstanceEnrollXP().examType.isDisplayed()) {
-	            click(knrPom.getInstanceEnrollXP().examType);
+	        if (KnrPom.getInstanceEnrollXP().examType.isDisplayed()) {
+	            click(KnrPom.getInstanceEnrollXP().examType);
 	            implicitWait(3);
 
 	            try {
@@ -404,10 +404,10 @@ public class KnrReportEnrollmentPageForAddtionalParameter  extends BasicFunction
 
 		try {
 		implicitWait(5);
-		explicitWait(knrPom.getInstanceEnrollXP().submitBtn, 10);
-		if (knrPom.getInstanceEnrollXP().submitBtn.isDisplayed()) {
+		explicitWait(KnrPom.getInstanceEnrollXP().submitBtn, 10);
+		if (KnrPom.getInstanceEnrollXP().submitBtn.isDisplayed()) {
 
-			click(knrPom.getInstanceEnrollXP().submitBtn);
+			click(KnrPom.getInstanceEnrollXP().submitBtn);
 			   testCaseScenario.log(Status.PASS, "Submit button click sucessfully");
 		
 			   
@@ -416,13 +416,13 @@ public class KnrReportEnrollmentPageForAddtionalParameter  extends BasicFunction
 			
 			   
 				try {
-					   if(knrPom.getInstanceEnrollXP().okBtn.isDisplayed()) {
-						   explicitWait( knrPom.getInstanceEnrollXP().okBtn, 10);
-						   System.out.println(knrPom.getInstanceEnrollXP().okBtn.isDisplayed());
+					   if(KnrPom.getInstanceEnrollXP().okBtn.isDisplayed()) {
+						   explicitWait( KnrPom.getInstanceEnrollXP().okBtn, 10);
+						   System.out.println(KnrPom.getInstanceEnrollXP().okBtn.isDisplayed());
 						   testCaseScenario.log(Status.INFO, "Facing error to generate the pdf check if he NE case ",
 				                    MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
-							explicitWait(knrPom.getInstanceEnrollXP().okBtn, 30);
-						   click(knrPom.getInstanceEnrollXP().okBtn);
+							explicitWait(KnrPom.getInstanceEnrollXP().okBtn, 30);
+						   click(KnrPom.getInstanceEnrollXP().okBtn);
 							implicitWait(3);
 						driver.navigate().refresh();
 					}}
@@ -470,15 +470,15 @@ public class KnrReportEnrollmentPageForAddtionalParameter  extends BasicFunction
 
 			implicitWait(3);
 
-//			action.moveToElement(knrPom.getInstanceEnrollXP().reportCardExportTo).perform();
+//			action.moveToElement(KnrPom.getInstanceEnrollXP().reportCardExportTo).perform();
 
-			action.moveToElement(knrPom.getInstanceEnrollXP().reportCardExportTo).click().perform();
+			action.moveToElement(KnrPom.getInstanceEnrollXP().reportCardExportTo).click().perform();
 
 			implicitWait(3);
 
-//			action.moveToElement(knrPom.getInstanceEnrollXP().reportCardExportToPdf).perform();
+//			action.moveToElement(KnrPom.getInstanceEnrollXP().reportCardExportToPdf).perform();
 
-			action.moveToElement(knrPom.getInstanceEnrollXP().reportCardExportToPdf).click().perform();
+			action.moveToElement(KnrPom.getInstanceEnrollXP().reportCardExportToPdf).click().perform();
 
 			implicitWait(3);
 
@@ -531,19 +531,19 @@ public class KnrReportEnrollmentPageForAddtionalParameter  extends BasicFunction
 			
 			try {
 			
-				if (knrPom.getInstanceEnrollXP().okBtn.isDisplayed()) {
+				if (KnrPom.getInstanceEnrollXP().okBtn.isDisplayed()) {
 					KnrEnrollmentPage.monitorNetworkDuringTest(testCaseName);
 					ExtentTest testCaseScenario = testCaseName
 							.createNode(" Pdf Report Validation Test case has started running for the following register number " + regno +" and "+ subjectToFind);
 
 					
-					System.out.println(knrPom.getInstanceEnrollXP().okBtn.isDisplayed());
+					System.out.println(KnrPom.getInstanceEnrollXP().okBtn.isDisplayed());
 			
 					testCaseScenario.log(Status.SKIP, "Facing error to generate the pdf for following regno: " +regno + " and subject: "+ subjectToFind+"check wherther",
 							MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
 
-					explicitWait(knrPom.getInstanceEnrollXP().okBtn, 30);
-					click(knrPom.getInstanceEnrollXP().okBtn);
+					explicitWait(KnrPom.getInstanceEnrollXP().okBtn, 30);
+					click(KnrPom.getInstanceEnrollXP().okBtn);
 					implicitWait(3);
 					driver.navigate().refresh();
 			
@@ -579,7 +579,7 @@ public class KnrReportEnrollmentPageForAddtionalParameter  extends BasicFunction
 
 		catch (Exception e) {
 			
-			if (knrPom.getInstanceEnrollXP().enrollNo.isDisplayed()) {
+			if (KnrPom.getInstanceEnrollXP().enrollNo.isDisplayed()) {
 				ExtentTest testCaseScenario = testCaseName
 						.createNode(" Pdf Report Validation Test case has started running for the following register number " + regno +" and "+ subjectToFind);
 
