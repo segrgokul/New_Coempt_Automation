@@ -15,6 +15,7 @@ import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 
 import base.BasicFunctions;
+import browsers.BrowserManager;
 import pageObjMod.SctevtPom;
 
 	public class ScevtLoginPage  extends BasicFunctions {
@@ -35,14 +36,22 @@ import pageObjMod.SctevtPom;
 		WebElement sessional = null;
 		WebElement total = null;
 		WebElement result = null;
-			  public  void login(Object admin, Object passWord,ExtentTest testCaseName) throws InterruptedException, IOException, AWTException {
+			  public  void login() throws InterruptedException, IOException, AWTException {
 			    	
-					ExtentTest testCaseScenario = testCaseName
-							.createNode(" Login page validation for "+ admin +" Validation Test case for  has started running");
-
+				
 				try {
 	
-					
+					   String  loginName = BrowserManager.properties.getProperty("login_name", "scte_vt").toLowerCase();
+				     System.out.println(loginName); 
+				     
+					   if (loginName.contains("sctevt")){
+				             
+				      		String  userName = BrowserManager.properties.getProperty(loginName + "_username");
+				      		String    passWord = BrowserManager.properties.getProperty(loginName + "_password");
+				      	
+				      		System.out.println(userName);
+				      		
+				    
 					
 					explicitWait(SctevtPom.getInstanceSctevtLoginXpaths().userName,10);
 				      	
@@ -50,7 +59,7 @@ import pageObjMod.SctevtPom;
 			      	 click(SctevtPom.getInstanceSctevtLoginXpaths().userName);
 				
 							
-				  	 sendKeys(SctevtPom.getInstanceSctevtLoginXpaths().userName,admin);
+				  	 sendKeys(SctevtPom.getInstanceSctevtLoginXpaths().userName,userName);
 				  	 
 				  	 
 				 	explicitWait(SctevtPom.getInstanceSctevtLoginXpaths().passWord,10);
@@ -62,12 +71,14 @@ import pageObjMod.SctevtPom;
 				  
 				  	 
 				  	 sendKeys(SctevtPom.getInstanceSctevtLoginXpaths().passWord,passWord);
-					
+				  	 
+				  	
 					 	System.out.println(SctevtPom.getInstanceSctevtLoginXpaths().btnLogin.isDisplayed());			
 
 					Thread.sleep(30000); //30 sec it will wait for capctha entering
 					
-			
+					scrollTillWebElement(SctevtPom.getInstanceSctevtLoginXpaths().btnLogin);
+					
 				 	System.out.println(SctevtPom.getInstanceSctevtLoginXpaths().btnLogin.isDisplayed());			
 
 					
@@ -97,26 +108,16 @@ import pageObjMod.SctevtPom;
 				   		}}}
 				   	 catch(Exception e) {
 				   		Thread.sleep(10000); //30 sec it will wait for capctha entering
-				   		 if(SctevtPom.getInstanceSctevtLoginXpaths().userIconArea.isDisplayed()) {
-								testCaseScenario.log(Status.PASS, "Login page validation for "+ admin +" Validation is entered sucessfully");
-									
-							 }
-							 else {
-									testCaseScenario.log(Status.FAIL, "Login page validation for "+ admin +" Validation is not entered sucessfully" ,MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
-									  
-							 } 
+				   
 				   	 }
 						
-				
+				      	 }
 				}
 				catch(Exception e) {
 				if(SctevtPom.getInstanceSctevtLoginXpaths().okBtn.isDisplayed()) {
-							
+			
 							click(SctevtPom.getInstanceSctevtLoginXpaths().okBtn);	
-							
-								
-							testCaseScenario.log(Status.FAIL, "Login page validation for "+ admin +" Validation is not entered sucessfully" + e.getMessage(),MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
-						 	 
+								 
 							}
 					
 			

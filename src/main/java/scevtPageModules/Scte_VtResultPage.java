@@ -271,7 +271,7 @@ public class Scte_VtResultPage  extends BasicFunctions {
 	      	  String newMark;
       	        System.out.println("========================");		      	    
 	      	    
-      	        if(subjectNames.equals(subjectName)) {
+      	        if(subjectCode.equals(subjectName)) {
       	      	System.out.println("yes");
       	    
       	        if(mark.contains("AB")) {

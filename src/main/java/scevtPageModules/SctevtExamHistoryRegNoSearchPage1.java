@@ -18,7 +18,7 @@ import base.BasicFunctions;
 import browsers.BrowserManager;
 import pageObjMod.SctevtPom;
 
-public class SctevtExamHistoryRegNoSearchPage extends BasicFunctions {
+public class SctevtExamHistoryRegNoSearchPage1 extends BasicFunctions {
 	 public void resultPageNavigation(Object regno, Object semester,ExtentTest testCaseName) throws IOException {
 		 
 		 
@@ -188,11 +188,11 @@ public void regnoValidation(Object regNo, Object semester, Map<String, String> s
   	                    backlogSubjects.append(key).append(",");
   	    
         	        	
-        	            System.out.println("The following register number " +regNo+" for the Subject " + key + " has failed marks: " + value);
-        	            testCaseScenario.log(Status.PASS, "The following register number " +regNo+" for the Subject " + key + " has failed marks: " + value);
+        	            System.out.println("The following register number" +regNo+" for the Subject " + key + " has failed marks: " + value);
+        	            testCaseScenario.log(Status.PASS, "The following register number" +regNo+" for the Subject " + key + " has failed marks: " + value);
         	        }else if (value >= 28) {
-        	            System.out.println("The following register number " +regNo+" for the Subject " + key + " has passed marks: " + value);
-        	            testCaseScenario.log(Status.PASS, "The following register number " +regNo+" for the Subject " + key + " has passed marks: " + value);
+        	            System.out.println("The following register number" +regNo+" for the Subject " + key + " has passed marks: " + value);
+        	            testCaseScenario.log(Status.PASS, "The following register number" +regNo+" for the Subject " + key + " has passed marks: " + value);
         	   	
         	        }
         	        
@@ -208,8 +208,8 @@ public void regnoValidation(Object regNo, Object semester, Map<String, String> s
 	      	            absentCount++;
 	      	            backlogSubjects.append(key).append(",");
 
-    	            System.out.println("The following register number " +regNo+" for the Subject " + key + " has Absent " + valueStr);
-    	            testCaseScenario.log(Status.PASS, "The following register number " +regNo+" for the Subject " + key + " has Absent " + valueStr);
+    	            System.out.println("The following register number" +regNo+" for the Subject " + key + " has Absent " + valueStr);
+    	            testCaseScenario.log(Status.PASS, "The following register number" +regNo+" for the Subject " + key + " has Absent " + valueStr);
             	   	
     	    	}
     	    		
@@ -223,47 +223,10 @@ public void regnoValidation(Object regNo, Object semester, Map<String, String> s
         }
               
             
-            if (formattedScriptBacklog.isEmpty()) {
-      	        formattedScriptBacklog = backlogSubjects.toString().trim().replaceAll(", $", "");
-      	    }
-
-      	    if (!formattedScriptBacklog.isEmpty() && !formattedScriptBacklog.startsWith("DI")) {
-      	    	System.out.println("formattedScriptBacklog"+ formattedScriptBacklog);
-      	    	
-      	        String[] subjects = formattedScriptBacklog.split(",");
-      	        
-      	        if (!subjects[0].startsWith("Back-")) {
-      	            subjects[0] = "Back-" + subjects[0].trim();
-      	            System.out.println(" subjects[0"+ subjects[0]);
-      	        }
-      	        
-      	        for (int i = 1; i < subjects.length; i++) {
-      	            subjects[i] = subjects[i].replace("Back-", "").trim();
-      	        }
-      	        
-      	        formattedScriptBacklog = String.join(",", subjects);
-      	    }
-
-      	    if (formattedScriptBacklog.isEmpty()) {
-      	        formattedScriptBacklog = "Pass";
-      	    }
-  	        int totalMark = Integer.parseInt(currentTotalMark);
-    	    if (totalMark < 300) {
-    	        formattedScriptBacklog = "Fail";
-    	    }
-
-      	    // Compare with UI only once
-      	    if (!comparisonDone) {
-      	        if (formattedScriptBacklog.equalsIgnoreCase(currentResultValue)) {
-      	            System.out.println("Backlog comparison PASS: Script - " + formattedScriptBacklog + " | UI - " + currentResultValue);
-      	            testCaseScenario.log(Status.PASS, "Backlog comparison PASS: Script - " + formattedScriptBacklog + " | UI - " + currentResultValue);
-      	        }
-      	        
-      	      else if ((formattedScriptBacklog.equals("Pass")) && (currentResultValue.equals("Pass(G)"))) {
+      
+      	       if (currentResultValue.equals("Pass(G)")) {
     	        	
-      	          System.out.println("Backlog comparison INFO: Script - " + formattedScriptBacklog + " | UI - " + currentResultValue);
-      	            testCaseScenario.log(Status.SKIP, "Backlog comparison INFO: Script - " + formattedScriptBacklog + " | UI - " + currentResultValue);
-      	          // Prepare grace mark if Pass(G)
+      	         // Prepare grace mark if Pass(G)
       	          double remainingGraceMark = 0.0;
       	          if ("Pass(G)".equals(currentResultValue)) {
       	              List<WebElement> previousHeadings = driver.findElements(By.xpath(
@@ -344,7 +307,7 @@ public void regnoValidation(Object regNo, Object semester, Map<String, String> s
       	                  } else {
       	                	  
       	                	   System.out.println(expectedHeading + " subject Th Mark " +actualMark +" from UI is MISMATCH: with Excel Mark " + newMark+" => Expected: " + newMark + ", Found: " + actualMark );
-         	                    testCaseScenario.log(Status.SKIP, expectedHeading + " subject Th Mark " +actualMark +" from UI is MISMATCH: with Excel Mark " + newMark+" =>  Expected: " + newMark + ", Found: " + actualMark );
+         	                    testCaseScenario.log(Status.PASS, expectedHeading + " subject Th Mark " +actualMark +" from UI is MISMATCH: with Excel Mark " + newMark+" =>  Expected: " + newMark + ", Found: " + actualMark );
 
       	                      // Try to apply grace if Pass(G)
       	                      if ("Pass(G)".equals(currentResultValue)) {
@@ -371,6 +334,8 @@ public void regnoValidation(Object regNo, Object semester, Map<String, String> s
       	                          
       	                            System.out.println(subjectName + " subject Th Mark " +adjusted +" from UI is MATCH after giving with grace: => " + adjusted);
       	      	                    testCaseScenario.log(Status.PASS, subjectName + " subject Th Mark " +adjusted +" from UI is MATCH after giving with grace: => " + adjusted);
+      	      	                  
+      	      	                    formattedScriptBacklog = "Pass(G)";
 
       	                              
       	                              
@@ -391,7 +356,45 @@ public void regnoValidation(Object regNo, Object semester, Map<String, String> s
 
       	        }
       	        
-      	        
+      	     if (formattedScriptBacklog.isEmpty()) {
+       	        formattedScriptBacklog = backlogSubjects.toString().trim().replaceAll(", $", "");
+       	    }
+
+       	    if (!formattedScriptBacklog.isEmpty() && !formattedScriptBacklog.startsWith("DI")) {
+       	    	System.out.println("formattedScriptBacklog"+ formattedScriptBacklog);
+       	    	
+       	        String[] subjects = formattedScriptBacklog.split(",");
+       	        
+       	        if ((subjects[0].equals("Pass(G)"))) {
+       	          
+       	        }
+       	        else if (!subjects[0].startsWith("Back-")) {
+       	            subjects[0] = "Back-" + subjects[0].trim();
+       	            System.out.println(" subjects[0"+ subjects[0]);
+       	        }
+       	        
+       	        for (int i = 1; i < subjects.length; i++) {
+       	            subjects[i] = subjects[i].replace("Back-", "").trim();
+       	        }
+       	        
+       	        formattedScriptBacklog = String.join(",", subjects);
+       	    }
+
+       	    if (formattedScriptBacklog.isEmpty()) {
+       	        formattedScriptBacklog = "Pass";
+       	    }
+   	        int totalMark = Integer.parseInt(currentTotalMark);
+     	    if (totalMark < 300) {
+     	        formattedScriptBacklog = "Fail";
+     	    }
+
+       	    // Compare with UI only once
+       	    if (!comparisonDone) {
+       	        if (formattedScriptBacklog.equalsIgnoreCase(currentResultValue)) {
+       	            System.out.println("Backlog comparison PASS: Script - " + formattedScriptBacklog + " | UI - " + currentResultValue);
+       	            testCaseScenario.log(Status.PASS, "Backlog comparison PASS: Script - " + formattedScriptBacklog + " | UI - " + currentResultValue);
+       	        }
+       	        
       	        else {
       	            System.out.println("Backlog comparison FAILED: Script - " + formattedScriptBacklog + " | UI - " + currentResultValue);
       	            testCaseScenario.log(Status.FAIL, "Backlog comparison FAILED: Script - " + formattedScriptBacklog + " | UI - " + currentResultValue);

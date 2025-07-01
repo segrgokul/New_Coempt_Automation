@@ -5,7 +5,6 @@
     <classes>
       <class name="sctevt_runner_Execution.SctevtExceution">
         <methods>
-          <include name="ScTEandVT" invocation-numbers="0"/>
           <include name="afterClass"/>
           <include name="beforeTest"/>
           <include name="afterMethod"/>
@@ -13,6 +12,7 @@
           <include name="afterSuite"/>
           <include name="afterTest"/>
           <include name="beforeSuite"/>
+          <include name="ScTEandVT2" invocation-numbers="0 1 2 3 4"/>
           <include name="beforeClass"/>
         </methods>
       </class> <!-- sctevt_runner_Execution.SctevtExceution -->

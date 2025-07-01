@@ -82,9 +82,9 @@ public class BrowserManager  {
                     return "http://103.154.253.118:81/";
                 case "knr_localhost":
                     return "http://localhost:4599/";
-                case "sctevt":  
+                case "sctevt_result":  
                	 return "http://sctevt-qa.uonex.in/sn20Yz";
-               case "sctevt2":  
+               case "sctevt_login":  
               	 return "http://sctevt-qa.uonex.in/";  	 
                 	 
                 default:

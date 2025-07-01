@@ -1,5 +1,6 @@
 package sctevt_runner_Execution;
 
+
 import java.awt.AWTException;
 import java.awt.Desktop;
 import java.io.FileInputStream;
@@ -39,6 +40,7 @@ import pageObjMod.SctevtPom;
 import scevtPageModules.ScevtLoginPage;
 import scevtPageModules.Scte_VtResultPage;
 import scevtPageModules.SctevtExamHistoryRegNoSearchPage;
+import scevtPageModules.SctevtExamHistoryRegNoSearchPage1;
 
 
 public class SctevtExceution  extends BrowserManager {
@@ -52,13 +54,13 @@ public class SctevtExceution  extends BrowserManager {
 		private static boolean isTestCaseEnrollSet1 = false; //assigning as false to run only only time 
 	
 		ScevtLoginPage scevtLoginPage = new ScevtLoginPage();
-		SctevtExamHistoryRegNoSearchPage SctevtExamHistoryRegNoSearchPage = new SctevtExamHistoryRegNoSearchPage(); 
+		SctevtExamHistoryRegNoSearchPage1 SctevtExamHistoryRegNoSearchPage = new SctevtExamHistoryRegNoSearchPage1(); 
 		
 		
 		Scte_VtResultPage Scte_VtResultPage =new Scte_VtResultPage();
 		@DataProvider(name ="ScTE&VT_Result_Process")
 
-	    public Object[][] getDataScTEandVT() throws IOException {
+	    public Object[][] getDataScTEandVTForResultProcess() throws IOException {
 	        Map<String, SctevtResultReadExcelFile.StudentInfo> groupedData =
 	        		SctevtResultReadExcelFile.readExcel("excel.file4", "excel.file4");
 
@@ -93,34 +95,50 @@ public class SctevtExceution  extends BrowserManager {
 		
 		
 	@DataProvider(name ="ScTE&VTLogin")
-	public Object[][]ReadExcelScTEandVT2() throws IOException,InvalidFormatException {
+	public Object[][]getDataScTEandVTForLogin() throws IOException,InvalidFormatException {
 		
 //		Object[][] data = dataProcessing.ReadExcelFiles.readExcel("file1","file1");
 
 
 
-		scTEVTLoginExcel= dataProcessing.ReadExcelFiles.readExcel("excel.file5", "excel.file5");
-		scTEVTStudentDetailsExcel = dataProcessing.ReadExcelFiles.readExcel("excel.file6", "excel.file6");
 	//System.out.println("Data size: " + data.length);
+		     Map<String, SctevtResultReadExcelFile.StudentInfo> groupedData =
+		        		SctevtResultReadExcelFile.readExcel("excel.file6", "excel.file6");
 
-		 List<Object[]> combined = new ArrayList<>();
+		        List<Object[]> data = new ArrayList<>();
+		        for (Map.Entry<String, SctevtResultReadExcelFile.StudentInfo> entry : groupedData.entrySet()) {
 
-		    for (Object[] loginRow : scTEVTLoginExcel) {
-		        for (Object[] studentRow : scTEVTStudentDetailsExcel) {
-		            Object[] merged = new Object[loginRow.length + studentRow.length];
-		            System.arraycopy(loginRow, 0, merged, 0, loginRow.length);
-		            System.arraycopy(studentRow, 0, merged, loginRow.length, studentRow.length);
-		            combined.add(merged);
+		        	System.out.println(entry.getKey());
+		        
+		            String[] parts   = entry.getKey().split("_", 2);
+		            String regNo     = parts[0];           // F18109004072
+		            String semester  = parts.length > 1 ? parts[1] : "";  // "1"  (use it if you need)
+
+		            SctevtResultReadExcelFile.StudentInfo info = entry.getValue();
+
+		          
+		            System.out.println(regNo);
+		            System.out.println(semester);
+		   
+		            
+		            System.out.println(info);
+		            
+		            
+		            
+		            // You can extract or loop through subject keys to generate subject-specific data.
+		            for (String subject : info.subjectsAndMarks.keySet()) {
+		            System.out.println(subject);
+		            	data.add(new Object[]{regNo,info,subject});
+		            }
 		        }
+
+		        return data.toArray(new Object[0][0]);
 		    }
-
-		    return combined.toArray(new Object[0][0]);
-
-	}			
+				
 
 		
 //Fpr SCTE&VT result process project
-@Test(priority = 1, enabled = true, dataProvider = "ScTE&VT_Result_Process",description = "ScTE&VT_Result_Process")
+@Test(priority = 1, enabled = false, dataProvider = "ScTE&VT_Result_Process",description = "ScTE&VT_Result_Process")
 public void ScTEandVT(String regNo, SctevtResultReadExcelFile.StudentInfo studentInfo,String subjectToFind) throws InterruptedException, IOException, AWTException {
 	
     if (testCaseName == null) {
@@ -211,41 +229,52 @@ public void ScTEandVT(String regNo, SctevtResultReadExcelFile.StudentInfo studen
 }
 
 
-
-
-
-//Fpr SCTE&VT login project
-@Test(priority = 2, enabled = false, dataProvider = "ScTE&VTLogin",description = "ScTEVTLogin")
-public void ScTEandVT2(Object admin , Object passWord, Object regno, Object semester,Object subjectName,Object semesterMark) throws InterruptedException, IOException, AWTException {
-if (testCaseName == null) {
-    testCaseName = extentReport.createTest("SCET&VT Actions");
-
-	  Browser_Launch();
-	  scevtLoginPage.login(admin, passWord, testCaseName);
-	  SctevtExamHistoryRegNoSearchPage.resultPageNavigation(admin, passWord, testCaseName);
-}
-
-System.out.println("Starting testCase execution for the semester " + admin +" and the reg: " + admin);
-System.out.println("=========================");
-
-System.out.println("Admin: " + admin);
-System.out.println("Password: " + passWord);
-System.out.println("regno: " + regno);
-System.out.println("subjectName: " + semester);
-
-SctevtExamHistoryRegNoSearchPage.regnoEnter(regno, semester, testCaseName);
-SctevtExamHistoryRegNoSearchPage.regnoEnter1(regno, semester,subjectName,semesterMark, testCaseName);
-try {
-    // Perform LoginPage Actions
-
-} catch (Exception e) {
+//For SCTE&VT login project
+@Test(priority = 2, enabled = true, dataProvider = "ScTE&VTLogin", description = "ScTEVTLogin")
+public void ScTEandVT2(String regNo, SctevtResultReadExcelFile.StudentInfo studentInfo, String subjectToFind) throws InterruptedException, IOException, AWTException {
  
-    testCaseName.fail("Test failed for reg: " + admin + " due to " + e.getMessage());
+ if (testCaseName == null) {
+
+     Browser_Launch();
+     scevtLoginPage.login();
+ }
+
+ String examSemester = (String) studentInfo.examSemester;
+ Map<String, String> subjects = studentInfo.subjectsAndMarks;
+
+ System.out.println("subjects: " + subjects);
+
+ String regNoWithSemester = regNo + "_SEM" + examSemester;
+
+ if (!processedRegNos.contains(regNoWithSemester)) {
+
+	  testCaseName = extentReport.createTest("Report Card Enrollment Page Actions for the following register number: " + regNo + " and for the semester ");
+
+     System.out.println("Starting testCase execution for the semester " + examSemester + " and the reg: " + regNo);
+     System.out.println("=========================");
+
+     System.out.println("regno: " + regNo);
+     System.out.println("semester: " + examSemester);
+
+     SctevtExamHistoryRegNoSearchPage.resultPageNavigation(regNo, examSemester, testCaseName);
+
+     SctevtExamHistoryRegNoSearchPage.regnoEnter(regNo, examSemester, testCaseName);
+     
+     System.out.println("regNo: "+regNo);
+     System.out.println("examSemester: "+examSemester);
+     System.out.println("subjects:" +subjects);
+
+     // ✅ Updated: pass the whole map of subjects at once
+    SctevtExamHistoryRegNoSearchPage.regnoValidation(regNo, examSemester, subjects, testCaseName);
+
+     processedRegNos.add(regNoWithSemester);
+ }
 }
 
-System.out.println("=========================");
-System.out.println("Ended testCase execution for the reg: " + admin);
-}@BeforeMethod
+
+
+
+@BeforeMethod
 public void beforeMethod() throws IOException, InterruptedException {
 	System.out.println("This will execute foruth before every Method and after the before class");
 //	ReadExcelData.ExcelReader(C:\\Users\\User\\Downloads\\DumpScore.xlsx,"mds");
