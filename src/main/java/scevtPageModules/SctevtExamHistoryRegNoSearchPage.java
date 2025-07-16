@@ -232,7 +232,11 @@ public void regnoValidation(Object regNo, Object semester, Map<String, String> s
       	    	
       	        String[] subjects = formattedScriptBacklog.split(",");
       	        
-      	        if (!subjects[0].startsWith("Back-")) {
+      	        if(subjects[0].equals("Pass(G)")) {
+ //nothing to change
+      	        }
+      	        
+      	        else if (!subjects[0].startsWith("Back-")) {
       	            subjects[0] = "Back-" + subjects[0].trim();
       	            System.out.println(" subjects[0"+ subjects[0]);
       	        }
@@ -252,12 +256,7 @@ public void regnoValidation(Object regNo, Object semester, Map<String, String> s
     	        formattedScriptBacklog = "Fail";
     	    }
 
-      	    // Compare with UI only once
-      	    if (!comparisonDone) {
-      	        if (formattedScriptBacklog.equalsIgnoreCase(currentResultValue)) {
-      	            System.out.println("Backlog comparison PASS: Script - " + formattedScriptBacklog + " | UI - " + currentResultValue);
-      	            testCaseScenario.log(Status.PASS, "Backlog comparison PASS: Script - " + formattedScriptBacklog + " | UI - " + currentResultValue);
-      	        }
+      
       	        
       	      else if ((formattedScriptBacklog.equals("Pass")) && (currentResultValue.equals("Pass(G)"))) {
     	        	
@@ -396,9 +395,16 @@ public void regnoValidation(Object regNo, Object semester, Map<String, String> s
       	            System.out.println("Backlog comparison FAILED: Script - " + formattedScriptBacklog + " | UI - " + currentResultValue);
       	            testCaseScenario.log(Status.FAIL, "Backlog comparison FAILED: Script - " + formattedScriptBacklog + " | UI - " + currentResultValue);
       	        }
-      	        comparisonDone = true;
+      	      
+      	        
+      		    // Compare with UI only once
+          	    if (!comparisonDone) {
+          	        if (formattedScriptBacklog.equalsIgnoreCase(currentResultValue)) {
+          	            System.out.println("Backlog comparison PASS: Script - " + formattedScriptBacklog + " | UI - " + currentResultValue);
+          	            testCaseScenario.log(Status.PASS, "Backlog comparison PASS: Script - " + formattedScriptBacklog + " | UI - " + currentResultValue);
+          	        }
       	    }
-      
+          	  comparisonDone = true;
         
 
     } catch (Exception e) {

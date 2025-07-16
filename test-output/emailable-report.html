@@ -9,12 +9,30 @@
 <table>
 <tr><th>Test</th><th># Passed</th><th># Skipped</th><th># Retried</th><th># Failed</th><th>Time (ms)</th><th>Included Groups</th><th>Excluded Groups</th></tr>
 <tr><th colspan="8">Default suite</th></tr>
-<tr><td><a href="#t0">Default test</a></td><td class="num">3</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">183,890</td><td></td><td></td></tr>
+<tr><td><a href="#t0">Default test</a></td><td class="num">1</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">51,254</td><td></td><td></td></tr>
 </table>
-<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Default suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Default test &#8212; passed</th></tr><tr class="passedeven"><td rowspan="3">sctevt_runner_Execution.SctevtExceution</td><td><a href="#m0">ScTEandVT2</a></td><td rowspan="3">1751366586606</td><td rowspan="3">117012</td></tr><tr class="passedeven"><td><a href="#m1">ScTEandVT2</a></td></tr><tr class="passedeven"><td><a href="#m2">ScTEandVT2</a></td></tr></tbody>
+<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Default suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Default test &#8212; failed (configuration methods)</th></tr><tr class="failedeven"><td rowspan="1">knr_runner_Execution.Knr_runner_Execution_Copy</td><td><a href="#m0">afterSuite</a></td><td rowspan="1">1752659283232</td><td rowspan="1">2</td></tr><tr><th colspan="4">Default test &#8212; passed</th></tr><tr class="passedeven"><td rowspan="1">knr_runner_Execution.Knr_runner_Execution_Copy</td><td><a href="#m1">testCase6</a></td><td rowspan="1">1752659236779</td><td rowspan="1">45064</td></tr></tbody>
 </table>
-<h2>Default test</h2><h3 id="m0">sctevt_runner_Execution.SctevtExceution#ScTEandVT2</h3><table class="result"><tr class="param"><th>Parameter #1</th><th>Parameter #2</th><th>Parameter #3</th></tr><tr class="param stripe"><td>F21013002054</td><td>dataProcessing.SctevtResultReadExcelFile$StudentInfo@71652c98</td><td>TH1</td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m1">sctevt_runner_Execution.SctevtExceution#ScTEandVT2</h3><table class="result"><tr class="param"><th>Parameter #1</th><th>Parameter #2</th><th>Parameter #3</th></tr><tr class="param stripe"><td>F23013001021</td><td>dataProcessing.SctevtResultReadExcelFile$StudentInfo@51bde877</td><td>TH2</td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m2">sctevt_runner_Execution.SctevtExceution#ScTEandVT2</h3><table class="result"><tr class="param"><th>Parameter #1</th><th>Parameter #2</th><th>Parameter #3</th></tr><tr class="param stripe"><td>F21013002054</td><td>dataProcessing.SctevtResultReadExcelFile$StudentInfo@71652c98</td><td>TH2</td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h2>Default test</h2><h3 id="m0">knr_runner_Execution.Knr_runner_Execution_Copy#afterSuite</h3><table class="result"><tr class="param"><th>Parameter #1</th></tr><tr class="param stripe"><td>org.testng.TestRunner@3c9e19de</td></tr><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.NullPointerException: Cannot invoke &quot;String.replace(java.lang.CharSequence, java.lang.CharSequence)&quot; because the return value of &quot;java.util.Properties.getProperty(String)&quot; is null
+	at knr_runner_Execution.Knr_runner_Execution_Copy.afterSuite(Knr_runner_Execution_Copy.java:520)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
+	at org.testng.internal.MethodInvocationHelper.invokeMethodConsideringTimeout(MethodInvocationHelper.java:62)
+	at org.testng.internal.ConfigInvoker.invokeConfigurationMethod(ConfigInvoker.java:385)
+	at org.testng.internal.ConfigInvoker.invokeConfigurations(ConfigInvoker.java:321)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:344)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:276)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1212)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1134)
+	at org.testng.TestNG.runSuites(TestNG.java:1063)
+	at org.testng.TestNG.run(TestNG.java:1031)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
+</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m1">knr_runner_Execution.Knr_runner_Execution_Copy#testCase6</h3><table class="result"><tr class="param"><th>Parameter #1</th><th>Parameter #2</th><th>Parameter #3</th></tr><tr class="param stripe"><td>2004214077</td><td>dataProcessing.KnrRCReadExcelFiles$StudentInfo@64138b0c</td><td>SURGERY</td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
 </body>
 </html>

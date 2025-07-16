@@ -44,6 +44,7 @@ import browsers.BrowserManager;
 import dataProcessing.KnrRCReadExcelFiles;
 import knrPageModules.KnrLoginPage;
 import knrPageModules.KnrReportEnrollmentPage;
+import knrPageModules.KnrReportEnrollmentPageCopy;
 import knrPageModules.KnrReportEnrollmentPageForAddtionalParameter;
 
 
@@ -73,7 +74,7 @@ import knrPageModules.KnrReportEnrollmentPageForAddtionalParameter;
 		KnrLoginPage knrLogin = new KnrLoginPage();
 
 
-		KnrReportEnrollmentPage knrEnrollment = new  KnrReportEnrollmentPage();
+		KnrReportEnrollmentPageCopy knrEnrollment = new  KnrReportEnrollmentPageCopy();
 
 		KnrReportEnrollmentPageForAddtionalParameter KnrEnrollmentPageForAdditionalParameter = new  KnrReportEnrollmentPageForAddtionalParameter();
 		
@@ -210,18 +211,18 @@ import knrPageModules.KnrReportEnrollmentPageForAddtionalParameter;
 	        String paper2 = marks.length > 1 ? marks[1] : "";
 	        String paper3 = marks.length > 2 ? marks[2] : "";
 	        String paper4 =  marks.length > 3 ? marks[3] : "";
-	        String theoryExam =marks.length > 4 ? marks[4] : "";
-	        String practicalExam = marks.length > 5 ? marks[5] : "";
-	        String examTotal = marks.length > 6 ? marks[6] : "";
+	        String theoryExamTotal =marks.length > 4 ? marks[4] : "";
+	        String practicalExamTotal = marks.length > 5 ? marks[5] : "";
+	        String grandTotal = marks.length > 6 ? marks[6] : "";
 
 	        System.out.println("Subject: " + subjectName);
 	        System.out.println("  Paper 1: " + paper1);
 	        System.out.println("  Paper 2: " + paper2);
 	        System.out.println("  Paper 3: " + paper3);
 	        System.out.println("  Paper 4: " + paper4);
-	        System.out.println("  Theory Exam: " + theoryExam);
-	        System.out.println("  Practical Exam: " + practicalExam);
-	        System.out.println("  Exam Total: " + examTotal);
+	        System.out.println("  Theory Exam: " + theoryExamTotal);
+	        System.out.println("  Practical Exam: " + practicalExamTotal);
+	        System.out.println("  Exam Total: " + grandTotal);
 
 	//        knrEnrollment.monitorNetworkDuringTest(testCaseName);
 	        System.out.println("=========================");
@@ -235,7 +236,7 @@ import knrPageModules.KnrReportEnrollmentPageForAddtionalParameter;
 
 	        knrEnrollment.downloadPdfReportValidation(
 	        		testCaseScenario, regNo,
-	            paper1, paper2, paper3,paper4, theoryExam,practicalExam, examTotal, subjectToFind
+	            paper1, paper2, paper3,paper4, theoryExamTotal,practicalExamTotal, grandTotal, subjectToFind
 	        );
 	    }
 	    

@@ -568,7 +568,10 @@ public class KnrReportEnrollmentPageForAddtionalParameter  extends BasicFunction
 			System.out.println(subjectToFind+"subjectToFind");
 			// Method to match the paterns
 			// Method to match the paterns
-			processPdfBasedOnSubjectPattern(latestFile, regno, paper1, paper2, paper3, theoryExam, praticalExam,
+			KnrReportEnrollmentPageCourseNameValidation PageCourseNameValidation = new  KnrReportEnrollmentPageCourseNameValidation();
+			
+			
+			PageCourseNameValidation.processPdfBasedOnCoursePattern(latestFile, regno, paper1, paper2, paper3, theoryExam, praticalExam,
 					examTotal, subjectToFind,theoryInt,theoryTh,praticalInt,praticalPractical, praticalViva, testCaseName);
 						}
 			
@@ -711,39 +714,7 @@ public class KnrReportEnrollmentPageForAddtionalParameter  extends BasicFunction
 			                Pattern.MULTILINE);
 */
 			        
-			        Pattern marksPattern =
-		//	      
-	//		    "^(?!Fail|Pass|AP|NE|AB|Theory|Practical|Grand Total|Controller of Examinations|Principal)\\s*"+ 
-
-			//				"([A-Za-z &'\\-\\(\\),]+(?:\\n[A-Za-z &'\\-\\(\\),]+)*)\\s+"+ 			
-			//		  		  "^(?:([^\\d\\n].*?)\\s+)?" +
-		//	"(?m)^(?:((?:[^\\d\\n].*?(?:\\R[^\\d\\n].*?)*)?)\\s+)?"+      	    
-		
-			        		Pattern.compile(
-		        			     "(?m)^\\s*([A-Z ,&'()\\-/]+(?:\\R\\s*[A-Z ,&'()\\-]+)*?)\\s+" 
-			        			
-			        			   	+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
-			 
-   									+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
-			        				
-   									+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
-			        				
-		        			    	+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
-			        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
-			        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
-			        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
-			        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
-			        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
-			        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
-			        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
-			        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
-			        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
-			        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
-			        			    + "(AP|Pass|Fail|AB|NE|NR|NE\\s*\\(AT\\)|---)$",
-			        			    Pattern.DOTALL | Pattern.MULTILINE
-			        			);
-			        	
-			    
+			   
 
 
 			        
@@ -770,16 +741,12 @@ public class KnrReportEnrollmentPageForAddtionalParameter  extends BasicFunction
 //			                Pattern.MULTILINE);
 //*/
 
-					Matcher matcher = marksPattern.matcher(text);
+				
 
 					
 					
 					
-					Pattern bdsPattern = Pattern.compile(
-						    "(?<subject>(?:[A-Z ,]+(?:\\n)?)+)\\s+" + 
-						    "((?:\\d+|---|NA|AB|NE(?:\\s*\\(AT\\))?|NR)\\s*(?:\\(\\s*F\\s*\\))?\\s*)+",
-						    Pattern.MULTILINE
-						);
+					
 		
 					
 				
@@ -788,7 +755,33 @@ public class KnrReportEnrollmentPageForAddtionalParameter  extends BasicFunction
 						
 						
 						if (matcher1.group().contains("B.Sc.")) {
-				
+						     Pattern marksPattern =
+
+						        		Pattern.compile(
+					        			     "(?m)^\\s*([A-Z ,&'()\\-/]+(?:\\R\\s*[A-Z ,&'()\\-]+)*?)\\s+" 
+						        			
+						        			   	+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+						 
+			   									+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+						        				
+			   									+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+						        				
+					        			    	+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+						        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+						        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+						        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+						        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+						        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+						        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+						        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+						        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+						        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+						        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+						        			    + "(AP|Pass|Fail|AB|NE|NR|NE\\s*\\(AT\\)|---)$",
+						        			    Pattern.DOTALL | Pattern.MULTILINE
+						        			);
+						 	Matcher matcher = marksPattern.matcher(text);
+						    
 						System.out.println("==============");
 						subject = matcher.group(1).trim();
 
@@ -1167,6 +1160,34 @@ public class KnrReportEnrollmentPageForAddtionalParameter  extends BasicFunction
 			
 			
 	else if (matcher1.group().contains("M.Sc.")) {
+		
+	     Pattern marksPattern =
+
+	        		Pattern.compile(
+     			     "(?m)^\\s*([A-Z ,&'()\\-/]+(?:\\R\\s*[A-Z ,&'()\\-]+)*?)\\s+" 
+	        			
+	        			   	+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+	 
+							+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+	        				
+							+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+	        				
+     			    	+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+	        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+	        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+	        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+	        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+	        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+	        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+	        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+	        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+	        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+	        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+	        			    + "(AP|Pass|Fail|AB|NE|NR|NE\\s*\\(AT\\)|---)$",
+	        			    Pattern.DOTALL | Pattern.MULTILINE
+	        			);
+	 	Matcher matcher = marksPattern.matcher(text);
+
 							
 							System.out.println("==============");
 							subject = matcher.group(1).trim();
@@ -2082,47 +2103,57 @@ theoryPlusPracticalSecMark.equals("---") || theoryPlusPracticalSecMark.equals("N
 						
 		
 		else if(matcher1.group().contains("BDS")) {
+		     Pattern marksPattern =
 
-			String bdsSubject =matcher.group(1);
-			
-	//		System.out.println("bdsSubject:" +bdsSubject);
-			
-		
+		    		 Pattern.compile(
+		    				    "(?m)^\\s*(?!Theory|Result|Subject|Paper)([A-Z ,&'()\\-/]+(?:\\R\\s*[A-Z ,&'()\\-]+)*?)\\s+" 
 
-			String[] bdsSubjects = bdsSubject.split("\\n");
-			
-			System.out.println(bdsSubjects[0]);
-			System.out.println(bdsSubjects[1]);
-			String subjectName = bdsSubjects[bdsSubjects.length - 1];  // second-to-last line
-		//	System.out.println(subjectName);
+		        			   	+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+		 
+								+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+		        				
+								+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+		        				
+	        			    	+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+		        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+		        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+		        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+		        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+		        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+		        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+		        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+		        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+		        		 
+		        			    + "(AP|Pass|Fail)",
+		        			    Pattern.DOTALL | Pattern.MULTILINE
+		        			);
+		     
+		     
+		     
+		 	Matcher matcher = marksPattern.matcher(text);
 
+		 	while (matcher.find()) {
+		 		subject =matcher.group(1);
 			
-	
-			String[] bdsSubjectsWithMark = subjectName.split("(?=\\d+$)");  // Splits before the number
+			System.out.println("bdsSubject:" +subject);
+
+//			
+			String bdsTheoryThPlusIntVivaMaxMark =matcher.group(2);
 			
-			subject = bdsSubjectsWithMark[0];
-			System.out.println(bdsSubjectsWithMark[0]); // ORAL MEDICINE AND RADIOLOGY
-		//	System.out.println(bdsSubjectsWithMark[1]); // 100
-		
-			
-			System.out.println("subejekjsdkj" + bdsSubjectsWithMark);
-			
-			String bdsTheoryThPlusIntVivaMaxMark = bdsSubjectsWithMark[1];
-			
-			String bdsTheoryInt =matcher.group(2);
-			String bdsTheoryTh = matcher.group(3);
-			String bdsTheoryThViva = matcher.group(4);
-			String bdsTheoryThPlusIntVivaSecMark = matcher.group(5);
-   String practicalPlusIntMaxMark = matcher.group(6);
+			String bdsTheoryInt =matcher.group(3);
+			String bdsTheoryTh = matcher.group(4);
+			String bdsTheoryThViva = matcher.group(5);
+			String bdsTheoryThPlusIntVivaSecMark = matcher.group(6);
+   String practicalPlusIntMaxMark = matcher.group(7);
   
-   String practicalInt = matcher.group(7);
-   String bdsPracticalPractical = matcher.group(8);
-   String practicalVivaPR = matcher.group(9);
-   String practicalTotalSecMarks = matcher.group(10);				   
+   String practicalInt = matcher.group(8);
+   String bdsPracticalPractical = matcher.group(9);
+   String practicalVivaPR = matcher.group(10);
+   String practicalTotalSecMarks = matcher.group(11);				   
 
-  String thPlusPracticalMaxMark =  matcher.group(11);
-  String thPlusPracticalSecMark = matcher.group(12);
-	status =	 matcher.group(13); 
+  String thPlusPracticalMaxMark =  matcher.group(12);
+  String thPlusPracticalSecMark = matcher.group(13);
+	status =	 matcher.group(14); 
 
 
 System.out.println("==============");
@@ -2433,7 +2464,7 @@ try {
 
 
 }
-						
+		 	}//while					
 		}}
 						
 						catch(Exception e) {
@@ -4572,10 +4603,10 @@ System.out.println("\nThe Following Registration number " + Regno
 				try {
 					if (finalTheoryMark == Paper1) {
 						System.out.println(
-								"Both " + Paper1 + " and " + finalTheoryMark + " for the following Register "
+								"Both Excel " + Paper1 + " and " + finalTheoryMark + " for the following Register "
 										+ regno + " number data are same mark");
 						testCaseScenario.log(Status.PASS,
-								"Both " + Paper1 + " and " + finalTheoryMark + " for the following Register "
+								"Both Excel " + Paper1 + " and " + finalTheoryMark + " for the following Register "
 										+ regno + " number data are same mark");
 
 					}

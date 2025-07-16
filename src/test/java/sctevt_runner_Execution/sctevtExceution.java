@@ -39,6 +39,7 @@ import dataProcessing.SctevtResultReadExcelFile;
 import pageObjMod.SctevtPom;
 import scevtPageModules.ScevtLoginPage;
 import scevtPageModules.Scte_VtResultPage;
+
 import scevtPageModules.SctevtExamHistoryRegNoSearchPage;
 import scevtPageModules.SctevtExamHistoryRegNoSearchPage1;
 
@@ -51,13 +52,16 @@ public class SctevtExceution  extends BrowserManager {
 	 ExtentReports extentReport ;
 	 ExtentSparkReporter report ;
 	 ExtentTest testCaseName;
-		private static boolean isTestCaseEnrollSet1 = false; //assigning as false to run only only time 
+		private static boolean isTestCaseEnrollSet = false; //assigning as false to run only only time 
 	
 		ScevtLoginPage scevtLoginPage = new ScevtLoginPage();
 		SctevtExamHistoryRegNoSearchPage1 SctevtExamHistoryRegNoSearchPage = new SctevtExamHistoryRegNoSearchPage1(); 
-		
-		
 		Scte_VtResultPage Scte_VtResultPage =new Scte_VtResultPage();
+		
+		
+		
+		
+		
 		@DataProvider(name ="ScTE&VT_Result_Process")
 
 	    public Object[][] getDataScTEandVTForResultProcess() throws IOException {
@@ -138,13 +142,13 @@ public class SctevtExceution  extends BrowserManager {
 
 		
 //Fpr SCTE&VT result process project
-@Test(priority = 1, enabled = false, dataProvider = "ScTE&VT_Result_Process",description = "ScTE&VT_Result_Process")
+@Test(priority = 1, enabled = true, dataProvider = "ScTE&VT_Result_Process",description = "ScTE&VT_Result_Process")
 public void ScTEandVT(String regNo, SctevtResultReadExcelFile.StudentInfo studentInfo,String subjectToFind) throws InterruptedException, IOException, AWTException {
 	
-    if (testCaseName == null) {
-     
-  	  Browser_Launch();
+    if (!isTestCaseEnrollSet) {
   
+  	  Browser_Launch();
+      isTestCaseEnrollSet = true;
     }
     System.out.println("=========================");
    
@@ -163,10 +167,18 @@ public void ScTEandVT(String regNo, SctevtResultReadExcelFile.StudentInfo studen
    	  for (Map.Entry<String, String> entry : subjects.entrySet()) {
 	        String subjectName = entry.getKey();
 
-	    
+	    System.out.println(subjectName);
+	        
 	 	    String[] marks = entry.getValue().split("=");
 	 	    
-	 	    String semesterMark = marks.length > 0 ? marks[0] : "";
+	 	    System.out.println(marks[0]);
+	 	   String[] marks1 = marks[0].split(";\\s*");
+	 	   
+	 	   String semesterMark = marks1[0];
+	 	//   String sessionalMark = marks1[1];
+	 	   
+	 	   
+	 	
 	     
 	 	    if (!subjectName.equalsIgnoreCase(subjectToFind)) {
     
@@ -198,6 +210,8 @@ public void ScTEandVT(String regNo, SctevtResultReadExcelFile.StudentInfo studen
 	    		}	
 	   			
 	   			
+	    		
+	    		System.out.println("semesterMark"+semesterMark);
 	   			Scte_VtResultPage.ScTEVT_ResultProcess(regNo, examSemester, subjectName,semesterMark, testCaseName);
 	   		   processedRegNos.add(regNoWithSemester);
 	   		   
@@ -230,11 +244,11 @@ public void ScTEandVT(String regNo, SctevtResultReadExcelFile.StudentInfo studen
 
 
 //For SCTE&VT login project
-@Test(priority = 2, enabled = true, dataProvider = "ScTE&VTLogin", description = "ScTEVTLogin")
+@Test(priority = 2, enabled = false, dataProvider = "ScTE&VTLogin", description = "ScTEVTLogin")
 public void ScTEandVT2(String regNo, SctevtResultReadExcelFile.StudentInfo studentInfo, String subjectToFind) throws InterruptedException, IOException, AWTException {
  
- if (testCaseName == null) {
-
+	 if (!isTestCaseEnrollSet) {
+	        isTestCaseEnrollSet = true;
      Browser_Launch();
      scevtLoginPage.login();
  }
@@ -248,7 +262,7 @@ public void ScTEandVT2(String regNo, SctevtResultReadExcelFile.StudentInfo stude
 
  if (!processedRegNos.contains(regNoWithSemester)) {
 
-	  testCaseName = extentReport.createTest("Report Card Enrollment Page Actions for the following register number: " + regNo + " and for the semester ");
+	  testCaseName = extentReport.createTest("Report Card Enrollment Page Actions for the following register number: " + regNo + " and for the semester " +examSemester);
 
      System.out.println("Starting testCase execution for the semester " + examSemester + " and the reg: " + regNo);
      System.out.println("=========================");

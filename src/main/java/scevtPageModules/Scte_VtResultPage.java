@@ -214,13 +214,13 @@ public class Scte_VtResultPage  extends BasicFunctions {
 
 	        // Find all rows in the table
 	        List<WebElement> rows = driver.findElements(By.xpath("//table[@id='tbl-results-marks']//tbody/tr	"));
-
+	      	double needed =0.0;
 	        StringBuilder result = new StringBuilder("Result: ");
 	        boolean hasBacklog1 = false;
 	      	List<WebElement> thCells = driver.findElements(By.xpath("//table[@id='tbl-results-marks']//tbody/tr/td[7]"));
 	      	List<WebElement> subjectCells = driver.findElements(By.xpath("//table[@id='tbl-results-marks']//tbody/tr/td[2]"));
 	      	List <WebElement> subjectCodeAndThCells = driver.findElements(By.xpath("//table[@id='tbl-results-marks']//tbody/tr[td[1] and td[7]]"));
-	      	
+	      	List<Double> neededList = new ArrayList<>();	
 	          // Find all rows in the table
 
 	      	        int count = 0; // Counter to track rows processed
@@ -287,9 +287,9 @@ public class Scte_VtResultPage  extends BasicFunctions {
       	        System.out.println(newMark);
       	        System.out.println(mark);
       	        
-      	        System.out.println(marksTHText.equals(newMark));
+      	        System.out.println(marksTHText.equals((newMark)));
       	        
-      	        	if(marksTHText.equals(newMark)) {
+      	        	if(marksTHText.equals((newMark))) {
       	        	    System.out.println(subjectDetails + " subject Th Mark " +marksTHText +" from UI is Equals with Excel Mark " + newMark);
   	                    testCaseScenario.log(Status.PASS, subjectDetails + " subject Th Mark " +marksTHText +" from UI is Equals with Excel Mark " + newMark);
       	        		
@@ -319,15 +319,20 @@ public class Scte_VtResultPage  extends BasicFunctions {
 	      	    if (!marksTotalText.isEmpty() && !passMarksText.isEmpty()) {
 	      	        if (marksTHText.equalsIgnoreCase("A") || marksIAText.equalsIgnoreCase("A") || marksTotalText.equalsIgnoreCase("A")) {  
 	      	            hasBacklog = true;
-	      	            absentCount++;
+	      	        	needed =0.0;      
 	      	            backlogSubjects.append(subjectCode).append(",");
 	      	            System.out.println(subjectDetails + " : Absent with Total Mark " + marksTotalText);
+	      	          neededList.add(needed);
+	      	            System.out.println(needed);
+	      	            
 	      	            testCaseScenario.log(Status.PASS, subjectDetails + " : Absent with Total Mark " + marksTotalText);
 	      	        } else if (marksTHText.equals("-") || marksIAText.equals("-") || marksTotalText.equals("-")) {
 	      	            hasMP = true;
 	      	            mpSubjects.append(subjectCode).append(" - ").append(subjectDetails).append(" : -\n");
 	      	          System.out.println(subjectDetails + " : Failed with Th mark " + marksTHText + " and Total Marks " + marksTotalText);
 	                    testCaseScenario.log(Status.PASS, subjectDetails + " : Failed with Th mark " + marksTHText + " and Total Marks " + marksTotalText);
+	                	needed =0.0;   
+	                    neededList.add(needed);
 	      	        } else {
 	      	            int passMarks = Integer.parseInt(passMarksText);
 	      	            int totalSubjectMarks;
@@ -363,7 +368,7 @@ public class Scte_VtResultPage  extends BasicFunctions {
 	      	                totalSubjectMarks = subjectMarksTH + subjectMarksIA;
 	      	              
 	      	                
-	      	                if (subjectMarksTH == 0) {
+	      	                if (subjectMarksTH == 0 && uiBacklog.contains("DI") ) {
 	      	                    if (totalMarksSum > 300 && Integer.parseInt(subjectCode.replaceAll("\\D", "")) > 300) {
 	      	                        marksTHText = "DI-" + subjectCode;
 	      	                    } else {
@@ -375,7 +380,7 @@ public class Scte_VtResultPage  extends BasicFunctions {
 	      	                    testCaseScenario.log(Status.PASS, subjectDetails + " : TH mark is 0, updated to " + marksTHText);
 	      	                } 
 	      	                
-	      	              else if (semesters.contains("Semester - Ex-Regular Exam - Mercy Exam") ) {
+	      	                else   if (semesters.contains("Semester - Ex-Regular Exam - Mercy Exam") ) {
 	      	            	  
 	      	            	 
 	      	            	  
@@ -438,17 +443,58 @@ public class Scte_VtResultPage  extends BasicFunctions {
 	      	                }
 	      	                else if (subjectMarksTH < 28 || totalSubjectMarks < passMarks) {
 	      	                	
+	      	              
 	      	                	
-	      	                
-	      	                
-	      	                
-	      	                    hasBacklog = true;
-	      	                    backlogSubjects.append(subjectCode).append(",");
-	      	                    System.out.println(subjectDetails + " : Failed with Th mark " + subjectMarksTH + " and Total Marks " + totalSubjectMarks);
-	      	                    testCaseScenario.log(Status.PASS, subjectDetails + " : Failed with Th mark " + subjectMarksTH + " and Total Marks " + totalSubjectMarks);
-
+	      	                if(subjectMarksTH>=20 && subjectMarksTH<28) {
 	      	                	
+	      	                	needed = 28 - subjectMarksTH;
+	      	                  System.out.println("needed:" + needed);
+	      	                	System.out.println(needed);    
 	      	                	
+	      	                  testCaseScenario.log(Status.PASS,"subjectMarksTH: " + subjectMarksTH +" needed: "+ needed);
+	      	                  
+	      	            if(needed<=8) {
+	      	            	System.out.println("The following student " +subjectCode+ " is lesser than or equal to 8 "+needed);
+	      	              testCaseScenario.log(Status.PASS,"The following student " +subjectCode+ " is lesser than or equal to eight "+needed);
+  
+	      	            hasBacklog = true;
+  	                    backlogSubjects.append(subjectCode).append(",");
+  	                    System.out.println(subjectDetails + " : Failed with Th mark " + subjectMarksTH + " and Total Marks " + totalSubjectMarks);
+  	                    testCaseScenario.log(Status.PASS, subjectDetails + " : Failed with Th mark " + subjectMarksTH + " and Total Marks " + totalSubjectMarks);
+  	                    System.out.println("needed:" + needed);
+  	                    neededList.add(needed);
+	      	            }
+	      	            else {
+	      	            	System.out.println("The following student " +subjectCode+ " is not lesser than or equal to 8 "+needed);
+	      	              testCaseScenario.log(Status.PASS,"The following student " +subjectCode+ " is not lesser than or equal to eight "+needed);
+	      	            
+	      	            hasBacklog = true;
+  	                    backlogSubjects.append(subjectCode).append(",");
+  	                    System.out.println(subjectDetails + " : Failed with Th mark " + subjectMarksTH + " and Total Marks " + totalSubjectMarks);
+  	                    testCaseScenario.log(Status.PASS, subjectDetails + " : Failed with Th mark " + subjectMarksTH + " and Total Marks " + totalSubjectMarks);
+  	                  neededList.add(needed);
+  	                System.out.println("needed:" + needed);
+	      	            }
+	      	            
+	      	                }
+	      	                else {
+	      	                	 hasBacklog = true;
+	      	                	needed =0.0;      
+		      	                    backlogSubjects.append(subjectCode).append(",");
+		      	                    System.out.println(subjectDetails + " : Failed with Th mark " + subjectMarksTH + " and Total Marks " + totalSubjectMarks);
+		      	                    testCaseScenario.log(Status.PASS, subjectDetails + " : Failed with Th mark " + subjectMarksTH + " and Total Marks " + totalSubjectMarks);
+		      	                  neededList.add(needed);
+		      	                System.out.println("needed:" + needed);
+	      	                }
+	      	                
+//	      	                
+//	      	                    hasBacklog = true;
+//	      	                    backlogSubjects.append(subjectCode).append(",");
+//	      	                    System.out.println(subjectDetails + " : Failed with Th mark " + subjectMarksTH + " and Total Marks " + totalSubjectMarks);
+//	      	                    testCaseScenario.log(Status.PASS, subjectDetails + " : Failed with Th mark " + subjectMarksTH + " and Total Marks " + totalSubjectMarks);
+//
+//	      	                	
+	      	           
 	      	                } else {
 	      	                    System.out.println(subjectDetails + " : Passed with Th mark " + subjectMarksTH + " and Total Marks " + totalSubjectMarks);
 	      	                    testCaseScenario.log(Status.PASS, subjectDetails + " : Passed with Th mark " + subjectMarksTH + " and Total Marks " + totalSubjectMarks);
@@ -457,6 +503,24 @@ public class Scte_VtResultPage  extends BasicFunctions {
 	      	        }
 	      	    }
 	      	      }
+	      	      
+	      	    testCaseScenario.log(Status.PASS,"neededList "    	+neededList);
+		      	   double totalNeededList=0.0;
+		      	   
+		      	   if(!neededList.contains(0.0)) {
+		      		   for(int i=0;i<neededList.size();i++) {
+		      			 totalNeededList += neededList.get(i);
+		      			 
+		      			 System.out.println(totalNeededList);
+		      			    
+		      					   }
+		      		  testCaseScenario.log(Status.PASS,"SummaCheck1 "    	+totalNeededList);
+		      		 System.out.println(totalNeededList);
+		      	   }
+		      	   else {
+		      		  testCaseScenario.log(Status.PASS,"SummaCheck2 "    	+totalNeededList);
+		      		 System.out.println(totalNeededList);
+		      	   }
 	      	    // Process formattedScriptBacklog based on backlogSubjects
 	      	    if (formattedScriptBacklog.isEmpty()) {
 	      	        formattedScriptBacklog = backlogSubjects.toString().trim().replaceAll(", $", "");
@@ -493,12 +557,32 @@ public class Scte_VtResultPage  extends BasicFunctions {
 	      	    if (mpSubjects.length() > 0) {
 	      	        System.out.println("Subjects with '-':\n" + mpSubjects.toString().trim());
 	      	    }
-
+	      	 
+	      	   
+	      	   
+	      	   
 	      	    // Compare with UI only once
 	      	    if (!comparisonDone) {
 	      	        if (formattedScriptBacklog.equalsIgnoreCase(uiBacklog)) {
 	      	            System.out.println("Backlog comparison PASS: Script - " + formattedScriptBacklog + " | UI - " + uiBacklog);
 	      	            testCaseScenario.log(Status.PASS, "Backlog comparison PASS: Script - " + formattedScriptBacklog + " | UI - " + uiBacklog);
+	      	        
+	      	            if(formattedScriptBacklog.contains("Back")) {
+	      	            	
+	      	            	if(totalNeededList > 0 && totalNeededList<=15) {
+	      	            		testCaseScenario.log(Status.FAIL, "Please check the Backlog comparison PASS: Script - " + formattedScriptBacklog + " | UI - " + uiBacklog + " Total needed List value is: "+totalNeededList);
+	      	            	System.out.println("Please check the Backlog comparison PASS: Script - " + formattedScriptBacklog + " | UI - " + uiBacklog + " Total needed List value is: "+totalNeededList);
+	      	            	
+	      	            	}
+	      	            	else {
+	      	            	testCaseScenario.log(Status.PASS, "The Backlog comparison PASS: Script - " + formattedScriptBacklog + " | UI - " + uiBacklog + " Total needed List value is: "+totalNeededList);
+	      	            	System.out.println( "The Backlog comparison PASS: Script - " + formattedScriptBacklog + " | UI - " + uiBacklog + " Total needed List value is: "+totalNeededList);
+	      	            	
+	      	            	}  	            	
+	      	            	
+	      	            	
+	      	            }
+	      	        
 	      	        }
 	      	        
 	      	        else if ((formattedScriptBacklog.equals("Pass")) && (uiBacklog.equals("Pass(G)"))) {
@@ -644,6 +728,15 @@ public class Scte_VtResultPage  extends BasicFunctions {
 			}
 		}
 	    	
-	    	
+	 public void checkingGrace() {
+	       List<WebElement> rows = driver.findElements(By.xpath("//table[@id='tbl-results-marks']//tbody/tr	"));
+
+	        StringBuilder result = new StringBuilder("Result: ");
+	        boolean hasBacklog1 = false;
+	      	List<WebElement> thCells = driver.findElements(By.xpath("//table[@id='tbl-results-marks']//tbody/tr/td[7]"));
+	      	List<WebElement> subjectCells = driver.findElements(By.xpath("//table[@id='tbl-results-marks']//tbody/tr/td[2]"));
+	      	List <WebElement> subjectCodeAndThCells = driver.findElements(By.xpath("//table[@id='tbl-results-marks']//tbody/tr[td[1] and td[7]]"));
+	      	
+	 }
 	    	
 }

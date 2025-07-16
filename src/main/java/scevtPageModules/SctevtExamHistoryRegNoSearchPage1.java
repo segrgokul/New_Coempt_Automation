@@ -19,6 +19,7 @@ import browsers.BrowserManager;
 import pageObjMod.SctevtPom;
 
 public class SctevtExamHistoryRegNoSearchPage1 extends BasicFunctions {
+	private static boolean isTestCaseCourseSet = false;
 	 public void resultPageNavigation(Object regno, Object semester,ExtentTest testCaseName) throws IOException {
 		 
 		 
@@ -140,7 +141,7 @@ public void regnoValidation(Object regNo, Object semester, Map<String, String> s
         List<WebElement> currentExamMarks = driver.findElements(By.xpath(
                 "(//h5[normalize-space(text())='SEMESTER - " + semester + "']/ancestor::div[contains(@class, 'nk-block-head')]" +
                         "/following-sibling::div//table[@class='table table-orders']//tbody[@class='tb-odr-body'])[3]/tr[last()]/td"));
-
+        Map<String, Double> iaMarkMap = new HashMap<>();
         Map<String, String> currentexamData = new LinkedHashMap<>();
         int minSize = Math.min(currentHeadingNames.size(), currentExamMarks.size());
         boolean hasBacklog = false;
@@ -161,84 +162,108 @@ public void regnoValidation(Object regNo, Object semester, Map<String, String> s
         testCaseScenario.log(Status.INFO, "Current Total Mark: " + currentTotalMark);
         // Log full current exam data
 
+        Map<String, Double> theoryMarksMap = new HashMap<>();
+        double totalMarkWithIA=0.0;
+        double iaMark=0.0;
+        
         for (Map.Entry<String, String> entry : currentexamData.entrySet()) {
-    	    System.out.println(entry.getKey() + " => " + entry.getValue());
-    	//    testCaseScenario.log(Status.PASS, entry.getKey() + " => " + entry.getValue());
-    	    String key = entry.getKey();
-    	    String valueStr = entry.getValue();
+            String key = entry.getKey();
+            String valueStr = entry.getValue();
+            System.out.println(key);
+            System.out.println(valueStr);
 
-    	    // Logging
-    	 //   System.out.println(key + " => " + valueStr);
-    	 //   testCaseScenario.log(Status.PASS, key + " => " + valueStr);
+            
+            
+            // Skip non-subject keys
+            if (key.contains("IA")||key.equalsIgnoreCase("PR") || key.equalsIgnoreCase("Sessional") ||
+                key.equalsIgnoreCase("Total") || key.equalsIgnoreCase("Result") ||
+                key.equalsIgnoreCase("ExamName")) {
+                continue;
+            }
 
-    	    // Skip IA, Sessional, Total, Result, and ExamName
-    	    if (key.contains("IA")||key.contains("PR") || key.equalsIgnoreCase("Sessional") ||
-    	        key.equalsIgnoreCase("Total") || key.equalsIgnoreCase("Result") ||
-    	        key.equalsIgnoreCase("ExamName")) {
-    	        continue;
-    	    }
-
-    	    // Convert value to number and check <= 28
-    	    double value =0.0;
-    	    try {
-    	    	if(!valueStr.equals("A")) {
-        	        value = Double.parseDouble(valueStr);
-        	        if (value < 28) {
-        	            hasBacklog = true;
-  	                    backlogSubjects.append(key).append(",");
-  	    
-        	        	
-        	            System.out.println("The following register number" +regNo+" for the Subject " + key + " has failed marks: " + value);
-        	            testCaseScenario.log(Status.PASS, "The following register number" +regNo+" for the Subject " + key + " has failed marks: " + value);
-        	        }else if (value >= 28) {
-        	            System.out.println("The following register number" +regNo+" for the Subject " + key + " has passed marks: " + value);
-        	            testCaseScenario.log(Status.PASS, "The following register number" +regNo+" for the Subject " + key + " has passed marks: " + value);
-        	   	
-        	        }
-        	        
-        	        else {
-        	            System.out.println("✅ Subject " + key + " passed with marks: " + value);
-        	            testCaseScenario.log(Status.PASS, "✅ Subject " + key + " passed with marks: " + value);
-                	   	
-        	        }
-    	    	}
+            // Process both TH and IA together
+            if (key.contains("TH")) {
+           
+                String thStr = currentexamData.get(key);        // TH1
+                String iaStr = currentexamData.get(key + "IA"); // TH1 IA
+                String baseSubject = key.replace("IA", "").trim();  // TH1 or TH1 IA → TH1
+                
+                System.out.println(thStr);
+                System.out.println(iaStr);
+                System.out.println(baseSubject);
+                
+                if (!thStr.equals("A") && !iaStr.equals("A")) {
+                    try {
+                        double totalThMark = Double.parseDouble(thStr);
+                        iaMark = Double.parseDouble(iaStr);
+                        totalMarkWithIA = totalThMark + iaMark;
+                        System.out.println(totalThMark);
+                        System.out.println(iaMark);
+                        iaMarkMap.put(baseSubject, iaMark);  // store each IA mark
+                        System.out.println(totalMarkWithIA);
+                        
+                        // Optional: check pass/fail with totalWithIA
+                        if (totalThMark < 28 || totalMarkWithIA <35 ) {
+                            hasBacklog = true;
+                            backlogSubjects.append(baseSubject).append(",");
+                            System.out.println("The following register number " + regNo + " failed in " + baseSubject +" with Th mark " + totalThMark + " and Total Marks (with IA): " + totalMarkWithIA );
+                            testCaseScenario.log(Status.PASS, "The following register number " + regNo + " failed in " + baseSubject +" with Th mark " + totalThMark + " and Total Marks (with IA): " + totalMarkWithIA );
+                        } else if(totalThMark >= 28 || totalMarkWithIA >= 35 ) {
+                            System.out.println("The following register number " + regNo + " Passed in " + baseSubject +" with Th mark " + totalThMark + " and Total Marks (with IA): " + totalMarkWithIA );
+                            testCaseScenario.log(Status.PASS,"The following register number " + regNo + " Passed in " + baseSubject +" with Th mark " + totalThMark + " and Total Marks (with IA): " + totalMarkWithIA );
+                        }
+                        else {
+                        	
+                        	   testCaseScenario.log(Status.FAIL,"Please check The following register number " + regNo + " failed in " + baseSubject +" with Th mark " + totalThMark + " and Total Marks (with IA): " + totalMarkWithIA ,MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
+                        	
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("⚠️ Invalid number format in TH or IA for: " + baseSubject);
+                        testCaseScenario.log(Status.FAIL,
+                            "⚠️ Invalid number format in TH or IA for: " + baseSubject);
+                    }
+                }
     	    	else if(valueStr.equals("A")) {
     	    		
-    	    			hasBacklog = true;
-	      	            absentCount++;
-	      	            backlogSubjects.append(key).append(",");
+	    			hasBacklog = true;
+      	            absentCount++;
+      	            backlogSubjects.append(key).append(",");
 
-    	            System.out.println("The following register number" +regNo+" for the Subject " + key + " has Absent " + valueStr);
-    	            testCaseScenario.log(Status.PASS, "The following register number" +regNo+" for the Subject " + key + " has Absent " + valueStr);
-            	   	
-    	    	}
-    	    		
-    	    	
-    	      
-    	    } catch (NumberFormatException e) {
-    	        System.out.println("⚠️ Could not parse value for: " + key);
-    	        testCaseScenario.log(Status.FAIL," Could not parse value for: " + key);
-          	  
-    	    }
+	            System.out.println("The following register number " +regNo+" for the Subject " + key + " has Absent " + valueStr);
+	            testCaseScenario.log(Status.PASS, "The following register number " +regNo+" for the Subject " + key + " has Absent " + valueStr);
+        	   	
+	    	}
+	    		
+            }
+      
         }
               
-            
-      
-      	       if (currentResultValue.equals("Pass(G)")) {
-    	        	
+        double remainingGraceMark = 0.0;
+        //Grace calucation with excel
+     
+      	       
+      	    	
       	         // Prepare grace mark if Pass(G)
-      	          double remainingGraceMark = 0.0;
+      	  
       	          if ("Pass(G)".equals(currentResultValue)) {
-      	              List<WebElement> previousHeadings = driver.findElements(By.xpath(
-      	                  "(//h5[text()='SEMESTER - " + semester + "']/ancestor::div[contains(@class, 'nk-block-head')]" +
-      	                  "/following-sibling::div//table[@class='table table-orders'])[last()]//th"));
+      	        	  List<WebElement> previousHeadings = driver.findElements(By.xpath(
+      	                  "(//h5[text()='SEMESTER - " + semester + "']/ancestor::div[contains(@class, 'nk-block-head')]/following-sibling::div//table[@class='table table-orders'])[last()]//th"));
 
       	              List<WebElement> previousMarks = driver.findElements(By.xpath(
-      	                  "(//h5[text()='SEMESTER - " + semester + "']/ancestor::div[contains(@class, 'nk-block-head')]" +
-      	                  "/following-sibling::div//table[@class='table table-orders']//tbody[@class='tb-odr-body'])[3]/tr[1]/td"));
-
+      	                  "(//h5[text()='SEMESTER - " + semester + "']/ancestor::div[contains(@class, 'nk-block-head')]/following-sibling::div//table[@class='table table-orders']//tbody[@class='tb-odr-body'])[3]/tr[1]/td"));
+      	            
+       	        	
+       	        
+      	   
+      	              List<WebElement> tableRowSize = driver.findElements(By.xpath("(//h5[text()='SEMESTER - " + semester + "']/ancestor::div[contains(@class, 'nk-block-head')]/following-sibling::div//table[@class='table table-orders']//tbody[@class='tb-odr-body'])[3]/tr"));
+      	              
       	              boolean hasPreviousSessional = previousHeadings.stream()
       	                  .anyMatch(heading -> heading.getText().trim().equalsIgnoreCase("Sessional"));
+
+      	              System.out.println("tableRowSize.size(): "+ tableRowSize.size());
+      	              
+      	              if(tableRowSize.size()>=2) {//checking it really have s
+      	            	 testCaseScenario.log(Status.INFO, "previous Sessional heading found. EX-Regular grace logic.");
 
       	              if (hasPreviousSessional) {
       	                  Map<String, String> previousExamData = new LinkedHashMap<>();
@@ -248,30 +273,83 @@ public void regnoValidation(Object regNo, Object semester, Map<String, String> s
 
       	                  String previousSessionalMark = previousExamData.get("Sessional");
 
+      	            testCaseScenario.log(Status.INFO, "Current Sessional Mark: " + currentSessionalMark);
+      	              testCaseScenario.log(Status.INFO, "previous Sessional Mark: " + previousSessionalMark);
+      	             
+
       	                  if (previousSessionalMark != null && currentSessionalMark != null) {
       	                      remainingGraceMark = Double.parseDouble(previousSessionalMark) - Double.parseDouble(currentSessionalMark);
-      	                      testCaseScenario.log(Status.INFO, "Initial grace marks available: " + remainingGraceMark);
+      	                    testCaseScenario.log(Status.INFO, "Initial grace marks available: " + remainingGraceMark);
 
       	                      if (remainingGraceMark > 15) {
-      	                          testCaseScenario.log(Status.FAIL, "❌ Sessional mark difference exceeds 15 for RegNo: " + regNo);
+      	                    	testCaseScenario.log(Status.FAIL, "❌ Sessional mark difference exceeds 15 for RegNo: " + regNo);
       	                          return;
       	                      }
       	                  }
-      	              } else {
-      	                  testCaseScenario.log(Status.INFO, "No previous Sessional heading found. Skipping grace logic.");
-      	                  remainingGraceMark = 0.0;
+      	              } 
+      	              
+      	              
       	              }
-      	          }
+      	              //for regular cases
+      	              else {
+      	            	testCaseScenario.log(Status.INFO, "No previous Sessional heading found. Regular grace logic.");
 
+      	              String sessionalMarkExcel="";
+
+      	              
+      	              for (Map.Entry<String, String> expectedEntry : subjectsAndMarks.entrySet()) {
+        	              String subjectName = expectedEntry.getKey();
+     
+        		 	   String[] marks = expectedEntry.getValue().split(";\\s*");
+        		 	   
+        		 	   String expectedMark = marks[0];
+        		 	   sessionalMarkExcel = marks[1];
+
+         	            testCaseScenario.log(Status.INFO, "Current Sessional Mark: " + currentSessionalMark);
+         	              testCaseScenario.log(Status.INFO, "Excel Sessional Mark: " + sessionalMarkExcel);
+         	       
+        	              String expectedHeading = objectToDataType(subjectName);
+
+        	              System.out.println("subjectName: " +subjectName);
+        	              System.out.println("expectedMark: " +expectedMark);
+        	              System.out.println("expectedHeading: "+ expectedHeading);
+        	              System.out.println("sessionalMarkExcel: "+ sessionalMarkExcel);
+       	    	   }
+      	              if (sessionalMarkExcel != null && currentSessionalMark != null) {
+  	                      remainingGraceMark = Double.parseDouble(sessionalMarkExcel) - Double.parseDouble(currentSessionalMark);
+  	                    testCaseScenario.log(Status.INFO, "Initial grace marks available in Excel sessional mark: " + remainingGraceMark);
+
+  	                      if (remainingGraceMark > 15) {
+  	                    	testCaseScenario.log(Status.FAIL, "❌ Sessional mark difference exceeds 15 for RegNo: " + regNo);
+  	                          return;
+  	                      }
+  	                  }
+
+      	              }
+      	          }//if 
+      	          
+      	          
+      	        if ("Pass(G)".equals(currentResultValue)) {
+      	        ExtentTest testCaseScenario1  = testCaseScenario.createNode("GraceMark calculation for TH mark with internal mark the following register number "+regNo);
+                
       	          // Step 2: Match each expected subject
       	          for (Map.Entry<String, String> expectedEntry : subjectsAndMarks.entrySet()) {
       	              String subjectName = expectedEntry.getKey();
-      	              String expectedMark = expectedEntry.getValue();
+      	              System.out.println(subjectName);
+      	         
+      	          
+      	              
+      		 	   String[] marks = expectedEntry.getValue().split(";\\s*");
+      		 	   
+      		 	   String expectedMark = marks[0];
+      		 	   String sessionalMarkExcel = marks[1];
+
       	              String expectedHeading = objectToDataType(subjectName);
 
-      	              System.out.println(subjectName);
-      	              System.out.println(expectedMark);
-      	              System.out.println(expectedHeading);
+      	              System.out.println("subjectName: " +subjectName);
+      	              System.out.println("expectedMark: " +expectedMark);
+      	              System.out.println("expectedHeading: "+ expectedHeading);
+      	              System.out.println("sessionalMarkExcel: "+ sessionalMarkExcel);
       	              
       	              if (currentexamData.containsKey(expectedHeading)) {
       	                  String actualMark = currentexamData.get(expectedHeading).trim();
@@ -298,64 +376,155 @@ public void regnoValidation(Object regNo, Object semester, Map<String, String> s
       	                  
       	                  System.out.println(newMark);
       	                  System.out.println(actualMark);
-      	                  
+      	                	
       	                  if (actualMark.equals(newMark)) {
       	                  	
       	             	    System.out.println(expectedHeading + " subject Th Mark " +actualMark +" from UI is MATCH: with Excel Mark " + newMark);
-      	                    testCaseScenario.log(Status.PASS, expectedHeading + " subject Th Mark " +actualMark +" from UI is MATCH: with Excel Mark " + newMark);
+      	             	 testCaseScenario.log(Status.PASS, expectedHeading + " subject Th Mark " +actualMark +" from UI is MATCH: with Excel Mark " + newMark);
 
       	                  } else {
       	                	  
       	                	   System.out.println(expectedHeading + " subject Th Mark " +actualMark +" from UI is MISMATCH: with Excel Mark " + newMark+" => Expected: " + newMark + ", Found: " + actualMark );
-         	                    testCaseScenario.log(Status.PASS, expectedHeading + " subject Th Mark " +actualMark +" from UI is MISMATCH: with Excel Mark " + newMark+" =>  Expected: " + newMark + ", Found: " + actualMark );
+      	                	 testCaseScenario.log(Status.PASS, expectedHeading + " subject Th Mark " +actualMark +" from UI is MISMATCH: with Excel Mark " + newMark+" =>  Expected: " + newMark + ", Found: " + actualMark );
 
       	                      // Try to apply grace if Pass(G)
       	                      if ("Pass(G)".equals(currentResultValue)) {
+      	                    	 
+      	                    	  
       	                          double uiMark = Double.parseDouble(expectedMark);
-      	                          double needed = 28.0 - uiMark;
-
-      	                          if (needed <= 0) {
-      	                              testCaseScenario.log(Status.PASS, subjectName + " already >= 28" +newMark );
+      	                          double neededForTH = 28.0 - uiMark;
+      	                        
+      	                          
+      	                          System.out.println(uiMark);
+//      	                          System.out.println(iaMarks);
+//      	                          System.out.println(neededForTotal);
+      	                          
+      	                          if (neededForTH <= 0) {
+      	                        	testCaseScenario1.log(Status.PASS, subjectName + "Th mark is already >= 28" +newMark );
       	                              continue;
       	                          }
 
-      	                          testCaseScenario.log(Status.INFO, "Checking grace for " + subjectName + ": needed=" + needed + ", available=" + remainingGraceMark);
+      	                        testCaseScenario1.log(Status.INFO, "Checking grace for TH mark " + subjectName + ": needed=" + neededForTH + ", available=" + remainingGraceMark);
 
-      	                          double adjusted = uiMark;
-      	                          if (remainingGraceMark >= needed) {
-      	                              adjusted = uiMark + needed;
-      	                              remainingGraceMark -= needed;
+      	                          double adjustedTH = uiMark;
+      	                          if (remainingGraceMark >= neededForTH) {
+      	                        	adjustedTH = uiMark + neededForTH;
+      	                              remainingGraceMark -= neededForTH;
       	                          } else {
-      	                              adjusted = uiMark + remainingGraceMark;
+      	                        	adjustedTH = uiMark + remainingGraceMark;
       	                              remainingGraceMark = 0;
       	                          }
 
-      	                          if (Double.parseDouble(actualMark) == adjusted) {
+      	                          if (Double.parseDouble(actualMark) == adjustedTH) {
       	                          
-      	                            System.out.println(subjectName + " subject Th Mark " +adjusted +" from UI is MATCH after giving with grace: => " + adjusted);
-      	      	                    testCaseScenario.log(Status.PASS, subjectName + " subject Th Mark " +adjusted +" from UI is MATCH after giving with grace: => " + adjusted);
+      	                            System.out.println(subjectName + " subject Th Mark " +adjustedTH +" from UI is MATCH after giving with grace: => " + adjustedTH);
+      	                          testCaseScenario1.log(Status.PASS, subjectName + " subject Th Mark " +adjustedTH +" from UI is MATCH after giving with grace: => " + adjustedTH);
       	      	                  
       	      	                    formattedScriptBacklog = "Pass(G)";
 
+      	                             
       	                              
-      	                              
-      	                          } else {
+      	                          } 
+      	                      
+      	                          else {
+      	                        	  
       	                     //         testCaseScenario.log(Status.FAIL, " MISMATCH even after grace: " + subjectName + " => Expected: " + adjusted + ", Found: " + actualMark);
-      	                            System.out.println(subjectName + " subject Th Mark " +adjusted +" from UI is MISMATCH even after giving with grace: =>  Expected: " + adjusted + ", Found: " + actualMark);
-      	      	                    testCaseScenario.log(Status.FAIL, subjectName + " subject Th Mark " +adjusted +" from UI is MISMATCH even after giving with grace: =>  Expected: " + adjusted + ", Found: " + actualMark);
+      	                            System.out.println(subjectName + " subject Th Mark " +adjustedTH +" from UI is MISMATCH even after giving with grace: =>  Expected: " + adjustedTH + ", Found: " + actualMark);
+      	                          testCaseScenario1.log(Status.FAIL, subjectName + " subject Th Mark " +adjustedTH +" from UI is MISMATCH even after giving with grace: =>  Expected: " + adjustedTH + ", Found: " + actualMark);
+      	                      
+//      	                        ExtentTest testCaseScenario2  = testCaseScenario1.createNode("GraceMark calculation for Total mark with internal mark the following register number"+regNo);
 
+      	                          
+      	                          testCaseScenario1.log(Status.INFO, "Checking for grace for Total mark with internal mark the following register number"+regNo);
+      	      	            double iaMarks=0.0;
+      	      	                    if (iaMarkMap.containsKey(subjectName)) {
+      	          	               iaMarks = iaMarkMap.get(subjectName);
+      	          	              System.out.println("IA Mark for " + subjectName + ": " + iaMarks);
+      	          	          testCaseScenario1.log(Status.INFO,"IA Mark for " + subjectName + ": " + iaMarks+" following register number"+regNo);     	          	              
+      	          	              
+      	          	              // You can now use iaMark in your validation here
+      	          	          } else {
+      	          	              System.out.println("No IA mark found for " + subjectName);
+      	          	          testCaseScenario1.log(Status.INFO,"No IA mark found for " + subjectName,MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());     	          	              
+        	          	        
+      	          	          }
+      	      	           
+      	      	                   System.out.println(adjustedTH+iaMarks);
+    	                          double neededForTotal = 35.0 - (adjustedTH+iaMarks);
+    	                        
+    	                    
+    	                          
+    	                          System.out.println("neededForTotal: "+neededForTotal);
+    	                
+//    	                          System.out.println(iaMarks);
+//    	                          System.out.println(neededForTotal);
+    	                          
+    	                          if (neededForTotal <= 0) {
+    	                        	  testCaseScenario1.log(Status.PASS, subjectName + "Total mark is already >= 35" +newMark );
+    	                              continue;
+    	                          }
+
+    	                          testCaseScenario1.log(Status.INFO, "Checking grace for Total mark " + subjectName + ": needed=" + neededForTotal + ", available=" + remainingGraceMark);
+
+    	                          System.out.println("adjustedTH"+adjustedTH);
+    	                          double adjustedTotal = adjustedTH;
+    	                          if (remainingGraceMark >= neededForTotal) {
+    	                        	  adjustedTotal = adjustedTH + neededForTotal+iaMarks;
+    	                              remainingGraceMark -= neededForTotal;
+    	                          } else {
+    	                        	  adjustedTotal = adjustedTH + remainingGraceMark+iaMarks;
+    	                              remainingGraceMark = 0;
+    	                          }
+    	                  
+    	                          System.out.println("adjustedTotal"+adjustedTotal);
+    	                          System.out.println("remainingGraceMark"+remainingGraceMark);
+    	                          System.out.println("neededForTotal"+ neededForTotal);
+    	                          System.out.println(uiMark);
+    	                          System.out.println(iaMarks);
+    	                          System.out.println(remainingGraceMark);
+    	                          double uiTotalMark = Double.parseDouble(actualMark)+iaMarks;
+ 	                             
+
+    	                          if (uiTotalMark == adjustedTotal) {
+    	                          
+    	                            System.out.println(subjectName + " subject Total Mark with IA  " +uiTotalMark +" from UI is MATCH after giving with grace: => " + adjustedTotal);
+    	                            testCaseScenario1.log(Status.PASS, subjectName + " subject Total Mark with IT " +uiTotalMark +" from UI is MATCH after giving with grace: => " + adjustedTotal);
+    	      	                  
+    	      	                    formattedScriptBacklog = "Pass(G)";
+    	      	                  
+    	                          
+    	                          } else {
+    	                        	  System.out.println(subjectName + "  subject Total Mark with IA  " + uiTotalMark +" from UI is MISMATCH after giving with grace: => " + adjustedTotal);
+    	                        	  testCaseScenario1.log(Status.FAIL, subjectName + "  subject Total Mark with IA  " + uiTotalMark +" from UI is MISMATCH after giving with grace: => " + adjustedTotal);
+      	      	                    
+    	                          }
+      	      	                    
+      	      	                    
       	                          }
 
-      	                          testCaseScenario.log(Status.INFO, "Remaining grace: " + remainingGraceMark);
+      	                        testCaseScenario1.log(Status.INFO, "Remaining grace: " + remainingGraceMark);
+      	                      System.out.println( "Remaining grace: " + remainingGraceMark);
+      	                      
+      	                	if (remainingGraceMark == 0) {
+      	                  	testCaseScenario1.log(Status.PASS, "Grace mark for RegNo: " + regNo +" is equals zero "+ remainingGraceMark);
+      	                      
+      	                    }
+      	              	 else if (remainingGraceMark != 0) {
+      	                   	testCaseScenario1.log(Status.FAIL, "Grace mark for RegNo: " + regNo +" is not equals zero "+ remainingGraceMark);
+      	                       
+      	                     }
+      	              	 else {
+      	              		testCaseScenario1.log(Status.FAIL, "Please check the Grace mark for RegNo: " + regNo +" remaining grace mark "+ remainingGraceMark);
+      	                   
+      	              	 }
       	                      }
       	                  }
       	              } else {
-      	                  testCaseScenario.log(Status.FAIL, "❌ Heading not found in UI: " + expectedHeading);
+      	            	testCaseScenario.log(Status.FAIL, "❌ Heading not found in UI: " + expectedHeading);
       	              }
-      	          }
-
-      	        }
-      	        
+      	          }//for
+      	        }//if
+      	       
       	     if (formattedScriptBacklog.isEmpty()) {
        	        formattedScriptBacklog = backlogSubjects.toString().trim().replaceAll(", $", "");
        	    }
@@ -387,22 +556,27 @@ public void regnoValidation(Object regNo, Object semester, Map<String, String> s
      	    if (totalMark < 300) {
      	        formattedScriptBacklog = "Fail";
      	    }
-
+     	    
        	    // Compare with UI only once
        	    if (!comparisonDone) {
+       	    	
+       	       ExtentTest testCaseScenarioForBacklog = testCaseName
+                       .createNode("Result page backlog comparison for the " + semester + " of the following register number " + regNo + " — Test case started");
+
+       	    	
        	        if (formattedScriptBacklog.equalsIgnoreCase(currentResultValue)) {
        	            System.out.println("Backlog comparison PASS: Script - " + formattedScriptBacklog + " | UI - " + currentResultValue);
-       	            testCaseScenario.log(Status.PASS, "Backlog comparison PASS: Script - " + formattedScriptBacklog + " | UI - " + currentResultValue);
+       	         testCaseScenarioForBacklog.log(Status.PASS, "Backlog comparison PASS: Script - " + formattedScriptBacklog + " | UI - " + currentResultValue);
        	        }
        	        
       	        else {
       	            System.out.println("Backlog comparison FAILED: Script - " + formattedScriptBacklog + " | UI - " + currentResultValue);
-      	            testCaseScenario.log(Status.FAIL, "Backlog comparison FAILED: Script - " + formattedScriptBacklog + " | UI - " + currentResultValue);
+      	          testCaseScenarioForBacklog.log(Status.FAIL, "Backlog comparison FAILED: Script - " + formattedScriptBacklog + " | UI - " + currentResultValue,MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
       	        }
       	        comparisonDone = true;
       	    }
-      
-        
+   
+         
 
     } catch (Exception e) {
         System.out.println("❌ Exception in regnoEnter1: " + e.getMessage());

@@ -1,131 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="1" total="4" passed="3" failed="0" skipped="0">
+<testng-results ignored="2" total="3" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-07-01T16:13:03 IST" name="Default suite" finished-at="2025-07-01T16:16:07 IST" duration-ms="183890">
+  <suite started-at="2025-07-16T15:17:11 IST" name="Default suite" finished-at="2025-07-16T15:18:03 IST" duration-ms="51254">
     <groups>
     </groups>
-    <test started-at="2025-07-01T16:13:03 IST" name="Default test" finished-at="2025-07-01T16:16:07 IST" duration-ms="183890">
-      <class name="sctevt_runner_Execution.SctevtExceution">
-        <test-method is-config="true" signature="beforeSuite()[pri:0, instance:sctevt_runner_Execution.SctevtExceution@3eb738bb]" started-at="2025-07-01T16:13:03 IST" name="beforeSuite" finished-at="2025-07-01T16:13:03 IST" duration-ms="285" status="PASS">
+    <test started-at="2025-07-16T15:17:11 IST" name="Default test" finished-at="2025-07-16T15:18:03 IST" duration-ms="51254">
+      <class name="knr_runner_Execution.Knr_runner_Execution_Copy">
+        <test-method is-config="true" signature="beforeSuite()[pri:0, instance:knr_runner_Execution.Knr_runner_Execution_Copy@565f390]" started-at="2025-07-16T15:17:11 IST" name="beforeSuite" finished-at="2025-07-16T15:17:11 IST" duration-ms="440" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeSuite -->
-        <test-method is-config="true" signature="beforeTest()[pri:0, instance:sctevt_runner_Execution.SctevtExceution@3eb738bb]" started-at="2025-07-01T16:13:03 IST" name="beforeTest" finished-at="2025-07-01T16:13:03 IST" duration-ms="1" status="PASS">
+        <test-method is-config="true" signature="beforeTest()[pri:0, instance:knr_runner_Execution.Knr_runner_Execution_Copy@565f390]" started-at="2025-07-16T15:17:11 IST" name="beforeTest" finished-at="2025-07-16T15:17:11 IST" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeTest -->
-        <test-method is-config="true" signature="beforeClass()[pri:0, instance:sctevt_runner_Execution.SctevtExceution@3eb738bb]" started-at="2025-07-01T16:13:03 IST" name="beforeClass" finished-at="2025-07-01T16:13:03 IST" duration-ms="0" status="PASS">
+        <test-method is-config="true" signature="beforeClass()[pri:0, instance:knr_runner_Execution.Knr_runner_Execution_Copy@565f390]" started-at="2025-07-16T15:17:11 IST" name="beforeClass" finished-at="2025-07-16T15:17:11 IST" duration-ms="0" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeClass -->
-        <test-method is-config="true" signature="beforeMethod()[pri:0, instance:sctevt_runner_Execution.SctevtExceution@3eb738bb]" started-at="2025-07-01T16:13:06 IST" name="beforeMethod" finished-at="2025-07-01T16:13:06 IST" duration-ms="0" status="PASS">
+        <test-method is-config="true" signature="beforeMethod()[pri:0, instance:knr_runner_Execution.Knr_runner_Execution_Copy@565f390]" started-at="2025-07-16T15:17:16 IST" name="beforeMethod" finished-at="2025-07-16T15:17:16 IST" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeMethod -->
-        <test-method signature="ScTEandVT2(java.lang.String,dataProcessing.SctevtResultReadExcelFile$StudentInfo,java.lang.String)[pri:2, instance:sctevt_runner_Execution.SctevtExceution@3eb738bb]" started-at="2025-07-01T16:13:06 IST" name="ScTEandVT2" description="ScTEVTLogin" data-provider="ScTE&amp;VTLogin" finished-at="2025-07-01T16:15:03 IST" duration-ms="117012" status="PASS">
+        <test-method signature="testCase6(java.lang.String,dataProcessing.KnrRCReadExcelFiles$StudentInfo,java.lang.String)[pri:5, instance:knr_runner_Execution.Knr_runner_Execution_Copy@565f390]" started-at="2025-07-16T15:17:16 IST" name="testCase6" data-provider="KNR_RC" finished-at="2025-07-16T15:18:01 IST" duration-ms="45064" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[F21013002054]]>
+                <![CDATA[2004214077]]>
               </value>
             </param>
             <param index="1">
               <value>
-                <![CDATA[dataProcessing.SctevtResultReadExcelFile$StudentInfo@71652c98]]>
+                <![CDATA[dataProcessing.KnrRCReadExcelFiles$StudentInfo@64138b0c]]>
               </value>
             </param>
             <param index="2">
               <value>
-                <![CDATA[TH1]]>
+                <![CDATA[SURGERY]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- ScTEandVT2 -->
-        <test-method is-config="true" signature="afterMethod()[pri:0, instance:sctevt_runner_Execution.SctevtExceution@3eb738bb]" started-at="2025-07-01T16:15:03 IST" name="afterMethod" finished-at="2025-07-01T16:15:04 IST" duration-ms="401" status="PASS">
+        </test-method> <!-- testCase6 -->
+        <test-method is-config="true" signature="afterMethod()[pri:0, instance:knr_runner_Execution.Knr_runner_Execution_Copy@565f390]" started-at="2025-07-16T15:18:01 IST" name="afterMethod" finished-at="2025-07-16T15:18:02 IST" duration-ms="598" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- afterMethod -->
-        <test-method is-config="true" signature="beforeMethod()[pri:0, instance:sctevt_runner_Execution.SctevtExceution@3eb738bb]" started-at="2025-07-01T16:15:04 IST" name="beforeMethod" finished-at="2025-07-01T16:15:04 IST" duration-ms="1" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- beforeMethod -->
-        <test-method signature="ScTEandVT2(java.lang.String,dataProcessing.SctevtResultReadExcelFile$StudentInfo,java.lang.String)[pri:2, instance:sctevt_runner_Execution.SctevtExceution@3eb738bb]" started-at="2025-07-01T16:15:04 IST" name="ScTEandVT2" description="ScTEVTLogin" data-provider="ScTE&amp;VTLogin" finished-at="2025-07-01T16:15:04 IST" duration-ms="4" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[F21013002054]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[dataProcessing.SctevtResultReadExcelFile$StudentInfo@71652c98]]>
-              </value>
-            </param>
-            <param index="2">
-              <value>
-                <![CDATA[TH2]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- ScTEandVT2 -->
-        <test-method is-config="true" signature="afterMethod()[pri:0, instance:sctevt_runner_Execution.SctevtExceution@3eb738bb]" started-at="2025-07-01T16:15:04 IST" name="afterMethod" finished-at="2025-07-01T16:15:04 IST" duration-ms="21" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- afterMethod -->
-        <test-method is-config="true" signature="beforeMethod()[pri:0, instance:sctevt_runner_Execution.SctevtExceution@3eb738bb]" started-at="2025-07-01T16:15:04 IST" name="beforeMethod" finished-at="2025-07-01T16:15:04 IST" duration-ms="0" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- beforeMethod -->
-        <test-method signature="ScTEandVT2(java.lang.String,dataProcessing.SctevtResultReadExcelFile$StudentInfo,java.lang.String)[pri:2, instance:sctevt_runner_Execution.SctevtExceution@3eb738bb]" started-at="2025-07-01T16:15:04 IST" name="ScTEandVT2" description="ScTEVTLogin" data-provider="ScTE&amp;VTLogin" finished-at="2025-07-01T16:16:06 IST" duration-ms="62829" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[F23013001021]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[dataProcessing.SctevtResultReadExcelFile$StudentInfo@51bde877]]>
-              </value>
-            </param>
-            <param index="2">
-              <value>
-                <![CDATA[TH2]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- ScTEandVT2 -->
-        <test-method is-config="true" signature="afterMethod()[pri:0, instance:sctevt_runner_Execution.SctevtExceution@3eb738bb]" started-at="2025-07-01T16:16:06 IST" name="afterMethod" finished-at="2025-07-01T16:16:06 IST" duration-ms="34" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- afterMethod -->
-        <test-method is-config="true" signature="afterClass()[pri:0, instance:sctevt_runner_Execution.SctevtExceution@3eb738bb]" started-at="2025-07-01T16:16:06 IST" name="afterClass" finished-at="2025-07-01T16:16:06 IST" duration-ms="0" status="PASS">
+        <test-method is-config="true" signature="afterClass()[pri:0, instance:knr_runner_Execution.Knr_runner_Execution_Copy@565f390]" started-at="2025-07-16T15:18:02 IST" name="afterClass" finished-at="2025-07-16T15:18:02 IST" duration-ms="0" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- afterClass -->
-        <test-method is-config="true" signature="afterTest()[pri:0, instance:sctevt_runner_Execution.SctevtExceution@3eb738bb]" started-at="2025-07-01T16:16:06 IST" name="afterTest" finished-at="2025-07-01T16:16:07 IST" duration-ms="607" status="PASS">
+        <test-method is-config="true" signature="afterTest()[pri:0, instance:knr_runner_Execution.Knr_runner_Execution_Copy@565f390]" started-at="2025-07-16T15:18:02 IST" name="afterTest" finished-at="2025-07-16T15:18:03 IST" duration-ms="748" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- afterTest -->
-        <test-method is-config="true" signature="afterSuite(org.testng.ITestContext)[pri:0, instance:sctevt_runner_Execution.SctevtExceution@3eb738bb]" started-at="2025-07-01T16:16:07 IST" name="afterSuite" finished-at="2025-07-01T16:16:07 IST" duration-ms="1" status="PASS">
+        <test-method is-config="true" signature="afterSuite(org.testng.ITestContext)[pri:0, instance:knr_runner_Execution.Knr_runner_Execution_Copy@565f390]" started-at="2025-07-16T15:18:03 IST" name="afterSuite" finished-at="2025-07-16T15:18:03 IST" duration-ms="2" status="FAIL">
           <params>
             <param index="0">
               <value>
-                <![CDATA[org.testng.TestRunner@491893f8]]>
+                <![CDATA[org.testng.TestRunner@3c9e19de]]>
               </value>
             </param>
           </params>
+          <exception class="java.lang.NullPointerException">
+            <message>
+              <![CDATA[Cannot invoke "String.replace(java.lang.CharSequence, java.lang.CharSequence)" because the return value of "java.util.Properties.getProperty(String)" is null]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.NullPointerException: Cannot invoke "String.replace(java.lang.CharSequence, java.lang.CharSequence)" because the return value of "java.util.Properties.getProperty(String)" is null
+at knr_runner_Execution.Knr_runner_Execution_Copy.afterSuite(Knr_runner_Execution_Copy.java:520)
+at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
+at org.testng.internal.MethodInvocationHelper.invokeMethodConsideringTimeout(MethodInvocationHelper.java:62)
+at org.testng.internal.ConfigInvoker.invokeConfigurationMethod(ConfigInvoker.java:385)
+at org.testng.internal.ConfigInvoker.invokeConfigurations(ConfigInvoker.java:321)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:344)
+at org.testng.SuiteRunner.run(SuiteRunner.java:276)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1212)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1134)
+at org.testng.TestNG.runSuites(TestNG.java:1063)
+at org.testng.TestNG.run(TestNG.java:1031)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.NullPointerException -->
           <reporter-output>
           </reporter-output>
         </test-method> <!-- afterSuite -->
-      </class> <!-- sctevt_runner_Execution.SctevtExceution -->
+      </class> <!-- knr_runner_Execution.Knr_runner_Execution_Copy -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
