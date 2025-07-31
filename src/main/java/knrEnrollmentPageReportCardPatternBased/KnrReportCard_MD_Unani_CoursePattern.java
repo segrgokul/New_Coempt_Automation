@@ -70,16 +70,164 @@ public class KnrReportCard_MD_Unani_CoursePattern extends BasicFunctions{
 
 						System.out.println("No match found.");
 					}
-					
-					
-					if ((courseNameRegexPatternMatcher.group().replaceAll("\\s+", "").equalsIgnoreCase("M.D.UNANI"))&&(semester.trim().equalsIgnoreCase("Year 2") ) &&(regulation.trim().contains("2016")) ) {
+				
+					if ((courseNameRegexPatternMatcher.group().replaceAll("\\s+", "").equalsIgnoreCase("M.D.UNANI"))&&(semester.trim().equalsIgnoreCase("Year 1") ) &&(regulation.trim().contains("2016")) ) {
 						try {
 							ExtentTest testCaseScenario = testCaseName.createNode(
 									"Pattern validation for the course name "+courseNameRegexPatternMatcher.group()+" of the  following " + Regno + " Test case");
 
 							testCaseScenario.log(Status.PASS, "Pattern validation for the course name "+courseNameRegexPatternMatcher.group()+" of the  following " + Regno + " Test case has started running");
 
-							Pattern M_D_Unani_Y2_Reg16_Pattern = Pattern.compile(
+							Pattern M_D_Unani_Y1_R16_Pattern = Pattern.compile(
+								    "(?m)(?:(?:KALOJI NARAYANA RAO UNIVERSITY OF HEALTH SCIENCES|" +
+								    "Theory Practical Grand Total|Note:?.*|^\\d+).*\\n)*" +
+								    "^\\s*((?:[A-Z ,&()\\-/]+(?:\\n\\s*)?)+?)\\s+" + // group(1): Subject line(s)
+								    "((?:\\d+|NA|AB|NE|NR|---|AP)(?:\\s*\\(F\\))?)\\s+" +
+								    "((?:\\d+|NA|AB|NE|NR|---|AP)(?:\\s*\\(F\\))?)\\s+" +
+								    "((?:\\d+|NA|AB|NE|NR|---|AP)(?:\\s*\\(F\\))?)\\s+" +
+								    "((?:\\d+|NA|AB|NE|NR|---|AP)(?:\\s*\\(F\\))?)\\s+" +
+								    "((?:\\d+|NA|AB|NE|NR|---|AP)(?:\\s*\\(F\\))?)\\s+" +
+								    "((?:\\d+|NA|AB|NE|NR|---|AP)(?:\\s*\\(F\\))?)\\s+" +
+								    "(?:-+\\s*)?" +
+								    "(Pass|Fail|AP)$"
+								);
+					Matcher M_D_Unani_Y1_R16_PatternMatcher = M_D_Unani_Y1_R16_Pattern.matcher(text);		
+						
+				
+					while(M_D_Unani_Y1_R16_PatternMatcher.find()) {
+						try {
+						testCaseScenario.log(Status.PASS, "Subject Pattern validation for the course name "+courseNameRegexPatternMatcher.group()+" of the  following " + Regno + " has matched");
+
+						
+				
+					//		System.out.println(text);
+					
+
+						subject = M_D_Unani_Y1_R16_PatternMatcher.group(1)  // your matched subject name
+						         .replaceAll("\\s*\\n\\s*", " ")      // Replace line breaks and surrounding spaces with single space
+						         .replaceAll("\\s{2,}", " ")          // Collapse multiple spaces
+						         .replaceAll("\\(PAPER-\\s*([IVX]+)\\)", "(PAPER-$1)")  // Fix space in "(PAPER- III)"
+						         .trim();
+						System.out.println(subject);
+						System.out.println(subjectToFind);
+						
+						System.out.println(subject.trim().equals(subjectToFind.trim()));
+				
+
+				String	theoryTotalMaxMarks = M_D_Unani_Y1_R16_PatternMatcher.group(2);
+				String	theoryTotalSecMarks = M_D_Unani_Y1_R16_PatternMatcher.group(3).replaceAll("[^0-9]", "").isEmpty()
+							? M_D_Unani_Y1_R16_PatternMatcher.group(3)
+							: M_D_Unani_Y1_R16_PatternMatcher.group(3).replaceAll("[^0-9]", "");
+				String	practicalVivaMaxMarks = M_D_Unani_Y1_R16_PatternMatcher.group(4);
+				String	practicalVivaSecMarks = M_D_Unani_Y1_R16_PatternMatcher.group(5).replaceAll("[^0-9]", "").isEmpty()
+							? M_D_Unani_Y1_R16_PatternMatcher.group(5)
+							: M_D_Unani_Y1_R16_PatternMatcher.group(5).replaceAll("[^0-9]", "");
+
+				String	theoryPracticalMaxMarks = M_D_Unani_Y1_R16_PatternMatcher.group(6);
+				String	theoryPracticalSecMarks = M_D_Unani_Y1_R16_PatternMatcher.group(7).replaceAll("[^0-9]", "").isEmpty()
+							? M_D_Unani_Y1_R16_PatternMatcher.group(7)
+							: M_D_Unani_Y1_R16_PatternMatcher.group(7).replaceAll("[^0-9]", "");
+					status = M_D_Unani_Y1_R16_PatternMatcher.group(8);
+
+					System.out.println("Subject: " + subject);
+					System.out.println("Theory Total Max Marks: " + theoryTotalMaxMarks);
+					System.out.println("Theory Total Secured Marks: " + theoryTotalSecMarks);
+					System.out.println("Practical Viva Max Marks: " + practicalVivaMaxMarks);
+					System.out.println("Practical Viva Secured Marks: " + practicalVivaSecMarks);
+					System.out.println("Theory plus Practical Max Marks: " + theoryPracticalMaxMarks);
+					System.out.println("Theory plus Practical Secured Marks: " + theoryPracticalSecMarks);
+					System.out.println("Status: " + status);
+
+					System.out.println("---------------------------------------------------");
+				
+					if ((status.trim().equals("Pass") || status.trim().equals("Fail")
+							|| status.trim().equals("AP")) && subject.replaceAll("\\s+", "").equals(subjectToFind.replaceAll("\\s+", ""))) {
+
+						try {
+		
+							PageValidation.validateMarks(Regno,"Paper1 Sec Marks", paper1, paper2, paper3,paper4,
+									theoryExamTotal,practicalExamTotal, subject,subjectToFind,status,
+									grandTotal, theoryTotalSecMarks, theoryTotalMaxMarks, 0.50, testCaseName);		
+
+
+						}
+						catch(Exception e) {
+							ExtentTest testCaseScenario1 = testCaseScenario
+									.createNode("Theory Sec. Marks "
+						+ subject + " Test case has started running");		
+							testCaseScenario1.log(Status.FAIL,
+									"\n Please check The Following Registration number " + Regno+ " for the Subject " + subject+ " of theory sec mark is: "+ theoryTotalSecMarks ,	MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
+		
+	}
+						
+						try {
+							
+							PageValidation.validateMarks(Regno,"Pratical Total Sec Marks", paper1, paper2, paper3,paper4,
+									theoryExamTotal,practicalExamTotal, subject,subjectToFind,status,
+									grandTotal, practicalVivaSecMarks, practicalVivaMaxMarks, 0.50, testCaseName);		
+
+
+						}
+						catch(Exception e) {
+							ExtentTest testCaseScenario1 = testCaseScenario
+									.createNode("Pratical plus viva Sec. Marks "
+						+ subject + " Test case has started running");		
+							testCaseScenario1.log(Status.FAIL,
+									"\n Please check The Following Registration number " + Regno+ " for the Subject " + subject+ " of theory sec mark is: "+ practicalVivaSecMarks ,	MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
+		
+	}
+						
+						
+						 try {
+						    	
+
+						    	PageValidation.validateMarks(Regno,"Grand Total Sec Marks", paper1, paper2, paper3,paper4,
+											theoryExamTotal,practicalExamTotal, subject,subjectToFind,status,
+											grandTotal, theoryPracticalSecMarks, theoryPracticalMaxMarks, 0.50, testCaseName);		
+							}
+							
+							catch(Exception e) {
+								  ExtentTest testCaseScenario1 = testCaseScenario.createNode(
+										  "Grand Total Sec Marks validation for subject " + subjectToFind + " test case has started");
+								  testCaseScenario1.log(Status.FAIL,
+											"\n Please check The Following Registration number " + Regno
+													+ "Grand Total Sec Marks"  + theoryPracticalSecMarks,MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
+
+															
+							}
+						
+					} // if bracket
+						}//try
+					catch(Exception e){
+						testCaseScenario.log(Status.FAIL, "Subject Pattern validation for the course name "+courseNameRegexPatternMatcher.group()+" of the  following " + Regno + " has not matched");
+}
+					}//while
+				
+					
+					
+					
+					
+				}//try
+					catch (Exception e) {
+						ExtentTest testCaseScenario = testCaseName.createNode(
+								"Pattern validation for the course name "+courseNameRegexPatternMatcher.group(1)+" of the  following " + Regno + " Test case");
+
+						testCaseScenario.log(Status.FAIL, "Pattern validation for the course name "+courseNameRegexPatternMatcher.group(1)+" of the  following " + Regno + " Test case has fail to started running" 	,	MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
+						testCaseScenario.log(Status.FAIL, e.getMessage(),MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
+
+						System.out.println(text);
+					}
+			}//IF_UNANI_Year1
+					
+					
+					else if ((courseNameRegexPatternMatcher.group().replaceAll("\\s+", "").equalsIgnoreCase("M.D.UNANI"))&&(semester.trim().equalsIgnoreCase("Year 2") ) &&(regulation.trim().contains("2016")) ) {
+						try {
+							ExtentTest testCaseScenario = testCaseName.createNode(
+									"Pattern validation for the course name "+courseNameRegexPatternMatcher.group()+" of the  following " + Regno + " Test case");
+
+							testCaseScenario.log(Status.PASS, "Pattern validation for the course name "+courseNameRegexPatternMatcher.group()+" of the  following " + Regno + " Test case has started running");
+
+							Pattern M_D_Unani_Y2_R16_Pattern = Pattern.compile(
 								    "(?m)(?:(?:KALOJI NARAYANA RAO UNIVERSITY OF HEALTH SCIENCES|" +
 								    "Theory Practical Grand Total|Note:?.*|^\\d+).*\\n)*" +
 								    "^\\s*((?:[A-Z ,&()\\-/]+(?:\\n\\s*)?)+\\(\\s*PAPER\\s*-?\\s*[IVX]+\\s*\\))\\s*" + // group(1): entire subject including (PAPER-III)
@@ -93,10 +241,10 @@ public class KnrReportCard_MD_Unani_CoursePattern extends BasicFunctions{
 								    "(Pass|Fail|AP)$"
 								);
 
-					Matcher M_D_Unani_Y2_Reg16_PatternMatcher = M_D_Unani_Y2_Reg16_Pattern.matcher(text);		
+					Matcher M_D_Unani_Y2_R16_PatternMatcher = M_D_Unani_Y2_R16_Pattern.matcher(text);		
 						
 				
-					while(M_D_Unani_Y2_Reg16_PatternMatcher.find()) {
+					while(M_D_Unani_Y2_R16_PatternMatcher.find()) {
 						try {
 						testCaseScenario.log(Status.PASS, "Subject Pattern validation for the course name "+courseNameRegexPatternMatcher.group()+" of the  following " + Regno + " has matched");
 
@@ -105,7 +253,7 @@ public class KnrReportCard_MD_Unani_CoursePattern extends BasicFunctions{
 					//		System.out.println(text);
 					
 
-						subject = M_D_Unani_Y2_Reg16_PatternMatcher.group(1)  // your matched subject name
+						subject = M_D_Unani_Y2_R16_PatternMatcher.group(1)  // your matched subject name
 						         .replaceAll("\\s*\\n\\s*", " ")      // Replace line breaks and surrounding spaces with single space
 						         .replaceAll("\\s{2,}", " ")          // Collapse multiple spaces
 						         .replaceAll("\\(PAPER-\\s*([IVX]+)\\)", "(PAPER-$1)")  // Fix space in "(PAPER- III)"
@@ -116,20 +264,20 @@ public class KnrReportCard_MD_Unani_CoursePattern extends BasicFunctions{
 						System.out.println(subject.trim().equals(subjectToFind.trim()));
 				
 
-				String	theoryTotalMaxMarks = M_D_Unani_Y2_Reg16_PatternMatcher.group(2);
-				String	theoryTotalSecMarks = M_D_Unani_Y2_Reg16_PatternMatcher.group(3).replaceAll("[^0-9]", "").isEmpty()
-							? M_D_Unani_Y2_Reg16_PatternMatcher.group(3)
-							: M_D_Unani_Y2_Reg16_PatternMatcher.group(3).replaceAll("[^0-9]", "");
-				String	practicalVivaMaxMarks = M_D_Unani_Y2_Reg16_PatternMatcher.group(4);
-				String	practicalVivaSecMarks = M_D_Unani_Y2_Reg16_PatternMatcher.group(5).replaceAll("[^0-9]", "").isEmpty()
-							? M_D_Unani_Y2_Reg16_PatternMatcher.group(5)
-							: M_D_Unani_Y2_Reg16_PatternMatcher.group(5).replaceAll("[^0-9]", "");
+				String	theoryTotalMaxMarks = M_D_Unani_Y2_R16_PatternMatcher.group(2);
+				String	theoryTotalSecMarks = M_D_Unani_Y2_R16_PatternMatcher.group(3).replaceAll("[^0-9]", "").isEmpty()
+							? M_D_Unani_Y2_R16_PatternMatcher.group(3)
+							: M_D_Unani_Y2_R16_PatternMatcher.group(3).replaceAll("[^0-9]", "");
+				String	practicalVivaMaxMarks = M_D_Unani_Y2_R16_PatternMatcher.group(4);
+				String	practicalVivaSecMarks = M_D_Unani_Y2_R16_PatternMatcher.group(5).replaceAll("[^0-9]", "").isEmpty()
+							? M_D_Unani_Y2_R16_PatternMatcher.group(5)
+							: M_D_Unani_Y2_R16_PatternMatcher.group(5).replaceAll("[^0-9]", "");
 
-				String	theoryPracticalMaxMarks = M_D_Unani_Y2_Reg16_PatternMatcher.group(6);
-				String	theoryPracticalSecMarks = M_D_Unani_Y2_Reg16_PatternMatcher.group(7).replaceAll("[^0-9]", "").isEmpty()
-							? M_D_Unani_Y2_Reg16_PatternMatcher.group(7)
-							: M_D_Unani_Y2_Reg16_PatternMatcher.group(7).replaceAll("[^0-9]", "");
-					status = M_D_Unani_Y2_Reg16_PatternMatcher.group(8);
+				String	theoryPracticalMaxMarks = M_D_Unani_Y2_R16_PatternMatcher.group(6);
+				String	theoryPracticalSecMarks = M_D_Unani_Y2_R16_PatternMatcher.group(7).replaceAll("[^0-9]", "").isEmpty()
+							? M_D_Unani_Y2_R16_PatternMatcher.group(7)
+							: M_D_Unani_Y2_R16_PatternMatcher.group(7).replaceAll("[^0-9]", "");
+					status = M_D_Unani_Y2_R16_PatternMatcher.group(8);
 
 					System.out.println("Subject: " + subject);
 					System.out.println("Theory Total Max Marks: " + theoryTotalMaxMarks);
@@ -357,6 +505,8 @@ public class KnrReportCard_MD_Unani_CoursePattern extends BasicFunctions{
 				}//try
 			 catch (Exception e) {
 				e.printStackTrace();
+				testCaseName.log(Status.FAIL, e.getMessage(),MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
+
 			}
 		}//if
 		else {

@@ -28,58 +28,57 @@ import pageObjMod.KnrPom;
 public class KnrReportEnrollmentPage extends BasicFunctions {
 	static ExtentTest test;
 
-	public double Paper1=0.0;
-	public double Paper2=0.0;
-	public double Paper3=0.0;
-	public double Paper4=0.0;
-	
-	double TheroryExamTotal=0.0;
-	double PraticalExamTotal=0.0;
-	public double ExamTotalScore=0.0;
+	public double Paper1 = 0.0;
+	public double Paper2 = 0.0;
+	public double Paper3 = 0.0;
+	public double Paper4 = 0.0;
 
-	double securedMark=0.0;
-	double paper1Mark=0.0;
+	double TheroryExamTotal = 0.0;
+	double PraticalExamTotal = 0.0;
+	public double ExamTotalScore = 0.0;
 
-	double paper2Mark=0.0;
-	double paper3Mark=0.0;
-	double paper4Mark=0.0;
-	double praticalMinMark=0.0;
+	double securedMark = 0.0;
+	double paper1Mark = 0.0;
 
-	static double minMark=0.0;
-	double paper1MinMark=0.0;
-	double paper2MinMark=0.0;
-	double paper3MinMark=0.0;
-	double paper4MinMark=0.0;
-	double practicalMinMark=0.0;
-	double theroryExamTotalMinMark=0.0;
-	double examTotalScoreMinMark=0.0;
+	double paper2Mark = 0.0;
+	double paper3Mark = 0.0;
+	double paper4Mark = 0.0;
+	double praticalMinMark = 0.0;
 
-	double theoryMinMark=0.0;
-	double theoryMaxMark=0.0;
-	double grandTotalMinMark=0.0;
-	double grandTotalMaxMark=0.0;
-	double theoryTotal=0.0;
-	double praticalTotal=0.0;
-	double grandTotal=0.0;
+	static double minMark = 0.0;
+	double paper1MinMark = 0.0;
+	double paper2MinMark = 0.0;
+	double paper3MinMark = 0.0;
+	double paper4MinMark = 0.0;
+	double practicalMinMark = 0.0;
+	double theroryExamTotalMinMark = 0.0;
+	double examTotalScoreMinMark = 0.0;
+
+	double theoryMinMark = 0.0;
+	double theoryMaxMark = 0.0;
+	double grandTotalMinMark = 0.0;
+	double grandTotalMaxMark = 0.0;
+	double theoryTotal = 0.0;
+	double praticalTotal = 0.0;
+	double grandTotal = 0.0;
 	String subject;
 	// four pattern
-	double theorySecMark=0.0;
+	double theorySecMark = 0.0;
 
-	double praticalMaxMark=0.0;
+	double praticalMaxMark = 0.0;
 
-	double praticalVivaMaxMark=0.0;
-	double praticalTotalMaxMark=0.0;
-	double praticalTotalSecMark=0.0;
-	double grandTotalSecMark=0.0;
+	double praticalVivaMaxMark = 0.0;
+	double praticalTotalMaxMark = 0.0;
+	double praticalTotalSecMark = 0.0;
+	double grandTotalSecMark = 0.0;
 
 	String status;
 
-	double theoryInternalMaxMark=0.0;
-	double theoryInternalSecMark=0.0;
+	double theoryInternalMaxMark = 0.0;
+	double theoryInternalSecMark = 0.0;
 
 	public void monitorNetworkDuringTest(ExtentTest testCaseName)
 			throws InterruptedException, IOException, AWTException {
-
 
 		try {
 			InetAddress address = InetAddress.getByName("google.com");
@@ -157,7 +156,7 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 	}
 
 	public void ReportCardNavigation() throws IOException, InterruptedException, AWTException {
-	
+
 		implicitWait(3);
 		explicitWait(KnrPom.getInstanceEnrollXP().loginTags, 30);
 
@@ -178,7 +177,7 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 			}
 
 			else {
-	
+
 			}
 
 		}
@@ -604,7 +603,7 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 				testCaseScenario.log(Status.PASS, "Submit button click sucessfully");
 
 				Thread.sleep(3000);
-			
+
 			}
 
 			else {
@@ -625,59 +624,60 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 		}
 	}
 
-	public void DownloadReport(Object regno,ExtentTest testCaseName) throws IOException, InterruptedException, AWTException {
+	public void DownloadReport(Object regno, ExtentTest testCaseName)
+			throws IOException, InterruptedException, AWTException {
 		try {
-		Actions action = new Actions(driver);
+			Actions action = new Actions(driver);
 
-		implicitWait(3);
-		explicitWait(KnrPom.getInstanceEnrollXP().reportCardExportTo, 30);
-		
-		if (KnrPom.getInstanceEnrollXP().reportCardExportTo.isDisplayed()) {
-			ExtentTest testCaseScenario = testCaseName
-					.createNode(" Pdf Report Validation Test case has started running for the following register number " + regno);
+			implicitWait(3);
+			explicitWait(KnrPom.getInstanceEnrollXP().reportCardExportTo, 30);
 
-		
-		// Click on "Export To" and then "Export to PDF"
-		action.moveToElement(KnrPom.getInstanceEnrollXP().reportCardExportTo).click().perform();
-		implicitWait(7);
-		action.moveToElement(KnrPom.getInstanceEnrollXP().reportCardExportToPdf).click().perform();
-		implicitWait(7);
+			if (KnrPom.getInstanceEnrollXP().reportCardExportTo.isDisplayed()) {
+				ExtentTest testCaseScenario = testCaseName.createNode(
+						" Pdf Report Validation Test case has started running for the following register number "
+								+ regno);
 
-		Thread.sleep(3000);
+				// Click on "Export To" and then "Export to PDF"
+				action.moveToElement(KnrPom.getInstanceEnrollXP().reportCardExportTo).click().perform();
+				implicitWait(7);
+				action.moveToElement(KnrPom.getInstanceEnrollXP().reportCardExportToPdf).click().perform();
+				implicitWait(7);
 
-		// Switch to the second window (new tab)
-		ArrayList<String> windowHandles = new ArrayList<>(driver.getWindowHandles());
+				Thread.sleep(3000);
 
-		driver.switchTo().window(windowHandles.get(1));
+				// Switch to the second window (new tab)
+				ArrayList<String> windowHandles = new ArrayList<>(driver.getWindowHandles());
 
-		// Validate PDF URL
-		implicitWait(8);
-		if (driver.getCurrentUrl().endsWith(".pdf")) {
-			System.out.println("PDF opened successfully: " + driver.getCurrentUrl());
-			System.out.println("=========================");
-			testCaseScenario.log(Status.PASS, "PDF opened successfully sucessfully" + driver.getCurrentUrl() + " for the following register number " + regno  );
+				driver.switchTo().window(windowHandles.get(1));
 
-		} else {
-			System.out.println(driver.getCurrentUrl());
-			System.out.println("Fail to open the PDF.");
-			testCaseScenario.log(Status.FAIL, "Fail to open the PDF.");
-			System.out.println("Fail to open the PDF.");
+				// Validate PDF URL
+				implicitWait(8);
+				if (driver.getCurrentUrl().endsWith(".pdf")) {
+					System.out.println("PDF opened successfully: " + driver.getCurrentUrl());
+					System.out.println("=========================");
+					testCaseScenario.log(Status.PASS, "PDF opened successfully sucessfully" + driver.getCurrentUrl()
+							+ " for the following register number " + regno);
 
-		}}}
+				} else {
+					System.out.println(driver.getCurrentUrl());
+					System.out.println("Fail to open the PDF.");
+					testCaseScenario.log(Status.FAIL, "Fail to open the PDF.");
+					System.out.println("Fail to open the PDF.");
 
-		
-		
-	
-	catch (Exception e) {
+				}
+			}
+		}
+
+		catch (Exception e) {
+		}
 	}
-}
 
 	public void downloadPdfReportValidation(ExtentTest testCaseName, Object regno, Object paper1, Object paper2,
-			Object paper3,Object paper4, Object theoryExam, Object praticalExam, Object examTotal, String subjectToFind)
-			throws InterruptedException, IOException, AWTException {
-		try {	
+			Object paper3, Object paper4, Object theoryExam, Object praticalExam, Object examTotal,
+			String subjectToFind) throws InterruptedException, IOException, AWTException {
+		try {
 
-		// Wait for the PDF file to download
+			// Wait for the PDF file to download
 			String downloadDir = System.getProperty("user.home") + "/Downloads"; // Downloads folder
 			File dir = new File(downloadDir);
 			File latestFile = null;
@@ -691,104 +691,111 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 					break; // File is downloaded
 				}
 				Thread.sleep(700); // Check every second
-			}	
+			}
 
 			try {
-			
-				if (KnrPom.getInstanceEnrollXP().okBtn.isDisplayed()&& KnrPom.getInstanceEnrollXP().noRecordsFoundAlert.isDisplayed() ) {
-					monitorNetworkDuringTest(testCaseName);
-					ExtentTest testCaseScenario = testCaseName
-							.createNode(" Pdf Report Validation Test case has started running for the following register number " + regno +" and "+ subjectToFind);
 
-					
+				if (KnrPom.getInstanceEnrollXP().okBtn.isDisplayed()
+						&& KnrPom.getInstanceEnrollXP().noRecordsFoundAlert.isDisplayed()) {
+					monitorNetworkDuringTest(testCaseName);
+					ExtentTest testCaseScenario = testCaseName.createNode(
+							" Pdf Report Validation Test case has started running for the following register number "
+									+ regno + " and " + subjectToFind);
+
 					System.out.println(KnrPom.getInstanceEnrollXP().okBtn.isDisplayed());
-			
-					testCaseScenario.log(Status.SKIP, "Facing error to generate the pdf for following regno: " +regno + " and subject: "+ subjectToFind+" Please check whether the following register number is NE or NR ",
-							
+
+					testCaseScenario.log(Status.SKIP,
+							"Facing error to generate the pdf for following regno: " + regno + " and subject: "
+									+ subjectToFind
+									+ " Please check whether the following register number is NE or NR ",
+
 							MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
 
 					explicitWait(KnrPom.getInstanceEnrollXP().okBtn, 10);
 					click(KnrPom.getInstanceEnrollXP().okBtn);
 					implicitWait(3);
 					driver.navigate().refresh();
-			
+
 				}
-			
-				
-				
-				
+
 			}
 
 			catch (Exception e) {
-				
+
 				if (driver.getCurrentUrl().endsWith(".pdf")) {
-			
+
 					monitorNetworkDuringTest(testCaseName);
-					
-					ExtentTest testCaseScenario = testCaseName
-						.createNode(" Pdf Report Validation Test case has started running for the following register number " + regno +" and "+ subjectToFind);
 
-				System.out.println("able to geanerater");
-				testCaseScenario.log(Status.PASS, "Able to generate ");
+					ExtentTest testCaseScenario = testCaseName.createNode(
+							" Pdf Report Validation Test case has started running for the following register number "
+									+ regno + " and " + subjectToFind);
 
-			System.out.println(subjectToFind+"subjectToFind");
-			// Method to match the paterns
-			processPdfBasedOnSubjectPattern(latestFile, regno, paper1, paper2, paper3,paper4, theoryExam, praticalExam,
-					examTotal, subjectToFind, testCaseName);
-		
-			
-				}	else	if (KnrPom.getInstanceEnrollXP().enrollNo.isDisplayed()) {
+					System.out.println("able to geanerater");
+					testCaseScenario.log(Status.PASS, "Able to generate ");
+
+					System.out.println(subjectToFind + "subjectToFind");
+					// Method to match the paterns
+					processPdfBasedOnSubjectPattern(latestFile, regno, paper1, paper2, paper3, paper4, theoryExam,
+							praticalExam, examTotal, subjectToFind, testCaseName);
+
+				} else if (KnrPom.getInstanceEnrollXP().enrollNo.isDisplayed()) {
 					monitorNetworkDuringTest(testCaseName);
-					ExtentTest testCaseScenario = testCaseName
-							.createNode(" Pdf Report Validation Test case has started running for the following register number " + regno +" and "+ subjectToFind);
+					ExtentTest testCaseScenario = testCaseName.createNode(
+							" Pdf Report Validation Test case has started running for the following register number "
+									+ regno + " and " + subjectToFind);
 
-			
-					testCaseScenario.log(Status.SKIP, "Facing error to generate the pdf for following regno: " +regno + " and subject: "+ subjectToFind+"check whether the following register number is NE or NR",
-					MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
-					implicitWait(3);		
-				}
-				else if (KnrPom.getInstanceEnrollXP().okBtn.isDisplayed()&&KnrPom.getInstanceEnrollXP().allFieldsMandatoryAlert.isDisplayed() ) {
+					testCaseScenario.log(Status.SKIP,
+							"Facing error to generate the pdf for following regno: " + regno + " and subject: "
+									+ subjectToFind + "check whether the following register number is NE or NR",
+							MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
+					implicitWait(3);
+				} else if (KnrPom.getInstanceEnrollXP().okBtn.isDisplayed()
+						&& KnrPom.getInstanceEnrollXP().allFieldsMandatoryAlert.isDisplayed()) {
 					monitorNetworkDuringTest(testCaseName);
-					ExtentTest testCaseScenario = testCaseName
-							.createNode(" Pdf Report Validation Test case has started running for the following register number " + regno +" and "+ subjectToFind);
+					ExtentTest testCaseScenario = testCaseName.createNode(
+							" Pdf Report Validation Test case has started running for the following register number "
+									+ regno + " and " + subjectToFind);
 
-					
 					System.out.println(KnrPom.getInstanceEnrollXP().okBtn.isDisplayed());
-			
-					testCaseScenario.log(Status.FAIL, "Facing error to generate the pdf for following regno: " +regno + " and subject: "+ subjectToFind,
-							
+
+					testCaseScenario.log(Status.FAIL,
+							"Facing error to generate the pdf for following regno: " + regno + " and subject: "
+									+ subjectToFind,
+
 							MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
 
 					explicitWait(KnrPom.getInstanceEnrollXP().okBtn, 10);
 					click(KnrPom.getInstanceEnrollXP().okBtn);
 					implicitWait(3);
 					driver.navigate().refresh();
-			
+
 				}
-			
-		}
-			
-		}//try
-		
+
+			}
+
+		} // try
 
 		catch (Exception e) {
-			
+
 			if (KnrPom.getInstanceEnrollXP().enrollNo.isDisplayed()) {
-				ExtentTest testCaseScenario = testCaseName
-						.createNode(" Pdf Report Validation Test case has started running for the following register number " + regno +" and "+ subjectToFind);
+				ExtentTest testCaseScenario = testCaseName.createNode(
+						" Pdf Report Validation Test case has started running for the following register number "
+								+ regno + " and " + subjectToFind);
 
 				monitorNetworkDuringTest(testCaseName);
-				testCaseScenario.log(Status.FAIL, "Please check the following regno: " +regno + " and subject: "+ subjectToFind+"check wherther",
+				testCaseScenario.log(Status.FAIL,
+						"Please check the following regno: " + regno + " and subject: " + subjectToFind
+								+ "check wherther",
 						MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
-				implicitWait(3);		
+				implicitWait(3);
 			}
-			
+
 		}
 	}
 
 	public void processBHMSRegulation22SubjectPatternPdf(Object Regno, File latestFile, Object paper1, Object paper2,
-			Object paper3,Object paper4, Object praticalExam, Object theoryExam, Object examTotal, String subjectToFind,
-			ExtentTest testCaseName) throws IOException {
+			Object paper3, Object paper4, Object praticalExam, Object theoryExam, Object examTotal,
+			String subjectToFind, ExtentTest testCaseName) throws IOException {
 		if (latestFile != null) {
 			try (PDDocument document = PDDocument.load(latestFile)) {
 				PDFTextStripper stripper = new PDFTextStripper();
@@ -802,7 +809,7 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 					stripper.setEndPage(page);
 					// TO print the text
 					String text = stripper.getText(document).replaceAll("[\r\n]+", "\n");
-				//	System.out.println(text);
+					// System.out.println(text);
 
 					System.out.println("Page " + page + ":");
 					System.out.println("---------------------------------------------------");
@@ -823,11 +830,10 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 						System.out.println("No match found.");
 					}
 
-					
 					String regexBHMS2022 = "(BHMS)\\s+";
 					Pattern regexBHMS2022Pattern = Pattern.compile(regexBHMS2022, Pattern.MULTILINE);
 					Matcher regexBHMS2022Matcher = regexBHMS2022Pattern.matcher(text);
-					
+
 					if (regexBHMS2022Matcher.find()) {
 
 						System.out.println("Match found Course: " + regexBHMS2022Matcher.group());
@@ -837,59 +843,62 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 						testCaseScenario.log(Status.PASS, "Match found Course:" + regexBHMS2022Matcher.group()
 								+ " The following Register number " + Regno + " for the subject " + subjectToFind);
 
-					}
-					else {
+					} else {
 						ExtentTest testCaseScenario = testCaseName.createNode(
 								"Pattern validation for the following " + Regno + " Test case has started running");
 
 						testCaseScenario.log(Status.FAIL, "No Match found Course:" + regexBHMS2022Matcher.group()
 								+ " The following Register number " + Regno + " for the subject " + subjectToFind);
-						
-						
+
 					}
-					
+
 					Pattern bhms22MarksPattern = Pattern.compile(
-							
-							
+
 //							"^([\\s\\S]*?)\\s+" + // 1. Subject Name
-						//	"^([A-Z][A-Z\\s\\-&()\\.]+?)\\s+" +  // New: only captures uppercase subject lines
-							"^(?!.*Theory Marks Practical or Clinical Marks Result Max Obtained Sub total)" + // Skip lines with this header
-							"([A-Z][A-Z\\s\\-&()\\.]+?)\\s+" + 
-							"(HomUG-[A-Z]+(?:-[A-Z]+)?)\\s+" + // 2. Subject Code
-							"(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\)|\\*)\\s+" + // 3. Mark 1
-							"(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\)|\\*)\\s+" + // 4. Mark 2
-							"(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\)|\\*)\\s+" + // 5. Mark 3
-							"(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\)|\\*)\\s+" + // 6. Mark 4
-							"(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\)|\\*)\\s+" + // 7. Mark 5
-							"(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\)|\\*)\\s+" + // 8. Mark 6
-							"(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\)|\\*)\\s+" + // 9. Mark 7
-							"(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\)|\\*)\\s+" + // 10. Mark 8
-							"(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\)|\\*)\\s+" + // 11. Mark 9
-							"(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\)|\\*)\\s+" + // 12. Mark 10
-							"(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\)|\\*)\\s+" + // 13. Mark 11
-							"(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\)|\\*)" + // 14. Mark 12
-							"(?:\\s+(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\)|\\*))?" + // 15. Mark 13 (optional)
-							"(?:\\s+(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\)|\\*))?" + // 16. Mark 14 (optional)
-							"(?:\\s+([A-Z]))?" + // 17. Optional grade letter
-							"\\s+(AP|Pass|Fail|AB|NE|NR|NE\\s*\\(AT\\)|---)$", // 18. Final Result
+							// "^([A-Z][A-Z\\s\\-&()\\.]+?)\\s+" + // New: only captures uppercase subject
+							// lines
+							"^(?!.*Theory Marks Practical or Clinical Marks Result Max Obtained Sub total)" + // Skip
+																												// lines
+																												// with
+																												// this
+																												// header
+									"([A-Z][A-Z\\s\\-&()\\.]+?)\\s+" + "(HomUG-[A-Z]+(?:-[A-Z]+)?)\\s+" + // 2. Subject
+																											// Code
+									"(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\)|\\*)\\s+" + // 3. Mark 1
+									"(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\)|\\*)\\s+" + // 4. Mark 2
+									"(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\)|\\*)\\s+" + // 5. Mark 3
+									"(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\)|\\*)\\s+" + // 6. Mark 4
+									"(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\)|\\*)\\s+" + // 7. Mark 5
+									"(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\)|\\*)\\s+" + // 8. Mark 6
+									"(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\)|\\*)\\s+" + // 9. Mark 7
+									"(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\)|\\*)\\s+" + // 10. Mark 8
+									"(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\)|\\*)\\s+" + // 11. Mark 9
+									"(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\)|\\*)\\s+" + // 12. Mark 10
+									"(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\)|\\*)\\s+" + // 13. Mark 11
+									"(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\)|\\*)" + // 14. Mark 12
+									"(?:\\s+(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\)|\\*))?" + // 15. Mark 13 (optional)
+									"(?:\\s+(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\)|\\*))?" + // 16. Mark 14 (optional)
+									"(?:\\s+([A-Z]))?" + // 17. Optional grade letter
+									"\\s+(AP|Pass|Fail|AB|NE|NR|NE\\s*\\(AT\\)|---)$", // 18. Final Result
 							Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
 
 					Matcher bhms22MarksPatternMatcher = bhms22MarksPattern.matcher(text);
 
 					while (bhms22MarksPatternMatcher.find()) {
-						
-						
-						if(bhms22MarksPatternMatcher.group(1).replaceAll("\\s+", " ").trim().contains("Theory Marks Practical or Clinical Marks Result Max Obtained Sub total")) {
-							subject =  bhms22MarksPatternMatcher.group(1).replaceAll("\\s+", " ").replaceAll(
-								    "Theory Marks Practical or Clinical Marks Result Max Obtained Sub total", ""
-									).trim();
-							
-						}
-						else {
+
+						if (bhms22MarksPatternMatcher.group(1).replaceAll("\\s+", " ").trim()
+								.contains("Theory Marks Practical or Clinical Marks Result Max Obtained Sub total")) {
+							subject = bhms22MarksPatternMatcher.group(1).replaceAll("\\s+", " ")
+									.replaceAll(
+											"Theory Marks Practical or Clinical Marks Result Max Obtained Sub total",
+											"")
+									.trim();
+
+						} else {
 							subject = bhms22MarksPatternMatcher.group(1).replaceAll("\\s+", " ").trim();
 						}
-						
-						String subjectCode =bhms22MarksPatternMatcher.group(2);
+
+						String subjectCode = bhms22MarksPatternMatcher.group(2);
 						String theoryMaxMarks = bhms22MarksPatternMatcher.group(3);
 						String theoryMinMarks = bhms22MarksPatternMatcher.group(4);
 						String theoryObtainedMarks = bhms22MarksPatternMatcher.group(5);
@@ -900,16 +909,16 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 						String practicalObtainedVivaMarks = bhms22MarksPatternMatcher.group(10);
 						String practicalObtainedIAMarks = bhms22MarksPatternMatcher.group(11);
 						String subTotalMaxMarks = bhms22MarksPatternMatcher.group(12);
-						String subTotalMinMarks= bhms22MarksPatternMatcher.group(13);
+						String subTotalMinMarks = bhms22MarksPatternMatcher.group(13);
 						String subTotalObtainedMarks = bhms22MarksPatternMatcher.group(14);
 						String subjectTotal = bhms22MarksPatternMatcher.group(15);
 						String finalResult2 = bhms22MarksPatternMatcher.group(16);
 						String finalResult3 = bhms22MarksPatternMatcher.group(17);
-						status= bhms22MarksPatternMatcher.group(18);
-						String finalTheoryObtainedMarks =null;
+						status = bhms22MarksPatternMatcher.group(18);
+						String finalTheoryObtainedMarks = null;
 						String finalSubjectTotal = null;
 						System.out.println("=====================================================================");
-						
+
 						System.out.println("Subject                     : " + subject);
 						System.out.println("Subject Code                : " + subjectCode);
 						System.out.println("Theory Max Marks            : " + theoryMaxMarks);
@@ -929,83 +938,76 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 						System.out.println("Final Result3      : " + finalResult3);
 						System.out.println("Final Result4      : " + status);
 
-
-						   Pattern pattern = Pattern.compile("Elective-\\d+\\s+(.*)\\s+([A-F])$",
-                                   Pattern.MULTILINE);
-						   Matcher matcher = pattern.matcher(text);
+						Pattern pattern = Pattern.compile("Elective-\\d+\\s+(.*)\\s+([A-F])$", Pattern.MULTILINE);
+						Matcher matcher = pattern.matcher(text);
 						while (matcher.find()) {
-							
+
 							String elective = matcher.group(0).trim();
 							String subject = matcher.group(1).trim();
 							String grade = matcher.group(2);
-							
-							System.out.println("Elective: " +elective);
-							System.out.println("Subject: " + subject ); 
-							System.out.println("Grade: " +grade);
-								
+
+							System.out.println("Elective: " + elective);
+							System.out.println("Subject: " + subject);
+							System.out.println("Grade: " + grade);
+
 						}
 						System.out.println("=====================================================================");
-						
-						try {
-						if(!finalResult3.equals("null")) {
-							
-							finalTheoryObtainedMarks = theoryObtainedMarks+finalResult3;
-							
-							finalSubjectTotal = subjectTotal+finalResult3;
-							
-							System.out.println("finalTheoryObtainedMarks: " +finalTheoryObtainedMarks);
-							System.out.println("finalSubjectTotal: " + finalSubjectTotal);
-							}
-						}
-						catch(Exception e) {
-								finalTheoryObtainedMarks = theoryObtainedMarks;								
-								finalSubjectTotal =subjectTotal;
-								
-								System.out.println("finalTheoryObtainedMarks: " +finalTheoryObtainedMarks);
-								System.out.println("finalSubjectTotal: " + finalSubjectTotal);
 
+						try {
+							if (!finalResult3.equals("null")) {
+
+								finalTheoryObtainedMarks = theoryObtainedMarks + finalResult3;
+
+								finalSubjectTotal = subjectTotal + finalResult3;
+
+								System.out.println("finalTheoryObtainedMarks: " + finalTheoryObtainedMarks);
+								System.out.println("finalSubjectTotal: " + finalSubjectTotal);
 							}
-						
-						
-					
-					
-					
-						if ((status.trim().equals("Pass") || status.trim().equals("Fail")
-								|| status.trim().equals("AP")) & subject.equals(subjectToFind)) {
+						} catch (Exception e) {
+							finalTheoryObtainedMarks = theoryObtainedMarks;
+							finalSubjectTotal = subjectTotal;
+
+							System.out.println("finalTheoryObtainedMarks: " + finalTheoryObtainedMarks);
+							System.out.println("finalSubjectTotal: " + finalSubjectTotal);
+
+						}
+
+						if ((status.trim().equals("Pass") || status.trim().equals("Fail") || status.trim().equals("AP"))
+								& subject.equals(subjectToFind)) {
 
 							try {
 
 								if (!theoryObtainedMarks.trim().equals("NA") || !theoryObtainedMarks.trim().equals("AB")
 										|| !theoryObtainedMarks.trim().equals("NE")
 										|| !theoryObtainedMarks.trim().equals("NE (AT)")) {
-								
-									
-									if(finalTheoryObtainedMarks.contains("G")) {
+
+									if (finalTheoryObtainedMarks.contains("G")) {
 										paper1Mark = Double.parseDouble(theoryObtainedMarks);
 										System.out.println("Yes");
 										verifyScore(paper1Mark, theoryInternalMaxMark, 0.50);
-										gracePaper1Check(Regno,"Theory Internal Sec Marks",paper1,
-											 subjectToFind,  finalResult3, testCaseName);
-										
-										//	
-										
-									}else {
+										gracePaper1Check(Regno, "Theory Internal Sec Marks", paper1, subjectToFind,
+												finalResult3, testCaseName);
+
+										//
+
+									} else {
 										theoryInternalMaxMark = Double.parseDouble(theoryMaxMarks);
-									
+
 										paper1Mark = Double.parseDouble(theoryObtainedMarks);
 										verifyScore(paper1Mark, theoryInternalMaxMark, 0.50);
-										
-										checkMarks(Regno, "Theory Internal Sec Marks", paper1, paper2, paper3,paper4,
+
+										checkMarks(Regno, "Theory Internal Sec Marks", paper1, paper2, paper3, paper4,
 												praticalExam, theoryExam, subjectToFind, examTotal, theoryObtainedMarks,
 												theoryInternalMaxMark, testCaseName);
 									}
-									
+
 								}
 								// Use the value
 							} catch (NumberFormatException e) {
 
 								if (theoryObtainedMarks.trim().equals("AB") || theoryObtainedMarks.trim().equals("NE")
-										|| theoryObtainedMarks.trim().equals("NA") || theoryObtainedMarks.trim().equals("NE (AT)")) {
+										|| theoryObtainedMarks.trim().equals("NA")
+										|| theoryObtainedMarks.trim().equals("NE (AT)")) {
 									paper1Mark = 0.0;
 									Paper1 = 0.0;
 									System.out.println(paper1Mark);
@@ -1015,13 +1017,11 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 													+ subject + " Test case has started running");
 
 									testCaseScenario.log(Status.INFO,
-											"The following Register number " + Regno + " for the subject "
-													+ subject + " theory internal sec marks is: "
-													+ theoryObtainedMarks);
+											"The following Register number " + Regno + " for the subject " + subject
+													+ " theory internal sec marks is: " + theoryObtainedMarks);
 
-									System.out.println("The following Register number " + Regno
-											+ " for the subject " + subject + " theory internal sec marks is: "
-											+ theoryObtainedMarks);
+									System.out.println("The following Register number " + Regno + " for the subject "
+											+ subject + " theory internal sec marks is: " + theoryObtainedMarks);
 
 								}
 
@@ -1034,75 +1034,80 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 													+ subject + " Test case has started running");
 
 									testCaseScenario.log(Status.INFO,
-											"The following Register number " + Regno + " for the subject "
-													+ subject + " theory internal sec marks is: "
-													+ theoryObtainedMarks);
+											"The following Register number " + Regno + " for the subject " + subject
+													+ " theory internal sec marks is: " + theoryObtainedMarks);
 
-									System.out.println("The following Register number " + Regno
-											+ " for the subject " + subject + " theory internal sec marks is: "
-											+ theoryObtainedMarks);
+									System.out.println("The following Register number " + Regno + " for the subject "
+											+ subject + " theory internal sec marks is: " + theoryObtainedMarks);
 
 								}
 
 							}
 							try {
-								if (!practicalObtainedPracticalMarks.trim().equals("NA") || !practicalObtainedPracticalMarks.trim().equals("AB")
-										|| !practicalObtainedPracticalMarks.trim().equals("NE") || !practicalObtainedPracticalMarks.trim().equals("NA")
+								if (!practicalObtainedPracticalMarks.trim().equals("NA")
+										|| !practicalObtainedPracticalMarks.trim().equals("AB")
+										|| !practicalObtainedPracticalMarks.trim().equals("NE")
+										|| !practicalObtainedPracticalMarks.trim().equals("NA")
 										|| !practicalObtainedPracticalMarks.trim().equals("NE (AT)")
 										|| !practicalObtainedPracticalMarks.trim().equals("---")
-										
-										) {
 
-									ExtentTest testCaseScenario = testCaseName
-											.createNode("Practical Obtained Pratical Sec. Marks Validation for the Subject "
+								) {
+
+									ExtentTest testCaseScenario = testCaseName.createNode(
+											"Practical Obtained Pratical Sec. Marks Validation for the Subject "
 													+ subject + " Test case has started running");
 									testCaseScenario.log(Status.PASS,
-											"\n The Following Registration number " + Regno
-													+ " for the Subject " + subject + " Practical Obtained Pratical Sec. Marks is: "
+											"\n The Following Registration number " + Regno + " for the Subject "
+													+ subject + " Practical Obtained Pratical Sec. Marks is: "
 													+ practicalObtainedPracticalMarks);
 
 									System.out.println("\nThe Following Registration number " + Regno
-											+ " Practical Obtained Pratical Sec. Marks is: " + practicalObtainedPracticalMarks);
+											+ " Practical Obtained Pratical Sec. Marks is: "
+											+ practicalObtainedPracticalMarks);
 								}
 								// Use the value
 							} catch (NumberFormatException e) {
 
-								if (practicalObtainedPracticalMarks.trim().equals("AB") || practicalObtainedPracticalMarks.trim().equals("NE")
+								if (practicalObtainedPracticalMarks.trim().equals("AB")
+										|| practicalObtainedPracticalMarks.trim().equals("NE")
 										|| practicalObtainedPracticalMarks.trim().equals("NA")
-										||practicalObtainedPracticalMarks.trim().equals("---")
+										|| practicalObtainedPracticalMarks.trim().equals("---")
 										|| practicalObtainedPracticalMarks.trim().equals("NE (AT)")) {
 
-									ExtentTest testCaseScenario = testCaseName
-											.createNode("Practical Obtained Pratical Sec. Marks Validation for the Subject "
+									ExtentTest testCaseScenario = testCaseName.createNode(
+											"Practical Obtained Pratical Sec. Marks Validation for the Subject "
 													+ subject + " Test case has started running");
 
 									testCaseScenario.log(Status.INFO,
-											"\n The Following Registration number " + Regno
-													+ " for the Subject " + subject + " Practical Obtained Pratical Sec. Marks is: "
+											"\n The Following Registration number " + Regno + " for the Subject "
+													+ subject + " Practical Obtained Pratical Sec. Marks is: "
 													+ practicalObtainedPracticalMarks);
 
 									System.out.println("\nThe Following Registration number " + Regno
-											+ " Practical Obtained Pratical Sec. Marks is: " + practicalObtainedPracticalMarks);
+											+ " Practical Obtained Pratical Sec. Marks is: "
+											+ practicalObtainedPracticalMarks);
 
 								} else {
 
-									ExtentTest testCaseScenario = testCaseName
-											.createNode("Practical Obtained Pratical Sec. Marks Validation for the Subject "
+									ExtentTest testCaseScenario = testCaseName.createNode(
+											"Practical Obtained Pratical Sec. Marks Validation for the Subject "
 													+ subject + " Test case has started running");
 
 									testCaseScenario.log(Status.INFO,
-											"\n The Following Registration number " + Regno
-													+ " for the Subject " + subject + " Practical Obtained Pratical Sec Marks is: "
+											"\n The Following Registration number " + Regno + " for the Subject "
+													+ subject + " Practical Obtained Pratical Sec Marks is: "
 													+ practicalObtainedPracticalMarks);
 
 									System.out.println("\nThe Following Registration number " + Regno
-											+ " Practical Obtained Pratical Sec. Marks is: " + practicalObtainedPracticalMarks);
+											+ " Practical Obtained Pratical Sec. Marks is: "
+											+ practicalObtainedPracticalMarks);
 
 								}
 
 							}
 							try {
-								if (!practicalObtainedVivaMarks.trim().equals("NA") || !practicalObtainedVivaMarks.trim().equals("AB")
+								if (!practicalObtainedVivaMarks.trim().equals("NA")
+										|| !practicalObtainedVivaMarks.trim().equals("AB")
 										|| !practicalObtainedVivaMarks.trim().equals("NE")
 										|| !practicalObtainedVivaMarks.trim().equals("NA")
 										|| !practicalObtainedVivaMarks.trim().equals("---")
@@ -1112,17 +1117,19 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 											.createNode("Practical Obtained Viva Sec. Marks Validation for the Subject "
 													+ subject + " Test case has started running");
 									testCaseScenario.log(Status.PASS,
-											"\n The Following Registration number " + Regno
-													+ " for the Subject " + subject + " Practical Obtained Viva Sec. Marks is: "
+											"\n The Following Registration number " + Regno + " for the Subject "
+													+ subject + " Practical Obtained Viva Sec. Marks is: "
 													+ practicalObtainedVivaMarks);
 
 									System.out.println("\nThe Following Registration number " + Regno
-											+ " Practical Obtained Viva Sec. Marks is: " + practicalObtainedPracticalMarks);
+											+ " Practical Obtained Viva Sec. Marks is: "
+											+ practicalObtainedPracticalMarks);
 								}
 								// Use the value
 							} catch (NumberFormatException e) {
 
-								if (practicalObtainedVivaMarks.trim().equals("AB") || practicalObtainedVivaMarks.trim().equals("NE")
+								if (practicalObtainedVivaMarks.trim().equals("AB")
+										|| practicalObtainedVivaMarks.trim().equals("NE")
 										|| practicalObtainedVivaMarks.trim().equals("NA")
 										|| practicalObtainedVivaMarks.trim().equals("---")
 										|| practicalObtainedVivaMarks.trim().equals("NE (AT)")) {
@@ -1132,8 +1139,8 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 													+ subject + " Test case has started running");
 
 									testCaseScenario.log(Status.INFO,
-											"\n The Following Registration number " + Regno
-													+ " for the Subject " + subject + " Practical Obtained Viva Sec. Marks is: "
+											"\n The Following Registration number " + Regno + " for the Subject "
+													+ subject + " Practical Obtained Viva Sec. Marks is: "
 													+ practicalObtainedVivaMarks);
 
 									System.out.println("\nThe Following Registration number " + Regno
@@ -1146,8 +1153,8 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 													+ subject + " Test case has started running");
 
 									testCaseScenario.log(Status.INFO,
-											"\n The Following Registration number " + Regno
-													+ " for the Subject " + subject + " Practical Obtained Viva Sec Marks is: "
+											"\n The Following Registration number " + Regno + " for the Subject "
+													+ subject + " Practical Obtained Viva Sec Marks is: "
 													+ practicalObtainedVivaMarks);
 
 									System.out.println("\nThe Following Registration number " + Regno
@@ -1155,102 +1162,102 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 
 								}
 							}
-							
+
 							try {
-		
-										validateMarks(Regno,"Theory (Univ) Sec. Marks", paper1, paper2, paper3,paper4,
-												  theoryExam,praticalExam, subject,
-										        examTotal, practicalObtainedIAMarks, practicalMaxIAMarks, 0.50, testCaseName);		
-								}
-								
-								catch(Exception e) {
-									  ExtentTest testCaseScenario = testCaseName.createNode(
-											  " Theory (Univ) Sec. Marks validation for subject " + subjectToFind + " test case has started");
-									  testCaseScenario.log(Status.FAIL,
-												"\n Please check The Following Registration number " + Regno
-														+ "Theory (Univ) Sec. Marks: " + practicalObtainedIAMarks);							
-								}
-								
-					
-			
+
+								validateMarks(Regno, "Theory (Univ) Sec. Marks", paper1, paper2, paper3, paper4,
+										theoryExam, praticalExam, subject, examTotal, practicalObtainedIAMarks,
+										practicalMaxIAMarks, 0.50, testCaseName);
+							}
+
+							catch (Exception e) {
+								ExtentTest testCaseScenario = testCaseName
+										.createNode(" Theory (Univ) Sec. Marks validation for subject " + subjectToFind
+												+ " test case has started");
+								testCaseScenario.log(Status.FAIL, "\n Please check The Following Registration number "
+										+ Regno + "Theory (Univ) Sec. Marks: " + practicalObtainedIAMarks);
+							}
+
 							try {
 
 								if (!subTotalObtainedMarks.equals("NA") || !subTotalObtainedMarks.equals("AB")
 										|| !subTotalObtainedMarks.equals("NE") || !subTotalObtainedMarks.equals("NA")
 										|| !subTotalObtainedMarks.equals("NE (AT)")
-										|| ! subTotalObtainedMarks.equals("---")) {
+										|| !subTotalObtainedMarks.equals("---")) {
 									praticalTotalMaxMark = Double.parseDouble(subTotalMaxMarks);
 									praticalTotalSecMark = Double.parseDouble(subTotalObtainedMarks);
 
-									double praticalTotal = Double.parseDouble(practicalObtainedPracticalMarks)+
-											
-											 Double.parseDouble(practicalObtainedVivaMarks) + Double.parseDouble(practicalObtainedIAMarks) ;
-											
+									double praticalTotal = Double.parseDouble(practicalObtainedPracticalMarks) +
+
+											Double.parseDouble(practicalObtainedVivaMarks)
+											+ Double.parseDouble(practicalObtainedIAMarks);
+
 									System.out.println(praticalTotal);
 									System.out.println(praticalTotalSecMark);
-									System.out.println("subTotalObtainedMarks:" +subTotalObtainedMarks);
+									System.out.println("subTotalObtainedMarks:" + subTotalObtainedMarks);
 									if (praticalTotal == praticalTotalSecMark) {
 										paper2Mark = 0.0;
 										Paper2 = 0.0;
 										ExtentTest testCaseScenario = testCaseName
-												.createNode("pratical total marks validation for the subject "
-														+ subject + " Test case has started running");
+												.createNode("pratical total marks validation for the subject " + subject
+														+ " Test case has started running");
 
-										testCaseScenario.log(Status.PASS,
-												"Both theory papers total "+praticalTotal +" and theory total "+praticalTotalSecMark +" mark are equals ");
+										testCaseScenario.log(Status.PASS, "Both theory papers total " + praticalTotal
+												+ " and theory total " + praticalTotalSecMark + " mark are equals ");
 
-										System.out.println("Both theory papers total "+praticalTotal +" and theory total "+praticalTotalSecMark +" mark are equals ");
+										System.out.println("Both theory papers total " + praticalTotal
+												+ " and theory total " + praticalTotalSecMark + " mark are equals ");
 
-										
 									}
 
 									else {
 										ExtentTest testCaseScenario = testCaseName
-												.createNode("pratical total marks validation for the subject "
-														+ subject + " Test case has started running");
+												.createNode("pratical total marks validation for the subject " + subject
+														+ " Test case has started running");
 										testCaseScenario.log(Status.FAIL,
-												"Both theory papers total "+praticalTotal +" and theory total "+praticalTotalSecMark +" mark are not equals ", 	MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
-										System.out.println("Both theory papers total "+praticalTotal +" and theory total "+praticalTotalSecMark +" mark are equals ");
+												"Both theory papers total " + praticalTotal + " and theory total "
+														+ praticalTotalSecMark + " mark are not equals ",
+												MediaEntityBuilder
+														.createScreenCaptureFromPath(BasicFunctions.capture(driver))
+														.build());
+										System.out.println("Both theory papers total " + praticalTotal
+												+ " and theory total " + praticalTotalSecMark + " mark are equals ");
 									}
 
-								
-									try {	
-										validateMarks(Regno,"Pratical Total Sec. Marks", paper1, paper2, paper3,paper4,
-												  theoryExam,praticalExam,subject,
-										        examTotal, subTotalObtainedMarks, subTotalMaxMarks, 0.50, testCaseName);		
-									}	
-										
-									
-									catch(Exception e) {
-										  ExtentTest testCaseScenario = testCaseName.createNode(
-												  " Pratical Total Sec. Marks validation for subject " + subjectToFind + " test case has started");
-										  testCaseScenario.log(Status.FAIL,
-													"\n Please check The Following Registration number " + Regno
-															+ "Pratical Total Sec. Marks " + subTotalObtainedMarks);							
+									try {
+										validateMarks(Regno, "Pratical Total Sec. Marks", paper1, paper2, paper3,
+												paper4, theoryExam, praticalExam, subject, examTotal,
+												subTotalObtainedMarks, subTotalMaxMarks, 0.50, testCaseName);
 									}
-									
+
+									catch (Exception e) {
+										ExtentTest testCaseScenario = testCaseName
+												.createNode(" Pratical Total Sec. Marks validation for subject "
+														+ subjectToFind + " test case has started");
+										testCaseScenario.log(Status.FAIL,
+												"\n Please check The Following Registration number " + Regno
+														+ "Pratical Total Sec. Marks " + subTotalObtainedMarks);
+									}
+
 								}
 							} catch (NumberFormatException e) {
 
 								if (subTotalObtainedMarks.equals("AB") || subTotalObtainedMarks.equals("NE")
-										|| subTotalObtainedMarks.equals("NA")
-										|| subTotalObtainedMarks.equals("NE (AT)")
-										|| subTotalObtainedMarks.equals("---")
-										)
-								{
+										|| subTotalObtainedMarks.equals("NA") || subTotalObtainedMarks.equals("NE (AT)")
+										|| subTotalObtainedMarks.equals("---")) {
 									praticalTotalSecMark = 0.0;
 									PraticalExamTotal = 0.0;
 
 									System.out.println(praticalTotalSecMark);
 
-									ExtentTest testCaseScenario = testCaseName
-											.createNode("Pratical Sub Total Obtained Sec. Marks Validation for the Subject "
+									ExtentTest testCaseScenario = testCaseName.createNode(
+											"Pratical Sub Total Obtained Sec. Marks Validation for the Subject "
 													+ subject + " Test case has started running");
 
 									testCaseScenario.log(Status.INFO,
-											"\n The Following Registration number " + Regno
-													+ " for the Subject " + subject
-													+ " Practical Sub Total Obtained Sec. Marks is:" + subTotalObtainedMarks);
+											"\n The Following Registration number " + Regno + " for the Subject "
+													+ subject + " Practical Sub Total Obtained Sec. Marks is:"
+													+ subTotalObtainedMarks);
 
 									System.out.println("\nThe Following Registration number " + Regno
 											+ " Practical Sub Total Obtained Sec. Marks is:" + subTotalObtainedMarks);
@@ -1261,14 +1268,14 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 									PraticalExamTotal = 0.0;
 									System.out.println(praticalTotalSecMark);
 
-									ExtentTest testCaseScenario = testCaseName
-											.createNode("Pratical Sub Total Obtained Sec. Marks Validation for the Subject "
+									ExtentTest testCaseScenario = testCaseName.createNode(
+											"Pratical Sub Total Obtained Sec. Marks Validation for the Subject "
 													+ subject + " Test case has started running");
 
 									testCaseScenario.log(Status.INFO,
-											"\n The Following Registration number " + Regno
-													+ " for the Subject " + subject
-													+ " Practical Sub Total Obtained Sec. Marks is:" + subTotalObtainedMarks);
+											"\n The Following Registration number " + Regno + " for the Subject "
+													+ subject + " Practical Sub Total Obtained Sec. Marks is:"
+													+ subTotalObtainedMarks);
 
 									System.out.println("\nThe Following Registration number " + Regno
 											+ " Practical Sub Total Obtained Sec. Marks is:" + subTotalObtainedMarks);
@@ -1276,46 +1283,47 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 								}
 
 							}
-							
+
 							try {
 								if (!subjectTotal.equals("NA") || !subjectTotal.equals("AB")
 										|| !subjectTotal.equals("NE") || !subjectTotal.equals("NA")
-										||	!subjectTotal.equals("---")
-										|| !subjectTotal.equals("NE (AT)")) {	
-									if(finalTheoryObtainedMarks.contains("G")) {
-										paper3Mark =Double.parseDouble((String) paper3);
-										Paper3 =Double.parseDouble((String) paper3);
+										|| !subjectTotal.equals("---") || !subjectTotal.equals("NE (AT)")) {
+									if (finalTheoryObtainedMarks.contains("G")) {
+										paper3Mark = Double.parseDouble((String) paper3);
+										Paper3 = Double.parseDouble((String) paper3);
 										paper1Mark = Double.parseDouble(theoryObtainedMarks);
 										System.out.println("Yes");
-										grandTotalMaxMark = Double.parseDouble(theoryMaxMarks) + Double.parseDouble(subTotalMaxMarks) ;
-										System.out.println("grandTotalMaxMark"+ grandTotalMaxMark);
-											ExamTotalScore = Double.parseDouble(subjectTotal);
-											
-										verifyScore(ExamTotalScore, grandTotalMaxMark, 0.50);				
-										graceTheoryPlusPracticalSecMarksCheck(Regno,"Theory Internal Sec Marks",theoryExam,
-											 subjectToFind,  finalResult3, testCaseName);
-		
-									}else {
-										try {	
-										paper3Mark=0.0;
-										Paper3=0.0;
-										theoryInternalMaxMark = Double.parseDouble(theoryMaxMarks);
-									
-										paper1Mark = Double.parseDouble(theoryObtainedMarks);
-										grandTotalMaxMark = Double.parseDouble(theoryMaxMarks) + Double.parseDouble(subTotalMaxMarks) ;
-									
-										String grandTotalMaxMarks = String.valueOf(grandTotalMaxMark);
-										
-											validateMarks(Regno,"Theory plus pratical Sec. Marks", paper1, paper2, paper3,paper4,
-													  theoryExam,praticalExam, subject,
-											        examTotal, subjectTotal, grandTotalMaxMarks, 0.50, testCaseName);		
-										}	
-										catch(Exception e) {
-											  ExtentTest testCaseScenario = testCaseName.createNode(
-													  " Pratical Total Sec. Marks validation for subject " + subjectToFind + " test case has started");
-											  testCaseScenario.log(Status.FAIL,
-														"\n Please check The Following Registration number " + Regno
-																+ "Pratical Total Sec. Marks " + subjectTotal);							
+										grandTotalMaxMark = Double.parseDouble(theoryMaxMarks)
+												+ Double.parseDouble(subTotalMaxMarks);
+										System.out.println("grandTotalMaxMark" + grandTotalMaxMark);
+										ExamTotalScore = Double.parseDouble(subjectTotal);
+
+										verifyScore(ExamTotalScore, grandTotalMaxMark, 0.50);
+										graceTheoryPlusPracticalSecMarksCheck(Regno, "Theory Internal Sec Marks",
+												theoryExam, subjectToFind, finalResult3, testCaseName);
+
+									} else {
+										try {
+											paper3Mark = 0.0;
+											Paper3 = 0.0;
+											theoryInternalMaxMark = Double.parseDouble(theoryMaxMarks);
+
+											paper1Mark = Double.parseDouble(theoryObtainedMarks);
+											grandTotalMaxMark = Double.parseDouble(theoryMaxMarks)
+													+ Double.parseDouble(subTotalMaxMarks);
+
+											String grandTotalMaxMarks = String.valueOf(grandTotalMaxMark);
+
+											validateMarks(Regno, "Theory plus pratical Sec. Marks", paper1, paper2,
+													paper3, paper4, theoryExam, praticalExam, subject, examTotal,
+													subjectTotal, grandTotalMaxMarks, 0.50, testCaseName);
+										} catch (Exception e) {
+											ExtentTest testCaseScenario = testCaseName
+													.createNode(" Pratical Total Sec. Marks validation for subject "
+															+ subjectToFind + " test case has started");
+											testCaseScenario.log(Status.FAIL,
+													"\n Please check The Following Registration number " + Regno
+															+ "Pratical Total Sec. Marks " + subjectTotal);
 										}
 									}
 									System.out.println("==============");
@@ -1323,21 +1331,17 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 									System.out.println("==============");
 								} // Use the value
 							} catch (NumberFormatException e) {
-								if (subjectTotal.equals("AB") || subjectTotal.equals("NE")
-										|| subjectTotal.equals("NA")
-										|| subjectTotal.equals("---")
-										|| subjectTotal.equals("NE (AT)")) {
+								if (subjectTotal.equals("AB") || subjectTotal.equals("NE") || subjectTotal.equals("NA")
+										|| subjectTotal.equals("---") || subjectTotal.equals("NE (AT)")) {
 									ExamTotalScore = 0.0;
 									System.out.println(ExamTotalScore);
 
 									ExtentTest testCaseScenario = testCaseName
-											.createNode("Grand Total Sec. Marks Validation for the Subject "
-													+ subject + " Test case has started running");
+											.createNode("Grand Total Sec. Marks Validation for the Subject " + subject
+													+ " Test case has started running");
 
-									testCaseScenario.log(Status.INFO,
-											"\n The Following Registration number " + Regno
-													+ " for the Subject " + subject + " marks is: "
-													+ subjectTotal);
+									testCaseScenario.log(Status.INFO, "\n The Following Registration number " + Regno
+											+ " for the Subject " + subject + " marks is: " + subjectTotal);
 
 									System.out.println("\nThe Following Registration number " + Regno
 											+ " Grand Total Sec. Marks is:" + subjectTotal);
@@ -1350,13 +1354,11 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 									System.out.println(ExamTotalScore);
 
 									ExtentTest testCaseScenario = testCaseName
-											.createNode("Grand Total Sec. Marks Validation for the Subject "
-													+ subject + " Test case has started running");
+											.createNode("Grand Total Sec. Marks Validation for the Subject " + subject
+													+ " Test case has started running");
 
-									testCaseScenario.log(Status.INFO,
-											"\n The Following Registration number " + Regno
-													+ " for the Subject " + subject + " marks is: "
-													+ subjectTotal);
+									testCaseScenario.log(Status.INFO, "\n The Following Registration number " + Regno
+											+ " for the Subject " + subject + " marks is: " + subjectTotal);
 
 									System.out.println("\nThe Following Registration number " + Regno
 											+ " Grand Total Sec. Marks is:" + subjectTotal);
@@ -1377,8 +1379,8 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 	}
 
 	public void processEightSubjectPatternPdf(Object Regno, File latestFile, Object paper1, Object paper2,
-			Object paper3,Object paper4, Object theoryExam, Object praticalExam,Object examTotal, String subjectToFind,
-			ExtentTest testCaseName) throws IOException {
+			Object paper3, Object paper4, Object theoryExam, Object praticalExam, Object examTotal,
+			String subjectToFind, ExtentTest testCaseName) throws IOException {
 		if (latestFile != null) {
 			try (PDDocument document = PDDocument.load(latestFile)) {
 				PDFTextStripper stripper = new PDFTextStripper();
@@ -1394,17 +1396,14 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 					// TO print the text
 
 					String text = stripper.getText(document).replaceAll("[\r\n]+", "\n");
-			//		System.out.println(text);
+					// System.out.println(text);
 
 					System.out.println("Page " + page + ":");
 					System.out.println("---------------------------------------------------");
-		
+
 					Pattern securedMarksPattern = Pattern.compile("Secured Marks\\s*:\\s*(\\d+)");
 
-				
 					Matcher securedMatcher = securedMarksPattern.matcher(text);
-
-					
 
 					if (securedMatcher.find()) {
 						String securedMarks = securedMatcher.group(1); // Extract the number
@@ -1431,8 +1430,6 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 
 					Pattern pattern2 = Pattern.compile(regex2, Pattern.MULTILINE);
 					Matcher matcher3 = pattern2.matcher(text);
-
-				
 
 					if (matcher1.find()) {
 						System.out.println("Match found Course: " + matcher1.group());
@@ -1462,21 +1459,22 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 
 					}
 
-		
 					else {
 
 						ExtentTest testCaseScenario = testCaseName.createNode(
 								"Pattern validation for the following " + Regno + " Test case has started running");
 
-						testCaseScenario.log(Status.FAIL, " Please check the The following Register number " + Regno
-								+ " for the subject " + subjectToFind + " No match found",MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
+						testCaseScenario.log(Status.FAIL,
+								" Please check the The following Register number " + Regno + " for the subject "
+										+ subjectToFind + " No match found",
+								MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
 
 						System.out.println("FAIL Please check the The following Register number " + Regno
 								+ " for the subject " + subject + " No match found");
 
 						System.out.println("No match found.");
 					}
-					
+
 //					Pattern mbbsMarksPattern = Pattern.compile(
 //						    "(?<subject>[A-Z &]+)\\s+" +
 //						    "(?<marks>(?:(?:\\d+|NA|AB|NE|\\(AT\\))\\s*(?:\\(F\\))?\\s*)*?)" +
@@ -1499,8 +1497,8 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 							"^(?!Fail|Pass|AP|NE|AB|Theory|KALOJI NARAYANA RAO UNIVERSITY OF HEALTH SCIENCES|Practical|Secured Marks in Words: |Grand Total|Controller of Examinations|Principal)\\s*"
 									+
 									// "([A-Za-z &,\\-]+(?:\\s+(?:\\(?[A-Za-z &,\\-]+\\)?))*)\\s*"+
-									"([A-Z][A-Za-z &,\\-]+(?:\\s+[A-Za-z &,\\-]+)*)\\s*" 
-						
+									"([A-Z][A-Za-z &,\\-]+(?:\\s+[A-Za-z &,\\-]+)*)\\s*"
+
 									+ "(\\d+|NA|NE|AB|---)(?:\\s+\\(F\\))?\\s+" + // Group 2: Theory Int Max
 									"(\\d+|NA|NE|AB|---)(?:\\s+\\(F\\))?\\s+" + // Group 3: Theory Int Sec
 									"(\\d+|NA|NE|AB|---)(?:\\s+\\(F\\))?\\s+" + // Group 4: Theory Univ Max
@@ -1528,9 +1526,8 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 									|| (matcher3.group().trim().contains("BHMS"))) {
 								System.out.println("yes");
 
-								
 								System.out.println("mjdnfsgdfg" + bumsMarksPatternmatcher.group(1));
-								
+
 								System.out.println(
 										"Subject456: " + bumsMarksPatternmatcher.group(1).replace("\n", " ").trim());
 
@@ -1549,7 +1546,7 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 								String grandTotalMaxMarks = bumsMarksPatternmatcher.group(12);
 								String grandTotalSecMarks = bumsMarksPatternmatcher.group(13);
 								status = bumsMarksPatternmatcher.group(14);
-  
+
 								System.out.println("-------------------------------------------------------");
 								System.out.println("Subject: " + subject);
 								System.out.println("Theory Paper 1: " + theoryPaper1);
@@ -1697,8 +1694,8 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 											}
 
 											verifyScore(paper1Mark, theoryInternalMaxMark, 0.50);
-											checkMarks(Regno, "Theory Internal Sec Marks", paper1, paper2, paper3,paper4,
-													praticalExam, theoryExam, subjectToFind, examTotal,
+											checkMarks(Regno, "Theory Internal Sec Marks", paper1, paper2, paper3,
+													paper4, praticalExam, theoryExam, subjectToFind, examTotal,
 													totalTheorySecMarks, theoryInternalMaxMark, testCaseName);
 										}
 										// Use the value
@@ -1968,8 +1965,8 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 											verifyScore(praticalTotalSecMark, praticalTotalMaxMark, 0.50);
 											// Use the value
 											// Check pratical internal Sec. Marks
-											checkMarks(Regno, "Pratical Univ Sec. Marks", paper1, paper2, paper3,paper4,
-													praticalExam, theoryExam, subjectToFind, examTotal,
+											checkMarks(Regno, "Pratical Univ Sec. Marks", paper1, paper2, paper3,
+													paper4, praticalExam, theoryExam, subjectToFind, examTotal,
 													totalPracticalSecMarks, praticalTotalMaxMark, testCaseName);
 										}
 									} catch (NumberFormatException e) {
@@ -2025,8 +2022,8 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 
 											verifyScore(ExamTotalScore, grandTotalMaxMark, 0.50);
 											// Check Grand Total Sec. Marks (assumed max marks as 200)
-											checkMarks(Regno, "Theory plus pratical Sec. Marks", paper1, paper2, paper3,paper4,
-													praticalExam, theoryExam, subjectToFind, examTotal,
+											checkMarks(Regno, "Theory plus pratical Sec. Marks", paper1, paper2, paper3,
+													paper4, praticalExam, theoryExam, subjectToFind, examTotal,
 													grandTotalSecMarks, grandTotalMaxMark, testCaseName);
 											System.out.println("==============");
 											// securedMarks(Regno, examTotal, testCaseName);
@@ -2256,8 +2253,8 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 								Paper2 = 0.0;
 								Paper3 = 0.0;
 								PraticalExamTotal = 0.0;
-								double paper1SecMarks =0.0;
-								double paper2SecMarks =0.0;
+								double paper1SecMarks = 0.0;
+								double paper2SecMarks = 0.0;
 
 								if ((status.trim().equals("Pass") || status.trim().equals("Fail")
 										|| status.trim().equals("AP")) & subject.equals(subjectToFind)) {
@@ -2272,9 +2269,9 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 
 											verifyScore(paper1Mark, theoryInternalMaxMark, 0.50);
 
-											checkMarks(Regno, "Theory Internal Sec Marks", paper1, paper2, paper3,paper4,
-													praticalExam, theoryExam, subjectToFind, examTotal, internalSecMark,
-													theoryInternalMaxMark, testCaseName);
+											checkMarks(Regno, "Theory Internal Sec Marks", paper1, paper2, paper3,
+													paper4, praticalExam, theoryExam, subjectToFind, examTotal,
+													internalSecMark, theoryInternalMaxMark, testCaseName);
 										}
 										// Use the value
 									} catch (NumberFormatException e) {
@@ -2328,7 +2325,7 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 											ExtentTest testCaseScenario = testCaseName
 													.createNode("Paper1 Sec. Marks Validation for the Subject "
 															+ subject + " Test case has started running");
-										paper1SecMarks = Double.parseDouble(paper1SecMark);
+											paper1SecMarks = Double.parseDouble(paper1SecMark);
 
 											testCaseScenario.log(Status.PASS,
 													"\n The Following Registration number " + Regno
@@ -2392,7 +2389,7 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 											System.out.println("\nThe Following Registration number " + Regno
 													+ " Paper2 Sec. Marks is: " + paper2SecMark);
 										}
-				
+
 									} catch (NumberFormatException e) {
 
 										if (paper2SecMark.equals("AB") || paper2SecMark.equals("NE")
@@ -2479,8 +2476,8 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 											verifyScore(paper2Mark, theoryMaxMark, 0.40);
 
 											// Check Theory (Univ) Sec. Marks
-											checkMarks(Regno, "Theory (Univ) Sec. Marks", paper1, paper2, paper3,paper4,
-													praticalExam, theoryExam, subjectToFind, examTotal,
+											checkMarks(Regno, "Theory (Univ) Sec. Marks", paper1, paper2, paper3,
+													paper4, praticalExam, theoryExam, subjectToFind, examTotal,
 													totalPaper1PlusPaper2SecMark, theoryMaxMark, testCaseName);
 										}
 										// Use the value
@@ -2541,8 +2538,8 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 											verifyScore(praticalTotalSecMark, praticalTotalMaxMark, 0.40);
 											// Use the value
 											// Check pratical internal Sec. Marks
-											checkMarks(Regno, "Pratical Univ Sec. Marks", paper1, paper2, paper3,paper4,
-													praticalExam, theoryExam, subjectToFind, examTotal,
+											checkMarks(Regno, "Pratical Univ Sec. Marks", paper1, paper2, paper3,
+													paper4, praticalExam, theoryExam, subjectToFind, examTotal,
 													practicalSecMark, praticalTotalMaxMark, testCaseName);
 										}
 									} catch (NumberFormatException e) {
@@ -2600,8 +2597,8 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 											paper1MinMark = 0.0;
 											verifyScore(ExamTotalScore, grandTotalMaxMark, 0.50);
 											// Check Grand Total Sec. Marks (assumed max marks as 200)
-											checkMarks(Regno, "Theory plus pratical Sec. Marks", paper1, paper2, paper3,paper4,
-													praticalExam, theoryExam, subjectToFind, examTotal,
+											checkMarks(Regno, "Theory plus pratical Sec. Marks", paper1, paper2, paper3,
+													paper4, praticalExam, theoryExam, subjectToFind, examTotal,
 													grandTotalSecMarks, grandTotalMaxMark, testCaseName);
 											System.out.println("==============");
 											// securedMarks(Regno, examTotal, testCaseName);
@@ -2654,12 +2651,11 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 						}
 
 						catch (Exception e) {
-				
+
 						}
 					} // Extract and print each row
 
 					// Extract and print each row
-
 
 //							
 //							if (matcher2.group().contains("MBBS")) {
@@ -2707,62 +2703,61 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 //							System.out.println("Status: " + status);
 //				
 //							}	
-						
-							if (matcher1.group().contains("B.Sc")) {
-								Pattern marksPattern = Pattern.compile(
-									    "^(?!Fail|Pass|AP|NE|AB|Theory|Practical|Grand Total|Controller of Examinations|Principal)\\s*"
-									    + "([A-Z][A-Za-z &,\\-.()]+(?:\\s+[A-Za-z &,\\-.()]+)*)\\s*"                           // Subject Name
-									    + "(?:\\(([^)]+)\\))?\\s*"                                                            // Specialization (optional)
-									    
-									    // Theory Internal Max
-									    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
-									    // Theory Internal Sec
-									    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
-									    // Theory Univ Max
-									    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
-									    // Theory Univ Sec
-									    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?(?:\\s*\\(F\\))?\\s*"
-									    
-									    // Practical Internal Max (optional)
-									    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
-									    // Practical Internal Sec (optional)
-									    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
-									    // Practical Univ Max (optional)
-									    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
-									    // Practical Univ Sec (optional)
-									    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
-									    
-									    // Theory + Practical Max
-									    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
-									    // Theory + Practical Sec
-									    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?(?:\\s*\\(F\\))?\\s*"
-									    
-									    // Status
-									    + "(AP|Pass|Fail|AB|NE|NR|NE\\s*\\(AT\\)|---)$",
-									    Pattern.MULTILINE
-									);
 
-								Matcher matcher = marksPattern.matcher(text);
+					if (matcher1.group().contains("B.Sc")) {
+						Pattern marksPattern = Pattern.compile(
+								"^(?!Fail|Pass|AP|NE|AB|Theory|Practical|Grand Total|Controller of Examinations|Principal)\\s*"
+										+ "([A-Z][A-Za-z &,\\-.()]+(?:\\s+[A-Za-z &,\\-.()]+)*)\\s*" // Subject Name
+										+ "(?:\\(([^)]+)\\))?\\s*" // Specialization (optional)
 
-								while (matcher.find()) {
+										// Theory Internal Max
+										+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
+										// Theory Internal Sec
+										+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
+										// Theory Univ Max
+										+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
+										// Theory Univ Sec
+										+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?(?:\\s*\\(F\\))?\\s*"
 
-									testCaseScenario1.log(Status.INFO, "Pattern process sucessful");
+										// Practical Internal Max (optional)
+										+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
+										// Practical Internal Sec (optional)
+										+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
+										// Practical Univ Max (optional)
+										+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
+										// Practical Univ Sec (optional)
+										+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
 
-									try {
+										// Theory + Practical Max
+										+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
+										// Theory + Practical Sec
+										+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?(?:\\s*\\(F\\))?\\s*"
+
+										// Status
+										+ "(AP|Pass|Fail|AB|NE|NR|NE\\s*\\(AT\\)|---)$",
+								Pattern.MULTILINE);
+
+						Matcher matcher = marksPattern.matcher(text);
+
+						while (matcher.find()) {
+
+							testCaseScenario1.log(Status.INFO, "Pattern process sucessful");
+
+							try {
 								System.out.println("==============");
 								subject = (matcher.group(2) == null) ? matcher.group(1).replaceAll("\\s+", " ").trim()
 										: (matcher.group(1) + " " + matcher.group(2)).replaceAll("\\s+", " ").trim();
 
 								String theoryInternalMaxMarks = matcher.group(3);
-								String	theoryInternalSecMarks = matcher.group(4);
+								String theoryInternalSecMarks = matcher.group(4);
 								String theoryUnivMaxMarks = matcher.group(5);
 								String theoryUnivSecMarks = matcher.group(6);
-								String	practicalInternalMaxMarks = matcher.group(7);
-								String	practicalInternalSecMarks = matcher.group(8);
-								String	practicalUnivMaxMarks = matcher.group(9);
-								String	practicalUnivSecMarks = matcher.group(10);
-								String	theoryPracticalMaxMarks = matcher.group(11);
-								String	theoryPracticalSecMarks = matcher.group(12);
+								String practicalInternalMaxMarks = matcher.group(7);
+								String practicalInternalSecMarks = matcher.group(8);
+								String practicalUnivMaxMarks = matcher.group(9);
+								String practicalUnivSecMarks = matcher.group(10);
+								String theoryPracticalMaxMarks = matcher.group(11);
+								String theoryPracticalSecMarks = matcher.group(12);
 								status = matcher.group(13);
 
 								System.out.println("subject: " + subject);
@@ -2802,267 +2797,289 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 									if (matcher1.group().trim().equals("B.Sc. MLT")) {
 
 										try {
-											validateMarks(Regno,"Paper1 Sec Marks", paper1, paper2, paper3,paper4,
-													  theoryExam,praticalExam, subject,
-											        examTotal, theoryInternalSecMarks, theoryInternalMaxMarks, 0.35, testCaseName);		
-									}
-									
-									catch(Exception e) {
-										  ExtentTest testCaseScenario = testCaseName.createNode(
-												  " Theory Internal Sec. Marks validation for subject " + subjectToFind + " test case has started");
-										  testCaseScenario.log(Status.FAIL,
-													"\n Please check The Following Registration number " + Regno
-															+ "Theory internal sec. Marks: " + theoryInternalSecMarks);							
-									}
-										
-									try {
-											validateMarks(Regno,"Paper2 Sec Marks", paper1, paper2, paper3,paper4,
-													  theoryExam,praticalExam, subject,
-											        examTotal, theoryUnivSecMarks, theoryUnivMaxMarks, 0.40, testCaseName);		
-									}
-									
-									catch(Exception e) {
-										  ExtentTest testCaseScenario = testCaseName.createNode(
-												  " Theory Univ sec. Marks validation for subject " + subjectToFind + " test case has started");
-										  testCaseScenario.log(Status.FAIL,
-													"\n Please check The Following Registration number " + Regno
-															+ "Theory Univ sec. Marks: " + theoryUnivSecMarks);							
-									}
-									try {
-										validateMarks(Regno,"Paper3 Sec Marks", paper1, paper2, paper3,paper4,
-												  theoryExam,praticalExam, subject,
-										        examTotal, practicalInternalSecMarks, practicalInternalMaxMarks, 0.35, testCaseName);		
-								}
-								
-								catch(Exception e) {
-									  ExtentTest testCaseScenario = testCaseName.createNode(
-											  " Practical internal sec. Marks validation for subject " + subjectToFind + " test case has started");
-									  testCaseScenario.log(Status.FAIL,
-												"\n Please check The Following Registration number " + Regno
-														+ "Practical internal sec. Marks: " + practicalInternalSecMarks);							
-								}	
-									try {
-										validateMarks(Regno,"Pratical Total Sec Marks", paper1, paper2, paper3,paper4,
-												  theoryExam,praticalExam, subject,
-										        examTotal, practicalUnivSecMarks, practicalUnivMaxMarks, 0.50, testCaseName);		
-								}
-								
-								catch(Exception e) {
-									  ExtentTest testCaseScenario = testCaseName.createNode(
-											  " Practical Univ sec. Marks validation for subject " + subjectToFind + " test case has started");
-									  testCaseScenario.log(Status.FAIL,
-												"\n Please check The Following Registration number " + Regno
-														+ "Practical Univ sec. Marks: " + practicalUnivSecMarks);							
-								}
-									try {
-										validateMarks(Regno,"Grand Total Sec Marks", paper1, paper2, paper3,paper4,
-												  theoryExam,praticalExam, subject,
-										        examTotal, theoryPracticalSecMarks, theoryPracticalMaxMarks, 0.50, testCaseName);		
-								}
-								
-								catch(Exception e) {
-									  ExtentTest testCaseScenario = testCaseName.createNode(
-											  " Practical Univ sec. Marks validation for subject " + subjectToFind + " test case has started");
-									  testCaseScenario.log(Status.FAIL,
-												"\n Please check The Following Registration number " + Regno
-														+ "Practical Univ sec. Marks: " + theoryPracticalSecMarks);							
-								}
+											validateMarks(Regno, "Paper1 Sec Marks", paper1, paper2, paper3, paper4,
+													theoryExam, praticalExam, subject, examTotal,
+													theoryInternalSecMarks, theoryInternalMaxMarks, 0.35, testCaseName);
+										}
 
-									} //if
+										catch (Exception e) {
+											ExtentTest testCaseScenario = testCaseName
+													.createNode(" Theory Internal Sec. Marks validation for subject "
+															+ subjectToFind + " test case has started");
+											testCaseScenario.log(Status.FAIL,
+													"\n Please check The Following Registration number " + Regno
+															+ "Theory internal sec. Marks: " + theoryInternalSecMarks);
+										}
 
-									else if (matcher1.group().trim().equals("Post Basic B.Sc Nursing")||matcher1.group().trim().equals("Post Basic B.Sc. Nursing")) {
 										try {
-											validateMarks(Regno,"Paper1 Sec Marks", paper1, paper2, paper3,paper4,
-													  theoryExam,praticalExam, subject,
-											        examTotal, theoryInternalSecMarks, theoryInternalMaxMarks, 0.50, testCaseName);		
-									}
-									
-									catch(Exception e) {
-										  ExtentTest testCaseScenario = testCaseName.createNode(
-												  " Theory Internal Sec. Marks validation for subject " + subjectToFind + " test case has started");
-										  testCaseScenario.log(Status.FAIL,
+											validateMarks(Regno, "Paper2 Sec Marks", paper1, paper2, paper3, paper4,
+													theoryExam, praticalExam, subject, examTotal, theoryUnivSecMarks,
+													theoryUnivMaxMarks, 0.40, testCaseName);
+										}
+
+										catch (Exception e) {
+											ExtentTest testCaseScenario = testCaseName
+													.createNode(" Theory Univ sec. Marks validation for subject "
+															+ subjectToFind + " test case has started");
+											testCaseScenario.log(Status.FAIL,
 													"\n Please check The Following Registration number " + Regno
-															+ "Theory internal sec. Marks: " + theoryInternalSecMarks);							
-									}
-										
+															+ "Theory Univ sec. Marks: " + theoryUnivSecMarks);
+										}
 										try {
-											validateMarks(Regno,"Paper2 Sec Marks", paper1, paper2, paper3,paper4,
-													  theoryExam,praticalExam, subject,
-											        examTotal, theoryUnivSecMarks, theoryUnivMaxMarks, 0.50, testCaseName);		
-									}
-									
-									catch(Exception e) {
-										  ExtentTest testCaseScenario = testCaseName.createNode(
-												  " Theory Univ sec. Marks validation for subject " + subjectToFind + " test case has started");
-										  testCaseScenario.log(Status.FAIL,
+											validateMarks(Regno, "Paper3 Sec Marks", paper1, paper2, paper3, paper4,
+													theoryExam, praticalExam, subject, examTotal,
+													practicalInternalSecMarks, practicalInternalMaxMarks, 0.35,
+													testCaseName);
+										}
+
+										catch (Exception e) {
+											ExtentTest testCaseScenario = testCaseName
+													.createNode(" Practical internal sec. Marks validation for subject "
+															+ subjectToFind + " test case has started");
+											testCaseScenario.log(Status.FAIL,
 													"\n Please check The Following Registration number " + Regno
-															+ "Theory Univ sec. Marks: " + theoryUnivSecMarks);							
-									}
+															+ "Practical internal sec. Marks: "
+															+ practicalInternalSecMarks);
+										}
 										try {
-											validateMarks(Regno,"Paper3 Sec Marks", paper1, paper2, paper3,paper4,
-													  theoryExam,praticalExam, subject,
-											        examTotal, practicalInternalSecMarks, practicalInternalMaxMarks, 0.50, testCaseName);		
-									}
-									
-									catch(Exception e) {
-										  ExtentTest testCaseScenario = testCaseName.createNode(
-												  " Practical internal sec. Marks validation for subject " + subjectToFind + " test case has started");
-										  testCaseScenario.log(Status.FAIL,
+											validateMarks(Regno, "Pratical Total Sec Marks", paper1, paper2, paper3,
+													paper4, theoryExam, praticalExam, subject, examTotal,
+													practicalUnivSecMarks, practicalUnivMaxMarks, 0.50, testCaseName);
+										}
+
+										catch (Exception e) {
+											ExtentTest testCaseScenario = testCaseName
+													.createNode(" Practical Univ sec. Marks validation for subject "
+															+ subjectToFind + " test case has started");
+											testCaseScenario.log(Status.FAIL,
 													"\n Please check The Following Registration number " + Regno
-															+ "Practical internal sec. Marks: " + practicalInternalSecMarks);							
-									}
+															+ "Practical Univ sec. Marks: " + practicalUnivSecMarks);
+										}
 										try {
-											validateMarks(Regno,"Pratical Total Sec Marks", paper1, paper2, paper3,paper4,
-													  theoryExam,praticalExam, subject,
-											        examTotal, practicalUnivSecMarks, practicalUnivMaxMarks, 0.50, testCaseName);		
-									}
-									
-									catch(Exception e) {
-										  ExtentTest testCaseScenario = testCaseName.createNode(
-												  " Practical Univ sec. Marks validation for subject " + subjectToFind + " test case has started");
-										  testCaseScenario.log(Status.FAIL,
+											validateMarks(Regno, "Grand Total Sec Marks", paper1, paper2, paper3,
+													paper4, theoryExam, praticalExam, subject, examTotal,
+													theoryPracticalSecMarks, theoryPracticalMaxMarks, 0.50,
+													testCaseName);
+										}
+
+										catch (Exception e) {
+											ExtentTest testCaseScenario = testCaseName
+													.createNode(" Practical Univ sec. Marks validation for subject "
+															+ subjectToFind + " test case has started");
+											testCaseScenario.log(Status.FAIL,
 													"\n Please check The Following Registration number " + Regno
-															+ "Practical Univ sec. Marks: " + practicalUnivSecMarks);							
-									}
+															+ "Practical Univ sec. Marks: " + theoryPracticalSecMarks);
+										}
+
+									} // if
+
+									else if (matcher1.group().trim().equals("Post Basic B.Sc Nursing")
+											|| matcher1.group().trim().equals("Post Basic B.Sc. Nursing")) {
 										try {
-											validateMarks(Regno,"Grand Total Sec Marks", paper1, paper2, paper3,paper4,
-													  theoryExam,praticalExam, subject,
-											        examTotal, theoryPracticalSecMarks, theoryPracticalMaxMarks, 0.50, testCaseName);		
-									}
-									
-									catch(Exception e) {
-										  ExtentTest testCaseScenario = testCaseName.createNode(
-												  " Practical Univ sec. Marks validation for subject " + subjectToFind + " test case has started");
-										  testCaseScenario.log(Status.FAIL,
+											validateMarks(Regno, "Paper1 Sec Marks", paper1, paper2, paper3, paper4,
+													theoryExam, praticalExam, subject, examTotal,
+													theoryInternalSecMarks, theoryInternalMaxMarks, 0.50, testCaseName);
+										}
+
+										catch (Exception e) {
+											ExtentTest testCaseScenario = testCaseName
+													.createNode(" Theory Internal Sec. Marks validation for subject "
+															+ subjectToFind + " test case has started");
+											testCaseScenario.log(Status.FAIL,
 													"\n Please check The Following Registration number " + Regno
-															+ "Practical Univ sec. Marks: " + theoryPracticalSecMarks);							
-									}
-									}// else if 	
-									
+															+ "Theory internal sec. Marks: " + theoryInternalSecMarks);
+										}
+
+										try {
+											validateMarks(Regno, "Paper2 Sec Marks", paper1, paper2, paper3, paper4,
+													theoryExam, praticalExam, subject, examTotal, theoryUnivSecMarks,
+													theoryUnivMaxMarks, 0.50, testCaseName);
+										}
+
+										catch (Exception e) {
+											ExtentTest testCaseScenario = testCaseName
+													.createNode(" Theory Univ sec. Marks validation for subject "
+															+ subjectToFind + " test case has started");
+											testCaseScenario.log(Status.FAIL,
+													"\n Please check The Following Registration number " + Regno
+															+ "Theory Univ sec. Marks: " + theoryUnivSecMarks);
+										}
+										try {
+											validateMarks(Regno, "Paper3 Sec Marks", paper1, paper2, paper3, paper4,
+													theoryExam, praticalExam, subject, examTotal,
+													practicalInternalSecMarks, practicalInternalMaxMarks, 0.50,
+													testCaseName);
+										}
+
+										catch (Exception e) {
+											ExtentTest testCaseScenario = testCaseName
+													.createNode(" Practical internal sec. Marks validation for subject "
+															+ subjectToFind + " test case has started");
+											testCaseScenario.log(Status.FAIL,
+													"\n Please check The Following Registration number " + Regno
+															+ "Practical internal sec. Marks: "
+															+ practicalInternalSecMarks);
+										}
+										try {
+											validateMarks(Regno, "Pratical Total Sec Marks", paper1, paper2, paper3,
+													paper4, theoryExam, praticalExam, subject, examTotal,
+													practicalUnivSecMarks, practicalUnivMaxMarks, 0.50, testCaseName);
+										}
+
+										catch (Exception e) {
+											ExtentTest testCaseScenario = testCaseName
+													.createNode(" Practical Univ sec. Marks validation for subject "
+															+ subjectToFind + " test case has started");
+											testCaseScenario.log(Status.FAIL,
+													"\n Please check The Following Registration number " + Regno
+															+ "Practical Univ sec. Marks: " + practicalUnivSecMarks);
+										}
+										try {
+											validateMarks(Regno, "Grand Total Sec Marks", paper1, paper2, paper3,
+													paper4, theoryExam, praticalExam, subject, examTotal,
+													theoryPracticalSecMarks, theoryPracticalMaxMarks, 0.50,
+													testCaseName);
+										}
+
+										catch (Exception e) {
+											ExtentTest testCaseScenario = testCaseName
+													.createNode(" Practical Univ sec. Marks validation for subject "
+															+ subjectToFind + " test case has started");
+											testCaseScenario.log(Status.FAIL,
+													"\n Please check The Following Registration number " + Regno
+															+ "Practical Univ sec. Marks: " + theoryPracticalSecMarks);
+										}
+									} // else if
+
 									else {
 										try {
-											validateMarks(Regno,"Paper1 Sec Marks", paper1, paper2, paper3,paper4,
-													  theoryExam,praticalExam, subject,
-											        examTotal, theoryInternalSecMarks, theoryInternalMaxMarks, 0.00, testCaseName);		
-									}
-									
-									catch(Exception e) {
-										  ExtentTest testCaseScenario = testCaseName.createNode(
-												  " Theory Internal Sec. Marks validation for subject " + subjectToFind + " test case has started");
-										  testCaseScenario.log(Status.FAIL,
+											validateMarks(Regno, "Paper1 Sec Marks", paper1, paper2, paper3, paper4,
+													theoryExam, praticalExam, subject, examTotal,
+													theoryInternalSecMarks, theoryInternalMaxMarks, 0.00, testCaseName);
+										}
+
+										catch (Exception e) {
+											ExtentTest testCaseScenario = testCaseName
+													.createNode(" Theory Internal Sec. Marks validation for subject "
+															+ subjectToFind + " test case has started");
+											testCaseScenario.log(Status.FAIL,
 													"\n Please check The Following Registration number " + Regno
-															+ "Theory internal sec. Marks: " + theoryInternalSecMarks);							
-									}
-										
-									try {
-											validateMarks(Regno,"Paper2 Sec Marks", paper1, paper2, paper3,paper4,
-													  theoryExam,praticalExam, subject,
-											        examTotal, theoryUnivSecMarks, theoryUnivMaxMarks, 0.00, testCaseName);		
-									}
-									
-									catch(Exception e) {
-										  ExtentTest testCaseScenario = testCaseName.createNode(
-												  " Theory Univ sec. Marks validation for subject " + subjectToFind + " test case has started");
-										  testCaseScenario.log(Status.FAIL,
+															+ "Theory internal sec. Marks: " + theoryInternalSecMarks);
+										}
+
+										try {
+											validateMarks(Regno, "Paper2 Sec Marks", paper1, paper2, paper3, paper4,
+													theoryExam, praticalExam, subject, examTotal, theoryUnivSecMarks,
+													theoryUnivMaxMarks, 0.00, testCaseName);
+										}
+
+										catch (Exception e) {
+											ExtentTest testCaseScenario = testCaseName
+													.createNode(" Theory Univ sec. Marks validation for subject "
+															+ subjectToFind + " test case has started");
+											testCaseScenario.log(Status.FAIL,
 													"\n Please check The Following Registration number " + Regno
-															+ "Theory Univ sec. Marks: " + theoryUnivSecMarks);							
-									}
-									try {
-										validateMarks(Regno,"Paper3 Sec Marks", paper1, paper2, paper3,paper4,
-										        praticalExam, theoryExam, subject,
-										        examTotal, practicalInternalSecMarks, practicalInternalMaxMarks, 0.00, testCaseName);		
-								}
-								
-								catch(Exception e) {
-									  ExtentTest testCaseScenario = testCaseName.createNode(
-											  " Practical internal sec. Marks validation for subject " + subjectToFind + " test case has started");
-									  testCaseScenario.log(Status.FAIL,
-												"\n Please check The Following Registration number " + Regno
-														+ "Practical internal sec. Marks: " + practicalInternalSecMarks);							
-								}	
-									try {
-										validateMarks(Regno,"Pratical Total Sec Marks", paper1, paper2, paper3,paper4,
-												 theoryExam,praticalExam, subject,
-										        examTotal, practicalUnivSecMarks, practicalUnivMaxMarks, 0.50, testCaseName);		
-								}
-								
-								catch(Exception e) {
-									  ExtentTest testCaseScenario = testCaseName.createNode(
-											  " Practical Univ sec. Marks validation for subject " + subjectToFind + " test case has started");
-									  testCaseScenario.log(Status.FAIL,
-												"\n Please check The Following Registration number " + Regno
-														+ "Practical Univ sec. Marks: " + practicalUnivSecMarks);							
-								}
-									try {
-										validateMarks(Regno,"Grand Total Sec Marks", paper1, paper2, paper3,paper4,
-										        praticalExam, theoryExam, subject,
-										        examTotal, theoryPracticalSecMarks, theoryPracticalMaxMarks, 0.50, testCaseName);		
-								}
-								
-								catch(Exception e) {
-									  ExtentTest testCaseScenario = testCaseName.createNode(
-											  " Practical Univ sec. Marks validation for subject " + subjectToFind + " test case has started");
-									  testCaseScenario.log(Status.FAIL,
-												"\n Please check The Following Registration number " + Regno
-														+ "Practical Univ sec. Marks: " + theoryPracticalSecMarks);							
-								}
-	
-									} //else
-									
-								
-								}// if
-								
-								
-								}//try
-									catch(Exception e) {
-									
-									}
-								}//while
+															+ "Theory Univ sec. Marks: " + theoryUnivSecMarks);
+										}
+										try {
+											validateMarks(Regno, "Paper3 Sec Marks", paper1, paper2, paper3, paper4,
+													praticalExam, theoryExam, subject, examTotal,
+													practicalInternalSecMarks, practicalInternalMaxMarks, 0.00,
+													testCaseName);
+										}
+
+										catch (Exception e) {
+											ExtentTest testCaseScenario = testCaseName
+													.createNode(" Practical internal sec. Marks validation for subject "
+															+ subjectToFind + " test case has started");
+											testCaseScenario.log(Status.FAIL,
+													"\n Please check The Following Registration number " + Regno
+															+ "Practical internal sec. Marks: "
+															+ practicalInternalSecMarks);
+										}
+										try {
+											validateMarks(Regno, "Pratical Total Sec Marks", paper1, paper2, paper3,
+													paper4, theoryExam, praticalExam, subject, examTotal,
+													practicalUnivSecMarks, practicalUnivMaxMarks, 0.50, testCaseName);
+										}
+
+										catch (Exception e) {
+											ExtentTest testCaseScenario = testCaseName
+													.createNode(" Practical Univ sec. Marks validation for subject "
+															+ subjectToFind + " test case has started");
+											testCaseScenario.log(Status.FAIL,
+													"\n Please check The Following Registration number " + Regno
+															+ "Practical Univ sec. Marks: " + practicalUnivSecMarks);
+										}
+										try {
+											validateMarks(Regno, "Grand Total Sec Marks", paper1, paper2, paper3,
+													paper4, praticalExam, theoryExam, subject, examTotal,
+													theoryPracticalSecMarks, theoryPracticalMaxMarks, 0.50,
+													testCaseName);
+										}
+
+										catch (Exception e) {
+											ExtentTest testCaseScenario = testCaseName
+													.createNode(" Practical Univ sec. Marks validation for subject "
+															+ subjectToFind + " test case has started");
+											testCaseScenario.log(Status.FAIL,
+													"\n Please check The Following Registration number " + Regno
+															+ "Practical Univ sec. Marks: " + theoryPracticalSecMarks);
+										}
+
+									} // else
+
+								} // if
+
+							} // try
+							catch (Exception e) {
+
 							}
+						} // while
+					}
 
 //For MSC course		
 
-							else if (matcher1.group().contains("M.Sc.")) {
-								Pattern marksPattern = Pattern.compile(
-									    "^(?!Fail|Pass|AP|NE|AB|Theory|Practical|Grand Total|Controller of Examinations|Principal)\\s*"
-									    + "([A-Z][A-Za-z &,\\-.()]+(?:\\s+[A-Za-z &,\\-.()]+)*)\\s*"                           // Subject Name
-									    + "(?:\\(([^)]+)\\))?\\s*"                                                            // Specialization (optional)
-									    
-									    // Theory Internal Max
-									    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
-									    // Theory Internal Sec
-									    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
-									    // Theory Univ Max
-									    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
-									    // Theory Univ Sec
-									    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?(?:\\s*\\(F\\))?\\s*"
-									    
-									    // Practical Internal Max (optional)
-									    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
-									    // Practical Internal Sec (optional)
-									    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
-									    // Practical Univ Max (optional)
-									    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
-									    // Practical Univ Sec (optional)
-									    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
-									    
-									    // Theory + Practical Max
-									    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
-									    // Theory + Practical Sec
-									    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?(?:\\s*\\(F\\))?\\s*"
-									    
-									    // Status
-									    + "(AP|Pass|Fail|AB|NE|NR|NE\\s*\\(AT\\)|---)$",
-									    Pattern.MULTILINE
-									);
+					else if (matcher1.group().contains("M.Sc.")) {
+						Pattern marksPattern = Pattern.compile(
+								"^(?!Fail|Pass|AP|NE|AB|Theory|Practical|Grand Total|Controller of Examinations|Principal)\\s*"
+										+ "([A-Z][A-Za-z &,\\-.()]+(?:\\s+[A-Za-z &,\\-.()]+)*)\\s*" // Subject Name
+										+ "(?:\\(([^)]+)\\))?\\s*" // Specialization (optional)
 
-								Matcher matcher = marksPattern.matcher(text);
+										// Theory Internal Max
+										+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
+										// Theory Internal Sec
+										+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
+										// Theory Univ Max
+										+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
+										// Theory Univ Sec
+										+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?(?:\\s*\\(F\\))?\\s*"
 
-								while (matcher.find()) {
+										// Practical Internal Max (optional)
+										+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
+										// Practical Internal Sec (optional)
+										+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
+										// Practical Univ Max (optional)
+										+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
+										// Practical Univ Sec (optional)
+										+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
 
-									testCaseScenario1.log(Status.INFO, "Pattern process sucessful");
+										// Theory + Practical Max
+										+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
+										// Theory + Practical Sec
+										+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?(?:\\s*\\(F\\))?\\s*"
 
-									try {
+										// Status
+										+ "(AP|Pass|Fail|AB|NE|NR|NE\\s*\\(AT\\)|---)$",
+								Pattern.MULTILINE);
+
+						Matcher matcher = marksPattern.matcher(text);
+
+						while (matcher.find()) {
+
+							testCaseScenario1.log(Status.INFO, "Pattern process sucessful");
+
+							try {
 
 								System.out.println("==============");
 								subject = (matcher.group(2) == null) ? matcher.group(1).replaceAll("\\s+", " ").trim()
@@ -3072,12 +3089,12 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 								String theoryUnivMaxMarks = matcher.group(4);
 								String theoryTotalMaxMarks = matcher.group(5);
 								String theoryTotalSecMarks = matcher.group(6);
-								String 	practicalInternalMaxMarks = matcher.group(7);
+								String practicalInternalMaxMarks = matcher.group(7);
 								String practicalUnivMaxMarks = matcher.group(8);
-								String	practicalTotalMaxMarks = matcher.group(9);
-								String	practicalTotalSecMarks = matcher.group(10);
-								String	theoryPracticalMaxMarks = matcher.group(11);
-								String	theoryPracticalSecMarks = matcher.group(12);
+								String practicalTotalMaxMarks = matcher.group(9);
+								String practicalTotalSecMarks = matcher.group(10);
+								String theoryPracticalMaxMarks = matcher.group(11);
+								String theoryPracticalSecMarks = matcher.group(12);
 								status = matcher.group(13);
 
 								System.out.println("subject: " + matcher.group(1).trim());
@@ -3120,13 +3137,13 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 										if (!theoryTotalSecMarks.equals("NA") || !theoryTotalSecMarks.equals("AB")
 												|| !theoryTotalSecMarks.equals("NE")
 												|| !theoryTotalSecMarks.equals("NE (AT)")
-												||!theoryTotalSecMarks.trim().equals("---")) {
+												|| !theoryTotalSecMarks.trim().equals("---")) {
 											theoryInternalMaxMark = Double.parseDouble(theoryTotalMaxMarks);
 											paper1Mark = Double.parseDouble(theoryTotalSecMarks);
 											verifyScore(paper1Mark, theoryInternalMaxMark, 0.50);
 
 										}
-										checkMarks(Regno, "Theory Total Sec. Marks", paper1, paper2, paper3,paper4,
+										checkMarks(Regno, "Theory Total Sec. Marks", paper1, paper2, paper3, paper4,
 												praticalExam, theoryExam, subjectToFind, examTotal, theoryTotalSecMarks,
 												theoryInternalMaxMark, testCaseName);
 										// Use the value
@@ -3135,7 +3152,7 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 										if (theoryTotalSecMarks.equals("AB") || theoryTotalSecMarks.equals("NE")
 												|| theoryTotalSecMarks.equals("NA")
 												|| theoryTotalSecMarks.equals("NE (AT)")
-												||theoryTotalSecMarks.trim().equals("---")) {
+												|| theoryTotalSecMarks.trim().equals("---")) {
 											paper1Mark = 0.0;
 											Paper1 = 0.0;
 											System.out.println(paper1Mark);
@@ -3158,16 +3175,16 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 
 									try {
 
-										if(!practicalTotalSecMarks.equals("AB") || !practicalTotalSecMarks.equals("NE")
+										if (!practicalTotalSecMarks.equals("AB") || !practicalTotalSecMarks.equals("NE")
 												|| !practicalTotalSecMarks.equals("NA")
 												|| !practicalTotalSecMarks.equals("NE (AT)")
-												||!practicalTotalSecMarks.trim().equals("---")) {
+												|| !practicalTotalSecMarks.trim().equals("---")) {
 											praticalTotalMaxMark = Double.parseDouble(practicalTotalMaxMarks);
 											praticalTotalSecMark = Double.parseDouble(practicalTotalSecMarks);
 											verifyScore(praticalTotalSecMark, praticalTotalMaxMark, 0.50);
 										} // Use the value
-										// Check pratical internal Sec. Marks
-										checkMarks(Regno, "Pratical Total Sec. Marks", paper1, paper2, paper3,paper4,
+											// Check pratical internal Sec. Marks
+										checkMarks(Regno, "Pratical Total Sec. Marks", paper1, paper2, paper3, paper4,
 												praticalExam, theoryExam, subjectToFind, examTotal,
 												practicalTotalSecMarks, praticalTotalMaxMark, testCaseName);
 
@@ -3176,7 +3193,7 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 										if (practicalTotalSecMarks.equals("AB") || practicalTotalSecMarks.equals("NE")
 												|| practicalTotalSecMarks.equals("NA")
 												|| practicalTotalSecMarks.equals("NE (AT)")
-												||practicalTotalSecMarks.trim().equals("---")) {
+												|| practicalTotalSecMarks.trim().equals("---")) {
 											praticalTotalSecMark = 0.0;
 											PraticalExamTotal = 0.0;
 											System.out.println(praticalTotalSecMark);
@@ -3198,7 +3215,8 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 									}
 
 									try {
-										if (!theoryPracticalSecMarks.equals("AB") || !theoryPracticalSecMarks.equals("NE")
+										if (!theoryPracticalSecMarks.equals("AB")
+												|| !theoryPracticalSecMarks.equals("NE")
 												|| !theoryPracticalSecMarks.equals("NA")
 												|| !theoryPracticalSecMarks.equals("---")
 												|| !theoryPracticalSecMarks.equals("NE (AT)")) {
@@ -3206,8 +3224,8 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 											ExamTotalScore = Double.parseDouble(theoryPracticalSecMarks);
 										}
 										// Check Grand Total Sec. Marks (assumed max marks as 200)
-										checkMarks(Regno, "Theory plus pratical Sec. Marks", paper1, paper2, paper3,paper4,
-												praticalExam, theoryExam, subjectToFind, examTotal,
+										checkMarks(Regno, "Theory plus pratical Sec. Marks", paper1, paper2, paper3,
+												paper4, praticalExam, theoryExam, subjectToFind, examTotal,
 												theoryPracticalSecMarks, grandTotalMaxMark, testCaseName);
 										System.out.println("==============");
 										// securedMarks(Regno, examTotal, testCaseName);
@@ -3244,121 +3262,119 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 								}
 
 							}
-							
-								catch(Exception e) {
-									
-							}
-								}//else if
-							}//while
 
-							else if (matcher1.group().contains("BPT")) {
-
-								Pattern bptPattern = Pattern.compile("^(.*?)\\s*-*\\s*" + // Subject Name (Group 1)
-
-								// Subject Name (Group 1) - Captures multiple lines
-										"(\\d{1,3})\\s*-*\\s*" + // Theory + Internal Max Marks (Group 2)
-										"(NA|AB|AP|---|NR|\\(F\\)|NE\\(AT\\)|\\d{1,2}(?:\\(F\\))?)\\s+" + // Theory +
-																											// Internal
-																											// Secured
-																											// Marks
-																											// (Group 3)
-										"(NA|AB|AP|---|NR|\\(F\\)|NE\\(AT\\)|\\d{1,2})\\s+" + // Practical Internal
-																								// Marks (Group 4)
-										"(NA|AB|AP|---|NR|\\(F\\)|NE\\(AT\\)|\\d{1,2})\\s+" + // Practical Marks (Group
-																								// 5)
-										"(NA|AB|AP|---|NR|\\(F\\)|NE\\(AT\\)|\\d{1,2})\\s+" + // Practical Viva Marks
-																								// (Group 6)
-										"(\\d{1,3})\\s*-*\\s*" + // Practical + Viva Max Marks (Group 7)
-										"(\\d{1,3}(?:\\(F\\))?)\\s+" + // Practical + Viva Secured Marks (Group 8)
-										"(\\d{1,3})\\s*-*\\s*" + // Grand Total Max Marks (Group 9)
-										"(\\d{1,3}(?:\\(F\\))?)\\s+" + // Grand Total Secured Marks (Group 10)
-										"(Pass|Fail|AB|AP|NA|NR|\\(F\\)|NE\\(AT\\))$", // Result Status (Group 11)
-										Pattern.MULTILINE | Pattern.DOTALL);
-
-								Matcher bptMatcher = bptPattern.matcher(text);
-
-								System.out.println("jhdsgfjhdfgs");
-
-								if (bptMatcher.find()) {
-
-									System.out.println("==============");
-									System.out.println(bptMatcher.group(0));
-
-									System.out.println("Subject: " + bptMatcher.group(1));
-									System.out.println("Theory + Internal Max Marks: " + bptMatcher.group(2));
-									System.out.println("Theory + Internal Secured Marks: " + bptMatcher.group(3));
-									System.out.println("Practical Internal Marks: " + bptMatcher.group(4));
-									System.out.println("Practical Marks: " + bptMatcher.group(5));
-									System.out.println("Practical Viva Marks: " + bptMatcher.group(6));
-									System.out.println("Practical + Viva Max Marks: " + bptMatcher.group(7));
-									System.out.println("Practical + Viva Secured Marks: " +bptMatcher.group(8));
-									System.out.println("Grand Total Max Marks: " + bptMatcher.group(9));
-									System.out.println("Grand Total Secured Marks: " + bptMatcher.group(10));
-									System.out.println("Result Status: " + bptMatcher.group(11));
-									System.out.println("----------------------------");
-
-								}
+							catch (Exception e) {
 
 							}
+						} // else if
+					} // while
 
-							else if (matcher1.group().equals("B.Sc. MLT")) {
+					else if (matcher1.group().contains("BPT")) {
 
-								Pattern marksPattern = Pattern.compile(
-									    "^(?!Fail|Pass|AP|NE|AB|Theory|Practical|Grand Total|Controller of Examinations|Principal)\\s*"
-									    + "([A-Z][A-Za-z &,\\-.()]+(?:\\s+[A-Za-z &,\\-.()]+)*)\\s*"                           // Subject Name
-									    + "(?:\\(([^)]+)\\))?\\s*"                                                            // Specialization (optional)
-									    
-									    // Theory Internal Max
-									    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
-									    // Theory Internal Sec
-									    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
-									    // Theory Univ Max
-									    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
-									    // Theory Univ Sec
-									    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?(?:\\s*\\(F\\))?\\s*"
-									    
-									    // Practical Internal Max (optional)
-									    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
-									    // Practical Internal Sec (optional)
-									    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
-									    // Practical Univ Max (optional)
-									    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
-									    // Practical Univ Sec (optional)
-									    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
-									    
-									    // Theory + Practical Max
-									    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
-									    // Theory + Practical Sec
-									    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?(?:\\s*\\(F\\))?\\s*"
-									    
-									    // Status
-									    + "(AP|Pass|Fail|AB|NE|NR|NE\\s*\\(AT\\)|---)$",
-									    Pattern.MULTILINE
-									);
+						Pattern bptPattern = Pattern.compile("^(.*?)\\s*-*\\s*" + // Subject Name (Group 1)
 
-								Matcher matcher = marksPattern.matcher(text);
+						// Subject Name (Group 1) - Captures multiple lines
+								"(\\d{1,3})\\s*-*\\s*" + // Theory + Internal Max Marks (Group 2)
+								"(NA|AB|AP|---|NR|\\(F\\)|NE\\(AT\\)|\\d{1,2}(?:\\(F\\))?)\\s+" + // Theory +
+																									// Internal
+																									// Secured
+																									// Marks
+																									// (Group 3)
+								"(NA|AB|AP|---|NR|\\(F\\)|NE\\(AT\\)|\\d{1,2})\\s+" + // Practical Internal
+																						// Marks (Group 4)
+								"(NA|AB|AP|---|NR|\\(F\\)|NE\\(AT\\)|\\d{1,2})\\s+" + // Practical Marks (Group
+																						// 5)
+								"(NA|AB|AP|---|NR|\\(F\\)|NE\\(AT\\)|\\d{1,2})\\s+" + // Practical Viva Marks
+																						// (Group 6)
+								"(\\d{1,3})\\s*-*\\s*" + // Practical + Viva Max Marks (Group 7)
+								"(\\d{1,3}(?:\\(F\\))?)\\s+" + // Practical + Viva Secured Marks (Group 8)
+								"(\\d{1,3})\\s*-*\\s*" + // Grand Total Max Marks (Group 9)
+								"(\\d{1,3}(?:\\(F\\))?)\\s+" + // Grand Total Secured Marks (Group 10)
+								"(Pass|Fail|AB|AP|NA|NR|\\(F\\)|NE\\(AT\\))$", // Result Status (Group 11)
+								Pattern.MULTILINE | Pattern.DOTALL);
 
-								while (matcher.find()) {
+						Matcher bptMatcher = bptPattern.matcher(text);
 
-									testCaseScenario1.log(Status.INFO, "Pattern process sucessful");
+						System.out.println("jhdsgfjhdfgs");
 
-									try {
+						if (bptMatcher.find()) {
 
-								
+							System.out.println("==============");
+							System.out.println(bptMatcher.group(0));
+
+							System.out.println("Subject: " + bptMatcher.group(1));
+							System.out.println("Theory + Internal Max Marks: " + bptMatcher.group(2));
+							System.out.println("Theory + Internal Secured Marks: " + bptMatcher.group(3));
+							System.out.println("Practical Internal Marks: " + bptMatcher.group(4));
+							System.out.println("Practical Marks: " + bptMatcher.group(5));
+							System.out.println("Practical Viva Marks: " + bptMatcher.group(6));
+							System.out.println("Practical + Viva Max Marks: " + bptMatcher.group(7));
+							System.out.println("Practical + Viva Secured Marks: " + bptMatcher.group(8));
+							System.out.println("Grand Total Max Marks: " + bptMatcher.group(9));
+							System.out.println("Grand Total Secured Marks: " + bptMatcher.group(10));
+							System.out.println("Result Status: " + bptMatcher.group(11));
+							System.out.println("----------------------------");
+
+						}
+
+					}
+
+					else if (matcher1.group().equals("B.Sc. MLT")) {
+
+						Pattern marksPattern = Pattern.compile(
+								"^(?!Fail|Pass|AP|NE|AB|Theory|Practical|Grand Total|Controller of Examinations|Principal)\\s*"
+										+ "([A-Z][A-Za-z &,\\-.()]+(?:\\s+[A-Za-z &,\\-.()]+)*)\\s*" // Subject Name
+										+ "(?:\\(([^)]+)\\))?\\s*" // Specialization (optional)
+
+										// Theory Internal Max
+										+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
+										// Theory Internal Sec
+										+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
+										// Theory Univ Max
+										+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
+										// Theory Univ Sec
+										+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?(?:\\s*\\(F\\))?\\s*"
+
+										// Practical Internal Max (optional)
+										+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
+										// Practical Internal Sec (optional)
+										+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
+										// Practical Univ Max (optional)
+										+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
+										// Practical Univ Sec (optional)
+										+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
+
+										// Theory + Practical Max
+										+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?\\s*"
+										// Theory + Practical Sec
+										+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))?(?:\\s*\\(F\\))?\\s*"
+
+										// Status
+										+ "(AP|Pass|Fail|AB|NE|NR|NE\\s*\\(AT\\)|---)$",
+								Pattern.MULTILINE);
+
+						Matcher matcher = marksPattern.matcher(text);
+
+						while (matcher.find()) {
+
+							testCaseScenario1.log(Status.INFO, "Pattern process sucessful");
+
+							try {
+
 								System.out.println("==============");
 								subject = (matcher.group(2) == null) ? matcher.group(1).replaceAll("\\s+", " ").trim()
 										: (matcher.group(1) + " " + matcher.group(2)).replaceAll("\\s+", " ").trim();
 
-								String	theoryInternalMaxMarks = matcher.group(3);
-								String		theoryInternalSecMarks = matcher.group(4);
-								String		theoryUnivMaxMarks = matcher.group(5);
-								String		theoryUnivSecMarks = matcher.group(6);
-								String		practicalInternalMaxMarks = matcher.group(7);
-								String		practicalInternalSecMarks = matcher.group(8);
-								String		practicalUnivMaxMarks = matcher.group(9);
-								String		practicalUnivSecMarks = matcher.group(10);
-								String		theoryPracticalMaxMarks = matcher.group(11);
-								String		theoryPracticalSecMarks = matcher.group(12);
+								String theoryInternalMaxMarks = matcher.group(3);
+								String theoryInternalSecMarks = matcher.group(4);
+								String theoryUnivMaxMarks = matcher.group(5);
+								String theoryUnivSecMarks = matcher.group(6);
+								String practicalInternalMaxMarks = matcher.group(7);
+								String practicalInternalSecMarks = matcher.group(8);
+								String practicalUnivMaxMarks = matcher.group(9);
+								String practicalUnivSecMarks = matcher.group(10);
+								String theoryPracticalMaxMarks = matcher.group(11);
+								String theoryPracticalSecMarks = matcher.group(12);
 								status = matcher.group(13);
 
 								System.out.println("subject: " + subject);
@@ -3405,8 +3421,8 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 
 											verifyScore(paper1Mark, theoryInternalMaxMark, 0.50);
 
-											checkMarks(Regno, "Theory Internal Sec Marks", paper1, paper2, paper3,paper4,
-													praticalExam, theoryExam, subjectToFind, examTotal,
+											checkMarks(Regno, "Theory Internal Sec Marks", paper1, paper2, paper3,
+													paper4, praticalExam, theoryExam, subjectToFind, examTotal,
 													theoryInternalSecMarks, theoryInternalMaxMark, testCaseName);
 										}
 										// Use the value
@@ -3463,8 +3479,8 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 											verifyScore(paper2Mark, theoryMaxMark, 0.50);
 
 											// Check Theory (Univ) Sec. Marks
-											checkMarks(Regno, "Theory (Univ) Sec. Marks", paper1, paper2, paper3,paper4,
-													praticalExam, theoryExam, subjectToFind, examTotal,
+											checkMarks(Regno, "Theory (Univ) Sec. Marks", paper1, paper2, paper3,
+													paper4, praticalExam, theoryExam, subjectToFind, examTotal,
 													theoryUnivSecMarks, theoryMaxMark, testCaseName);
 										}
 										// Use the value
@@ -3526,8 +3542,8 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 
 											// Use the value
 											// Check pratical internal Sec. Marks
-											checkMarks(Regno, "Pratical Internal Sec. Marks", paper1, paper2, paper3,paper4,
-													praticalExam, theoryExam, subjectToFind, examTotal,
+											checkMarks(Regno, "Pratical Internal Sec. Marks", paper1, paper2, paper3,
+													paper4, praticalExam, theoryExam, subjectToFind, examTotal,
 													practicalInternalSecMarks, praticalMaxMark, testCaseName);
 										}
 									} catch (NumberFormatException e) {
@@ -3585,8 +3601,8 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 											verifyScore(praticalTotalSecMark, praticalTotalMaxMark, 0.50);
 											// Use the value
 											// Check pratical internal Sec. Marks
-											checkMarks(Regno, "Pratical Univ Sec. Marks", paper1, paper2, paper3,paper4,
-													praticalExam, theoryExam, subjectToFind, examTotal,
+											checkMarks(Regno, "Pratical Univ Sec. Marks", paper1, paper2, paper3,
+													paper4, praticalExam, theoryExam, subjectToFind, examTotal,
 													practicalUnivSecMarks, praticalTotalMaxMark, testCaseName);
 										}
 									} catch (NumberFormatException e) {
@@ -3640,8 +3656,8 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 											ExamTotalScore = Double.parseDouble(theoryPracticalSecMarks);
 										}
 										// Check Grand Total Sec. Marks (assumed max marks as 200)
-										checkMarks(Regno, "Theory plus pratical Sec. Marks", paper1, paper2, paper3,paper4,
-												praticalExam, theoryExam, subjectToFind, examTotal,
+										checkMarks(Regno, "Theory plus pratical Sec. Marks", paper1, paper2, paper3,
+												paper4, praticalExam, theoryExam, subjectToFind, examTotal,
 												theoryPracticalSecMarks, grandTotalMaxMark, testCaseName);
 										System.out.println("==============");
 										// securedMarks(Regno, examTotal, testCaseName);
@@ -3690,393 +3706,461 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 
 								}
 
-							}//try
-								
-								
-								catch(Exception e){
-									
-									
-								}
+							} // try
+
+							catch (Exception e) {
+
 							}
-								// else if
-							
-					
+						}
+						// else if
+
 					}
-							
-							else if(matcher1.group().contains("BDS")) {
-							     Pattern marksPattern =
 
-							    		 Pattern.compile(
-							    				    "(?m)^\\s*(?!Theory|Result|Subject|Paper)([A-Z ,&'()\\-/]+(?:\\R\\s*[A-Z ,&'()\\-]+)*?)\\s+" 
+					else if (matcher1.group().contains("BDS")) {
+						Pattern marksPattern =
 
-							        			   	+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
-							 
-													+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
-							        				
-													+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
-							        				
-						        			    	+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
-							        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
-							        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
-							        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
-							        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
-							        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
-							        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
-							        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
-							        			    + "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
-							        		 
-							        			    + "(AP|Pass|Fail)",
-							        			    Pattern.DOTALL | Pattern.MULTILINE
-							        			);
-							     
-							     
-							     
-							 	Matcher matcher = marksPattern.matcher(text);
+								Pattern.compile(
+										"(?m)^\\s*(?!Theory|Result|Subject|Paper)([A-Z ,&'()\\-/]+(?:\\R\\s*[A-Z ,&'()\\-]+)*?)\\s+"
 
-							 	if(matcher.find()) {
-							 	
-							 		ExtentTest testCaseScenario2 = testCaseName.createNode(matcher1.group()+" for the subject " + subject +" Test case has started running");
-									
-							 		testCaseScenario2.log(Status.PASS,matcher1.group()+" for the subject " + subject +" Test case has started running");
+												+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
 
-							 	while (matcher.find()) {
-							 		
-							 		
-							 		subject =matcher.group(1);
-								
-								System.out.println("bdsSubject:" +subject);
+												+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+
+												+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+
+												+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+												+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+												+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+												+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+												+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+												+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+												+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+												+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+												+ "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(AT\\))\\s*(?:\\(\\s*F\\s*\\))?\\s*"
+
+												+ "(AP|Pass|Fail)",
+										Pattern.DOTALL | Pattern.MULTILINE);
+
+						Matcher matcher = marksPattern.matcher(text);
+
+						if (matcher.find()) {
+
+							ExtentTest testCaseScenario2 = testCaseName.createNode(matcher1.group()
+									+ " for the subject " + subject + " Test case has started running");
+
+							testCaseScenario2.log(Status.PASS, matcher1.group() + " for the subject " + subject
+									+ " Test case has started running");
+
+							while (matcher.find()) {
+
+								subject = matcher.group(1);
+
+								System.out.println("bdsSubject:" + subject);
 
 //								
-								String bdsTheoryThPlusIntVivaMaxMark =matcher.group(2);
-								
-								String bdsTheoryInt =matcher.group(3);
+								String bdsTheoryThPlusIntVivaMaxMark = matcher.group(2);
+
+								String bdsTheoryInt = matcher.group(3);
 								String bdsTheoryTh = matcher.group(4);
 								String bdsTheoryThViva = matcher.group(5);
 								String bdsTheoryThPlusIntVivaSecMark = matcher.group(6);
-					   String practicalPlusIntMaxMark = matcher.group(7);
-					  
-					   String practicalInt = matcher.group(8);
-					   String bdsPracticalPractical = matcher.group(9);
-					   String practicalVivaPR = matcher.group(10);
-					   String practicalTotalSecMarks = matcher.group(11);				   
+								String practicalPlusIntMaxMark = matcher.group(7);
 
-					  String thPlusPracticalMaxMark =  matcher.group(12);
-					  String thPlusPracticalSecMark = matcher.group(13);
-						status =	 matcher.group(14); 
+								String practicalInt = matcher.group(8);
+								String bdsPracticalPractical = matcher.group(9);
+								String practicalVivaPR = matcher.group(10);
+								String practicalTotalSecMarks = matcher.group(11);
 
+								String thPlusPracticalMaxMark = matcher.group(12);
+								String thPlusPracticalSecMark = matcher.group(13);
+								status = matcher.group(14);
 
-					System.out.println("==============");
-						    
-					System.out.println("Subject: " + subject);
+								System.out.println("==============");
 
-					System.out.println("TH + int Viva Max Marks: " + bdsTheoryThPlusIntVivaMaxMark);
-					System.out.println("Theory Int Marks: " + bdsTheoryInt);
-					System.out.println("Theory TH Marks: " + bdsTheoryTh);
-					System.out.println("Theory Viva Marks: " + bdsTheoryThViva);
-					System.out.println("TH + int Viva Sec Marks: " + bdsTheoryThPlusIntVivaSecMark);
-					System.out.println("Practical + int Max Marks: " + practicalPlusIntMaxMark);
-					System.out.println("Practical + int Marks: " + practicalInt);
-					System.out.println("Practical Practical: " + bdsPracticalPractical);
-					System.out.println("Practical Viva PR: " + practicalVivaPR);
-					System.out.println("Practical + Viva Sec. Marks: " + practicalTotalSecMarks);
-					System.out.println("Theory + Practical Max Marks: " + thPlusPracticalMaxMark);
-					System.out.println("Theory + Practical Sec. Marks: " + thPlusPracticalSecMark);
-					System.out.println("Result: " + status);
-					System.out.println("==============");
+								System.out.println("Subject: " + subject);
 
+								System.out.println("TH + int Viva Max Marks: " + bdsTheoryThPlusIntVivaMaxMark);
+								System.out.println("Theory Int Marks: " + bdsTheoryInt);
+								System.out.println("Theory TH Marks: " + bdsTheoryTh);
+								System.out.println("Theory Viva Marks: " + bdsTheoryThViva);
+								System.out.println("TH + int Viva Sec Marks: " + bdsTheoryThPlusIntVivaSecMark);
+								System.out.println("Practical + int Max Marks: " + practicalPlusIntMaxMark);
+								System.out.println("Practical + int Marks: " + practicalInt);
+								System.out.println("Practical Practical: " + bdsPracticalPractical);
+								System.out.println("Practical Viva PR: " + practicalVivaPR);
+								System.out.println("Practical + Viva Sec. Marks: " + practicalTotalSecMarks);
+								System.out.println("Theory + Practical Max Marks: " + thPlusPracticalMaxMark);
+								System.out.println("Theory + Practical Sec. Marks: " + thPlusPracticalSecMark);
+								System.out.println("Result: " + status);
+								System.out.println("==============");
 
-					if ((status.equals("Pass") || status.equals("Fail") || status.equals("AP"))& subject.equals(subjectToFind)) {
-					
-					
-					try {
+								if ((status.equals("Pass") || status.equals("Fail") || status.equals("AP"))
+										& subject.equals(subjectToFind)) {
 
-						nonValidateMarks(Regno,"Theory Int sec. marks", subject,
-								bdsTheoryInt, testCaseName);		
-				}
-				
-				catch(Exception e) {
-					ExtentTest testCaseScenario = testCaseName.createNode("Theory Int sec. marks validation for the subject " + subject +" Test case has started running");
-					
-					testCaseScenario.log(Status.FAIL,"The following Register number " + Regno +" for the subject "+ subject +" Therory Int sec marks is: " + bdsTheoryInt,
-							MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
+									try {
 
-					
-					System.out.println("The following Register number " + Regno +" for the subject "+ subject +" Therory Int sec marks is: " + bdsTheoryInt);
-										
-				}
-					
-					try {
-						
-						nonValidateMarks(Regno,"Therory TH sec. marks", subject,
-								bdsTheoryTh, testCaseName);		
-				}
-				
-				catch(Exception e) {
-					ExtentTest testCaseScenario = testCaseName.createNode("Therory TH sec. marks validation for the subject " + subject +" Test case has started running");
+										nonValidateMarks(Regno, "Theory Int sec. marks", subject, bdsTheoryInt,
+												testCaseName);
+									}
 
-					testCaseScenario.log(Status.FAIL,"The following Register number " + Regno +" for the subject "+ subject +" Therory TH sec marks is: " + bdsTheoryTh,
-							MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
+									catch (Exception e) {
+										ExtentTest testCaseScenario = testCaseName
+												.createNode("Theory Int sec. marks validation for the subject "
+														+ subject + " Test case has started running");
 
+										testCaseScenario.log(Status.FAIL,
+												"The following Register number " + Regno + " for the subject " + subject
+														+ " Therory Int sec marks is: " + bdsTheoryInt,
+												MediaEntityBuilder
+														.createScreenCaptureFromPath(BasicFunctions.capture(driver))
+														.build());
 
-					System.out.println("The following Register number " + Regno +" for the subject "+ subject +" Therory TH sec marks is: " + bdsTheoryTh);
-						
-				}
-					
-					try {
-						
-						nonValidateMarks(Regno,"Therory TH sec. marks", subject,
-								bdsTheoryThViva, testCaseName);		
-				}
-				
-				catch(Exception e) {
-					ExtentTest testCaseScenario = testCaseName.createNode("Therory Viva sec. marks validation for the subject " + subject +" Test case has started running");
+										System.out
+												.println("The following Register number " + Regno + " for the subject "
+														+ subject + " Therory Int sec marks is: " + bdsTheoryInt);
 
-					testCaseScenario.log(Status.INFO,"The following Register number " + Regno +" for the subject "+ subject +" Therory Viva sec marks is: " + bdsTheoryThViva,
-							MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
+									}
 
+									try {
 
-					System.out.println("The following Register number " + Regno +" for the subject "+ subject +" Therory Viva sec marks is: " + bdsTheoryThViva);
-							
-				}
-					
-			
-					try {
-						
-						
-						
-						double theoryInt = objectToDataType(bdsTheoryInt);
-						
-						double theoryTh = objectToDataType(bdsTheoryTh);
-						
-						double theoryViva =objectToDataType(bdsTheoryThViva);
-								
-						double finalTheoryMark= theoryInt + theoryTh +theoryViva;
-						
-			
-							if (finalTheoryMark == objectToDataType(bdsTheoryThPlusIntVivaSecMark)) {
-							
-								ExtentTest testCaseScenario = testCaseName.createNode("TH + int + Viva Sec Marks for the Subject "+ subject +" Validation Test case has started running");
-		
-								System.out.println(
-										"Both addtion of INT+TH+VIVA  " +  objectToDataType(bdsTheoryThPlusIntVivaSecMark) + " and pdf " +finalTheoryMark + " value for the following Register "
-												+ Regno + " number data are same mark");
-								testCaseScenario.log(Status.PASS,
-										"Both addtion of INT+TH+VIVA  " +  objectToDataType(bdsTheoryThPlusIntVivaSecMark) + " and pdf " +finalTheoryMark + " value for the following Register "
-												+ Regno + " number data are same mark");
+										nonValidateMarks(Regno, "Therory TH sec. marks", subject, bdsTheoryTh,
+												testCaseName);
+									}
 
-							}
+									catch (Exception e) {
+										ExtentTest testCaseScenario = testCaseName
+												.createNode("Therory TH sec. marks validation for the subject "
+														+ subject + " Test case has started running");
 
-							else {
-								ExtentTest testCaseScenario = testCaseName.createNode("Theory TH + int + Viva Sec Marks for the Subject "+ subject +" Validation Test case has started running");
-								
-								System.out.println(
-										"Both addtion of Theory INT+TH+VIVA  " +  objectToDataType(bdsTheoryThPlusIntVivaSecMark) + " and pdf " +finalTheoryMark + " value for the following Register "
-												+ Regno + " number data are same mark");
-								testCaseScenario.log(Status.FAIL,
-										"Both addtion of Theory INT+TH+VIVA  " +  objectToDataType(bdsTheoryThPlusIntVivaSecMark) + " and pdf " +finalTheoryMark + " value for the following Register "
-												+ Regno + " number data are same mark",
-												MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
+										testCaseScenario.log(Status.FAIL,
+												"The following Register number " + Regno + " for the subject " + subject
+														+ " Therory TH sec marks is: " + bdsTheoryTh,
+												MediaEntityBuilder
+														.createScreenCaptureFromPath(BasicFunctions.capture(driver))
+														.build());
 
-							}
+										System.out
+												.println("The following Register number " + Regno + " for the subject "
+														+ subject + " Therory TH sec marks is: " + bdsTheoryTh);
 
-						} catch (Exception e) {
-							ExtentTest testCaseScenario = testCaseName.createNode("TH + int + Viva Sec Marks for the Subject "+ subject +" Validation Test case has started running");
-							
-							System.out.println(
-									"The following " + Regno + " registration number Theory INT+TH+VIVA  is" +bdsTheoryThPlusIntVivaSecMark);
-							testCaseScenario.log(Status.INFO,
-									"The following " + Regno + " registration number Theory INT+TH+VIVA  is" +bdsTheoryThPlusIntVivaSecMark);
+									}
+
+									try {
+
+										nonValidateMarks(Regno, "Therory TH sec. marks", subject, bdsTheoryThViva,
+												testCaseName);
+									}
+
+									catch (Exception e) {
+										ExtentTest testCaseScenario = testCaseName
+												.createNode("Therory Viva sec. marks validation for the subject "
+														+ subject + " Test case has started running");
+
+										testCaseScenario.log(Status.INFO,
+												"The following Register number " + Regno + " for the subject " + subject
+														+ " Therory Viva sec marks is: " + bdsTheoryThViva,
+												MediaEntityBuilder
+														.createScreenCaptureFromPath(BasicFunctions.capture(driver))
+														.build());
+
+										System.out
+												.println("The following Register number " + Regno + " for the subject "
+														+ subject + " Therory Viva sec marks is: " + bdsTheoryThViva);
+
+									}
+
+									try {
+
+										double theoryInt = objectToDataType(bdsTheoryInt);
+
+										double theoryTh = objectToDataType(bdsTheoryTh);
+
+										double theoryViva = objectToDataType(bdsTheoryThViva);
+
+										double finalTheoryMark = theoryInt + theoryTh + theoryViva;
+
+										if (finalTheoryMark == objectToDataType(bdsTheoryThPlusIntVivaSecMark)) {
+
+											ExtentTest testCaseScenario = testCaseName
+													.createNode("TH + int + Viva Sec Marks for the Subject " + subject
+															+ " Validation Test case has started running");
+
+											System.out.println("Both addtion of INT+TH+VIVA  "
+													+ objectToDataType(bdsTheoryThPlusIntVivaSecMark) + " and pdf "
+													+ finalTheoryMark + " value for the following Register " + Regno
+													+ " number data are same mark");
+											testCaseScenario.log(Status.PASS, "Both addtion of INT+TH+VIVA  "
+													+ objectToDataType(bdsTheoryThPlusIntVivaSecMark) + " and pdf "
+													+ finalTheoryMark + " value for the following Register " + Regno
+													+ " number data are same mark");
+
+										}
+
+										else {
+											ExtentTest testCaseScenario = testCaseName
+													.createNode("Theory TH + int + Viva Sec Marks for the Subject "
+															+ subject + " Validation Test case has started running");
+
+											System.out.println("Both addtion of Theory INT+TH+VIVA  "
+													+ objectToDataType(bdsTheoryThPlusIntVivaSecMark) + " and pdf "
+													+ finalTheoryMark + " value for the following Register " + Regno
+													+ " number data are same mark");
+											testCaseScenario.log(Status.FAIL, "Both addtion of Theory INT+TH+VIVA  "
+													+ objectToDataType(bdsTheoryThPlusIntVivaSecMark) + " and pdf "
+													+ finalTheoryMark + " value for the following Register " + Regno
+													+ " number data are same mark",
+													MediaEntityBuilder
+															.createScreenCaptureFromPath(BasicFunctions.capture(driver))
+															.build());
+
+										}
+
+									} catch (Exception e) {
+										ExtentTest testCaseScenario = testCaseName
+												.createNode("TH + int + Viva Sec Marks for the Subject " + subject
+														+ " Validation Test case has started running");
+
+										System.out.println(
+												"The following " + Regno + " registration number Theory INT+TH+VIVA  is"
+														+ bdsTheoryThPlusIntVivaSecMark);
+										testCaseScenario.log(Status.INFO,
+												"The following " + Regno + " registration number Theory INT+TH+VIVA  is"
+														+ bdsTheoryThPlusIntVivaSecMark);
+
+									}
+
+									try {
+										validateMarks(Regno, "Paper1 Sec Marks", paper1, paper2, paper3, paper4,
+												theoryExam, praticalExam, subject, examTotal,
+												bdsTheoryThPlusIntVivaSecMark, bdsTheoryThPlusIntVivaMaxMark, 0.50,
+												testCaseName);
+									}
+
+									catch (Exception e) {
+										ExtentTest testCaseScenario = testCaseName
+												.createNode(" Paper1 Sec. Marks validation for subject " + subjectToFind
+														+ " test case has started");
+										testCaseScenario.log(Status.FAIL,
+												"\n Please check The Following Registration number " + Regno
+														+ "Paper1 Sec. Marks: " + bdsTheoryThPlusIntVivaSecMark,
+												MediaEntityBuilder
+														.createScreenCaptureFromPath(BasicFunctions.capture(driver))
+														.build());
+									}
+
+									try {
+
+										nonValidateMarks(Regno, "Practical Int sec. marks", subject, practicalInt,
+												testCaseName);
+									}
+
+									catch (Exception e) {
+
+										ExtentTest testCaseScenario = testCaseName
+												.createNode("Practical Int sec. marks validation for the subject "
+														+ subject + " Test case has started running");
+
+										testCaseScenario.log(Status.PASS,
+												"The following Register number " + Regno + " for the subject " + subject
+														+ " Practical Int sec marks is: " + practicalInt,
+												MediaEntityBuilder
+														.createScreenCaptureFromPath(BasicFunctions.capture(driver))
+														.build());
+
+										System.out
+												.println("The following Register number " + Regno + " for the subject "
+														+ subject + " Practical Int sec marks is: " + practicalInt);
+
+									}
+
+									try {
+
+										nonValidateMarks(Regno, "Pratical pratical sec. marks", subject,
+												bdsPracticalPractical, testCaseName);
+									}
+
+									catch (Exception e) {
+
+										ExtentTest testCaseScenario = testCaseName
+												.createNode("Pratical pratical sec. marks validation for the subject "
+														+ subject + " Test case has started running");
+
+										testCaseScenario.log(Status.PASS,
+												"The following Register number " + Regno + " for the subject " + subject
+														+ " Pratical pratical sec marks is: " + bdsPracticalPractical,
+												MediaEntityBuilder
+														.createScreenCaptureFromPath(BasicFunctions.capture(driver))
+														.build());
+
+										System.out.println(
+												"The following Register number " + Regno + " for the subject " + subject
+														+ " Pratical pratical sec marks is: " + bdsPracticalPractical);
+
+									}
+									try {
+
+										nonValidateMarks(Regno, "Pratical viva sec. marks", subject, practicalVivaPR,
+												testCaseName);
+									}
+
+									catch (Exception e) {
+										ExtentTest testCaseScenario = testCaseName
+												.createNode("Pratical viva sec. marks validation for the subject "
+														+ subject + " Test case has started running");
+
+										testCaseScenario.log(Status.FAIL,
+												"The following Register number " + Regno + " for the subject " + subject
+														+ " Pratical viva sec. marks is: " + practicalVivaPR,
+												MediaEntityBuilder
+														.createScreenCaptureFromPath(BasicFunctions.capture(driver))
+														.build());
+
+										System.out
+												.println("The following Register number " + Regno + " for the subject "
+														+ subject + " Pratical viva sec. marks is: " + practicalVivaPR);
+
+									}
+
+									try {
+
+										double praticalIntMark = objectToDataType(practicalInt);
+
+										double bdsPracticalPracticalMark = objectToDataType(bdsPracticalPractical);
+
+										double finalPraticalMark = praticalIntMark + bdsPracticalPracticalMark;
+
+										if (finalPraticalMark == objectToDataType(practicalTotalSecMarks)) {
+
+											ExtentTest testCaseScenario = testCaseName.createNode(
+													"Practical int + Viva + Pratical Sec Marks for the Subject "
+															+ subject + " Validation Test case has started running");
+
+											System.out.println(
+													"Both addtion of Practical INT+Pratical+VIVA  " + finalPraticalMark
+															+ " and pdf " + objectToDataType(practicalTotalSecMarks)
+															+ " value for the following Register " + Regno
+															+ " number data are same mark");
+											testCaseScenario.log(Status.PASS,
+													"Both addtion of Practical INT+Pratical+VIVA  " + finalPraticalMark
+															+ " and pdf " + objectToDataType(practicalTotalSecMarks)
+															+ " value for the following Register " + Regno
+															+ " number data are same mark");
+
+										}
+
+										else {
+											ExtentTest testCaseScenario = testCaseName
+													.createNode("TH + int + Viva Sec Marks for the Subject " + subject
+															+ " Validation Test case has started running");
+
+											System.out.println("Both addtion of INT+TH+VIVA  " + finalPraticalMark
+													+ " and pdf " + objectToDataType(practicalTotalSecMarks)
+													+ " value for the following Register " + Regno
+													+ " number data are same mark");
+											testCaseScenario.log(Status.FAIL,
+													"Both addtion of INT+TH+VIVA  " + finalPraticalMark + " and pdf "
+															+ objectToDataType(practicalTotalSecMarks)
+															+ " value for the following Register " + Regno
+															+ " number data are same mark",
+													MediaEntityBuilder
+															.createScreenCaptureFromPath(BasicFunctions.capture(driver))
+															.build());
+
+										}
+
+									} catch (Exception e) {
+										ExtentTest testCaseScenario = testCaseName
+												.createNode("TH + int + Viva Sec Marks for the Subject " + subject
+														+ " Validation Test case has started running");
+
+										System.out.println("The following " + Regno
+												+ " registration number Pratical INT+TH+VIVA  is"
+												+ bdsTheoryThPlusIntVivaSecMark);
+										testCaseScenario.log(Status.INFO,
+												"The following " + Regno
+														+ " registration number Pratical INT+TH+VIVA  is"
+														+ bdsTheoryThPlusIntVivaSecMark);
+
+									}
+									try {
+
+										validateMarks(Regno, "Pratical Total Sec Marks", paper1, paper2, paper3, paper4,
+												theoryExam, praticalExam, subject, examTotal, practicalTotalSecMarks,
+												practicalPlusIntMaxMark, 0.50, testCaseName);
+									}
+
+									catch (Exception e) {
+										ExtentTest testCaseScenario = testCaseName
+												.createNode(" Pratical Total Sec Marks validation for subject "
+														+ subjectToFind + " test case has started");
+										testCaseScenario.log(Status.FAIL,
+												"\n Please check The Following Registration number " + Regno
+														+ "Pratical Total Sec Marks: " + practicalTotalSecMarks,
+												MediaEntityBuilder
+														.createScreenCaptureFromPath(BasicFunctions.capture(driver))
+														.build());
+									}
+
+									System.out.println(thPlusPracticalSecMark);
+
+									try {
+
+										validateMarks(Regno, "Grand Total Sec Marks", paper1, paper2, paper3, paper4,
+												theoryExam, praticalExam, subject, examTotal, thPlusPracticalSecMark,
+												thPlusPracticalMaxMark, 0.50, testCaseName);
+									}
+
+									catch (Exception e) {
+										ExtentTest testCaseScenario = testCaseName.createNode(
+												"Theory plus pratical Sec. Marks Validation for the Subject " + subject
+														+ " Test case has started running");
+
+										testCaseScenario.log(Status.INFO,
+												"\n The Following Registration number " + Regno + " for the Subject "
+														+ subject + " Theory plus Pratical Sec. Marks is: "
+														+ thPlusPracticalSecMark,
+												MediaEntityBuilder
+														.createScreenCaptureFromPath(BasicFunctions.capture(driver))
+														.build());
+
+										System.out.println("\nThe Following Registration number " + Regno
+												+ " Theory plus Pratical Sec. Marks is:" + thPlusPracticalSecMark);
+									}
+
+								}
+
+							} // while
 
 						}
-						
-						try {
-						validateMarks(Regno,"Paper1 Sec Marks", paper1, paper2, paper3,paper4,
-								  theoryExam,praticalExam, subject,
-						        examTotal, bdsTheoryThPlusIntVivaSecMark, bdsTheoryThPlusIntVivaMaxMark, 0.50, testCaseName);		
-				}
-				
-				catch(Exception e) {
-					  ExtentTest testCaseScenario = testCaseName.createNode(
-							  " Paper1 Sec. Marks validation for subject " + subjectToFind + " test case has started");
-					  testCaseScenario.log(Status.FAIL,
-								"\n Please check The Following Registration number " + Regno
-										+ "Paper1 Sec. Marks: " + bdsTheoryThPlusIntVivaSecMark,
-										MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
-				}
-					
-					
-					try {
 
-						nonValidateMarks(Regno,"Practical Int sec. marks", subject,
-								practicalInt, testCaseName);		
-				}
-				
-				catch(Exception e) {
+						else {
+							ExtentTest testCaseScenario = testCaseName
+									.createNode("Theory plus pratical Sec. Marks Validation for the Subject " + subject
+											+ " Test case has started running");
 
-					ExtentTest testCaseScenario = testCaseName.createNode("Practical Int sec. marks validation for the subject " + subject +" Test case has started running");
-
-					testCaseScenario.log(Status.PASS,"The following Register number " + Regno +" for the subject "+ subject +" Practical Int sec marks is: " + practicalInt,
-							MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
-
-
-						System.out.println("The following Register number " + Regno +" for the subject "+ subject +" Practical Int sec marks is: " + practicalInt);
-								
-				}
-				
-					try {
-
-						nonValidateMarks(Regno,"Pratical pratical sec. marks", subject,
-								bdsPracticalPractical, testCaseName);		
-				}
-				
-				catch(Exception e) {
-
-					ExtentTest testCaseScenario = testCaseName.createNode("Pratical pratical sec. marks validation for the subject " + subject +" Test case has started running");
-
-					testCaseScenario.log(Status.PASS,"The following Register number " + Regno +" for the subject "+ subject +" Pratical pratical sec marks is: " + bdsPracticalPractical,
-							MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
-
-
-					System.out.println("The following Register number " + Regno +" for the subject "+ subject +" Pratical pratical sec marks is: " + bdsPracticalPractical);
-					
-				}
-					try {
-
-						nonValidateMarks(Regno,"Pratical viva sec. marks", subject,
-								practicalVivaPR, testCaseName);		
-				}
-				
-				catch(Exception e) {
-					ExtentTest testCaseScenario = testCaseName.createNode("Pratical viva sec. marks validation for the subject " + subject +" Test case has started running");
-					
-					testCaseScenario.log(Status.FAIL,"The following Register number " + Regno +" for the subject "+ subject +" Pratical viva sec. marks is: " + practicalVivaPR,
-							MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
-
-					
-					System.out.println("The following Register number " + Regno +" for the subject "+ subject +" Pratical viva sec. marks is: " + practicalVivaPR);
-										
-				}
-
-						
-						
-						
-						try {
-							
-							double praticalIntMark = objectToDataType(practicalInt);
-							
-							double bdsPracticalPracticalMark = objectToDataType(bdsPracticalPractical);
-
-									
-							double finalPraticalMark= praticalIntMark + bdsPracticalPracticalMark;
-						
-							
-							if (finalPraticalMark == objectToDataType(practicalTotalSecMarks)) {
-							
-								ExtentTest testCaseScenario = testCaseName.createNode("Practical int + Viva + Pratical Sec Marks for the Subject "+ subject +" Validation Test case has started running");
-		
-								System.out.println(
-										"Both addtion of Practical INT+Pratical+VIVA  " + finalPraticalMark  + " and pdf " +objectToDataType(practicalTotalSecMarks) + " value for the following Register "
-												+ Regno + " number data are same mark");
-								testCaseScenario.log(Status.PASS,
-										"Both addtion of Practical INT+Pratical+VIVA  " +  finalPraticalMark + " and pdf " +objectToDataType(practicalTotalSecMarks) + " value for the following Register "
-												+ Regno + " number data are same mark");
-
-							}
-
-							else {
-								ExtentTest testCaseScenario = testCaseName.createNode("TH + int + Viva Sec Marks for the Subject "+ subject +" Validation Test case has started running");
-								
-								System.out.println(
-										"Both addtion of INT+TH+VIVA  " + finalPraticalMark + " and pdf " +objectToDataType(practicalTotalSecMarks) + " value for the following Register "
-												+ Regno + " number data are same mark");
-								testCaseScenario.log(Status.FAIL,
-										"Both addtion of INT+TH+VIVA  " +  finalPraticalMark + " and pdf " +objectToDataType(practicalTotalSecMarks) + " value for the following Register "
-												+ Regno + " number data are same mark",
-												MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
-
-							}
-
-						} catch (Exception e) {
-							ExtentTest testCaseScenario = testCaseName.createNode("TH + int + Viva Sec Marks for the Subject "+ subject +" Validation Test case has started running");
-							
-							System.out.println(
-									"The following " + Regno + " registration number Pratical INT+TH+VIVA  is" +bdsTheoryThPlusIntVivaSecMark);
-							testCaseScenario.log(Status.INFO,
-									"The following " + Regno + " registration number Pratical INT+TH+VIVA  is" +bdsTheoryThPlusIntVivaSecMark);
-
+							testCaseScenario.log(Status.FAIL, "No match found", MediaEntityBuilder
+									.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
 
 						}
-						try {
-						
-						validateMarks(Regno,"Pratical Total Sec Marks", paper1, paper2, paper3,paper4,
-								  theoryExam,praticalExam, subject,
-						        examTotal, practicalTotalSecMarks, practicalPlusIntMaxMark, 0.50, testCaseName);		
-				}
-				
-				catch(Exception e) {
-					  ExtentTest testCaseScenario = testCaseName.createNode(
-							  " Pratical Total Sec Marks validation for subject " + subjectToFind + " test case has started");
-					  testCaseScenario.log(Status.FAIL,
-								"\n Please check The Following Registration number " + Regno
-										+ "Pratical Total Sec Marks: " + practicalTotalSecMarks,
-										MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
-				}
-					
-					
-						System.out.println(thPlusPracticalSecMark);
-						
-						try {
-							
-							validateMarks(Regno,"Grand Total Sec Marks", paper1, paper2, paper3,paper4,
-									  theoryExam,praticalExam, subject,
-							        examTotal, thPlusPracticalSecMark, thPlusPracticalMaxMark, 0.50, testCaseName);		
-					}
-					
-					catch(Exception e) {
-						 ExtentTest testCaseScenario = testCaseName.createNode("Theory plus pratical Sec. Marks Validation for the Subject "+ subject + " Test case has started running");
-							
-							
-						 testCaseScenario.log(Status.INFO,"\n The Following Registration number " + Regno +" for the Subject "+ subject 
-								 + " Theory plus Pratical Sec. Marks is: " + thPlusPracticalSecMark,						
-									MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
+					} else {
+						ExtentTest testCaseScenario2 = testCaseName.createNode(
+								matcher1.group() + " for the subject " + subject + " Test case has started running");
 
-						
-						 System.out.println("\nThe Following Registration number " + Regno
-									+ " Theory plus Pratical Sec. Marks is:" + thPlusPracticalSecMark);
-					}
-					
-					
-					
-							 	}					
-					
-							} //while
-										
-										
-							}
-							
-						 	else {
-								 ExtentTest testCaseScenario = testCaseName.createNode("Theory plus pratical Sec. Marks Validation for the Subject "+ subject + " Test case has started running");
-									
-									
-								 testCaseScenario.log(Status.FAIL,"No match found",						
-											MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
-						 		
-						 	}
-							}
-							else {
-						 		ExtentTest testCaseScenario2 = testCaseName.createNode(matcher1.group()+" for the subject " + subject +" Test case has started running");
-								
-						 		testCaseScenario2.log(Status.FAIL,matcher1.group()+" for the subject " + subject +" Test case has started running",		MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
+						testCaseScenario2.log(Status.FAIL,
+								matcher1.group() + " for the subject " + subject + " Test case has started running",
+								MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
 
-							}
-				
-				}}}
+					}
+
+				}
+			}
+		}
 
 	}// ig
 
-	public void processFourSubjectPatternPdf(Object Regno, File latestFile, Object paper1, Object paper2, Object paper3,Object paper4,
-			 Object theoryExam,Object praticalExam, Object examTotal, String subjectToFind, ExtentTest testCaseName)
-			throws IOException {
+	public void processFourSubjectPatternPdf(Object Regno, File latestFile, Object paper1, Object paper2, Object paper3,
+			Object paper4, Object theoryExam, Object praticalExam, Object examTotal, String subjectToFind,
+			ExtentTest testCaseName) throws IOException {
 		if (latestFile != null) {
 			try (PDDocument document = PDDocument.load(latestFile)) {
 				PDFTextStripper stripper = new PDFTextStripper();
@@ -4119,13 +4203,15 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 
 					// Matches M.D., M.D.AYURVEDA, M.S. followed by AYURVEDA and specialization in
 					// brackets
-					String ayurvedaPart2Regex = "M\\.(?:D(?:\\.A)?\\.?|S\\.)\\s*AYURVEDA\\s*\\([A-Z &]+\\)";
 
 					Pattern subjectPattern = Pattern.compile(subjectRegex, Pattern.MULTILINE);
 					Matcher subjectMatcher = subjectPattern.matcher(text);
 					Pattern subjectAyurvedaPart2RegexPattern = Pattern.compile(subjectAyurvedaPart2Regex,
 							Pattern.MULTILINE);
 					Matcher subjectAyurvedaPart2RegexMatcher = subjectAyurvedaPart2RegexPattern.matcher(text);
+					// brackets
+					String ayurvedaPart2Regex = "M\\.(?:D(?:\\.A)?\\.?|S\\.)\\s*AYURVEDA\\s*\\([A-Z &]+\\)";
+
 					Pattern ayurvedaPart2RegexPattern = Pattern.compile(ayurvedaPart2Regex, Pattern.MULTILINE);
 					Matcher ayurvedaPart2RegexMatcher = ayurvedaPart2RegexPattern.matcher(text);
 
@@ -4161,12 +4247,11 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 //									"([A-Za-z &'\\-\\(\\),]+(?:\\n[A-Za-z &'\\-\\(\\),]+)*)\\s+" +
 //									"(?:\\(([^)]+)\\))?\\s*" + // Group 2: Specialization (Optional, inside parentheses)			
 //				
-				//For MPH Y2 Reg 16 Command this pattern and run on it to match with Rc PDF
+									// For MPH Y2 Reg 16 Command this pattern and run on it to match with Rc PDF
 
-			"([A-Z &'\\-\\(\\),]+(?:\\n[A-Z &'\\-/(\\),]+)*)\\s+(?:\\(([^)]+)\\))?"+
-			
-						
-						"(\\d+|F|---|NE\\s*\\(AT\\)|NE|NA|AB)(?:\\s*\\(F\\))?\\s+" + // Group 3: Theory Max
+									"([A-Z &'\\-\\(\\),]+(?:\\n[A-Z &'\\-/(\\),]+)*)\\s+(?:\\(([^)]+)\\))?" +
+
+									"(\\d+|F|---|NE\\s*\\(AT\\)|NE|NA|AB)(?:\\s*\\(F\\))?\\s+" + // Group 3: Theory Max
 																									// Marks
 									"(\\d+|F|---|NE\\s*\\(AT\\)|NE|NA|AB)(?:\\s*\\(F\\))?\\s+" + // Group 4: Theory Sec
 																									// Marks
@@ -4185,7 +4270,7 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 									"\\b(Pass|Fail|AP|NE|AB)\\b", // Group 11: Status (at the END)
 							Pattern.MULTILINE // Enables multi-line matching
 					);
-		
+
 					/*
 					 * correct pattern previoly Pattern fourPattern = Pattern.compile(
 					 * "([A-Za-z &'\\-()]+)\\s+" + // Subject name (Group 1)
@@ -4215,9 +4300,6 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 					System.out.println("Foundsubject1 " + foundSubject1);
 					while (fourPatternMatcher.find()) {
 
-					
-					
-
 						System.out.println("Foundsubject " + foundSubject);
 						System.out.println("Foundsubject1 " + foundSubject1);
 
@@ -4234,11 +4316,11 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 
 							String theoryMaxMarks = fourPatternMatcher.group(3); // Take the last part
 
-							String	theorySecMarks = fourPatternMatcher.group(4);
+							String theorySecMarks = fourPatternMatcher.group(4);
 							String praticalMaxMarks = fourPatternMatcher.group(5);
 							String praticalSecMarks = fourPatternMatcher.group(6);
 
-							String	vivaMaxMarks = fourPatternMatcher.group(7);
+							String vivaMaxMarks = fourPatternMatcher.group(7);
 							String vivaSecMarks = fourPatternMatcher.group(8);
 
 							String theoryPraticalTotalMaxMarks = fourPatternMatcher.group(9);
@@ -4297,8 +4379,8 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 										theoryInternalMaxMark = Double.parseDouble(theoryMaxMarks);
 										paper1Mark = Double.parseDouble(theorySecMarks);
 										verifyScore(paper1Mark, theoryInternalMaxMark, 0.50);
-										checkMarks(Regno, "Theory Sec Marks", paper1, paper2, paper3,paper4, praticalExam,
-												theoryExam, subjectToFind, examTotal, theorySecMarks,
+										checkMarks(Regno, "Theory Sec Marks", paper1, paper2, paper3, paper4,
+												praticalExam, theoryExam, subjectToFind, examTotal, theorySecMarks,
 												theoryInternalMaxMark, testCaseName);
 									}
 
@@ -4358,11 +4440,11 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 										praticalTotalMaxMark = Double.parseDouble(vivaMaxMarks);
 										praticalTotalSecMark = Double.parseDouble(vivaSecMarks);
 										verifyScore(praticalTotalSecMark, praticalTotalMaxMark, 0.50);
-										checkMarks(Regno, "Pratical Univ Sec. Marks", paper1, paper2, paper3,paper4,
+										checkMarks(Regno, "Pratical Univ Sec. Marks", paper1, paper2, paper3, paper4,
 												praticalExam, theoryExam, subjectToFind, examTotal, theorySecMarks,
 												theoryInternalMaxMark, testCaseName);
 									} // Use the value
-									// Check pratical internal Sec. Marks
+										// Check pratical internal Sec. Marks
 									else {
 										ExtentTest testCaseScenario = testCaseName
 												.createNode("Pratical. Marks Validation for the Subject " + subject
@@ -4426,9 +4508,9 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 										grandTotalMaxMark = Double.parseDouble(grandTotalMaxMarks);
 										ExamTotalScore = Double.parseDouble(grandTotalSecMarks);
 										verifyScore(ExamTotalScore, grandTotalMaxMark, 0.50);
-										checkMarks(Regno, " Theory plus pratical Sec. Marks", paper1, paper2, paper3,paper4,
-												praticalExam, theoryExam, subjectToFind, examTotal, grandTotalSecMarks,
-												grandTotalMaxMark, testCaseName);
+										checkMarks(Regno, " Theory plus pratical Sec. Marks", paper1, paper2, paper3,
+												paper4, praticalExam, theoryExam, subjectToFind, examTotal,
+												grandTotalSecMarks, grandTotalMaxMark, testCaseName);
 									}
 									// Check Grand Total Sec. Marks (assumed max marks as 200)
 
@@ -4493,7 +4575,7 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 						// Store result of find()
 
 						else if (((foundSubject && subjectMatcher.group().trim().contains("BAMS"))
-							
+
 								|| (foundSubject && subjectMatcher.group().contains("BHMS"))
 								|| (foundSubject && subjectMatcher.group().contains("MBBS"))
 								|| (foundSubject && subjectMatcher.group().contains("M.P.H")))
@@ -4507,17 +4589,17 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 									: (fourPatternMatcher.group(1) + " " + fourPatternMatcher.group(2))
 											.replaceAll("\\s+", " ").trim();
 
-							String	theoryMaxMarks = fourPatternMatcher.group(3); // Take the last part
+							String theoryMaxMarks = fourPatternMatcher.group(3); // Take the last part
 
-							String	theorySecMarks = fourPatternMatcher.group(4);
+							String theorySecMarks = fourPatternMatcher.group(4);
 							String praticalMaxMarks = fourPatternMatcher.group(5);
-							String	praticalSecMarks = fourPatternMatcher.group(6);
+							String praticalSecMarks = fourPatternMatcher.group(6);
 
-							String	vivaMaxMarks = fourPatternMatcher.group(7);
-							String	vivaSecMarks = fourPatternMatcher.group(8);
+							String vivaMaxMarks = fourPatternMatcher.group(7);
+							String vivaSecMarks = fourPatternMatcher.group(8);
 
-							String		grandTotalMaxMarks = fourPatternMatcher.group(9);
-							String		grandTotalSecMarks = fourPatternMatcher.group(10);
+							String grandTotalMaxMarks = fourPatternMatcher.group(9);
+							String grandTotalSecMarks = fourPatternMatcher.group(10);
 							status = fourPatternMatcher.group(11);
 
 							// Check if this is the subject we are looking for
@@ -4562,285 +4644,284 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 							if ((status.trim().equals("Pass") || status.trim().equals("Fail")
 									|| status.trim().equals("AP")) && subject.equals(subjectToFind)) {
 
-							try {
-									validateMarks(Regno,"Theory Total Sec. Marks", paper1, paper2, paper3,paper4,
-											 theoryExam,praticalExam,subject,
-									        examTotal, theorySecMarks, theoryMaxMarks, 0.50, testCaseName);		
-							}
-							
-							catch(Exception e) {
-								  ExtentTest testCaseScenario = testCaseName.createNode(
-										  " Theory Total Sec. Marks validation for subject " + subjectToFind + " test case has started");
-								  testCaseScenario.log(Status.FAIL,
+								try {
+									validateMarks(Regno, "Theory Total Sec. Marks", paper1, paper2, paper3, paper4,
+											theoryExam, praticalExam, subject, examTotal, theorySecMarks,
+											theoryMaxMarks, 0.50, testCaseName);
+								}
+
+								catch (Exception e) {
+									ExtentTest testCaseScenario = testCaseName
+											.createNode(" Theory Total Sec. Marks validation for subject "
+													+ subjectToFind + " test case has started");
+									testCaseScenario.log(Status.FAIL,
 											"\n Please check The Following Registration number " + Regno
-													+ "Theory internal sec. Marks: " + theorySecMarks);							
-							}
-							
-							try {
-								validateMarks(Regno,"Theory (Univ) Sec. Marks", paper1, paper2, paper3,paper4,
-										 theoryExam,praticalExam, subject,
-								        examTotal, praticalSecMarks, praticalMaxMarks, 0.50, testCaseName);		
-						}
-							catch(Exception e) {
-								  ExtentTest testCaseScenario = testCaseName.createNode(
-										  " Theory (Univ) Sec. Marks validation for subject " + subjectToFind + " test case has started");
-								  testCaseScenario.log(Status.FAIL,
+													+ "Theory internal sec. Marks: " + theorySecMarks);
+								}
+
+								try {
+									validateMarks(Regno, "Theory (Univ) Sec. Marks", paper1, paper2, paper3, paper4,
+											theoryExam, praticalExam, subject, examTotal, praticalSecMarks,
+											praticalMaxMarks, 0.50, testCaseName);
+								} catch (Exception e) {
+									ExtentTest testCaseScenario = testCaseName
+											.createNode(" Theory (Univ) Sec. Marks validation for subject "
+													+ subjectToFind + " test case has started");
+									testCaseScenario.log(Status.FAIL,
 											"\n Please check The Following Registration number " + Regno
-													+ "Theory (Univ) Sec. Marks " + praticalSecMarks);							
-							}
-							
-							
-							try {
-								
-								if (subjectMatcher.group().contains("MBBS")) {
-									validateMarks(Regno,"Pratical Internal Sec. Marks", paper1, paper2, paper3,paper4,
-											 theoryExam,praticalExam, subject,
-									        examTotal, vivaSecMarks, vivaMaxMarks, 0.35, testCaseName);		
-							} else {
-								validateMarks(Regno,"Pratical Internal Sec. Marks", paper1, paper2, paper3,paper4,
-										 theoryExam,praticalExam, subject,
-								        examTotal, vivaSecMarks, vivaMaxMarks, 0.50, testCaseName);		
-					}
-			
-						}
-							catch(Exception e) {
-								  ExtentTest testCaseScenario = testCaseName.createNode(
-										  " Pratical Internal Sec. Marks validation for subject " + subjectToFind + " test case has started");
-								  testCaseScenario.log(Status.FAIL,
+													+ "Theory (Univ) Sec. Marks " + praticalSecMarks);
+								}
+
+								try {
+
+									if (subjectMatcher.group().contains("MBBS")) {
+										validateMarks(Regno, "Pratical Internal Sec. Marks", paper1, paper2, paper3,
+												paper4, theoryExam, praticalExam, subject, examTotal, vivaSecMarks,
+												vivaMaxMarks, 0.35, testCaseName);
+									} else {
+										validateMarks(Regno, "Pratical Internal Sec. Marks", paper1, paper2, paper3,
+												paper4, theoryExam, praticalExam, subject, examTotal, vivaSecMarks,
+												vivaMaxMarks, 0.50, testCaseName);
+									}
+
+								} catch (Exception e) {
+									ExtentTest testCaseScenario = testCaseName
+											.createNode(" Pratical Internal Sec. Marks validation for subject "
+													+ subjectToFind + " test case has started");
+									testCaseScenario.log(Status.FAIL,
 											"\n Please check The Following Registration number " + Regno
-													+ "Pratical Internal Sec. Marks: " + vivaSecMarks);							
-							}
-									
-							try {
-								validateMarks(Regno,"Theory plus pratical Sec. Marks", paper1, paper2, paper3,paper4,
-										 theoryExam,praticalExam, subject,
-								        examTotal, grandTotalSecMarks, grandTotalMaxMarks, 0.50, testCaseName);		
-						}
-							catch(Exception e) {
-								  ExtentTest testCaseScenario = testCaseName.createNode(
-										  " Theory plus pratical Sec. Marks validation for subject " + subjectToFind + " test case has started");
-								  testCaseScenario.log(Status.FAIL,
+													+ "Pratical Internal Sec. Marks: " + vivaSecMarks);
+								}
+
+								try {
+									validateMarks(Regno, "Theory plus pratical Sec. Marks", paper1, paper2, paper3,
+											paper4, theoryExam, praticalExam, subject, examTotal, grandTotalSecMarks,
+											grandTotalMaxMarks, 0.50, testCaseName);
+								} catch (Exception e) {
+									ExtentTest testCaseScenario = testCaseName
+											.createNode(" Theory plus pratical Sec. Marks validation for subject "
+													+ subjectToFind + " test case has started");
+									testCaseScenario.log(Status.FAIL,
 											"\n Please check The Following Registration number " + Regno
-													+ "Theory plus pratical Sec. Marks: " + grandTotalSecMarks);							
+													+ "Theory plus pratical Sec. Marks: " + grandTotalSecMarks);
+								}
+
 							}
-							
-							}
-						
-							
+
 						}
 					} // while
 
-
 					System.out.println("Foundsubject " + foundSubject);
 					System.out.println("Foundsubject1 " + foundSubject1);
-					
+
 					System.out.println("Foundsubject " + foundSubject);
 					if (subjectMatcher.group().contains("PG")) {
-						
-						
-						Pattern pgSubjectPattern = Pattern.compile("(.+)\\s*Subject\\s*:|Subject\\s*(?:Name)?\\s*:\\s*(.+)",
-								Pattern.CASE_INSENSITIVE);
+
+						Pattern pgSubjectPattern = Pattern.compile(
+								"(.+)\\s*Subject\\s*:|Subject\\s*(?:Name)?\\s*:\\s*(.+)", Pattern.CASE_INSENSITIVE);
 
 						Matcher pgSubjectPatternMatcher = pgSubjectPattern.matcher(text);
 
 						if (pgSubjectPatternMatcher.find()) {
 							// Check which group is non-null and capture the correct subject name
-							String subjectName = pgSubjectPatternMatcher.group(1) != null ? pgSubjectPatternMatcher.group(1)
+							String subjectName = pgSubjectPatternMatcher.group(1) != null
+									? pgSubjectPatternMatcher.group(1)
 									: pgSubjectPatternMatcher.group(2);
 
 							subject = subjectName;
 							System.out.println("Subject: " + subject);
 						}
-	
-						
-						
-						System.out.println("subject"+subject);
-						
-								String paperMaxMark ="100";
-								String practicalTotalMaxMark = "400";
-								String theoryTotalMaxMark = "400";
 
-								String grandTotalMaxMarks = "800";
-								
+						System.out.println("subject" + subject);
+
+						String paperMaxMark = "100";
+						String practicalTotalMaxMark = "400";
+						String theoryTotalMaxMark = "400";
+
+						String grandTotalMaxMarks = "800";
+
 //								Pattern ayurvedaPart2Pattern = Pattern
 //										.compile("(\\d+)\\s+(\\d+)\\s+(\\d+)\\s+(\\d+)\\s+(\\d+)\\s+(\\d+)\\s+(\\d+)\\s+(Pass|Fail)");
-								Pattern ayurvedaPart2Pattern = Pattern.compile(
-									    "(\\d+|AB|NA|NR|NE(?:\\s*\\(AT\\))?)\\s*(?:\\(\\s*F\\s*\\))?\\s+" +
-									    "(\\d+|AB|NA|NR|NE(?:\\s*\\(AT\\))?)\\s*(?:\\(\\s*F\\s*\\))?\\s+" +
-									    "(\\d+|AB|NA|NR|NE(?:\\s*\\(AT\\))?)\\s*(?:\\(\\s*F\\s*\\))?\\s+" +
-									    "(\\d+|AB|NA|NR|NE(?:\\s*\\(AT\\))?)\\s*(?:\\(\\s*F\\s*\\))?\\s+" +
-									    "(\\d+|AB|NA|NR|NE(?:\\s*\\(AT\\))?)\\s*(?:\\(\\s*F\\s*\\))?\\s+" +
-									    "(\\d+|AB|NA|NR|NE(?:\\s*\\(AT\\))?)\\s*(?:\\(\\s*F\\s*\\))?\\s+" +
-									    "(\\d+|AB|NA|NR|NE(?:\\s*\\(AT\\))?)\\s*(?:\\(\\s*F\\s*\\))?\\s+" +
-									    "(Pass|Fail)"
-									);
-								
-								Matcher ayurvedaPart2PatternMatcher = ayurvedaPart2Pattern.matcher(text);
+						Pattern ayurvedaPart2Pattern = Pattern
+								.compile("(\\d+|AB|NA|NR|NE(?:\\s*\\(AT\\))?)\\s*(?:\\(\\s*F\\s*\\))?\\s+"
+										+ "(\\d+|AB|NA|NR|NE(?:\\s*\\(AT\\))?)\\s*(?:\\(\\s*F\\s*\\))?\\s+"
+										+ "(\\d+|AB|NA|NR|NE(?:\\s*\\(AT\\))?)\\s*(?:\\(\\s*F\\s*\\))?\\s+"
+										+ "(\\d+|AB|NA|NR|NE(?:\\s*\\(AT\\))?)\\s*(?:\\(\\s*F\\s*\\))?\\s+"
+										+ "(\\d+|AB|NA|NR|NE(?:\\s*\\(AT\\))?)\\s*(?:\\(\\s*F\\s*\\))?\\s+"
+										+ "(\\d+|AB|NA|NR|NE(?:\\s*\\(AT\\))?)\\s*(?:\\(\\s*F\\s*\\))?\\s+"
+										+ "(\\d+|AB|NA|NR|NE(?:\\s*\\(AT\\))?)\\s*(?:\\(\\s*F\\s*\\))?\\s+"
+										+ "(Pass|Fail)");
 
+						Matcher ayurvedaPart2PatternMatcher = ayurvedaPart2Pattern.matcher(text);
 
-								if (ayurvedaPart2PatternMatcher.find()) {
-									
-									String theoryPaper1 = ayurvedaPart2PatternMatcher.group(1);
-									String theoryPaper2 = ayurvedaPart2PatternMatcher.group(2);
-									String theoryPaper3 = ayurvedaPart2PatternMatcher.group(3);
-									String theoryPaper4 = ayurvedaPart2PatternMatcher.group(4);
-									String theoryTotalSecMark = ayurvedaPart2PatternMatcher.group(5);
-									String practicalTotalSecMark = ayurvedaPart2PatternMatcher.group(6);
-									String grandTotalSecMarks = ayurvedaPart2PatternMatcher.group(7);
-									status = ayurvedaPart2PatternMatcher.group(8);
+						if (ayurvedaPart2PatternMatcher.find()) {
 
-									System.out.println("Subject: " + subject);
-									System.out.println("Theory Paper 1: " + theoryPaper1);
-									System.out.println("Theory Paper 2: " + theoryPaper2);
-									System.out.println("Theory Paper 3: " + theoryPaper3);
-									System.out.println("Theory Paper 4: " + theoryPaper4);
-									System.out.println("Theory Total Max mark: " + theoryTotalMaxMark);
+							String theoryPaper1 = ayurvedaPart2PatternMatcher.group(1);
+							String theoryPaper2 = ayurvedaPart2PatternMatcher.group(2);
+							String theoryPaper3 = ayurvedaPart2PatternMatcher.group(3);
+							String theoryPaper4 = ayurvedaPart2PatternMatcher.group(4);
+							String theoryTotalSecMark = ayurvedaPart2PatternMatcher.group(5);
+							String practicalTotalSecMark = ayurvedaPart2PatternMatcher.group(6);
+							String grandTotalSecMarks = ayurvedaPart2PatternMatcher.group(7);
+							status = ayurvedaPart2PatternMatcher.group(8);
 
-									System.out.println("Theory Total Sec Mark: " + theoryTotalSecMark);
-									System.out.println("Practical Total Max Mark: " + practicalTotalMaxMark);
+							System.out.println("Subject: " + subject);
+							System.out.println("Theory Paper 1: " + theoryPaper1);
+							System.out.println("Theory Paper 2: " + theoryPaper2);
+							System.out.println("Theory Paper 3: " + theoryPaper3);
+							System.out.println("Theory Paper 4: " + theoryPaper4);
+							System.out.println("Theory Total Max mark: " + theoryTotalMaxMark);
 
-									System.out.println("Practical Total Sec Mark: " + practicalTotalSecMark);
+							System.out.println("Theory Total Sec Mark: " + theoryTotalSecMark);
+							System.out.println("Practical Total Max Mark: " + practicalTotalMaxMark);
 
-									System.out.println("Grand Total Max mark: " + grandTotalMaxMarks);
+							System.out.println("Practical Total Sec Mark: " + practicalTotalSecMark);
 
-									System.out.println("Grand Total: " + grandTotalSecMarks);
-									System.out.println("Result: " + status);
+							System.out.println("Grand Total Max mark: " + grandTotalMaxMarks);
 
-									if ((status.trim().equals("Pass") || status.trim().equals("Fail")
-											|| status.trim().equals("AP")) && subject.trim().equals(subjectToFind.trim())) {
-										 ExtentTest testCaseScenario1 = testCaseName.createNode(
-												  " Subject validation for excel subject name  " + subjectToFind + " and pdf subject name "+ subject +" test case has started");
-										  testCaseScenario1.log(Status.PASS,
-													" The Following Subject validation for excel subject name  " + subjectToFind +" and pdf subject name "+ subject +" are equals" );			
-										
-										try {
-											validateMarks(Regno,"Paper1 Sec Marks", paper1, paper2, paper3,paper4,
-													 theoryExam,praticalExam, subject,
-											        examTotal, theoryPaper1, paperMaxMark, 0.50, testCaseName);		
-									}
-									
-										catch(Exception e) {
-											  ExtentTest testCaseScenario = testCaseName.createNode(
-													  " Paper1 Sec Marks validation for subject " + subjectToFind + " test case has started");
-											  testCaseScenario.log(Status.FAIL,
-														"\n Please check The Following Registration number " + Regno
-																+ "Paper1 Sec Marks: " + theoryPaper1);							
-										}	
-							
-												
-												try {
-													validateMarks(Regno,"Paper2 Sec Marks", paper1, paper2, paper3,paper4,
-															 theoryExam,praticalExam, subject,
-													        examTotal, theoryPaper2, paperMaxMark, 0.50, testCaseName);		
-											}
-											
-											catch(Exception e) {
-												  ExtentTest testCaseScenario = testCaseName.createNode(
-														  " Paper2 Sec Marks validation for subject " + subjectToFind + " test case has started");
-												  testCaseScenario.log(Status.FAIL,
-															"\n Please check The Following Registration number " + Regno
-																	+ "Paper2 Sec Marks: " + theoryPaper2);							
-											}	
-												
-												
-												try {
-													validateMarks(Regno,"Paper3 Sec Marks", paper1, paper2, paper3,paper4,
-															 theoryExam,praticalExam, subject,
-													        examTotal, theoryPaper3, paperMaxMark, 0.50, testCaseName);		
-											}
-											
-											catch(Exception e) {
-												  ExtentTest testCaseScenario = testCaseName.createNode(
-														  " Paper3 Sec Marks validation for subject " + subjectToFind + " test case has started");
-												  testCaseScenario.log(Status.FAIL,
-															"\n Please check The Following Registration number " + Regno
-																	+ "Paper3 Sec Marks: " + theoryPaper2);							
-											}	
-												
-												try {
-													validateMarks(Regno,"Paper4 Sec Marks", paper1, paper2, paper3,paper4,
-															 theoryExam,praticalExam,subject,
-													        examTotal, theoryPaper4, paperMaxMark, 0.50, testCaseName);		
-											}
-											
-											catch(Exception e) {
-												  ExtentTest testCaseScenario = testCaseName.createNode(
-														  " Paper4 Sec Marks validation for subject " + subjectToFind + " test case has started");
-												  testCaseScenario.log(Status.FAIL,
-															"\n Please check The Following Registration number " + Regno
-																	+ "Paper4 Sec Marks: " + theoryPaper2);							
-											}	
-												
-										
-								
+							System.out.println("Grand Total: " + grandTotalSecMarks);
+							System.out.println("Result: " + status);
 
-										try {
+							if ((status.trim().equals("Pass") || status.trim().equals("Fail")
+									|| status.trim().equals("AP")) && subject.trim().equals(subjectToFind.trim())) {
+								ExtentTest testCaseScenario1 = testCaseName
+										.createNode(" Subject validation for excel subject name  " + subjectToFind
+												+ " and pdf subject name " + subject + " test case has started");
+								testCaseScenario1.log(Status.PASS,
+										" The Following Subject validation for excel subject name  " + subjectToFind
+												+ " and pdf subject name " + subject + " are equals");
 
-											if (!theoryTotalSecMark.equals("NA") || !theoryTotalSecMark.equals("AB")
-													|| !theoryTotalSecMark.equals("NE")
-													|| !theoryTotalSecMark.equals("NE (AT)")) {
-													validateMarks(Regno,"Theory Total Sec. Marks", paper1, paper2, paper3,paper4,
-															 theoryExam,praticalExam, subject,
-													        examTotal, theoryTotalSecMark, theoryTotalMaxMark, 0.50, testCaseName);		
-											
-											}}
-									
-											catch(Exception e) {
-												  ExtentTest testCaseScenario = testCaseName.createNode(
-														  " Theory Total Sec. Marks validation for subject " + subjectToFind + " test case has started");
-												  testCaseScenario.log(Status.FAIL,
-															"\n Please check The Following Registration number " + Regno
-																	+ "Theory internal sec. Marks: " + theoryTotalSecMark);							
-											}
-
-											
-											try {
-												validateMarks(Regno,"Pratical Univ Sec. Marks", paper1, paper2, paper3,paper4,
-														 theoryExam,praticalExam, subject,
-												        examTotal, practicalTotalSecMark, practicalTotalMaxMark, 0.50, testCaseName);		
-										}
-										
-										catch(Exception e) {
-											  ExtentTest testCaseScenario = testCaseName.createNode(
-													  " Theory Total Sec. Marks validation for subject " + subjectToFind + " test case has started");
-											  testCaseScenario.log(Status.FAIL,
-														"\n Please check The Following Registration number " + Regno
-																+ "Theory internal sec. Marks: " + theoryTotalSecMark);							
-										}
-
-											try {
-												validateMarks(Regno,"Grand Total Sec. Marks", paper1, paper2, paper3,paper4,
-														 theoryExam,praticalExam, subject,
-												        examTotal, grandTotalSecMarks, grandTotalMaxMarks, 0.50, testCaseName);		
-												
-												System.out.println("==============");
-												// securedMarks(Regno, examTotal, testCaseName);
-												System.out.println("==============");
-										}
-										
-										catch(Exception e) {
-											  ExtentTest testCaseScenario = testCaseName.createNode(
-													  " Theory Total Sec. Marks validation for subject " + subjectToFind + " test case has started");
-											  testCaseScenario.log(Status.FAIL,
-														"\n Please check The Following Registration number " + Regno
-																+ "Theory internal sec. Marks: " + theoryTotalSecMark);							
-										}
-											
-									
-									}//if
-									else {
-										 ExtentTest testCaseScenario = testCaseName.createNode(
-												  " Subject validation for excel subject name  " + subjectToFind + " and pdf subject name "+ subject +" test case has started");
-										  testCaseScenario.log(Status.FAIL,
-													" Please check The Following Subject validation for excel subject name  " + subjectToFind +" and pdf subject name "+ subject + " are not equals");			
-									}
-									
-									}
-								else {
-									System.out.println("text"+text);
+								try {
+									validateMarks(Regno, "Paper1 Sec Marks", paper1, paper2, paper3, paper4, theoryExam,
+											praticalExam, subject, examTotal, theoryPaper1, paperMaxMark, 0.50,
+											testCaseName);
 								}
-								}//if
-					
+
+								catch (Exception e) {
+									ExtentTest testCaseScenario = testCaseName
+											.createNode(" Paper1 Sec Marks validation for subject " + subjectToFind
+													+ " test case has started");
+									testCaseScenario.log(Status.FAIL,
+											"\n Please check The Following Registration number " + Regno
+													+ "Paper1 Sec Marks: " + theoryPaper1);
+								}
+
+								try {
+									validateMarks(Regno, "Paper2 Sec Marks", paper1, paper2, paper3, paper4, theoryExam,
+											praticalExam, subject, examTotal, theoryPaper2, paperMaxMark, 0.50,
+											testCaseName);
+								}
+
+								catch (Exception e) {
+									ExtentTest testCaseScenario = testCaseName
+											.createNode(" Paper2 Sec Marks validation for subject " + subjectToFind
+													+ " test case has started");
+									testCaseScenario.log(Status.FAIL,
+											"\n Please check The Following Registration number " + Regno
+													+ "Paper2 Sec Marks: " + theoryPaper2);
+								}
+
+								try {
+									validateMarks(Regno, "Paper3 Sec Marks", paper1, paper2, paper3, paper4, theoryExam,
+											praticalExam, subject, examTotal, theoryPaper3, paperMaxMark, 0.50,
+											testCaseName);
+								}
+
+								catch (Exception e) {
+									ExtentTest testCaseScenario = testCaseName
+											.createNode(" Paper3 Sec Marks validation for subject " + subjectToFind
+													+ " test case has started");
+									testCaseScenario.log(Status.FAIL,
+											"\n Please check The Following Registration number " + Regno
+													+ "Paper3 Sec Marks: " + theoryPaper2);
+								}
+
+								try {
+									validateMarks(Regno, "Paper4 Sec Marks", paper1, paper2, paper3, paper4, theoryExam,
+											praticalExam, subject, examTotal, theoryPaper4, paperMaxMark, 0.50,
+											testCaseName);
+								}
+
+								catch (Exception e) {
+									ExtentTest testCaseScenario = testCaseName
+											.createNode(" Paper4 Sec Marks validation for subject " + subjectToFind
+													+ " test case has started");
+									testCaseScenario.log(Status.FAIL,
+											"\n Please check The Following Registration number " + Regno
+													+ "Paper4 Sec Marks: " + theoryPaper2);
+								}
+
+								try {
+
+									if (!theoryTotalSecMark.equals("NA") || !theoryTotalSecMark.equals("AB")
+											|| !theoryTotalSecMark.equals("NE")
+											|| !theoryTotalSecMark.equals("NE (AT)")) {
+										validateMarks(Regno, "Theory Total Sec. Marks", paper1, paper2, paper3, paper4,
+												theoryExam, praticalExam, subject, examTotal, theoryTotalSecMark,
+												theoryTotalMaxMark, 0.50, testCaseName);
+
+									}
+								}
+
+								catch (Exception e) {
+									ExtentTest testCaseScenario = testCaseName
+											.createNode(" Theory Total Sec. Marks validation for subject "
+													+ subjectToFind + " test case has started");
+									testCaseScenario.log(Status.FAIL,
+											"\n Please check The Following Registration number " + Regno
+													+ "Theory internal sec. Marks: " + theoryTotalSecMark);
+								}
+
+								try {
+									validateMarks(Regno, "Pratical Univ Sec. Marks", paper1, paper2, paper3, paper4,
+											theoryExam, praticalExam, subject, examTotal, practicalTotalSecMark,
+											practicalTotalMaxMark, 0.50, testCaseName);
+								}
+
+								catch (Exception e) {
+									ExtentTest testCaseScenario = testCaseName
+											.createNode(" Theory Total Sec. Marks validation for subject "
+													+ subjectToFind + " test case has started");
+									testCaseScenario.log(Status.FAIL,
+											"\n Please check The Following Registration number " + Regno
+													+ "Theory internal sec. Marks: " + theoryTotalSecMark);
+								}
+
+								try {
+									validateMarks(Regno, "Grand Total Sec. Marks", paper1, paper2, paper3, paper4,
+											theoryExam, praticalExam, subject, examTotal, grandTotalSecMarks,
+											grandTotalMaxMarks, 0.50, testCaseName);
+
+									System.out.println("==============");
+									// securedMarks(Regno, examTotal, testCaseName);
+									System.out.println("==============");
+								}
+
+								catch (Exception e) {
+									ExtentTest testCaseScenario = testCaseName
+											.createNode(" Theory Total Sec. Marks validation for subject "
+													+ subjectToFind + " test case has started");
+									testCaseScenario.log(Status.FAIL,
+											"\n Please check The Following Registration number " + Regno
+													+ "Theory internal sec. Marks: " + theoryTotalSecMark);
+								}
+
+							} // if
+							else {
+								ExtentTest testCaseScenario = testCaseName
+										.createNode(" Subject validation for excel subject name  " + subjectToFind
+												+ " and pdf subject name " + subject + " test case has started");
+								testCaseScenario.log(Status.FAIL,
+										" Please check The Following Subject validation for excel subject name  "
+												+ subjectToFind + " and pdf subject name " + subject
+												+ " are not equals");
+							}
+
+						} else {
+							System.out.println("text" + text);
+						}
+					} // if
+
 					if (ayurvedaPart2RegexMatcher.group().contains("AYURVEDA")) {
 
 //				    	  	
@@ -4898,12 +4979,11 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 							}
 
 						}
-						
-						Pattern ayurvedaPart2Pattern = Pattern
-								.compile("(\\d+)\\s+(\\d+)\\s+(\\d+)\\s+(\\d+)\\s+(\\d+)\\s+(\\d+)\\s+(\\d+)\\s+(Pass)");
+
+						Pattern ayurvedaPart2Pattern = Pattern.compile(
+								"(\\d+)\\s+(\\d+)\\s+(\\d+)\\s+(\\d+)\\s+(\\d+)\\s+(\\d+)\\s+(\\d+)\\s+(Pass)");
 
 						Matcher ayurvedaPart2PatternMatcher = ayurvedaPart2Pattern.matcher(text);
-
 
 						if (ayurvedaPart2PatternMatcher.find()) {
 							String theoryPaper1 = ayurvedaPart2PatternMatcher.group(1);
@@ -4997,7 +5077,7 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 										testCaseScenario.log(Status.FAIL,
 												"\n Please check The Following Registration number " + Regno
 														+ " Paper 1 Sec Marks: " + theoryPaper1);
-										
+
 										System.out.println("\n please check The Following Registration number " + Regno
 												+ " Paper 1 Sec Marks: " + theoryPaper1);
 									}
@@ -5020,7 +5100,6 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 										System.out.println("\nThe Following Registration number " + Regno
 												+ " Paper 2 Sec. Marks: " + theoryPaper2);
 									}
-
 
 								} catch (NumberFormatException e) {
 									if (theoryPaper2.equals("AB") || theoryPaper2.equals("NE")
@@ -5189,70 +5268,69 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 											testCaseScenario.log(Status.FAIL,
 													"Both theory papers total and theory total mark are not equals");
 										}
-		
-											validateMarks(Regno,"Theory Total Sec. Marks", paper1, paper2, paper3,paper4,
-													 theoryExam,praticalExam, subject,
-											        examTotal, theoryTotalSecMark, theoryTotalMaxMark, 0.50, testCaseName);		
-									
-									}}
-							
-									catch(Exception e) {
-										  ExtentTest testCaseScenario = testCaseName.createNode(
-												  " Theory Total Sec. Marks validation for subject " + subjectToFind + " test case has started");
-										  testCaseScenario.log(Status.FAIL,
-													"\n Please check The Following Registration number " + Regno
-															+ "Theory internal sec. Marks: " + theoryTotalSecMark);							
+
+										validateMarks(Regno, "Theory Total Sec. Marks", paper1, paper2, paper3, paper4,
+												theoryExam, praticalExam, subject, examTotal, theoryTotalSecMark,
+												theoryTotalMaxMark, 0.50, testCaseName);
+
 									}
-
-									
-									try {
-										validateMarks(Regno,"Pratical Univ Sec. Marks", paper1, paper2, paper3,paper4,
-												 theoryExam,praticalExam, subject,
-										        examTotal, practicalTotalSecMark, practicalTotalMaxMark, 0.50, testCaseName);		
-								}
-								
-								catch(Exception e) {
-									  ExtentTest testCaseScenario = testCaseName.createNode(
-											  " Theory Total Sec. Marks validation for subject " + subjectToFind + " test case has started");
-									  testCaseScenario.log(Status.FAIL,
-												"\n Please check The Following Registration number " + Regno
-														+ "Theory internal sec. Marks: " + practicalTotalSecMark);							
 								}
 
-									try {
-										validateMarks(Regno,"Theory plus pratical Sec. Marks", paper1, paper2, paper3,paper4,
-										        praticalExam, theoryExam, subject,
-										        examTotal, grandTotalSecMarks, grandTotalMaxMarks, 0.50, testCaseName);		
-										
-										System.out.println("==============");
-										// securedMarks(Regno, examTotal, testCaseName);
-										System.out.println("==============");
+								catch (Exception e) {
+									ExtentTest testCaseScenario = testCaseName
+											.createNode(" Theory Total Sec. Marks validation for subject "
+													+ subjectToFind + " test case has started");
+									testCaseScenario.log(Status.FAIL,
+											"\n Please check The Following Registration number " + Regno
+													+ "Theory internal sec. Marks: " + theoryTotalSecMark);
 								}
-								
-								catch(Exception e) {
-									  ExtentTest testCaseScenario = testCaseName.createNode(
-											  " Theory Total Sec. Marks validation for subject " + subjectToFind + " test case has started");
-									  testCaseScenario.log(Status.FAIL,
-												"\n Please check The Following Registration number " + Regno
-														+ "Theory internal sec. Marks: " + grandTotalSecMarks);							
+
+								try {
+									validateMarks(Regno, "Pratical Univ Sec. Marks", paper1, paper2, paper3, paper4,
+											theoryExam, praticalExam, subject, examTotal, practicalTotalSecMark,
+											practicalTotalMaxMark, 0.50, testCaseName);
+								}
+
+								catch (Exception e) {
+									ExtentTest testCaseScenario = testCaseName
+											.createNode(" Theory Total Sec. Marks validation for subject "
+													+ subjectToFind + " test case has started");
+									testCaseScenario.log(Status.FAIL,
+											"\n Please check The Following Registration number " + Regno
+													+ "Theory internal sec. Marks: " + practicalTotalSecMark);
+								}
+
+								try {
+									validateMarks(Regno, "Theory plus pratical Sec. Marks", paper1, paper2, paper3,
+											paper4, praticalExam, theoryExam, subject, examTotal, grandTotalSecMarks,
+											grandTotalMaxMarks, 0.50, testCaseName);
+
+									System.out.println("==============");
+									// securedMarks(Regno, examTotal, testCaseName);
+									System.out.println("==============");
+								}
+
+								catch (Exception e) {
+									ExtentTest testCaseScenario = testCaseName
+											.createNode(" Theory Total Sec. Marks validation for subject "
+													+ subjectToFind + " test case has started");
+									testCaseScenario.log(Status.FAIL,
+											"\n Please check The Following Registration number " + Regno
+													+ "Theory internal sec. Marks: " + grandTotalSecMarks);
 								}
 							}
-						}//if
-						
-						
-								
-						
-					}		// if
-					
-		
+						} // if
+
+					} // if
 
 				} // for
 			}
-			}
+		}
 	}
-	public void processOneSubjectPaternPdf(File latestFile, Object Regno, Object paper1, Object paper2, Object paper3,Object paper4,
-			Object theoryExam, Object praticalExam, Object examTotal, ExtentTest testCaseName, String subjectToFind)
-			throws IOException {
+
+	public void processOneSubjectPaternPdf(File latestFile, Object Regno, Object paper1, Object paper2, Object paper3,
+			Object paper4, Object theoryExam, Object praticalExam, Object examTotal, ExtentTest testCaseName,
+			String subjectToFind) throws IOException {
 		if (latestFile != null) {
 			try (PDDocument document = PDDocument.load(latestFile)) {
 				PDFTextStripper stripper = new PDFTextStripper();
@@ -5280,7 +5358,7 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 					Matcher subjectMatcher = subjectPattern.matcher(text);
 
 					if (regMatcher.find()) {
-					long	registrationNumber = Long.parseLong(regMatcher.group(1));
+						long registrationNumber = Long.parseLong(regMatcher.group(1));
 						System.out.println("Registration No: " + registrationNumber);
 					}
 
@@ -5296,19 +5374,16 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 					// Pattern paperPattern = Pattern.compile(
 					// "(Paper\\s[IVX]+)\\s+Max\\.Marks:(\\d+)|Total\\s+Max\\.Marks:(\\d+)\\s+Min\\.Marks:(\\d+)|Max\\.Marks:(\\d+)\\s+Min\\.Marks:(\\d+)");
 
-					String regex =  "(?i)(?:M\\.D\\. HOMOEOPATHY|MDS|BNYS|UNANI|BAMS|BUMS|PG|M\\.S\\.\\s*AYURVEDA|M\\.D\\.\\s*AYURVEDA|M\\.P\\.T\\.)\\s+";
-				
+					String regex = "(?i)(?:M\\.D\\. HOMOEOPATHY|MDS|BNYS|UNANI|BAMS|BUMS|PG|M\\.S\\.\\s*AYURVEDA|M\\.D\\.\\s*AYURVEDA|M\\.P\\.T\\.)\\s+";
 
 					Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
 					Matcher matcher1 = pattern.matcher(text);
-
 
 					if (matcher1.find()) {
 
 						System.out.println("Match found Course: " + matcher1.group());
 
-					}
-					else {
+					} else {
 
 						ExtentTest testCaseScenario = testCaseName.createNode(
 								"Pattern validation for the following " + Regno + " Test case has started running");
@@ -5426,27 +5501,19 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 					 * "(\\d+)(?:\\s+\\(F\\))?\\s+" + "(\\d+)(?:\\s+\\(F\\))?\\s+" +
 					 * "(\\d+)(?:\\s+\\(F\\))?\\s+" + "(Pass|Fail)");
 					 */
-					
 
 					Pattern marksPattern = Pattern.compile("(NA|---|\\d+)(?:\\s*\\(\\s*F\\s*\\))?\\s+"
-						    + "(NA|---|\\d+)(?:\\s*\\(\\s*F\\s*\\))?\\s+"
-						    + "(NA|---|\\d+)(?:\\s*\\(\\s*F\\s*\\))?\\s+"
-						    + "(NA|---|\\d+)(?:\\s*\\(\\s*F\\s*\\))?\\s+"
-						    + "(NA|---|\\d+)(?:\\s*\\(\\s*F\\s*\\))?\\s+"
-						    + "(NA|---|\\d+)(?:\\s*\\(\\s*F\\s*\\))?\\s+"
-						    + "(Pass|Fail|AP)");
-
+							+ "(NA|---|\\d+)(?:\\s*\\(\\s*F\\s*\\))?\\s+" + "(NA|---|\\d+)(?:\\s*\\(\\s*F\\s*\\))?\\s+"
+							+ "(NA|---|\\d+)(?:\\s*\\(\\s*F\\s*\\))?\\s+" + "(NA|---|\\d+)(?:\\s*\\(\\s*F\\s*\\))?\\s+"
+							+ "(NA|---|\\d+)(?:\\s*\\(\\s*F\\s*\\))?\\s+" + "(Pass|Fail|AP)");
 
 					Matcher marksMatcher = marksPattern.matcher(text);
 
-				
 					if (marksMatcher.find()) {
 
 						try {
-			
 
-							
-							if (matcher1.group().contains("PG")){
+							if (matcher1.group().contains("PG")) {
 								String paper1Marks = marksMatcher.group(1);
 								String paper2Marks = marksMatcher.group(2);
 								String paper3Marks = marksMatcher.group(3);
@@ -5495,108 +5562,109 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 								ExamTotalScore = 0.0;
 								if ((status.trim().equals("Pass") || status.trim().equals("Fail")
 										|| status.trim().equals("AP")) & subject.equals(subjectToFind)) {
-				
-											try {
-												validateMarks(Regno,"Theory Sec Marks", paper1, paper2, paper3,paper4,
-												        praticalExam, theoryExam, subject,
-												        examTotal, paper1Marks, paper1MaxMark, 0.40, testCaseName);		
-										}
-										
-										catch(Exception e) {
-											  ExtentTest testCaseScenario = testCaseName.createNode(
-													  " Theory Total Sec. Marks validation for subject " + subjectToFind + " test case has started");
-											  testCaseScenario.log(Status.FAIL,
-														"\n Please check The Following Registration number " + Regno
-																+ "Theory internal sec. Marks: " + paper1Marks);							
-										}	
-											try {
-												validateMarks(Regno,"Theory (Univ) Sec. Marks", paper1, paper2, paper3,paper4,
-												        praticalExam, theoryExam, subject,
-												        examTotal, paper2Marks, paper2MaxMark, 0.40, testCaseName);		
-										}
-										
-										catch(Exception e) {
-											  ExtentTest testCaseScenario = testCaseName.createNode(
-													  " Theory Total Sec. Marks validation for subject " + subjectToFind + " test case has started");
-											  testCaseScenario.log(Status.FAIL,
-														"\n Please check The Following Registration number " + Regno
-																+ "Theory internal sec. Marks: " + paper2Marks);							
-										}	
-										
-											try {
-												validateMarks(Regno,"Pratical Internal Sec. Marks", paper1, paper2, paper3,paper4,
-												        praticalExam, theoryExam, subject,
-												        examTotal, paper3Marks, paper3MaxMark, 0.40, testCaseName);		
-										}
-										
-										catch(Exception e) {
-											  ExtentTest testCaseScenario = testCaseName.createNode(
-													  " Pratical Internal Sec. Marks validation for subject " + subjectToFind + " test case has started");
-											  testCaseScenario.log(Status.FAIL,
-														"\n Please check The Following Registration number " + Regno
-																+ "Theory internal sec. Marks: " + paper3Marks);							
-										}	
-										
-										try {
-											validateMarks(Regno,"Pratical Total Sec. Marks", paper1, paper2, paper3,paper4,
-											        praticalExam, theoryExam, subject,
-											        examTotal, praticalTotals, practicalMaxMark, 0.50, testCaseName);		
+
+									try {
+										validateMarks(Regno, "Theory Sec Marks", paper1, paper2, paper3, paper4,
+												praticalExam, theoryExam, subject, examTotal, paper1Marks,
+												paper1MaxMark, 0.40, testCaseName);
 									}
-									
-									catch(Exception e) {
+
+									catch (Exception e) {
+										ExtentTest testCaseScenario = testCaseName
+												.createNode(" Theory Total Sec. Marks validation for subject "
+														+ subjectToFind + " test case has started");
+										testCaseScenario.log(Status.FAIL,
+												"\n Please check The Following Registration number " + Regno
+														+ "Theory internal sec. Marks: " + paper1Marks);
+									}
+									try {
+										validateMarks(Regno, "Theory (Univ) Sec. Marks", paper1, paper2, paper3, paper4,
+												praticalExam, theoryExam, subject, examTotal, paper2Marks,
+												paper2MaxMark, 0.40, testCaseName);
+									}
+
+									catch (Exception e) {
+										ExtentTest testCaseScenario = testCaseName
+												.createNode(" Theory Total Sec. Marks validation for subject "
+														+ subjectToFind + " test case has started");
+										testCaseScenario.log(Status.FAIL,
+												"\n Please check The Following Registration number " + Regno
+														+ "Theory internal sec. Marks: " + paper2Marks);
+									}
+
+									try {
+										validateMarks(Regno, "Pratical Internal Sec. Marks", paper1, paper2, paper3,
+												paper4, praticalExam, theoryExam, subject, examTotal, paper3Marks,
+												paper3MaxMark, 0.40, testCaseName);
+									}
+
+									catch (Exception e) {
+										ExtentTest testCaseScenario = testCaseName
+												.createNode(" Pratical Internal Sec. Marks validation for subject "
+														+ subjectToFind + " test case has started");
+										testCaseScenario.log(Status.FAIL,
+												"\n Please check The Following Registration number " + Regno
+														+ "Theory internal sec. Marks: " + paper3Marks);
+									}
+
+									try {
+										validateMarks(Regno, "Pratical Total Sec. Marks", paper1, paper2, paper3,
+												paper4, praticalExam, theoryExam, subject, examTotal, praticalTotals,
+												practicalMaxMark, 0.50, testCaseName);
+									}
+
+									catch (Exception e) {
 										ExtentTest testCaseScenario = testCaseName
 												.createNode("Pratical. Marks Validation for the Subject " + subject
 														+ " Test case has started running");
 
 										testCaseScenario.log(Status.INFO,
-												"\n The Following Registration number " + Regno
-														+ " for the Subject " + subject + " Practical Marks is:"
-														+ praticalTotals);
+												"\n The Following Registration number " + Regno + " for the Subject "
+														+ subject + " Practical Marks is:" + praticalTotals);
 
 										System.out.println("\nThe Following Registration number " + Regno
 												+ " Practical Marks is:" + praticalTotals);
 
-									}	
-										try {
-											validateMarks(Regno,"Theory plus pratical Sec. Marks", paper1, paper2, paper3,paper4,
-											        praticalExam, theoryExam, subject,
-											        examTotal, theoryTotals, TotalMaxMark, 0.50, testCaseName);		
 									}
-									
-									catch(Exception e) {
-										  ExtentTest testCaseScenario = testCaseName.createNode(
-												  " Theory plus pratical Sec. Marks. Marks validation for subject " + subjectToFind + " test case has started");
-										  testCaseScenario.log(Status.FAIL,
-													"\n Please check The Following Registration number " + Regno
-															+ "Theory plus pratical Sec. Marks: " + theoryTotals);							
-									}		
-				
+									try {
+										validateMarks(Regno, "Theory plus pratical Sec. Marks", paper1, paper2, paper3,
+												paper4, praticalExam, theoryExam, subject, examTotal, theoryTotals,
+												TotalMaxMark, 0.50, testCaseName);
+									}
+
+									catch (Exception e) {
+										ExtentTest testCaseScenario = testCaseName.createNode(
+												" Theory plus pratical Sec. Marks. Marks validation for subject "
+														+ subjectToFind + " test case has started");
+										testCaseScenario.log(Status.FAIL,
+												"\n Please check The Following Registration number " + Regno
+														+ "Theory plus pratical Sec. Marks: " + theoryTotals);
+									}
+
 								}
 								try {
-									validateMarks(Regno,"Theory plus pratical Sec Total. Marks", paper1, paper2, paper3,paper4,
-									        praticalExam, theoryExam, subject,
-									        examTotal, grandTotals, pgGrandTotalMaxMark, 0.50, testCaseName);		
-							}
-							
-							catch(Exception e) {
-								ExtentTest testCaseScenario = testCaseName
-										.createNode("grand total Marks Validation for the Subject "
-												+ subject + " Test case has started running");
+									validateMarks(Regno, "Theory plus pratical Sec Total. Marks", paper1, paper2,
+											paper3, paper4, praticalExam, theoryExam, subject, examTotal, grandTotals,
+											pgGrandTotalMaxMark, 0.50, testCaseName);
+								}
 
-								testCaseScenario.log(Status.INFO,
-										"\n The Following Registration number " + Regno
-												+ " for the Subject " + subject + " grand total Marks is:"
-												+ grandTotals);
+								catch (Exception e) {
+									ExtentTest testCaseScenario = testCaseName
+											.createNode("grand total Marks Validation for the Subject " + subject
+													+ " Test case has started running");
 
-								System.out.println("\nThe Following Registration number " + Regno
-										+ " grand total Marks is:" + grandTotals);						
-							}		
-								
-								} // if part
-							
+									testCaseScenario.log(Status.INFO, "\n The Following Registration number " + Regno
+											+ " for the Subject " + subject + " grand total Marks is:" + grandTotals);
+
+									System.out.println("\nThe Following Registration number " + Regno
+											+ " grand total Marks is:" + grandTotals);
+								}
+
+							} // if part
+
 							else if (matcher1.group().contains("MDS")) {
 
-								paper1MaxMark="100";
+								paper1MaxMark = "100";
 								String paper1Marks = marksMatcher.group(1);
 								String paper2Marks = marksMatcher.group(2);
 								String paper3Marks = marksMatcher.group(3);
@@ -5604,9 +5672,9 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 								String practicalVivaSecMarks = marksMatcher.group(5);
 								String grandTotalMark = marksMatcher.group(6);
 								status = marksMatcher.group(7);
-								
-								System.out.println("paper1MaxMark"+paper1MaxMark);
-								
+
+								System.out.println("paper1MaxMark" + paper1MaxMark);
+
 								System.out.println("Paper I: " + paper1Marks);
 								System.out.println("Paper II: " + paper2Marks);
 								System.out.println("Paper III: " + paper3Marks);
@@ -5626,613 +5694,648 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 
 								if ((status.trim().equals("Pass") || status.trim().equals("Fail")
 										|| status.trim().equals("AP")) & subject.equals(subjectToFind)) {
-									  ExtentTest testCaseScenario1 = testCaseName.createNode(
-											  " Validation for subject in excel " + subjectToFind + " and pdf subject " + subject +" test case has started");
-									  testCaseScenario1.log(Status.PASS," Validation for subject in excel " + subjectToFind + " and pdf subject " + subject +" are equals");	
-								
-									  try {
-										validateMarks(Regno,"Theory Sec Marks", paper1, paper2, paper3,paper4,
-										        praticalExam, theoryExam, subject,
-										        examTotal, paper1Marks, paper1MaxMark, 0.50, testCaseName);		
-								}
-								
-								catch(Exception e) {
-									  ExtentTest testCaseScenario = testCaseName.createNode(
-											  " Paper1 Sec Marks validation for subject " + subjectToFind + " test case has started");
-									  testCaseScenario.log(Status.FAIL,
-												"\n Please check The Following Registration number " + Regno
-														+ "Paper1 sec. Marks: " + paper1Marks);							
-								}	
-							
+									ExtentTest testCaseScenario1 = testCaseName
+											.createNode(" Validation for subject in excel " + subjectToFind
+													+ " and pdf subject " + subject + " test case has started");
+									testCaseScenario1.log(Status.PASS, " Validation for subject in excel "
+											+ subjectToFind + " and pdf subject " + subject + " are equals");
+
 									try {
-										validateMarks(Regno,"Theory (Univ) Sec. Marks", paper1, paper2, paper3,paper4,
-										        praticalExam, theoryExam, subject,
-										        examTotal, paper2Marks, paper1MaxMark, 0.50, testCaseName);		
-								}
-								
-								catch(Exception e) {
-									  ExtentTest testCaseScenario = testCaseName.createNode(
-											  " Paper2 Sec Marks validation for subject " + subjectToFind + " test case has started");
-									  testCaseScenario.log(Status.FAIL,
+										validateMarks(Regno, "Theory Sec Marks", paper1, paper2, paper3, paper4,
+												praticalExam, theoryExam, subject, examTotal, paper1Marks,
+												paper1MaxMark, 0.50, testCaseName);
+									}
+
+									catch (Exception e) {
+										ExtentTest testCaseScenario = testCaseName
+												.createNode(" Paper1 Sec Marks validation for subject " + subjectToFind
+														+ " test case has started");
+										testCaseScenario.log(Status.FAIL,
 												"\n Please check The Following Registration number " + Regno
-														+ "Paper2 sec. Marks: " + paper2Marks);							
-								}	
-									
+														+ "Paper1 sec. Marks: " + paper1Marks);
+									}
+
 									try {
-										validateMarks(Regno,"Pratical Internal Sec. Marks", paper1, paper2, paper3,paper4,
-										        praticalExam, theoryExam, subject,
-										        examTotal, paper3Marks, paper1MaxMark, 0.50, testCaseName);		
-								}
-								
-								catch(Exception e) {
-									  ExtentTest testCaseScenario = testCaseName.createNode(
-											  " Paper3 Sec Marks validation for subject " + subjectToFind + " test case has started");
-									  testCaseScenario.log(Status.FAIL,
+										validateMarks(Regno, "Theory (Univ) Sec. Marks", paper1, paper2, paper3, paper4,
+												praticalExam, theoryExam, subject, examTotal, paper2Marks,
+												paper1MaxMark, 0.50, testCaseName);
+									}
+
+									catch (Exception e) {
+										ExtentTest testCaseScenario = testCaseName
+												.createNode(" Paper2 Sec Marks validation for subject " + subjectToFind
+														+ " test case has started");
+										testCaseScenario.log(Status.FAIL,
 												"\n Please check The Following Registration number " + Regno
-														+ "Paper3 sec. Marks: " + paper3Marks);							
-								}	
-								// Use the value
-									
-									
+														+ "Paper2 sec. Marks: " + paper2Marks);
+									}
+
 									try {
-										validateMarks(Regno,"Theory Mark Total Sec. Marks", paper1, paper2, paper3,paper4,
-										        praticalExam, theoryExam, subject,
-										        examTotal, theoryTotalSecMarks, paper2MaxMark, 0.50, testCaseName);		
-								}
-								
-								catch(Exception e) {
-									  ExtentTest testCaseScenario = testCaseName.createNode(
-											  " Theory Mark Total Sec. Marks validation for subject " + subjectToFind + " test case has started");
-									  testCaseScenario.log(Status.FAIL,
+										validateMarks(Regno, "Pratical Internal Sec. Marks", paper1, paper2, paper3,
+												paper4, praticalExam, theoryExam, subject, examTotal, paper3Marks,
+												paper1MaxMark, 0.50, testCaseName);
+									}
+
+									catch (Exception e) {
+										ExtentTest testCaseScenario = testCaseName
+												.createNode(" Paper3 Sec Marks validation for subject " + subjectToFind
+														+ " test case has started");
+										testCaseScenario.log(Status.FAIL,
 												"\n Please check The Following Registration number " + Regno
-														+ "Theory Mark Total Sec. Marks: " + theoryTotalSecMarks);							
-								}	
-									
-									
+														+ "Paper3 sec. Marks: " + paper3Marks);
+									}
+									// Use the value
+
 									try {
-										
-	if((paper1Marks.trim().equals("AB")||paper2Marks.trim().equals("AB")||paper3Marks.trim().equals("AB") )&& !practicalVivaSecMarks.trim().equals("NE (AT)") ) {
-											
+										validateMarks(Regno, "Theory Mark Total Sec. Marks", paper1, paper2, paper3,
+												paper4, praticalExam, theoryExam, subject, examTotal,
+												theoryTotalSecMarks, paper2MaxMark, 0.50, testCaseName);
+									}
+
+									catch (Exception e) {
+										ExtentTest testCaseScenario = testCaseName
+												.createNode(" Theory Mark Total Sec. Marks validation for subject "
+														+ subjectToFind + " test case has started");
+										testCaseScenario.log(Status.FAIL,
+												"\n Please check The Following Registration number " + Regno
+														+ "Theory Mark Total Sec. Marks: " + theoryTotalSecMarks);
+									}
+
+									try {
+
+										if ((paper1Marks.trim().equals("AB") || paper2Marks.trim().equals("AB")
+												|| paper3Marks.trim().equals("AB"))
+												&& !practicalVivaSecMarks.trim().equals("NE (AT)")) {
+
 											ExtentTest testCaseScenario = testCaseName
 													.createNode("Pratical Univ Sec. Marks Validation for the Subject "
-															+ subject + " Test case has started running");		
-											
+															+ subject + " Test case has started running");
+
 											testCaseScenario.log(Status.FAIL,
 													"\n Please check The Following Registration number " + Regno
 															+ " for the Subject " + subject
-															+ " of theory internal sec mark is: "+ theoryTotalSecMarks +" Practical Univ Sec. Marks is:" + practicalVivaSecMarks
-															,	MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
+															+ " of theory internal sec mark is: " + theoryTotalSecMarks
+															+ " Practical Univ Sec. Marks is:" + practicalVivaSecMarks,
+													MediaEntityBuilder
+															.createScreenCaptureFromPath(BasicFunctions.capture(driver))
+															.build());
 
-											System.out.println("\n Please check The Following Registration number " + Regno
-													+ " for the Subject " + subject
-													+ "of theory internal sec mark "+ theoryTotalSecMarks+" Practical Univ Sec. Marks is:" + practicalVivaSecMarks);
+											System.out.println("\n Please check The Following Registration number "
+													+ Regno + " for the Subject " + subject
+													+ "of theory internal sec mark " + theoryTotalSecMarks
+													+ " Practical Univ Sec. Marks is:" + practicalVivaSecMarks);
 
-										}else {
-											
+										} else {
+
 											ExtentTest testCaseScenario = testCaseName
 													.createNode("Pratical Univ Sec. Marks Validation for the Subject "
-															+ subject + " Test case has started running");		
-											
+															+ subject + " Test case has started running");
+
 											testCaseScenario.log(Status.PASS,
-													"The Following Registration number " + Regno
-															+ " for the Subject " + subject
-															+ " of theory internal sec mark is: "+ theoryTotalSecMarks+" Practical Univ Sec. Marks is:" + practicalVivaSecMarks);
+													"The Following Registration number " + Regno + " for the Subject "
+															+ subject + " of theory internal sec mark is: "
+															+ theoryTotalSecMarks + " Practical Univ Sec. Marks is:"
+															+ practicalVivaSecMarks);
 
-											System.out.println(	"The Following Registration number " + Regno
-													+ " for the Subject " + subject
-													+ "of theory internal sec mark "+ theoryTotalSecMarks+" Practical Univ Sec. Marks is:" + practicalVivaSecMarks);
-
-										}
-										
-										validateMarks(Regno,"Pratical Total Sec. Marks", paper1, paper2, paper3,paper4,
-										        praticalExam, theoryExam, subject,
-										        examTotal, practicalVivaSecMarks, paper2MaxMark, 0.50, testCaseName);		
-								}
-								
-								catch(Exception e) {
-									ExtentTest testCaseScenario = testCaseName
-											.createNode("Pratical. Marks Validation for the Subject " + subject
-													+ " Test case has started running");
-									testCaseScenario.log(Status.FAIL,
-											"\n Please check The Following Registration number " + Regno
-													+ " for the Subject " + subject + " Practical Marks is:"
+											System.out.println("The Following Registration number " + Regno
+													+ " for the Subject " + subject + "of theory internal sec mark "
+													+ theoryTotalSecMarks + " Practical Univ Sec. Marks is:"
 													+ practicalVivaSecMarks);
 
-									System.out.println("\n Please check The Following Registration number " + Regno
-											+ " Practical Marks is:" + practicalVivaSecMarks);						
-								}	
-						
-									
-									try {
-										
-										validateMarks(Regno,"Theory plus pratical Sec Total. Marks", paper1, paper2, paper3,paper4,
-										        praticalExam, theoryExam, subject,
-										        examTotal, paper3Marks, paper1MaxMark, 0.50, testCaseName);		
-								}
-								
-								catch(Exception e) {
-									  ExtentTest testCaseScenario = testCaseName.createNode(
-											  " Paper3 Sec Marks validation for subject " + subjectToFind + " test case has started");
-									  testCaseScenario.log(Status.FAIL,
-												"\n Please check The Following Registration number " + Regno
-														+ "Paper3 sec. Marks: " + paper3Marks);							
-								}	
-						
-								}
-								else {
-									  ExtentTest testCaseScenario1 = testCaseName.createNode(
-											  " Validation for subject in excel " + subjectToFind + " and pdf subject " + subject +" test case has started");
-									  testCaseScenario1.log(Status.FAIL," Validation for subject in excel " + subjectToFind + " and pdf subject " + subject +" are not equals");	
-								
-								}
-							}
-						
-							else if ( matcher1.group().trim().contains("AYURVEDA")&& !text.contains("SA-I")) {
-								
-								Pattern ayurvedaSubjectPattern = Pattern.compile(
-										
-										
-									    "([A-Za-z &'()\\-,\\.]+?)\\s+" + // Subject, with lowercase and dots allowed
-									    
-									    "(NA|---|\\d+)(?:\\s*\\(F\\))?\\s+" +
-									    "(NA|---|\\d+)(?:\\s*\\(F\\))?\\s+" +
-									    "(NA|---|\\d+)(?:\\s*\\(F\\))?\\s+" +
-									    "(NA|---|\\d+)(?:\\s*\\(F\\))?\\s+" +
-									    "(NA|---|\\d+)(?:\\s*\\(F\\))?\\s+" +
-									    "(NA|---|\\d+)(?:\\s*\\(F\\))?\\s+" +
-									    "(Pass|Fail|AP)");
-									
-
-						Matcher ayurvedaSubjectPatternMatcher = ayurvedaSubjectPattern.matcher(text);
-							
-								while (ayurvedaSubjectPatternMatcher.find()) {
-								    System.out.println(ayurvedaSubjectPatternMatcher);
-								
-								System.out.println("AYURVEDA.group1" +ayurvedaSubjectPatternMatcher.group() );
-								System.out.println("---------------------------------------------------");
-										
-								subject = ayurvedaSubjectPatternMatcher.group(1);
-								String theroryMaxMark = ayurvedaSubjectPatternMatcher.group(2);
-								String therorySecMark = ayurvedaSubjectPatternMatcher.group(3);
-								String praticalVivaMaxMark = ayurvedaSubjectPatternMatcher.group(4);
-								String praticalVivaSecMark = ayurvedaSubjectPatternMatcher.group(5);
-								String grandTotalMaxMarks = ayurvedaSubjectPatternMatcher.group(6);
-								String grandTotalSecMarks = ayurvedaSubjectPatternMatcher.group(7);
-								status = ayurvedaSubjectPatternMatcher.group(8);
-								
-								System.out.println("Subject: " +subject);
-								System.out.println("Theory Max Mark: " + theroryMaxMark);
-								System.out.println("Theory Secured Mark: " + therorySecMark);
-								System.out.println("Practical/Viva Max Mark: " + praticalVivaMaxMark);
-								System.out.println("Practical/Viva Secured Mark: " + praticalVivaSecMark);
-								System.out.println("Grand Total Max Mark: " + grandTotalMaxMarks);
-								System.out.println("Grand Total Secured Mark: " + grandTotalSecMarks);
-
-								System.out.println("Result: " + status);
-
-								System.out.println("---------------------------------------------------");
-								
-								
-								if ((status.trim().equals("Pass") || status.trim().equals("Fail")
-										|| status.trim().equals("AP")) & subject.equals(subjectToFind)) {
-
-									try {
-										validateMarks(Regno,"Theory Sec Marks", paper1, paper2, paper3,paper4,
-										        praticalExam, theoryExam, subject,
-										        examTotal, therorySecMark, theroryMaxMark, 0.50, testCaseName);		
-								}
-								
-								catch(Exception e) {
-									  ExtentTest testCaseScenario = testCaseName.createNode(
-											  " Theory Total Sec. Marks validation for subject " + subjectToFind + " test case has started");
-									  testCaseScenario.log(Status.FAIL,
-												"\n Please check The Following Registration number " + Regno
-														+ "Theory internal sec. Marks: " + therorySecMark);							
-								}
-
-								try {
-
-									if (!praticalVivaSecMark.trim().equals("NA") || !praticalVivaSecMark.trim().equals("AB")
-											|| !praticalVivaSecMark.trim().equals("NE") || !praticalVivaSecMark.trim().equals("NE (AT)")
-											||!praticalVivaSecMark.trim().equals("---")
-											) {
-										
-										if(therorySecMark.trim().equals("AB") && !praticalVivaSecMark.trim().equals("NE (AT)") ) {
-											
-											ExtentTest testCaseScenario = testCaseName
-													.createNode("Pratical Univ Sec. Marks Validation for the Subject "
-															+ subject + " Test case has started running");		
-											
-											testCaseScenario.log(Status.FAIL,
-													"\n Please check The Following Registration number " + Regno
-															+ " for the Subject " + subject
-															+ " of theory internal sec mark is: "+ therorySecMark +" Practical Univ Sec. Marks is:" + praticalVivaSecMark
-															,	MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
-
-											System.out.println("\n Please check The Following Registration number " + Regno
-													+ " for the Subject " + subject
-													+ "of theory internal sec mark "+ therorySecMark+" Practical Univ Sec. Marks is:" + praticalVivaSecMark);
-
-										}else {
-											
-											ExtentTest testCaseScenario = testCaseName
-													.createNode("Pratical Univ Sec. Marks Validation for the Subject "
-															+ subject + " Test case has started running");		
-											
-											testCaseScenario.log(Status.PASS,
-													"The Following Registration number " + Regno
-															+ " for the Subject " + subject
-															+ " of theory internal sec mark is: "+ therorySecMark+" Practical Univ Sec. Marks is:" + praticalVivaSecMark);
-
-											System.out.println(	"The Following Registration number " + Regno
-													+ " for the Subject " + subject
-													+ "of theory internal sec mark "+ therorySecMark+" Practical Univ Sec. Marks is:" + praticalVivaSecMark);
-
 										}
 
-											validateMarks(Regno,"Pratical Total Sec. Marks", paper1, paper2, paper3,paper4,
-											        praticalExam, theoryExam, subject,
-											        examTotal, praticalVivaSecMark, praticalVivaMaxMark, 0.50, testCaseName);		
-									}}
-									
-									catch(Exception e) {
-										  ExtentTest testCaseScenario = testCaseName.createNode(
-												  " Pratical Total Sec. Marks validation for subject " + subjectToFind + " test case has started");
-										  testCaseScenario.log(Status.FAIL,
-													"\n Please check The Following Registration number " + Regno
-															+ "Pratical Total Sec. Marks validation: " + praticalVivaSecMark);							
+										validateMarks(Regno, "Pratical Total Sec. Marks", paper1, paper2, paper3,
+												paper4, praticalExam, theoryExam, subject, examTotal,
+												practicalVivaSecMarks, paper2MaxMark, 0.50, testCaseName);
 									}
-					
-							 
+
+									catch (Exception e) {
+										ExtentTest testCaseScenario = testCaseName
+												.createNode("Pratical. Marks Validation for the Subject " + subject
+														+ " Test case has started running");
+										testCaseScenario.log(Status.FAIL,
+												"\n Please check The Following Registration number " + Regno
+														+ " for the Subject " + subject + " Practical Marks is:"
+														+ practicalVivaSecMarks);
+
+										System.out.println("\n Please check The Following Registration number " + Regno
+												+ " Practical Marks is:" + practicalVivaSecMarks);
+									}
+
+									try {
+
+										validateMarks(Regno, "Theory plus pratical Sec Total. Marks", paper1, paper2,
+												paper3, paper4, praticalExam, theoryExam, subject, examTotal,
+												paper3Marks, paper1MaxMark, 0.50, testCaseName);
+									}
+
+									catch (Exception e) {
+										ExtentTest testCaseScenario = testCaseName
+												.createNode(" Paper3 Sec Marks validation for subject " + subjectToFind
+														+ " test case has started");
+										testCaseScenario.log(Status.FAIL,
+												"\n Please check The Following Registration number " + Regno
+														+ "Paper3 sec. Marks: " + paper3Marks);
+									}
+
+								} else {
+									ExtentTest testCaseScenario1 = testCaseName
+											.createNode(" Validation for subject in excel " + subjectToFind
+													+ " and pdf subject " + subject + " test case has started");
+									testCaseScenario1.log(Status.FAIL, " Validation for subject in excel "
+											+ subjectToFind + " and pdf subject " + subject + " are not equals");
+
 								}
-		
+							}
+
+							else if (matcher1.group().trim().contains("AYURVEDA") && !text.contains("SA-I")) {
+
+								Pattern ayurvedaSubjectPattern = Pattern.compile(
+
+										"([A-Za-z &'()\\-,\\.]+?)\\s+" + // Subject, with lowercase and dots allowed
+
+												"(NA|---|\\d+)(?:\\s*\\(F\\))?\\s+"
+												+ "(NA|---|\\d+)(?:\\s*\\(F\\))?\\s+"
+												+ "(NA|---|\\d+)(?:\\s*\\(F\\))?\\s+"
+												+ "(NA|---|\\d+)(?:\\s*\\(F\\))?\\s+"
+												+ "(NA|---|\\d+)(?:\\s*\\(F\\))?\\s+"
+												+ "(NA|---|\\d+)(?:\\s*\\(F\\))?\\s+" + "(Pass|Fail|AP)");
+
+								Matcher ayurvedaSubjectPatternMatcher = ayurvedaSubjectPattern.matcher(text);
+
+								while (ayurvedaSubjectPatternMatcher.find()) {
+									System.out.println(ayurvedaSubjectPatternMatcher);
+
+									System.out.println("AYURVEDA.group1" + ayurvedaSubjectPatternMatcher.group());
+									System.out.println("---------------------------------------------------");
+
+									subject = ayurvedaSubjectPatternMatcher.group(1);
+									String theroryMaxMark = ayurvedaSubjectPatternMatcher.group(2);
+									String therorySecMark = ayurvedaSubjectPatternMatcher.group(3);
+									String praticalVivaMaxMark = ayurvedaSubjectPatternMatcher.group(4);
+									String praticalVivaSecMark = ayurvedaSubjectPatternMatcher.group(5);
+									String grandTotalMaxMarks = ayurvedaSubjectPatternMatcher.group(6);
+									String grandTotalSecMarks = ayurvedaSubjectPatternMatcher.group(7);
+									status = ayurvedaSubjectPatternMatcher.group(8);
+
+									System.out.println("Subject: " + subject);
+									System.out.println("Theory Max Mark: " + theroryMaxMark);
+									System.out.println("Theory Secured Mark: " + therorySecMark);
+									System.out.println("Practical/Viva Max Mark: " + praticalVivaMaxMark);
+									System.out.println("Practical/Viva Secured Mark: " + praticalVivaSecMark);
+									System.out.println("Grand Total Max Mark: " + grandTotalMaxMarks);
+									System.out.println("Grand Total Secured Mark: " + grandTotalSecMarks);
+
+									System.out.println("Result: " + status);
+
+									System.out.println("---------------------------------------------------");
+
+									if ((status.trim().equals("Pass") || status.trim().equals("Fail")
+											|| status.trim().equals("AP")) & subject.equals(subjectToFind)) {
+
+										try {
+											validateMarks(Regno, "Theory Sec Marks", paper1, paper2, paper3, paper4,
+													praticalExam, theoryExam, subject, examTotal, therorySecMark,
+													theroryMaxMark, 0.50, testCaseName);
+										}
+
+										catch (Exception e) {
+											ExtentTest testCaseScenario = testCaseName
+													.createNode(" Theory Total Sec. Marks validation for subject "
+															+ subjectToFind + " test case has started");
+											testCaseScenario.log(Status.FAIL,
+													"\n Please check The Following Registration number " + Regno
+															+ "Theory internal sec. Marks: " + therorySecMark);
+										}
+
+										try {
+
+											if (!praticalVivaSecMark.trim().equals("NA")
+													|| !praticalVivaSecMark.trim().equals("AB")
+													|| !praticalVivaSecMark.trim().equals("NE")
+													|| !praticalVivaSecMark.trim().equals("NE (AT)")
+													|| !praticalVivaSecMark.trim().equals("---")) {
+
+												if (therorySecMark.trim().equals("AB")
+														&& !praticalVivaSecMark.trim().equals("NE (AT)")) {
+
+													ExtentTest testCaseScenario = testCaseName.createNode(
+															"Pratical Univ Sec. Marks Validation for the Subject "
+																	+ subject + " Test case has started running");
+
+													testCaseScenario.log(Status.FAIL,
+															"\n Please check The Following Registration number " + Regno
+																	+ " for the Subject " + subject
+																	+ " of theory internal sec mark is: "
+																	+ therorySecMark + " Practical Univ Sec. Marks is:"
+																	+ praticalVivaSecMark,
+															MediaEntityBuilder.createScreenCaptureFromPath(
+																	BasicFunctions.capture(driver)).build());
+
+													System.out.println(
+															"\n Please check The Following Registration number " + Regno
+																	+ " for the Subject " + subject
+																	+ "of theory internal sec mark " + therorySecMark
+																	+ " Practical Univ Sec. Marks is:"
+																	+ praticalVivaSecMark);
+
+												} else {
+
+													ExtentTest testCaseScenario = testCaseName.createNode(
+															"Pratical Univ Sec. Marks Validation for the Subject "
+																	+ subject + " Test case has started running");
+
+													testCaseScenario.log(Status.PASS,
+															"The Following Registration number " + Regno
+																	+ " for the Subject " + subject
+																	+ " of theory internal sec mark is: "
+																	+ therorySecMark + " Practical Univ Sec. Marks is:"
+																	+ praticalVivaSecMark);
+
+													System.out.println("The Following Registration number " + Regno
+															+ " for the Subject " + subject
+															+ "of theory internal sec mark " + therorySecMark
+															+ " Practical Univ Sec. Marks is:" + praticalVivaSecMark);
+
+												}
+
+												validateMarks(Regno, "Pratical Total Sec. Marks", paper1, paper2,
+														paper3, paper4, praticalExam, theoryExam, subject, examTotal,
+														praticalVivaSecMark, praticalVivaMaxMark, 0.50, testCaseName);
+											}
+										}
+
+										catch (Exception e) {
+											ExtentTest testCaseScenario = testCaseName
+													.createNode(" Pratical Total Sec. Marks validation for subject "
+															+ subjectToFind + " test case has started");
+											testCaseScenario.log(Status.FAIL,
+													"\n Please check The Following Registration number " + Regno
+															+ "Pratical Total Sec. Marks validation: "
+															+ praticalVivaSecMark);
+										}
+
+									}
+
 								}
 								System.out.println("---------------------------------------------------");
 
 							}
-							
-							
-							else if ( matcher1.group().trim().contains("AYURVEDA")&& text.contains("SA-")) {
-							
-								
+
+							else if (matcher1.group().trim().contains("AYURVEDA") && text.contains("SA-")) {
+
 								Pattern ayurvedaReg24SubjectPattern = Pattern.compile(
 
-										"([A-Za-z &'()\\-,\\.]+?)\\s+" +                                   // Subject
-										"(NA|---|\\d+)(?:\\s*\\(F\\))?\\s+" +                              // 1st mark
-										"(NA|---|\\d+)(?:\\s*\\(F\\))?\\s+" +                              // 2nd mark
-										"(NA|---|\\d+)(?:\\s*\\(F\\))?\\s+" +                              // 3rd mark
-										"(NA|---|\\d+)(?:\\s*\\(F\\))?\\s+" +                              // 4th mark
-										"(NA|---|\\d+)(?:\\s*\\(F\\))?\\s+" +                              // 5th mark
-										"(NA|---|\\d+)(?:\\s*\\(F\\))?\\s+" +                              // 6th mark
-										"(Pass|Fail|AP)" +                                                // Final result
-										"(?:\\s+(Pass|Fail|First Class|Distinction|AP))?" );                // Optional classification
+										"([A-Za-z &'()\\-,\\.]+?)\\s+" + // Subject
+												"(NA|---|\\d+)(?:\\s*\\(F\\))?\\s+" + // 1st mark
+												"(NA|---|\\d+)(?:\\s*\\(F\\))?\\s+" + // 2nd mark
+												"(NA|---|\\d+)(?:\\s*\\(F\\))?\\s+" + // 3rd mark
+												"(NA|---|\\d+)(?:\\s*\\(F\\))?\\s+" + // 4th mark
+												"(NA|---|\\d+)(?:\\s*\\(F\\))?\\s+" + // 5th mark
+												"(NA|---|\\d+)(?:\\s*\\(F\\))?\\s+" + // 6th mark
+												"(Pass|Fail|AP)" + // Final result
+												"(?:\\s+(Pass|Fail|First Class|Distinction|AP))?"); // Optional
+																									// classification
 
-										Matcher ayurvedaReg24SubjectPatternMatcher = ayurvedaReg24SubjectPattern.matcher(text);
+								Matcher ayurvedaReg24SubjectPatternMatcher = ayurvedaReg24SubjectPattern.matcher(text);
 
 								while (ayurvedaReg24SubjectPatternMatcher.find()) {
-								    System.out.println(ayurvedaReg24SubjectPatternMatcher.group(1));
-								
-								System.out.println("AYURVEDA.group1" +ayurvedaReg24SubjectPatternMatcher.group() );
-								System.out.println("---------------------------------------------------");
-										
-								subject = ayurvedaReg24SubjectPatternMatcher.group(1);
-								String theroryMaxMark = ayurvedaReg24SubjectPatternMatcher.group(2);
-								String therorySecMark = ayurvedaReg24SubjectPatternMatcher.group(3);
-								String sgpaMaxMark = ayurvedaReg24SubjectPatternMatcher.group(4);
-								String sgpaSecMark = ayurvedaReg24SubjectPatternMatcher.group(5);
-								String creditMaxMark = ayurvedaReg24SubjectPatternMatcher.group(6);
-								String creditSecMark = ayurvedaReg24SubjectPatternMatcher.group(7);
-								status = ayurvedaReg24SubjectPatternMatcher.group(8);
-								String finalStatus =ayurvedaReg24SubjectPatternMatcher.group(9);
-								
-								System.out.println("Subject: " +subject);
-								System.out.println("Theory Max Mark: " + theroryMaxMark);
-								System.out.println("Theory Secured Mark: " + therorySecMark);
-								System.out.println("SGPA Max Mark: " + sgpaMaxMark);
-								System.out.println("SGPA Secured Mark: " + sgpaSecMark);
-								System.out.println("Credit Max Mark: " + creditMaxMark);
-								System.out.println("Credit Secured Mark: " + creditSecMark);
+									System.out.println(ayurvedaReg24SubjectPatternMatcher.group(1));
 
-								System.out.println("Result: " + status);
-								System.out.println("Final Result: " + finalStatus);
+									System.out.println("AYURVEDA.group1" + ayurvedaReg24SubjectPatternMatcher.group());
+									System.out.println("---------------------------------------------------");
 
-								System.out.println("---------------------------------------------------");
-								
-								
-								if ((status.trim().equals("Pass") || status.trim().equals("Fail")
-										|| status.trim().equals("AP")) & subject.equals(subjectToFind)) {
+									subject = ayurvedaReg24SubjectPatternMatcher.group(1);
+									String theroryMaxMark = ayurvedaReg24SubjectPatternMatcher.group(2);
+									String therorySecMark = ayurvedaReg24SubjectPatternMatcher.group(3);
+									String sgpaMaxMark = ayurvedaReg24SubjectPatternMatcher.group(4);
+									String sgpaSecMark = ayurvedaReg24SubjectPatternMatcher.group(5);
+									String creditMaxMark = ayurvedaReg24SubjectPatternMatcher.group(6);
+									String creditSecMark = ayurvedaReg24SubjectPatternMatcher.group(7);
+									status = ayurvedaReg24SubjectPatternMatcher.group(8);
+									String finalStatus = ayurvedaReg24SubjectPatternMatcher.group(9);
 
-									try {
-										validateMarks(Regno,"Theory Sec Marks", paper1, paper2, paper3,paper4,
-										        praticalExam, theoryExam, subject,
-										        examTotal, therorySecMark, theroryMaxMark, 0.50, testCaseName);		
-								}
-								
-								catch(Exception e) {
-									  ExtentTest testCaseScenario = testCaseName.createNode(
-											  " Theory Total Sec. Marks validation for subject " + subjectToFind + " test case has started");
-									  testCaseScenario.log(Status.FAIL,
-												"\n Please check The Following Registration number " + Regno
-														+ "Theory internal sec. Marks: " + therorySecMark);							
-								}
-																	
-							try {
-										validateMarks(Regno,"SGPA Sec. Marks", paper1, paper2, paper3,paper4,
-										        praticalExam, theoryExam, subject,
-										        examTotal, sgpaSecMark, sgpaMaxMark, 0.00, testCaseName);		
-								}
-								
-								catch(Exception e) {
-									  ExtentTest testCaseScenario = testCaseName.createNode(
-											  " SGPA Sec. Marks validation for subject " + subjectToFind + " test case has started");
-									  testCaseScenario.log(Status.FAIL,
-												"\n Please check The Following Registration number " + Regno
-														+ "SGPA Sec. Marks: " + therorySecMark);							
-								}
-					
-										
-						try {
-									validateMarks(Regno,"Credits Sec. Marks", paper1, paper2, paper3,paper4,
-									        praticalExam, theoryExam, subject,
-									        examTotal, creditSecMark, creditMaxMark, 0.00, testCaseName);		
-							}
-							
-							catch(Exception e) {
-								  ExtentTest testCaseScenario = testCaseName.createNode(
-										  " Credits Sec. Marks validation for subject " + subjectToFind + " test case has started");
-								  testCaseScenario.log(Status.FAIL,
-											"\n Please check The Following Registration number " + Regno
-													+ "Credits Sec. Marks: " + therorySecMark);							
-							}
-						
-						
-						
-									try {
-										
-										paper2Mark = 0.0;
-										Paper2 = 0.0;
-										
-										paper3Mark = 0.0;
-										Paper3 = 0.0;
-										
-										validateMarks(Regno,"Theory plus pratical Sec. Marks", paper1, paper2, paper3,paper4,
-										        praticalExam, theoryExam, subject,
-										        examTotal, therorySecMark, theroryMaxMark, 0.50, testCaseName);		
-								}
-								
-								catch(Exception e) {
-									  ExtentTest testCaseScenario = testCaseName.createNode(
-											  " Theory plus pratical Sec. Marks validation for subject " + subjectToFind + " test case has started");
-									  testCaseScenario.log(Status.FAIL,
-												"\n Please check The Following Registration number " + Regno
-														+ "Theory plus pratical Sec. Marks: " + therorySecMark);							
-								}	
+									System.out.println("Subject: " + subject);
+									System.out.println("Theory Max Mark: " + theroryMaxMark);
+									System.out.println("Theory Secured Mark: " + therorySecMark);
+									System.out.println("SGPA Max Mark: " + sgpaMaxMark);
+									System.out.println("SGPA Secured Mark: " + sgpaSecMark);
+									System.out.println("Credit Max Mark: " + creditMaxMark);
+									System.out.println("Credit Secured Mark: " + creditSecMark);
 
-								
-							}
-								}}
-							else if (matcher1.group().contains("BNYS") || matcher1.group().contains("UNANI")
+									System.out.println("Result: " + status);
+									System.out.println("Final Result: " + finalStatus);
+
+									System.out.println("---------------------------------------------------");
+
+									if ((status.trim().equals("Pass") || status.trim().equals("Fail")
+											|| status.trim().equals("AP")) & subject.equals(subjectToFind)) {
+
+										try {
+											validateMarks(Regno, "Theory Sec Marks", paper1, paper2, paper3, paper4,
+													praticalExam, theoryExam, subject, examTotal, therorySecMark,
+													theroryMaxMark, 0.50, testCaseName);
+										}
+
+										catch (Exception e) {
+											ExtentTest testCaseScenario = testCaseName
+													.createNode(" Theory Total Sec. Marks validation for subject "
+															+ subjectToFind + " test case has started");
+											testCaseScenario.log(Status.FAIL,
+													"\n Please check The Following Registration number " + Regno
+															+ "Theory internal sec. Marks: " + therorySecMark);
+										}
+
+										try {
+											validateMarks(Regno, "SGPA Sec. Marks", paper1, paper2, paper3, paper4,
+													praticalExam, theoryExam, subject, examTotal, sgpaSecMark,
+													sgpaMaxMark, 0.00, testCaseName);
+										}
+
+										catch (Exception e) {
+											ExtentTest testCaseScenario = testCaseName
+													.createNode(" SGPA Sec. Marks validation for subject "
+															+ subjectToFind + " test case has started");
+											testCaseScenario.log(Status.FAIL,
+													"\n Please check The Following Registration number " + Regno
+															+ "SGPA Sec. Marks: " + therorySecMark);
+										}
+
+										try {
+											validateMarks(Regno, "Credits Sec. Marks", paper1, paper2, paper3, paper4,
+													praticalExam, theoryExam, subject, examTotal, creditSecMark,
+													creditMaxMark, 0.00, testCaseName);
+										}
+
+										catch (Exception e) {
+											ExtentTest testCaseScenario = testCaseName
+													.createNode(" Credits Sec. Marks validation for subject "
+															+ subjectToFind + " test case has started");
+											testCaseScenario.log(Status.FAIL,
+													"\n Please check The Following Registration number " + Regno
+															+ "Credits Sec. Marks: " + therorySecMark);
+										}
+
+										try {
+
+											paper2Mark = 0.0;
+											Paper2 = 0.0;
+
+											paper3Mark = 0.0;
+											Paper3 = 0.0;
+
+											validateMarks(Regno, "Theory plus pratical Sec. Marks", paper1, paper2,
+													paper3, paper4, praticalExam, theoryExam, subject, examTotal,
+													therorySecMark, theroryMaxMark, 0.50, testCaseName);
+										}
+
+										catch (Exception e) {
+											ExtentTest testCaseScenario = testCaseName.createNode(
+													" Theory plus pratical Sec. Marks validation for subject "
+															+ subjectToFind + " test case has started");
+											testCaseScenario.log(Status.FAIL,
+													"\n Please check The Following Registration number " + Regno
+															+ "Theory plus pratical Sec. Marks: " + therorySecMark);
+										}
+
+									}
+								}
+							} else if (matcher1.group().contains("BNYS") || matcher1.group().contains("UNANI")
 									|| matcher1.group().contains("BAMS") || matcher1.group().contains("BUMS")
 									|| matcher1.group().trim().contains("HOMOEOPATHY")
-						
-									
-									) {
+
+							) {
 
 								Pattern oneSubjectPattern = Pattern.compile(
 										"(?:(?:KALOJI NARAYANA RAO UNIVERSITY OF HEALTH SCIENCES|Theory Practical Grand Total|Pass).*\\n)*"
 												+ // Ignore header lines
-												"([A-Za-z &'()\\-,]+(?:\\n[A-Za-z &'()\\-,]+)*)\\s+" + // Capture subject names,
-																										// allowing multi-line
+												"([A-Za-z &'()\\-,]+(?:\\n[A-Za-z &'()\\-,]+)*)\\s+" + // Capture
+																										// subject
+																										// names,
+																										// allowing
+																										// multi-line
 																										// subjects
-												"((?:\\d+|NA|AB|NE|NR|---|AP)(?:\\s*\\(F\\))?)\\s*" + // First mark (mandatory)
-												"((?:\\d+|NA|AB|NE|NR|---|AP)?(?:\\s*\\(F\\))?)?\\s*" + // Second mark (optional)
-												"((?:\\d+|NA|AB|NE|NR|---|AP)?(?:\\s*\\(F\\))?)?\\s*" + // Third mark (optional)
-												"((?:\\d+|NA|AB|NE|NR|---|AP)?(?:\\s*\\(F\\))?)?\\s*" + // Fourth mark (optional)
-												"((?:\\d+|NA|AB|NE|NR|---|AP)?(?:\\s*\\(F\\))?)?\\s*" + // Fifth mark (optional)
-												"((?:\\d+|NA|AB|NE|NR|---|AP)?(?:\\s*\\(F\\))?)?\\s*" + // Sixth mark (optional)
+												"((?:\\d+|NA|AB|NE|NR|---|AP)(?:\\s*\\(F\\))?)\\s*" + // First mark
+																										// (mandatory)
+												"((?:\\d+|NA|AB|NE|NR|---|AP)?(?:\\s*\\(F\\))?)?\\s*" + // Second mark
+																										// (optional)
+												"((?:\\d+|NA|AB|NE|NR|---|AP)?(?:\\s*\\(F\\))?)?\\s*" + // Third mark
+																										// (optional)
+												"((?:\\d+|NA|AB|NE|NR|---|AP)?(?:\\s*\\(F\\))?)?\\s*" + // Fourth mark
+																										// (optional)
+												"((?:\\d+|NA|AB|NE|NR|---|AP)?(?:\\s*\\(F\\))?)?\\s*" + // Fifth mark
+																										// (optional)
+												"((?:\\d+|NA|AB|NE|NR|---|AP)?(?:\\s*\\(F\\))?)?\\s*" + // Sixth mark
+																										// (optional)
 												"(?:-+\\s*)?" + // Handle extra dashes before the final result
 												"(Pass|Fail|AP)" // Final result
 								);
 
-								Matcher paperMatcher = oneSubjectPattern.matcher(text);		
-									
-								
-								while(paperMatcher.find()) {
+								Matcher paperMatcher = oneSubjectPattern.matcher(text);
 
-								if (matcher1.group().trim().contains("M.D. HOMOEOPATHY"))
-								
-										
-										 {
+								while (paperMatcher.find()) {
 
-									System.out.println("PaperMatcher2: " + paperMatcher.group(1));
+									if (matcher1.group().trim().contains("M.D. HOMOEOPATHY"))
 
-									String subjectInput = paperMatcher.group(1);
+									{
 
-									System.out.println("subjectInput: "+subjectInput);
-									
-									
-									
+										System.out.println("PaperMatcher2: " + paperMatcher.group(1));
 
-									String subjectInputSplit[] = subjectInput.split("\\r?\\n");
+										String subjectInput = paperMatcher.group(1);
 
-									//need to debug
-									
-									System.out.println("subject check"+subjectInputSplit[0]);
-									System.out.println("---------------------------------------------------");
-									if(!subjectInputSplit[0].contains("Four Hundred Forty Six")&& matcher1.group().trim().contains("UNANI")) {
-										
-										subject = subjectInputSplit[0];
-										System.out.println("Subject Name :"+ subject);
+										System.out.println("subjectInput: " + subjectInput);
+
+										String subjectInputSplit[] = subjectInput.split("\\r?\\n");
+
+										// need to debug
+
+										System.out.println("subject check" + subjectInputSplit[0]);
+										System.out.println("---------------------------------------------------");
+										if (!subjectInputSplit[0].contains("Four Hundred Forty Six")
+												&& matcher1.group().trim().contains("UNANI")) {
+
+											subject = subjectInputSplit[0];
+											System.out.println("Subject Name :" + subject);
+										} else if (!subjectInputSplit[0]
+												.contains("KALOJI NARAYANA RAO UNIVERSITY OF HEALTH SCIENCES")
+												&& matcher1.group().trim().contains("M.D. HOMOEOPATHY")) {
+
+											subject = paperMatcher.group(1).replaceAll("\\s+", " ").trim();
+
+											System.out.println(subject);
+										} else {
+
+											subject = subjectInputSplit[1];
+
+											System.out.println("Subject Name :" + subject);
+
+										}
 									}
-									else if(!subjectInputSplit[0].contains("KALOJI NARAYANA RAO UNIVERSITY OF HEALTH SCIENCES")&& matcher1.group().trim().contains("M.D. HOMOEOPATHY")) {
-									
-										
-										subject = paperMatcher.group(1).replaceAll("\\s+", " ").trim();
-						
-										
-										System.out.println(subject);
-									}
+
 									else {
-									
-									
-										subject = subjectInputSplit[1];
+										subject = paperMatcher.group(1).replaceAll("\\s+", " ").trim();
+										System.out.println(subject);
 
-										System.out.println("Subject Name :"+ subject);
-									
-									}
-								}
-
-								else {
-									subject = paperMatcher.group(1).replaceAll("\\s+", " ").trim();
-									System.out.println(subject);
-
-								}
-
-							String	theoryTotalMaxMarks = paperMatcher.group(2);
-							String	theoryTotalSecMarks = paperMatcher.group(3).replaceAll("[^0-9]", "").isEmpty()
-										? paperMatcher.group(3)
-										: paperMatcher.group(3).replaceAll("[^0-9]", "");
-							String	practicalVivaMaxMarks = paperMatcher.group(4);
-							String	practicalVivaSecMarks = paperMatcher.group(5).replaceAll("[^0-9]", "").isEmpty()
-										? paperMatcher.group(5)
-										: paperMatcher.group(5).replaceAll("[^0-9]", "");
-
-							String	theoryPracticalMaxMarks = paperMatcher.group(6);
-							String	theoryPracticalSecMarks = paperMatcher.group(7).replaceAll("[^0-9]", "").isEmpty()
-										? paperMatcher.group(7)
-										: paperMatcher.group(7).replaceAll("[^0-9]", "");
-								status = paperMatcher.group(8);
-
-								System.out.println("Subject: " + subject);
-								System.out.println("Theory Total Max Marks: " + theoryTotalMaxMarks);
-								System.out.println("Theory Total Secured Marks: " + theoryTotalSecMarks);
-								System.out.println("Practical Viva Max Marks: " + practicalVivaMaxMarks);
-								System.out.println("Practical Viva Secured Marks: " + practicalVivaSecMarks);
-								System.out.println("Theory plus Practical Max Marks: " + theoryPracticalMaxMarks);
-								System.out.println("Theory plus Practical Secured Marks: " + theoryPracticalSecMarks);
-								System.out.println("Status: " + status);
-
-								System.out.println("---------------------------------------------------");
-	System.out.println(subject.trim().equals(subjectToFind.trim()));
-	
-								if ((status.trim().equals("Pass") || status.trim().equals("Fail")
-										|| status.trim().equals("AP")) && subject.trim().equals(subjectToFind.trim())) {
-									try {
-									validateMarks(Regno,"Paper1 Sec Marks", paper1, paper2, paper3,paper4,
-									       theoryExam, praticalExam,subject,
-									        examTotal, theoryTotalSecMarks, theoryTotalMaxMarks, 0.50, testCaseName);
-									}
-									catch(Exception e) {
-										ExtentTest testCaseScenario = testCaseName
-												.createNode("Theory Total Sec. Marks "
-														+ subject + " Test case has started running");		
-										
-										
-										testCaseScenario.log(Status.FAIL,
-												"\n Please check The Following Registration number " + Regno
-														+ " for the Subject " + subject
-														+ " of theory internal sec mark is: "+ theoryTotalSecMarks 
-														,	MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
-
-										
-										
 									}
 
-									try {
-									if(theoryTotalSecMarks.trim().equals("AB") && !practicalVivaSecMarks.trim().equals("NE (AT)") ) {
-										
-										ExtentTest testCaseScenario = testCaseName
-												.createNode("Pratical plus viva Sec. Marks Validation for the Subject "
-														+ subject + " Test case has started running");		
-										
-										testCaseScenario.log(Status.FAIL,
-												"\n Please check The Following Registration number " + Regno
-														+ " for the Subject " + subject
-														+ " of theory internal sec mark is: "+ theoryTotalSecMarks +" Pratical plus viva Sec is:" + practicalVivaSecMarks
-														,	MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
+									String theoryTotalMaxMarks = paperMatcher.group(2);
+									String theoryTotalSecMarks = paperMatcher.group(3).replaceAll("[^0-9]", "")
+											.isEmpty() ? paperMatcher.group(3)
+													: paperMatcher.group(3).replaceAll("[^0-9]", "");
+									String practicalVivaMaxMarks = paperMatcher.group(4);
+									String practicalVivaSecMarks = paperMatcher.group(5).replaceAll("[^0-9]", "")
+											.isEmpty() ? paperMatcher.group(5)
+													: paperMatcher.group(5).replaceAll("[^0-9]", "");
 
-										System.out.println("\n Please check The Following Registration number " + Regno
-												+ " for the Subject " + subject
-												+ "of theory internal sec mark "+ theoryTotalSecMarks+" Pratical plus viva Sec is :" + practicalVivaSecMarks);
+									String theoryPracticalMaxMarks = paperMatcher.group(6);
+									String theoryPracticalSecMarks = paperMatcher.group(7).replaceAll("[^0-9]", "")
+											.isEmpty() ? paperMatcher.group(7)
+													: paperMatcher.group(7).replaceAll("[^0-9]", "");
+									status = paperMatcher.group(8);
 
-									}else {
-										
-										ExtentTest testCaseScenario = testCaseName
-												.createNode("Pratical Univ Sec. Marks Validation for the Subject "
-														+ subject + " Test case has started running");		
-										
-										testCaseScenario.log(Status.PASS,
-												"The Following Registration number " + Regno
-														+ " for the Subject " + subject
-														+ " of theory internal sec mark is: "+ theoryTotalSecMarks+" Pratical plus viva Sec mark is : " + practicalVivaSecMarks);
+									System.out.println("Subject: " + subject);
+									System.out.println("Theory Total Max Marks: " + theoryTotalMaxMarks);
+									System.out.println("Theory Total Secured Marks: " + theoryTotalSecMarks);
+									System.out.println("Practical Viva Max Marks: " + practicalVivaMaxMarks);
+									System.out.println("Practical Viva Secured Marks: " + practicalVivaSecMarks);
+									System.out.println("Theory plus Practical Max Marks: " + theoryPracticalMaxMarks);
+									System.out
+											.println("Theory plus Practical Secured Marks: " + theoryPracticalSecMarks);
+									System.out.println("Status: " + status);
 
-										System.out.println(	"The Following Registration number " + Regno
-												+ " for the Subject " + subject
-												+ "of theory internal sec mark "+ theoryTotalSecMarks+" Pratical plus viva Sec mark is:" + practicalVivaSecMarks);
-									try {
-										
-									
-										validateMarks(Regno,"Pratical Total Sec Marks", paper1, paper2, paper3,paper4,
-										         theoryExam,praticalExam, subject,
-										        examTotal, practicalVivaSecMarks, practicalVivaMaxMarks, 0.50, testCaseName);
-									}//try
-									
-									catch(Exception e) {
+									System.out.println("---------------------------------------------------");
+									System.out.println(subject.trim().equals(subjectToFind.trim()));
 
-										  testCaseScenario.log(Status.FAIL,
-													"\n Please check The Following Registration number " + Regno
-															+ " for the Subject " + subject
-															+ " of Pratical Univ Sec mark is: "+ theoryTotalSecMarks 
-															,	MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
+									if ((status.trim().equals("Pass") || status.trim().equals("Fail")
+											|| status.trim().equals("AP"))
+											&& subject.trim().equals(subjectToFind.trim())) {
+										try {
+											validateMarks(Regno, "Paper1 Sec Marks", paper1, paper2, paper3, paper4,
+													theoryExam, praticalExam, subject, examTotal, theoryTotalSecMarks,
+													theoryTotalMaxMarks, 0.50, testCaseName);
+										} catch (Exception e) {
+											ExtentTest testCaseScenario = testCaseName
+													.createNode("Theory Total Sec. Marks " + subject
+															+ " Test case has started running");
 
-				
-									}//catch	
-									}//else
-									}//try
-									catch(Exception e) {
-										 ExtentTest testCaseScenario = testCaseName.createNode(
-												  " Pratical Univ Sec validation for subject " + subjectToFind + " test case has started");
-										
 											testCaseScenario.log(Status.FAIL,
 													"\n Please check The Following Registration number " + Regno
 															+ " for the Subject " + subject
-															+ " of theory internal sec mark is: "+ theoryTotalSecMarks +" Pratical plus viva Sec is:" + practicalVivaSecMarks
-															,	MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
+															+ " of theory internal sec mark is: " + theoryTotalSecMarks,
+													MediaEntityBuilder
+															.createScreenCaptureFromPath(BasicFunctions.capture(driver))
+															.build());
 
-										  
-										  
-									}	
-									
-										
-									
-							try {
-									validateMarks(Regno,"Grand Total Sec Marks", paper1, paper2, paper3,paper4,
-											  theoryExam,praticalExam,subject,
-									        examTotal, theoryPracticalSecMarks, theoryPracticalMaxMarks, 0.50, testCaseName);
-								
-									}
-								
-								catch(Exception e) {
-									  ExtentTest testCaseScenario = testCaseName.createNode(
-											  " Theory Plus pratical Sec. Marks validation for subject " + subjectToFind + " test case has started");
-									  testCaseScenario.log(Status.FAIL,
-												"\n Please check The Following Registration number " + Regno
-														+ "Theory Plus pratical Sec Marks: " + theoryPracticalSecMarks);							
-								}
-								
-								}//if
-							}//while
-							
+										}
+
+										try {
+											if (theoryTotalSecMarks.trim().equals("AB")
+													&& !practicalVivaSecMarks.trim().equals("NE (AT)")) {
+
+												ExtentTest testCaseScenario = testCaseName.createNode(
+														"Pratical plus viva Sec. Marks Validation for the Subject "
+																+ subject + " Test case has started running");
+
+												testCaseScenario.log(Status.FAIL,
+														"\n Please check The Following Registration number " + Regno
+																+ " for the Subject " + subject
+																+ " of theory internal sec mark is: "
+																+ theoryTotalSecMarks + " Pratical plus viva Sec is:"
+																+ practicalVivaSecMarks,
+														MediaEntityBuilder.createScreenCaptureFromPath(
+																BasicFunctions.capture(driver)).build());
+
+												System.out.println("\n Please check The Following Registration number "
+														+ Regno + " for the Subject " + subject
+														+ "of theory internal sec mark " + theoryTotalSecMarks
+														+ " Pratical plus viva Sec is :" + practicalVivaSecMarks);
+
+											} else {
+
+												ExtentTest testCaseScenario = testCaseName.createNode(
+														"Pratical Univ Sec. Marks Validation for the Subject " + subject
+																+ " Test case has started running");
+
+												testCaseScenario.log(Status.PASS, "The Following Registration number "
+														+ Regno + " for the Subject " + subject
+														+ " of theory internal sec mark is: " + theoryTotalSecMarks
+														+ " Pratical plus viva Sec mark is : " + practicalVivaSecMarks);
+
+												System.out.println("The Following Registration number " + Regno
+														+ " for the Subject " + subject + "of theory internal sec mark "
+														+ theoryTotalSecMarks + " Pratical plus viva Sec mark is:"
+														+ practicalVivaSecMarks);
+												try {
+
+													validateMarks(Regno, "Pratical Total Sec Marks", paper1, paper2,
+															paper3, paper4, theoryExam, praticalExam, subject,
+															examTotal, practicalVivaSecMarks, practicalVivaMaxMarks,
+															0.50, testCaseName);
+												} // try
+
+												catch (Exception e) {
+
+													testCaseScenario
+															.log(Status.FAIL,
+																	"\n Please check The Following Registration number "
+																			+ Regno + " for the Subject " + subject
+																			+ " of Pratical Univ Sec mark is: "
+																			+ theoryTotalSecMarks,
+																	MediaEntityBuilder
+																			.createScreenCaptureFromPath(
+																					BasicFunctions.capture(driver))
+																			.build());
+
+												} // catch
+											} // else
+										} // try
+										catch (Exception e) {
+											ExtentTest testCaseScenario = testCaseName
+													.createNode(" Pratical Univ Sec validation for subject "
+															+ subjectToFind + " test case has started");
+
+											testCaseScenario.log(Status.FAIL,
+													"\n Please check The Following Registration number " + Regno
+															+ " for the Subject " + subject
+															+ " of theory internal sec mark is: " + theoryTotalSecMarks
+															+ " Pratical plus viva Sec is:" + practicalVivaSecMarks,
+													MediaEntityBuilder
+															.createScreenCaptureFromPath(BasicFunctions.capture(driver))
+															.build());
+
+										}
+
+										try {
+											validateMarks(Regno, "Grand Total Sec Marks", paper1, paper2, paper3,
+													paper4, theoryExam, praticalExam, subject, examTotal,
+													theoryPracticalSecMarks, theoryPracticalMaxMarks, 0.50,
+													testCaseName);
+
+										}
+
+										catch (Exception e) {
+											ExtentTest testCaseScenario = testCaseName.createNode(
+													" Theory Plus pratical Sec. Marks validation for subject "
+															+ subjectToFind + " test case has started");
+											testCaseScenario.log(Status.FAIL,
+													"\n Please check The Following Registration number " + Regno
+															+ "Theory Plus pratical Sec Marks: "
+															+ theoryPracticalSecMarks);
+										}
+
+									} // if
+								} // while
+
 							} // else if part
-							
+
 						}
 
 						catch (Exception e) {
-						
+
 							System.out.println(text);
-							
+
 							e.printStackTrace();
-					
+
 						}
 
 					}
@@ -6255,8 +6358,9 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 
 	}
 
-	public void processTwoPatternPdf(File latestFile, Object Regno, Object paper1, Object paper2, Object paper3,Object paper4,
-			Object praticalExam, Object theoryExam, Object examTotal, ExtentTest testCaseName, String subjectToFind) {
+	public void processTwoPatternPdf(File latestFile, Object Regno, Object paper1, Object paper2, Object paper3,
+			Object paper4, Object praticalExam, Object theoryExam, Object examTotal, ExtentTest testCaseName,
+			String subjectToFind) {
 		if (latestFile != null) {
 			try (PDDocument document = PDDocument.load(latestFile)) {
 				PDFTextStripper stripper = new PDFTextStripper();
@@ -6290,7 +6394,7 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 					if (regMatcher.find()) {
 						String[] parts = regMatcher.group(1).split(":");
 						for (int i = 0; i < parts.length; i++) {
-						long	registrationNumber = Long.parseLong(parts[i]);
+							long registrationNumber = Long.parseLong(parts[i]);
 
 							// System.out.println("parts[" + i + "]: '" + parts[i] + "'");
 
@@ -6383,19 +6487,19 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 										: (mbbsMatcher.group(1) + " " + mbbsMatcher.group(2)).replaceAll("\\s+", " ")
 												.trim();
 
-							String	theoryMaxMarks = mbbsMatcher.group(3); // Take the last part
+								String theoryMaxMarks = mbbsMatcher.group(3); // Take the last part
 
-							String	theorySecMarks = mbbsMatcher.group(4);
-							String	praticalMaxMarks = mbbsMatcher.group(5);
-							String	praticalSecMarks = mbbsMatcher.group(6);
+								String theorySecMarks = mbbsMatcher.group(4);
+								String praticalMaxMarks = mbbsMatcher.group(5);
+								String praticalSecMarks = mbbsMatcher.group(6);
 
-							String		vivaMaxMarks = mbbsMatcher.group(7);
-							String	vivaSecMarks = mbbsMatcher.group(8);
+								String vivaMaxMarks = mbbsMatcher.group(7);
+								String vivaSecMarks = mbbsMatcher.group(8);
 
-							String	theoryPraticalTotalMaxMarks = mbbsMatcher.group(9);
-							String		theoryPraticalTotalSecMarks = mbbsMatcher.group(10);
-							String	grandTotalMaxMarks = mbbsMatcher.group(9);
-							String		grandTotalSecMarks = mbbsMatcher.group(10);
+								String theoryPraticalTotalMaxMarks = mbbsMatcher.group(9);
+								String theoryPraticalTotalSecMarks = mbbsMatcher.group(10);
+								String grandTotalMaxMarks = mbbsMatcher.group(9);
+								String grandTotalSecMarks = mbbsMatcher.group(10);
 								status = mbbsMatcher.group(11);
 
 								// Check if this is the subject we are looking for
@@ -6449,8 +6553,8 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 											theoryInternalMaxMark = Double.parseDouble(theoryMaxMarks);
 											paper1Mark = Double.parseDouble(theorySecMarks);
 											verifyScore(paper1Mark, theoryInternalMaxMark, 0.50);
-											checkMarks(Regno, "Theory Sec Marks", paper1, paper2, paper3,paper4, praticalExam,
-													theoryExam, subjectToFind, examTotal, theorySecMarks,
+											checkMarks(Regno, "Theory Sec Marks", paper1, paper2, paper3, paper4,
+													praticalExam, theoryExam, subjectToFind, examTotal, theorySecMarks,
 													theoryInternalMaxMark, testCaseName);
 										}
 
@@ -6508,11 +6612,11 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 											praticalTotalMaxMark = Double.parseDouble(vivaMaxMarks);
 											praticalTotalSecMark = Double.parseDouble(vivaSecMarks);
 											verifyScore(praticalTotalSecMark, praticalTotalMaxMark, 0.50);
-											checkMarks(Regno, "Pratical Univ Sec. Marks", paper1, paper2, paper3,paper4,
-													praticalExam, theoryExam, subjectToFind, examTotal, theorySecMarks,
-													theoryInternalMaxMark, testCaseName);
+											checkMarks(Regno, "Pratical Univ Sec. Marks", paper1, paper2, paper3,
+													paper4, praticalExam, theoryExam, subjectToFind, examTotal,
+													theorySecMarks, theoryInternalMaxMark, testCaseName);
 										} // Use the value
-										// Check pratical internal Sec. Marks
+											// Check pratical internal Sec. Marks
 										else {
 											ExtentTest testCaseScenario = testCaseName
 													.createNode("Pratical. Marks Validation for the Subject " + subject
@@ -6578,7 +6682,7 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 											ExamTotalScore = Double.parseDouble(grandTotalSecMarks);
 											verifyScore(ExamTotalScore, grandTotalMaxMark, 0.50);
 											checkMarks(Regno, " Theory plus pratical Sec. Marks", paper1, paper2,
-													paper3,paper4, praticalExam, theoryExam, subjectToFind, examTotal,
+													paper3, paper4, praticalExam, theoryExam, subjectToFind, examTotal,
 													grandTotalSecMarks, grandTotalMaxMark, testCaseName);
 										}
 										// Check Grand Total Sec. Marks (assumed max marks as 200)
@@ -6682,8 +6786,8 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 
 					// Extract marks and result based on the new pattern
 					System.out.println("\n=== Marks and Results ===");
-					Pattern marksPattern = Pattern.compile(
-						    "(\\d+)\\s*\\(\\s*F\\s*\\)\\s+(\\d+)\\s*\\(\\s*F\\s*\\)\\s+(Pass|Fail|AP)");
+					Pattern marksPattern = Pattern
+							.compile("(\\d+)\\s*\\(\\s*F\\s*\\)\\s+(\\d+)\\s*\\(\\s*F\\s*\\)\\s+(Pass|Fail|AP)");
 
 					Pattern pdfPattern = Pattern.compile("(?i)A\\s*A\\s*A\\s*A\\s*A\\s*(Pass|Fail)");
 
@@ -6691,7 +6795,7 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 					Matcher pdfMatcher = pdfPattern.matcher(normalizedText);
 
 					if (marksMatcher.find() || pdfMatcher.find()) {
-						
+
 						try {
 							if (matcher1.group().contains("MDS")) {
 
@@ -6710,36 +6814,38 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 								System.out.println("Grand Total Obtained Marks: " + grandTotal);
 
 								System.out.println("Result: " + status);
-								
+
 								if ((status.trim().equals("Pass") || status.trim().equals("Fail")
 										|| status.trim().equals("AP")) && subject.trim().equals(subjectToFind.trim())) {
 									try {
-										validateMarks(Regno,"Theory Total Sec. Marks", paper1, paper2, paper3,paper4,
-												  theoryExam,praticalExam, subject,
-										        examTotal, paper1Marks, paper1MaxMark, 0.50, testCaseName);		
-								}
-								
-								catch(Exception e) {
-									  ExtentTest testCaseScenario = testCaseName.createNode(
-											  " Theory Total Sec. Marks validation for subject " + subjectToFind + " test case has started");
-									  testCaseScenario.log(Status.FAIL,
+										validateMarks(Regno, "Theory Total Sec. Marks", paper1, paper2, paper3, paper4,
+												theoryExam, praticalExam, subject, examTotal, paper1Marks,
+												paper1MaxMark, 0.50, testCaseName);
+									}
+
+									catch (Exception e) {
+										ExtentTest testCaseScenario = testCaseName
+												.createNode(" Theory Total Sec. Marks validation for subject "
+														+ subjectToFind + " test case has started");
+										testCaseScenario.log(Status.FAIL,
 												"\n Please check The Following Registration number " + Regno
-														+ "Theory internal sec. Marks: " + paper1Marks);							
-								}
-									
+														+ "Theory internal sec. Marks: " + paper1Marks);
+									}
+
 									try {
-										validateMarks(Regno,"Theory plus pratical Sec. Marks", paper1, paper2, paper3,paper4,
-												  theoryExam,praticalExam,subject,
-										        examTotal, grandTotal, grandTotalMaxMarks, 0.50, testCaseName);		
-								}
-								
-								catch(Exception e) {
-									  ExtentTest testCaseScenario = testCaseName.createNode(
-											  " Theory Total Sec. Marks validation for subject " + subjectToFind + " test case has started");
-									  testCaseScenario.log(Status.FAIL,
+										validateMarks(Regno, "Theory plus pratical Sec. Marks", paper1, paper2, paper3,
+												paper4, theoryExam, praticalExam, subject, examTotal, grandTotal,
+												grandTotalMaxMarks, 0.50, testCaseName);
+									}
+
+									catch (Exception e) {
+										ExtentTest testCaseScenario = testCaseName
+												.createNode(" Theory Total Sec. Marks validation for subject "
+														+ subjectToFind + " test case has started");
+										testCaseScenario.log(Status.FAIL,
 												"\n Please check The Following Registration number " + Regno
-														+ "Theory internal sec. Marks: " + grandTotal);							
-								}
+														+ "Theory internal sec. Marks: " + grandTotal);
+									}
 								} // if bracket
 							}
 
@@ -6749,8 +6855,7 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 							e.printStackTrace();
 						}
 
-					}
-					else {
+					} else {
 						System.out.println("Marks Result not found.");
 
 						System.out.println("---------------------------------------------------");
@@ -6769,8 +6874,8 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 	}
 
 	public void processPdfCourseNamePatternPdf(File latestFile, Object Regno, Object paper1, Object paper2,
-			Object paper3,Object paper4, Object theoryExam, Object praticalExam, Object examTotal, ExtentTest testCaseName,
-			String subjectToFind) {
+			Object paper3, Object paper4, Object theoryExam, Object praticalExam, Object examTotal,
+			ExtentTest testCaseName, String subjectToFind) {
 		if (latestFile != null) {
 			try (PDDocument document = PDDocument.load(latestFile)) {
 				PDFTextStripper stripper = new PDFTextStripper();
@@ -7083,11 +7188,11 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 	}
 
 	// Method to check if a student passed or failed in Paper 3
-	
+
 	// Method to check if a student passed or failed in the Theory Exam (Paper1 +
 	// Paper2 + Paper3)
-	public void TheoryTotalSecMarksValidation(Object regno,String markName, String obtainedMarks,Object theoryExam, ExtentTest testCaseName, String subjectToFind)
-			throws IOException {
+	public void TheoryTotalSecMarksValidation(Object regno, String markName, String obtainedMarks, Object theoryExam,
+			ExtentTest testCaseName, String subjectToFind) throws IOException {
 
 		try {
 
@@ -7097,14 +7202,14 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 				theroryExamTotalMinMark = minMark;
 				TheroryExamTotal = Paper1 + Paper2 + Paper3 + Paper4;
 
-				theoryTotal = paper1Mark + paper2Mark + paper3Mark +paper4Mark;
+				theoryTotal = paper1Mark + paper2Mark + paper3Mark + paper4Mark;
 				System.out.println(paper1Mark);
 				System.out.println(paper2Mark);
 				System.out.println(paper3Mark);
 				System.out.println(paper4Mark);
 
 				System.out.println(obtainedMarks);
-				
+
 				Double theroryExamTotal = objectToDataType(obtainedMarks);
 
 				System.out.println(theoryTotal);
@@ -7145,7 +7250,8 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 				try {
 
 					if (paper1Mark < paper1MinMark || paper2Mark < paper2MinMark || paper3Mark < paper3MinMark
-							|| Paper1 < paper1MinMark || Paper2 < paper2MinMark || Paper3 < paper3MinMark||Paper4 < paper4MinMark) {
+							|| Paper1 < paper1MinMark || Paper2 < paper2MinMark || Paper3 < paper3MinMark
+							|| Paper4 < paper4MinMark) {
 						System.out.println("The following Registration number " + regno
 								+ " has failed in one or more papers and is therefore failed in the Theory exam:"
 								+ theoryTotal);
@@ -7419,11 +7525,11 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 	}
 
 	public void processPdfBasedOnSubjectPattern(File latestFile, Object Regno, Object paper1, Object paper2,
-			Object paper3,Object paper4, Object theoryExam, Object praticalExam, Object examTotal, String subjectToFind,
-			ExtentTest testCaseName) {
-		
+			Object paper3, Object paper4, Object theoryExam, Object praticalExam, Object examTotal,
+			String subjectToFind, ExtentTest testCaseName) {
+
 		ExtentTest testCaseScenario = testCaseName.createNode("Processing Pdf Based On Subject Pattern");
-		
+
 		if (latestFile != null) {
 			try (PDDocument document = PDDocument.load(latestFile)) {
 				PDFTextStripper stripper = new PDFTextStripper();
@@ -7485,45 +7591,53 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 
 					Matcher bhms22PatternnMatcher = bhms22Pattern.matcher(text);
 
-					Pattern eightSubjectPattern = Pattern.compile(
-						    "^(.*?)\\s+" + // Subject name (multi-word, greedy)
-						    
-						    "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(?\\s*AT\\s*\\)?)(?:\\s*\\(\\s*F\\s*\\))?\\s+" + // Theory Internal Max
-						    "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(?\\s*AT\\s*\\)?)(?:\\s*\\(\\s*F\\s*\\))?\\s+" + // Theory Internal Sec
-						    "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(?\\s*AT\\s*\\)?)(?:\\s*\\(\\s*F\\s*\\))?\\s+" + // Theory Univ Max
-						    "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(?\\s*AT\\s*\\)?)(?:\\s*\\(\\s*F\\s*\\))?\\s+" + // Theory Univ Sec
-						    "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(?\\s*AT\\s*\\)?)(?:\\s*\\(\\s*F\\s*\\))?\\s+" + // Practical Internal Max
-						    "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(?\\s*AT\\s*\\)?)(?:\\s*\\(\\s*F\\s*\\))?\\s+" + // Practical Internal Sec
-						    "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(?\\s*AT\\s*\\)?)(?:\\s*\\(\\s*F\\s*\\))?\\s+" + // Practical Univ Max
-						    "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(?\\s*AT\\s*\\)?)(?:\\s*\\(\\s*F\\s*\\))?\\s+" + // Practical Univ Sec
-						    "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(?\\s*AT\\s*\\)?)(?:\\s*\\(\\s*F\\s*\\))?\\s+" + // Total Max
-						    "(\\d+|---|NA|AB|NE|NR|NE\\s*\\(?\\s*AT\\s*\\)?)(?:\\s*\\(\\s*F\\s*\\))?\\s+" + // Total Sec
+					Pattern eightSubjectPattern = Pattern.compile("^(.*?)\\s+" + // Subject name (multi-word, greedy)
 
-						    "(AP|Pass(?:\\(G\\))?|Fail|First Class|Distinction|AB|NE|NR|NE\\s*\\(?\\s*AT\\s*\\)?|---)$", // Status
-						    Pattern.MULTILINE
-						);
+							"(\\d+|---|NA|AB|NE|NR|NE\\s*\\(?\\s*AT\\s*\\)?)(?:\\s*\\(\\s*F\\s*\\))?\\s+" + // Theory
+																											// Internal
+																											// Max
+							"(\\d+|---|NA|AB|NE|NR|NE\\s*\\(?\\s*AT\\s*\\)?)(?:\\s*\\(\\s*F\\s*\\))?\\s+" + // Theory
+																											// Internal
+																											// Sec
+							"(\\d+|---|NA|AB|NE|NR|NE\\s*\\(?\\s*AT\\s*\\)?)(?:\\s*\\(\\s*F\\s*\\))?\\s+" + // Theory
+																											// Univ Max
+							"(\\d+|---|NA|AB|NE|NR|NE\\s*\\(?\\s*AT\\s*\\)?)(?:\\s*\\(\\s*F\\s*\\))?\\s+" + // Theory
+																											// Univ Sec
+							"(\\d+|---|NA|AB|NE|NR|NE\\s*\\(?\\s*AT\\s*\\)?)(?:\\s*\\(\\s*F\\s*\\))?\\s+" + // Practical
+																											// Internal
+																											// Max
+							"(\\d+|---|NA|AB|NE|NR|NE\\s*\\(?\\s*AT\\s*\\)?)(?:\\s*\\(\\s*F\\s*\\))?\\s+" + // Practical
+																											// Internal
+																											// Sec
+							"(\\d+|---|NA|AB|NE|NR|NE\\s*\\(?\\s*AT\\s*\\)?)(?:\\s*\\(\\s*F\\s*\\))?\\s+" + // Practical
+																											// Univ Max
+							"(\\d+|---|NA|AB|NE|NR|NE\\s*\\(?\\s*AT\\s*\\)?)(?:\\s*\\(\\s*F\\s*\\))?\\s+" + // Practical
+																											// Univ Sec
+							"(\\d+|---|NA|AB|NE|NR|NE\\s*\\(?\\s*AT\\s*\\)?)(?:\\s*\\(\\s*F\\s*\\))?\\s+" + // Total Max
+							"(\\d+|---|NA|AB|NE|NR|NE\\s*\\(?\\s*AT\\s*\\)?)(?:\\s*\\(\\s*F\\s*\\))?\\s+" + // Total Sec
+
+							"(AP|Pass(?:\\(G\\))?|Fail|First Class|Distinction|AB|NE|NR|NE\\s*\\(?\\s*AT\\s*\\)?|---)$", // Status
+							Pattern.MULTILINE);
 
 					Matcher eightSubjectPatternMatcher = eightSubjectPattern.matcher(text);
 
 					Pattern fourPattern = Pattern.compile("^((?:.*?)\\s+)?" + // Optional subject (0 or 1 occurrence of
 																				// subject name followed by space)
-							"((?:\\d+|---|NA|AB|NE|NR|NE\\(AT\\))(?:\\s*\\(\\s*F\\s*\\))?\\s+){6,7}"	+																		// fields
-							"((?:\\d+|---)(?:\\s*\\(\\s*F\\s*\\))?\\s+)"+																	
+							"((?:\\d+|---|NA|AB|NE|NR|NE\\(AT\\))(?:\\s*\\(\\s*F\\s*\\))?\\s+){6,7}" + // fields
+							"((?:\\d+|---)(?:\\s*\\(\\s*F\\s*\\))?\\s+)" +
 							// Optional total marks field (e.g., 100 or 55)
 							"(AP|Pass|Fail|AB|NE|NR|NE\\(AT\\)|---)$", // Status
 							Pattern.MULTILINE);
 					Matcher fourPatternMatcher = fourPattern.matcher(text);
 
 					// Check for a match with the "three" pattern first
-					Pattern oneSubjectPattern = Pattern.compile("(\\d+)(?:\\s*\\(\\s*F\\s*\\))?\\s+"
-						    + "((?:\\d+|---)(?:\\s*\\(\\s*F\\s*\\))?\\s+)"
-						    + "((?:\\d+|---)(?:\\s*\\(\\s*F\\s*\\))?\\s+)"
-						    + "((?:\\d+|---)(?:\\s*\\(\\s*F\\s*\\))?\\s+)"
-						    + "((?:\\d+|---)(?:\\s*\\(\\s*F\\s*\\))?\\s+)"
-						    + "((?:\\d+|---)(?:\\s*\\(\\s*F\\s*\\))?\\s+)"
-						    + "((?:\\d+|---)(?:\\s*\\(\\s*F\\s*\\))?\\s+){6,7}"
-						    + "(Pass|Fail|AP)");
-
+					Pattern oneSubjectPattern = Pattern
+							.compile("(\\d+)(?:\\s*\\(\\s*F\\s*\\))?\\s+" + "((?:\\d+|---)(?:\\s*\\(\\s*F\\s*\\))?\\s+)"
+									+ "((?:\\d+|---)(?:\\s*\\(\\s*F\\s*\\))?\\s+)"
+									+ "((?:\\d+|---)(?:\\s*\\(\\s*F\\s*\\))?\\s+)"
+									+ "((?:\\d+|---)(?:\\s*\\(\\s*F\\s*\\))?\\s+)"
+									+ "((?:\\d+|---)(?:\\s*\\(\\s*F\\s*\\))?\\s+)"
+									+ "((?:\\d+|---)(?:\\s*\\(\\s*F\\s*\\))?\\s+){6,7}" + "(Pass|Fail|AP)");
 
 					Matcher oneSubjectPatternMatcher = oneSubjectPattern.matcher(text);
 
@@ -7540,13 +7654,11 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 //					Pattern twoPattern = Pattern
 //							.compile("(\\d+\\s*\\(F\\))?\\s*(\\d+)\\s+(\\d+\\s*\\(F\\))?\\s+(Fail|Pass|AP)");
 
-					Pattern twoPattern = Pattern.compile("(\\d+\\s*\\(\\s*F\\s*\\)|\\d+)\\s+(\\d+\\s*\\(\\s*F\\s*\\)|\\d+)\\s+(Fail|Pass|AP)");
+					Pattern twoPattern = Pattern.compile(
+							"(\\d+\\s*\\(\\s*F\\s*\\)|\\d+)\\s+(\\d+\\s*\\(\\s*F\\s*\\)|\\d+)\\s+(Fail|Pass|AP)");
 
-					
 					Matcher twoPatternMatcher = twoPattern.matcher(text);
-		
-					
-					
+
 					Pattern bscNursingPattern = Pattern.compile("^([\\w &]+ \\d+ \\(Theory\\))\\s+" + // Capture subject
 																										// name with
 																										// number and
@@ -7573,19 +7685,19 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 					if (bhms22PatternnMatcher.find()) {
 
 						System.out.println("BHMS22 Reg_Pattern detected");
-						
+
 						testCaseScenario.log(Status.INFO, "BHMS22 Reg_Pattern detected");
-						processBHMSRegulation22SubjectPatternPdf(Regno, latestFile, paper1, paper2, paper3,paper4,
+						processBHMSRegulation22SubjectPatternPdf(Regno, latestFile, paper1, paper2, paper3, paper4,
 								praticalExam, theoryExam, examTotal, subjectToFind, testCaseName);
 						break;
-						
+
 					}
 
 					else if (eightSubjectPatternMatcher.find()) {
 
 						System.out.println("Pattern matched: 8 subject pattern detected.");
-						testCaseScenario.log(Status.INFO,"Pattern matched: 8 subject pattern detected.");
-						processEightSubjectPatternPdf(Regno, latestFile, paper1, paper2, paper3,paper4, praticalExam,
+						testCaseScenario.log(Status.INFO, "Pattern matched: 8 subject pattern detected.");
+						processEightSubjectPatternPdf(Regno, latestFile, paper1, paper2, paper3, paper4, praticalExam,
 								theoryExam, examTotal, subjectToFind, testCaseName);
 						// processFourPatternValidation(Regno,paper1,paper2,paper3,theroryExam,praticalExam,examTotal,testCaseName);
 						// Exit once the matching method is called
@@ -7597,9 +7709,9 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 
 						System.out.println("Pattern matched: Four patterns detected.");
 						System.out.println("Matched by FourPattern: " + fourPatternMatcher.group());
-						testCaseScenario.log(Status.INFO,"Matched by FourPattern: " + fourPatternMatcher.group());
-						processFourSubjectPatternPdf(Regno, latestFile, paper1, paper2, paper3,paper4,theoryExam, praticalExam,
-								 examTotal, subjectToFind, testCaseName);
+						testCaseScenario.log(Status.INFO, "Matched by FourPattern: " + fourPatternMatcher.group());
+						processFourSubjectPatternPdf(Regno, latestFile, paper1, paper2, paper3, paper4, theoryExam,
+								praticalExam, examTotal, subjectToFind, testCaseName);
 						// Exit once the matching method is called
 
 						return;
@@ -7610,9 +7722,9 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 						// If it matches, call the method for oneSubject patterns
 
 						System.out.println("Pattern matched: 1 subject pattern detected.");
-						testCaseScenario.log(Status.INFO,"Pattern matched: 1 subject pattern detected.");
-						processOneSubjectPaternPdf(latestFile, Regno, paper1, paper2, paper3,paper4, theoryExam, praticalExam,
-								examTotal, testCaseName, subjectToFind);
+						testCaseScenario.log(Status.INFO, "Pattern matched: 1 subject pattern detected.");
+						processOneSubjectPaternPdf(latestFile, Regno, paper1, paper2, paper3, paper4, theoryExam,
+								praticalExam, examTotal, testCaseName, subjectToFind);
 
 						// Exit once the matching method is called
 						return;
@@ -7620,9 +7732,9 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 					// Otherwise, check for the "two" pattern
 					else if (thirdSubjectPatternMatcher.find()) {
 						System.out.println("Pattern matched: Third patterns detected.");
-						testCaseScenario.log(Status.INFO,"Pattern matched: Third patterns detected.");
-						processOneSubjectPaternPdf(latestFile, Regno, paper1, paper2, paper3,paper4, theoryExam, praticalExam,
-								examTotal, testCaseName, subjectToFind);
+						testCaseScenario.log(Status.INFO, "Pattern matched: Third patterns detected.");
+						processOneSubjectPaternPdf(latestFile, Regno, paper1, paper2, paper3, paper4, theoryExam,
+								praticalExam, examTotal, testCaseName, subjectToFind);
 
 						// Exit once the matching method is called
 						return;
@@ -7632,9 +7744,9 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 					else if (twoPatternMatcher.find()) {
 						// If it matches, call the method for two patterns
 						System.out.println("Pattern matched: Two patterns detected.");
-						testCaseScenario.log(Status.INFO,"Pattern matched: Two patterns detected.");
-						processTwoPatternPdf(latestFile, Regno, paper1, paper2, paper3,paper4, theoryExam, praticalExam,
-								examTotal, testCaseName, subjectToFind);
+						testCaseScenario.log(Status.INFO, "Pattern matched: Two patterns detected.");
+						processTwoPatternPdf(latestFile, Regno, paper1, paper2, paper3, paper4, theoryExam,
+								praticalExam, examTotal, testCaseName, subjectToFind);
 						// Exit once the matching method is called
 						return;
 					}
@@ -7647,7 +7759,7 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 
 					else if (pdfPatternMatcher.find()) {
 						System.out.println("New PDF pattern find and dected ");
-						processPdfCourseNamePatternPdf(latestFile, Regno, paper1, paper2, paper3,paper4, theoryExam,
+						processPdfCourseNamePatternPdf(latestFile, Regno, paper1, paper2, paper3, paper4, theoryExam,
 								praticalExam, examTotal, testCaseName, subjectToFind);
 
 					}
@@ -7655,7 +7767,7 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 					else {
 
 						System.out.println("New pattern dected");
-						testCaseScenario.log(Status.FAIL,"New pattern dected");
+						testCaseScenario.log(Status.FAIL, "New pattern dected");
 					}
 
 				}
@@ -7666,8 +7778,9 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 		}
 	}
 
-	public void gracePaper1Check(Object regno,String markName,Object paper1,String subjectToFind,String marks, ExtentTest testCaseName ) {
-		
+	public void gracePaper1Check(Object regno, String markName, Object paper1, String subjectToFind, String marks,
+			ExtentTest testCaseName) {
+
 //		gracecheck(regno,"Theory Internal Sec Marks",paper1, grace, subjectToFind,
 //				theoryInternalMaxMark, testCaseName);
 		try {
@@ -7710,18 +7823,17 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 				}
 
 				try {
-					
 
 					System.out.println("marks: " + marks);
-					
-					if(((paper1Mark < paper1MinMark) && (Paper1 < paper1MinMark)) || marks.contains("G")) {
+
+					if (((paper1Mark < paper1MinMark) && (Paper1 < paper1MinMark)) || marks.contains("G")) {
 						System.out.println("The following Registration number " + regno
 								+ " is passed in with grace marks in PDF: " + paper1Mark + " and in Excel: " + Paper1);
 						testCaseScenario.log(Status.PASS, "The following Registration number " + regno
 								+ " is passed in with grace marks in PDF: " + paper1Mark + " and in Excel: " + Paper1);
 
 					}
-					
+
 					else if ((paper1Mark < paper1MinMark) && (Paper1 < paper1MinMark)) {
 						System.out.println(" The following Registration number " + regno
 								+ " is failed with marks in PDF: " + paper1Mark + " and in Excel: " + Paper1);
@@ -7744,24 +7856,22 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 								MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
 
 					}
-	
-					
-				}
-				catch(Exception e) {
-					
-					
+
+				} catch (Exception e) {
+
 				}
 			}
-		}//try
-		catch(Exception e) {
-			
+		} // try
+		catch (Exception e) {
+
 		}
 	}
-	public void Paper1SecMarksValidation(Object regno, String markName,String obtainedMarks, Object paper1, String subjectToFind,
-			ExtentTest testCaseScenario1) throws IOException {
+
+	public void Paper1SecMarksValidation(Object regno, String markName, String obtainedMarks, Object paper1,
+			String subjectToFind, ExtentTest testCaseScenario1) throws IOException {
 
 		try {
-		
+
 			if (subject.trim().equals(subjectToFind.trim())) {
 
 				paper1MinMark = minMark;
@@ -7770,7 +7880,7 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 						markName + " for the Subject " + subjectToFind + " Validation Test case has started running");
 
 				Paper1 = objectToDataType(paper1);
-				paper1Mark =objectToDataType(obtainedMarks);
+				paper1Mark = objectToDataType(obtainedMarks);
 
 				try {
 					if (paper1Mark == Paper1) {
@@ -7844,8 +7954,8 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 	}
 
 // Method to check if a student passed or failed in Paper 2
-	public void Paper2SecMarksValidation(Object regno, String markName,String obtainedMarks, Object paper2, String subjectToFind,
-			ExtentTest testCaseName) throws IOException {
+	public void Paper2SecMarksValidation(Object regno, String markName, String obtainedMarks, Object paper2,
+			String subjectToFind, ExtentTest testCaseName) throws IOException {
 
 		try {
 			if (subject.trim().equals(subjectToFind.trim())) {
@@ -7938,8 +8048,8 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 		}
 	}
 
-	public void Paper3SecMarksValidation(Object regno, String markName,String obtainedMarks, Object paper3, String subjectToFind,
-			ExtentTest testCaseName) throws IOException {
+	public void Paper3SecMarksValidation(Object regno, String markName, String obtainedMarks, Object paper3,
+			String subjectToFind, ExtentTest testCaseName) throws IOException {
 
 		try {
 			if (subject.trim().equals(subjectToFind.trim())) {
@@ -8032,11 +8142,9 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 
 		}
 	}
-	
-	
 
-	public void Paper4SecMarksValidation(Object regno, String markName,String obtainedMarks, Object paper4, String subjectToFind,
-			ExtentTest testCaseName) throws IOException {
+	public void Paper4SecMarksValidation(Object regno, String markName, String obtainedMarks, Object paper4,
+			String subjectToFind, ExtentTest testCaseName) throws IOException {
 
 		try {
 			if (subject.trim().equals(subjectToFind.trim())) {
@@ -8089,7 +8197,7 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 						testCaseScenario.log(Status.PASS, "The following Registration number " + regno
 								+ " is failed in exam with marks in PDF: " + paper4Mark + " and in Excel: " + Paper4);
 
-					} else if ((paper4Mark >=  paper4MinMark) && (Paper4 >= paper4MinMark)) {
+					} else if ((paper4Mark >= paper4MinMark) && (Paper4 >= paper4MinMark)) {
 						System.out.println("The following Registration number " + regno
 								+ " is passed in exam with marks in PDF: " + paper4Mark + " and in Excel: " + Paper4);
 
@@ -8097,8 +8205,9 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 								+ " is passed in exam with marks in PDF: " + paper4Mark + " and in Excel: " + Paper4);
 
 					} else {
-						System.out.println("Check the files for the following " + regno
-								+ " registration number where Pdf mark is " + paper4MinMark + " Excel mark is" + Paper4);
+						System.out.println(
+								"Check the files for the following " + regno + " registration number where Pdf mark is "
+										+ paper4MinMark + " Excel mark is" + Paper4);
 						testCaseScenario.log(Status.FAIL,
 								"Check the files for the following " + regno + " registration number where Pdf mark is "
 										+ paper4MinMark + " Excel mark is" + Paper4,
@@ -8129,9 +8238,9 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 
 		}
 	}
-	
-	public void praticalTotalSecMarksValidations(Object regno, String markName,String marks, Object praticalExam, String subjectToFind,
-			ExtentTest testCaseName) throws IOException {
+
+	public void praticalTotalSecMarksValidations(Object regno, String markName, String marks, Object praticalExam,
+			String subjectToFind, ExtentTest testCaseName) throws IOException {
 
 		try {
 			if (subject.equals(subjectToFind)) {
@@ -8143,11 +8252,11 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 
 				PraticalExamTotal = objectToDataType(praticalExam);
 				praticalTotalSecMark = Double.parseDouble(marks);
-				
+
 				System.out.println(PraticalExamTotal);
-				
+
 				System.out.println(praticalTotalSecMark);
-				
+
 				try {
 					if (praticalTotalSecMark == PraticalExamTotal) {
 
@@ -8238,7 +8347,8 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 		}
 	}
 
-	public void graceTheoryPlusPracticalSecMarksCheck(Object regno,String marksName,Object theroryExam,String subjectToFind,String marks, ExtentTest testCaseName ) {
+	public void graceTheoryPlusPracticalSecMarksCheck(Object regno, String marksName, Object theroryExam,
+			String subjectToFind, String marks, ExtentTest testCaseName) {
 		try {
 			if (subject.trim().equals(subjectToFind.trim())) {
 
@@ -8297,21 +8407,23 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 					System.out.println("paper3 MinMark: " + paper3MinMark);
 					System.out.println("PraticalMinMark: " + practicalMinMark);
 
-					if (
-						    ((Paper1 != 0 && Paper1 < paper1MinMark) || (paper1Mark != 0 && paper1Mark < paper1MinMark)) ||
-						    ((Paper2 != 0 && Paper2 < paper2MinMark) || (paper2Mark != 0 && paper2Mark < paper2MinMark)) ||
-						    ((Paper3 != 0 && Paper3 < paper3MinMark) || (paper3Mark != 0 && paper3Mark < paper3MinMark)) ||
-						    ((PraticalExamTotal != 0 && PraticalExamTotal < practicalMinMark) || (praticalTotalSecMark != 0 && praticalTotalSecMark < practicalMinMark)) ||
-						    marks.contains("G")
-						) {
-						System.out.println("The following Registration number " + regno
-								+ " is passed in with grace marks of "+ paper3Mark +"  in PDF: " + ExamTotalScore + " and in Excel: " + theoryTotal);
-						testCaseScenario.log(Status.PASS, "The following Registration number " + regno
-								+ " is passed in with grace marks of "+ paper3Mark +" in PDF: " + ExamTotalScore + " and in Excel: " + theoryTotal);
+					if (((Paper1 != 0 && Paper1 < paper1MinMark) || (paper1Mark != 0 && paper1Mark < paper1MinMark))
+							|| ((Paper2 != 0 && Paper2 < paper2MinMark)
+									|| (paper2Mark != 0 && paper2Mark < paper2MinMark))
+							|| ((Paper3 != 0 && Paper3 < paper3MinMark)
+									|| (paper3Mark != 0 && paper3Mark < paper3MinMark))
+							|| ((PraticalExamTotal != 0 && PraticalExamTotal < practicalMinMark)
+									|| (praticalTotalSecMark != 0 && praticalTotalSecMark < practicalMinMark))
+							|| marks.contains("G")) {
+						System.out.println(
+								"The following Registration number " + regno + " is passed in with grace marks of "
+										+ paper3Mark + "  in PDF: " + ExamTotalScore + " and in Excel: " + theoryTotal);
+						testCaseScenario.log(Status.PASS,
+								"The following Registration number " + regno + " is passed in with grace marks of "
+										+ paper3Mark + " in PDF: " + ExamTotalScore + " and in Excel: " + theoryTotal);
 
-						}
-					
-					
+					}
+
 					else if (Paper1 != 0 && Paper1 < paper1MinMark || paper1Mark != 0 && paper1Mark < paper1MinMark
 							|| Paper2 != 0 && Paper2 < paper2MinMark || paper2Mark != 0 && paper2Mark < paper2MinMark
 							|| Paper3 != 0 && Paper3 < paper3MinMark || paper3Mark != 0 && paper3Mark < paper3MinMark
@@ -8383,8 +8495,10 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 
 		}
 	}
+
 	// Method to check the final result (Theory Exam + Practical Exam)
-	public void securedMarks(Object regno,String obtainedMarks, Object examTotal, ExtentTest testCaseName) throws IOException {
+	public void securedMarks(Object regno, String obtainedMarks, Object examTotal, ExtentTest testCaseName)
+			throws IOException {
 
 		ExtentTest testCaseScenario = testCaseName
 				.createNode("Secured Marks Result Validation Test case has started running");
@@ -8393,7 +8507,7 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 		securedMark = objectToDataType(obtainedMarks);
 
 		System.out.println();
-		
+
 		try {
 			if (grandTotal == securedMark) {
 
@@ -8436,9 +8550,9 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 
 				minMark = grandTotalMaxMark * 0.5;
 
-				grandTotal = paper1Mark + paper2Mark + paper3Mark +paper4Mark +praticalTotalSecMark;
+				grandTotal = paper1Mark + paper2Mark + paper3Mark + paper4Mark + praticalTotalSecMark;
 
-				TheroryExamTotal = Paper1 + Paper2 + Paper3 + Paper4+ PraticalExamTotal;
+				TheroryExamTotal = Paper1 + Paper2 + Paper3 + Paper4 + PraticalExamTotal;
 
 				System.out.println("Paper1Mark:" + paper1Mark);
 				System.out.println("Paper2Mark:" + paper2Mark);
@@ -8564,8 +8678,8 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 	}
 
 	// Helper function to check if the marks are greater than 50% of max marks
-	public void checkMarks(Object regno, String markName, Object paper1, Object paper2, Object paper3,Object paper4,
-			 Object theoryExam, Object praticalExam,String subjectToFind, Object examTotal, String obtainedMarks,
+	public void checkMarks(Object regno, String markName, Object paper1, Object paper2, Object paper3, Object paper4,
+			Object theoryExam, Object praticalExam, String subjectToFind, Object examTotal, String obtainedMarks,
 			double maxMarks, ExtentTest testCaseName) throws IOException {
 
 		System.out.println(obtainedMarks);
@@ -8581,61 +8695,59 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 			try {
 
 				if ((status.trim().equals("Pass") || status.trim().equals("Fail") || status.trim().equals("First Class")
-						|| status.trim().equals("Distinction"))
-						&& ( markName.trim().contains("Paper1 Sec Marks")
-								)) {
+						|| status.trim().equals("Distinction")) && (markName.trim().contains("Paper1 Sec Marks"))) {
 
-					
-					Paper1SecMarksValidation(regno, markName,obtainedMarks, paper1, subjectToFind, testCaseName);
+					Paper1SecMarksValidation(regno, markName, obtainedMarks, paper1, subjectToFind, testCaseName);
 
 				} else if ((status.trim().equals("Pass") || status.trim().equals("Fail")
 						|| status.trim().equals("First Class") || status.trim().equals("Distinction"))
-						&&markName.trim().contains("SGPA Sec. Marks")||markName.trim().contains("Paper2 Sec Marks")) {
+						&& markName.trim().contains("SGPA Sec. Marks")
+						|| markName.trim().contains("Paper2 Sec Marks")) {
 
 					System.out.println(paper2);
-					Paper2SecMarksValidation(regno, markName,obtainedMarks, paper2, subjectToFind, testCaseName);
+					Paper2SecMarksValidation(regno, markName, obtainedMarks, paper2, subjectToFind, testCaseName);
 
 				}
 
 				else if ((status.trim().equals("Pass") || status.trim().equals("Fail")
 						|| status.trim().equals("First Class") || status.trim().equals("Distinction"))
-						&& markName.trim().contains("Credits Sec. Marks")||markName.trim().contains("Paper3 Sec Marks")) {
+						&& markName.trim().contains("Credits Sec. Marks")
+						|| markName.trim().contains("Paper3 Sec Marks")) {
 
-					Paper3SecMarksValidation(regno, markName,obtainedMarks, paper3, subjectToFind, testCaseName);
+					Paper3SecMarksValidation(regno, markName, obtainedMarks, paper3, subjectToFind, testCaseName);
 				}
-				
+
 				else if ((status.trim().equals("Pass") || status.trim().equals("Fail")
 						|| status.trim().equals("First Class") || status.trim().equals("Distinction"))
-						&& markName.trim().contains("Credits Sec. Marks")||markName.trim().contains("Paper4 Sec Marks")) {
+						&& markName.trim().contains("Credits Sec. Marks")
+						|| markName.trim().contains("Paper4 Sec Marks")) {
 
-					Paper4SecMarksValidation(regno, markName,obtainedMarks, paper4, subjectToFind, testCaseName);
+					Paper4SecMarksValidation(regno, markName, obtainedMarks, paper4, subjectToFind, testCaseName);
 				}
-				
+
 				else if ((status.trim().equals("Pass") || status.trim().equals("Fail")
 						|| status.trim().equals("First Class") || status.trim().equals("Distinction"))
-						&& markName.trim().contains("Theory Total Sec Marks")){
+						&& markName.trim().contains("Theory Total Sec Marks")) {
 					System.out.println(obtainedMarks);
 					System.out.println(theoryExam);
-					
-					TheoryTotalSecMarksValidation(regno, markName,obtainedMarks,theoryExam, testCaseName, subjectToFind);
-				}
 
-				
+					TheoryTotalSecMarksValidation(regno, markName, obtainedMarks, theoryExam, testCaseName,
+							subjectToFind);
+				}
 
 				else if ((status.trim().equals("Pass") || status.trim().equals("Fail")
 						|| status.trim().equals("First Class") || status.trim().equals("Distinction"))
 						&& markName.trim().contains("Pratical Univ Sec. Marks")
 						|| markName.trim().contains("Pratical Total Sec Marks")) {
-					
-					System.out.println(praticalExam);
-					
 
-					praticalTotalSecMarksValidations(regno, markName,obtainedMarks, praticalExam, subjectToFind, testCaseName);
-				}
-				else if ((status.trim().equals("Pass") || status.trim().equals("Fail")
+					System.out.println(praticalExam);
+
+					praticalTotalSecMarksValidations(regno, markName, obtainedMarks, praticalExam, subjectToFind,
+							testCaseName);
+				} else if ((status.trim().equals("Pass") || status.trim().equals("Fail")
 						|| status.trim().equals("First Class") || status.trim().equals("Distinction"))
 						&& markName.trim().contains("Grand Total Sec Marks")) {
-					
+
 					grandTotalMarksValidation(regno, markName, examTotal, subjectToFind, testCaseName);
 
 					System.out.println("==============");
@@ -8643,7 +8755,7 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 
 				else {
 					System.out.println("==============");
-			//		securedMarks(regno, examTotal, testCaseName);
+					// securedMarks(regno, examTotal, testCaseName);
 					System.out.println("==============");
 				}
 			} catch (Exception e) {
@@ -8651,7 +8763,6 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 			}
 		}
 	}
-
 
 	// Method to check if the obtained marks meet the required percentage
 	public static boolean verifyScore(double obtainedMarks, double totalMarks, double percentage) {
@@ -8850,141 +8961,121 @@ public class KnrReportEnrollmentPage extends BasicFunctions {
 		}
 
 	}
-	
-	public void nonValidateMarks(Object regno, String markName,String subjectToFind, String marks,
-	         ExtentTest testCaseName) throws IOException {
 
-	    Set<String> invalidValues = Set.of("AB", "NE", "NA", "NA ", " NA", "---", "NE (AT)");
+	public void nonValidateMarks(Object regno, String markName, String subjectToFind, String marks,
+			ExtentTest testCaseName) throws IOException {
 
-	    double sec ;
-        double max;
-	    
-	    System.out.println("markss"+ marks);
-	    
-	    try {
-	        if (!invalidValues.contains(marks.trim())) {
+		Set<String> invalidValues = Set.of("AB", "NE", "NA", "NA ", " NA", "---", "NE (AT)");
 
-	            ExtentTest scenario = testCaseName.createNode(
-	    	            markName + " validation for subject " + subjectToFind + " test case has started");
-	        	    sec = 0.0; // Default fallback
-	        	    max = 0.0; // Optional: or still parse maxMarks separately if needed
+		double sec;
+		double max;
 
-	            System.out.println("The following Register number " + regno + markName +" is: "
-						+ marks);
-	            
-	            scenario.log(Status.PASS,
-	            		"The following Register number " + regno + markName +" is: "
-	    						+ marks);
-	    	            
-	    
-	        }
-	        else if (invalidValues.contains(marks.trim())) {
-	            ExtentTest scenario = testCaseName.createNode(
-	    	            markName + " validation for subject " + subjectToFind + " test case has started");
-	        	    sec = 0.0; // Default fallback
-	        	    max = 0.0; // Optional: or still parse maxMarks separately if needed
+		System.out.println("markss" + marks);
 
+		try {
+			if (!invalidValues.contains(marks.trim())) {
 
-		            System.out.println("The following Register number " + regno + markName +" is: "
-							+ marks);
-		            
-		            scenario.log(Status.INFO,
-		            		"The following Register number " + regno +  markName +" is: "
-		    						+ marks);
-	        } else {
-	            ExtentTest scenario = testCaseName.createNode(
-	    	            markName + " validation for subject " + subjectToFind + " test case has started");
-	            scenario.log(Status.FAIL, "\nPlease check Reg No: " + regno +
-	                    " for Subject " + subjectToFind + " marks is: " + marks);
-	            System.out.println("\nPlease check Reg No: " + regno + " marks is: " + marks);
-	        }
-	        } catch (NumberFormatException e) {
-	        if (invalidValues.contains(marks.trim())) {
-	            ExtentTest scenario = testCaseName.createNode(
-	    	            markName + " validation for subject " + subjectToFind + " test case has started");
-	     
-	            System.out.println(" The Following Registration number " + regno
-						+ " for the Subject " + subject +" and " + markName +" marks is: "
-						+ marks);
-	
-	            scenario.log(Status.INFO,
-						" The Following Registration number " + regno
-								+ " for the Subject " + subject +" and " + markName +" marks is: "
-								+ marks);
-	        } else {
-	            ExtentTest scenario = testCaseName.createNode(
-	    	            markName + " validation for subject " + subjectToFind + " test case has started");
-	            scenario.log(Status.FAIL, "\nPlease check Reg No: " + regno +
-	                    " for Subject " + subjectToFind + " marks is: " + marks);
-	            System.out.println("\nPlease check Reg No: " + regno + " marks is: " + marks);
-	        }
-	    }
+				ExtentTest scenario = testCaseName
+						.createNode(markName + " validation for subject " + subjectToFind + " test case has started");
+				sec = 0.0; // Default fallback
+				max = 0.0; // Optional: or still parse maxMarks separately if needed
+
+				System.out.println("The following Register number " + regno + markName + " is: " + marks);
+
+				scenario.log(Status.PASS, "The following Register number " + regno + markName + " is: " + marks);
+
+			} else if (invalidValues.contains(marks.trim())) {
+				ExtentTest scenario = testCaseName
+						.createNode(markName + " validation for subject " + subjectToFind + " test case has started");
+				sec = 0.0; // Default fallback
+				max = 0.0; // Optional: or still parse maxMarks separately if needed
+
+				System.out.println("The following Register number " + regno + markName + " is: " + marks);
+
+				scenario.log(Status.INFO, "The following Register number " + regno + markName + " is: " + marks);
+			} else {
+				ExtentTest scenario = testCaseName
+						.createNode(markName + " validation for subject " + subjectToFind + " test case has started");
+				scenario.log(Status.FAIL,
+						"\nPlease check Reg No: " + regno + " for Subject " + subjectToFind + " marks is: " + marks);
+				System.out.println("\nPlease check Reg No: " + regno + " marks is: " + marks);
+			}
+		} catch (NumberFormatException e) {
+			if (invalidValues.contains(marks.trim())) {
+				ExtentTest scenario = testCaseName
+						.createNode(markName + " validation for subject " + subjectToFind + " test case has started");
+
+				System.out.println(" The Following Registration number " + regno + " for the Subject " + subject
+						+ " and " + markName + " marks is: " + marks);
+
+				scenario.log(Status.INFO, " The Following Registration number " + regno + " for the Subject " + subject
+						+ " and " + markName + " marks is: " + marks);
+			} else {
+				ExtentTest scenario = testCaseName
+						.createNode(markName + " validation for subject " + subjectToFind + " test case has started");
+				scenario.log(Status.FAIL,
+						"\nPlease check Reg No: " + regno + " for Subject " + subjectToFind + " marks is: " + marks);
+				System.out.println("\nPlease check Reg No: " + regno + " marks is: " + marks);
+			}
+		}
 	}
-	
-	public void validateMarks(Object regno, String markName, Object paper1, Object paper2, Object paper3,Object paper4,
-	        Object theoryExam,  Object practicalExam,String subjectToFind, Object examTotal, String marks,
-	        String maxMarks, double percentage, ExtentTest testCaseName) throws IOException {
 
-	    Set<String> invalidValues = Set.of("AB", "NE", "NA", "NA ", " NA", "---", "NE (AT)");
+	public void validateMarks(Object regno, String markName, Object paper1, Object paper2, Object paper3, Object paper4,
+			Object theoryExam, Object practicalExam, String subjectToFind, Object examTotal, String marks,
+			String maxMarks, double percentage, ExtentTest testCaseName) throws IOException {
 
-	    double sec ;
-        double max;
-	    
-	    System.out.println("markss"+ marks);
-	    
-	    try {
-	        if (!invalidValues.contains(marks.trim())) {
+		Set<String> invalidValues = Set.of("AB", "NE", "NA", "NA ", " NA", "---", "NE (AT)");
 
-	             sec = Double.parseDouble(marks);
-	             
-	             System.out.println(sec);
-	             max = Double.parseDouble(maxMarks);
+		double sec;
+		double max;
 
-	            verifyScore(sec, max, percentage);
+		System.out.println("markss" + marks);
 
-	            checkMarks(regno, markName, paper1, paper2, paper3,paper4,
-	                     theoryExam,practicalExam, subjectToFind,
-	                    examTotal, marks, max, testCaseName);
-	        }
-	        else if (invalidValues.contains(marks.trim())) {
-	            ExtentTest scenario = testCaseName.createNode(
-	    	            markName + " validation for subject " + subjectToFind + " test case has started");
-	        	    sec = 0.0; // Default fallback
-	        	    max = 0.0; // Optional: or still parse maxMarks separately if needed
+		try {
+			if (!invalidValues.contains(marks.trim())) {
 
+				sec = Double.parseDouble(marks);
 
-		            System.out.println("The following Register number " + regno + markName +" is: "
-							+ marks);
-		            
-		            scenario.log(Status.PASS,
-		            		"The following Register number " + regno + markName +" is: "
-		    						+ marks);
-	        } else {
-	            ExtentTest scenario = testCaseName.createNode(
-	    	            markName + " validation for subject " + subjectToFind + " test case has started");
-	            scenario.log(Status.FAIL, "\nPlease check Reg No: " + regno +
-	                    " for Subject " + subjectToFind + " marks is: " + marks);
-	            System.out.println("\nPlease check Reg No: " + regno + " marks is: " + marks);
-	        }
-	        } catch (NumberFormatException e) {
-	        if (invalidValues.contains(marks.trim())) {
-	            ExtentTest scenario = testCaseName.createNode(
-	    	            markName + " validation for subject " + subjectToFind + " test case has started");
-	     
-	            System.out.println(" The Following Registration number " + regno
-						+ " for the Subject " + subject +" and " + markName +" marks is: "
-						+ marks);
-	
-	            scenario.log(Status.INFO,
-						" The Following Registration number " + regno
-								+ " for the Subject " + subject +" and " + markName +" marks is: "
-								+ marks);
-	        } else {
-	            ExtentTest scenario = testCaseName.createNode(
-	    	            markName + " validation for subject " + subjectToFind + " test case has started");
-	            scenario.log(Status.FAIL, "\nPlease check Reg No: " + regno +
-	                    " for Subject " + subjectToFind + " marks is: " + marks);
-	            System.out.println("\nPlease check Reg No: " + regno + " marks is: " + marks);
-	        }
-	    }
-	}}
+				System.out.println(sec);
+				max = Double.parseDouble(maxMarks);
+
+				verifyScore(sec, max, percentage);
+
+				checkMarks(regno, markName, paper1, paper2, paper3, paper4, theoryExam, practicalExam, subjectToFind,
+						examTotal, marks, max, testCaseName);
+			} else if (invalidValues.contains(marks.trim())) {
+				ExtentTest scenario = testCaseName
+						.createNode(markName + " validation for subject " + subjectToFind + " test case has started");
+				sec = 0.0; // Default fallback
+				max = 0.0; // Optional: or still parse maxMarks separately if needed
+
+				System.out.println("The following Register number " + regno + markName + " is: " + marks);
+
+				scenario.log(Status.PASS, "The following Register number " + regno + markName + " is: " + marks);
+			} else {
+				ExtentTest scenario = testCaseName
+						.createNode(markName + " validation for subject " + subjectToFind + " test case has started");
+				scenario.log(Status.FAIL,
+						"\nPlease check Reg No: " + regno + " for Subject " + subjectToFind + " marks is: " + marks);
+				System.out.println("\nPlease check Reg No: " + regno + " marks is: " + marks);
+			}
+		} catch (NumberFormatException e) {
+			if (invalidValues.contains(marks.trim())) {
+				ExtentTest scenario = testCaseName
+						.createNode(markName + " validation for subject " + subjectToFind + " test case has started");
+
+				System.out.println(" The Following Registration number " + regno + " for the Subject " + subject
+						+ " and " + markName + " marks is: " + marks);
+
+				scenario.log(Status.INFO, " The Following Registration number " + regno + " for the Subject " + subject
+						+ " and " + markName + " marks is: " + marks);
+			} else {
+				ExtentTest scenario = testCaseName
+						.createNode(markName + " validation for subject " + subjectToFind + " test case has started");
+				scenario.log(Status.FAIL,
+						"\nPlease check Reg No: " + regno + " for Subject " + subjectToFind + " marks is: " + marks);
+				System.out.println("\nPlease check Reg No: " + regno + " marks is: " + marks);
+			}
+		}
+	}
+}

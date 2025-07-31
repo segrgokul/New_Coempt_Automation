@@ -34,13 +34,10 @@ import com.aventstack.extentreports.reporter.configuration.Theme;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 
 import browsers.BrowserManager;
-
 import dataProcessing.SctevtResultReadExcelFile;
-import pageObjMod.SctevtPom;
 import scevtPageModules.ScevtLoginPage;
+import scevtPageModules.Scevt_RC;
 import scevtPageModules.Scte_VtResultPage;
-
-import scevtPageModules.SctevtExamHistoryRegNoSearchPage;
 import scevtPageModules.SctevtExamHistoryRegNoSearchPage1;
 
 
@@ -57,7 +54,7 @@ public class SctevtExceution  extends BrowserManager {
 		ScevtLoginPage scevtLoginPage = new ScevtLoginPage();
 		SctevtExamHistoryRegNoSearchPage1 SctevtExamHistoryRegNoSearchPage = new SctevtExamHistoryRegNoSearchPage1(); 
 		Scte_VtResultPage Scte_VtResultPage =new Scte_VtResultPage();
-		
+		Scevt_RC Scevt_RC = new Scevt_RC();
 		
 		
 		
@@ -142,7 +139,7 @@ public class SctevtExceution  extends BrowserManager {
 
 		
 //Fpr SCTE&VT result process project
-@Test(priority = 1, enabled = true, dataProvider = "ScTE&VT_Result_Process",description = "ScTE&VT_Result_Process")
+@Test(priority = 1, enabled = false, dataProvider = "ScTE&VT_Result_Process",description = "ScTE&VT_Result_Process")
 public void ScTEandVT(String regNo, SctevtResultReadExcelFile.StudentInfo studentInfo,String subjectToFind) throws InterruptedException, IOException, AWTException {
 	
     if (!isTestCaseEnrollSet) {
@@ -212,11 +209,11 @@ public void ScTEandVT(String regNo, SctevtResultReadExcelFile.StudentInfo studen
 	   			
 	    		
 	    		System.out.println("semesterMark"+semesterMark);
-	   			Scte_VtResultPage.ScTEVT_ResultProcess(regNo, examSemester, subjectName,semesterMark, testCaseName);
-	   		   processedRegNos.add(regNoWithSemester);
+	   			Scte_VtResultPage.ScTEVT_ResultProcess(regNo, examSemester, testCaseName);
+	   	
 	   		   
 	   		   System.out.println("regNoWithSemester: "+regNoWithSemester);
-	   			
+	   		   processedRegNos.add(regNoWithSemester);
 	   			
 	   		}	     
 
@@ -246,44 +243,58 @@ public void ScTEandVT(String regNo, SctevtResultReadExcelFile.StudentInfo studen
 //For SCTE&VT login project
 @Test(priority = 2, enabled = false, dataProvider = "ScTE&VTLogin", description = "ScTEVTLogin")
 public void ScTEandVT2(String regNo, SctevtResultReadExcelFile.StudentInfo studentInfo, String subjectToFind) throws InterruptedException, IOException, AWTException {
- 
+
 	 if (!isTestCaseEnrollSet) {
 	        isTestCaseEnrollSet = true;
-     Browser_Launch();
-     scevtLoginPage.login();
- }
+ Browser_Launch();
+ scevtLoginPage.login();
+}
 
- String examSemester = (String) studentInfo.examSemester;
- Map<String, String> subjects = studentInfo.subjectsAndMarks;
+String examSemester = (String) studentInfo.examSemester;
+Map<String, String> subjects = studentInfo.subjectsAndMarks;
 
- System.out.println("subjects: " + subjects);
+System.out.println("subjects: " + subjects);
 
- String regNoWithSemester = regNo + "_SEM" + examSemester;
+String regNoWithSemester = regNo + "_SEM" + examSemester;
 
- if (!processedRegNos.contains(regNoWithSemester)) {
+if (!processedRegNos.contains(regNoWithSemester)) {
 
 	  testCaseName = extentReport.createTest("Report Card Enrollment Page Actions for the following register number: " + regNo + " and for the semester " +examSemester);
 
-     System.out.println("Starting testCase execution for the semester " + examSemester + " and the reg: " + regNo);
-     System.out.println("=========================");
+ System.out.println("Starting testCase execution for the semester " + examSemester + " and the reg: " + regNo);
+ System.out.println("=========================");
 
-     System.out.println("regno: " + regNo);
-     System.out.println("semester: " + examSemester);
+ System.out.println("regno: " + regNo);
+ System.out.println("semester: " + examSemester);
 
-     SctevtExamHistoryRegNoSearchPage.resultPageNavigation(regNo, examSemester, testCaseName);
+ SctevtExamHistoryRegNoSearchPage.resultPageNavigation(regNo, examSemester, testCaseName);
 
-     SctevtExamHistoryRegNoSearchPage.regnoEnter(regNo, examSemester, testCaseName);
-     
-     System.out.println("regNo: "+regNo);
-     System.out.println("examSemester: "+examSemester);
-     System.out.println("subjects:" +subjects);
+ SctevtExamHistoryRegNoSearchPage.regnoEnter(regNo, examSemester, testCaseName);
+ 
+ System.out.println("regNo: "+regNo);
+ System.out.println("examSemester: "+examSemester);
+ System.out.println("subjects:" +subjects);
 
-     // ✅ Updated: pass the whole map of subjects at once
-    SctevtExamHistoryRegNoSearchPage.regnoValidation(regNo, examSemester, subjects, testCaseName);
+ // ✅ Updated: pass the whole map of subjects at once
+SctevtExamHistoryRegNoSearchPage.regnoValidation(regNo, examSemester, subjects, testCaseName);
 
-     processedRegNos.add(regNoWithSemester);
- }
+ processedRegNos.add(regNoWithSemester);
 }
+}
+//For SCTE&VT RC project
+@Test(priority = 3, enabled = true)
+public void ScTEandVT2() throws InterruptedException, IOException, AWTException {
+ 
+	 if (!isTestCaseEnrollSet) {
+	        isTestCaseEnrollSet = true;
+	   	 testCaseName = extentReport.createTest("ScTEVt Report Card ");
+ }
+
+	 
+	 Scevt_RC.readPdfData(testCaseName);
+	 
+ }
+
 
 
 

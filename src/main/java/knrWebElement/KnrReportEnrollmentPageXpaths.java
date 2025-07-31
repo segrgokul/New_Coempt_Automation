@@ -32,6 +32,9 @@ public WebElement loginTags;
     @FindBy(xpath = "//span[@class='select2-selection select2-selection--single']/span[@id='select2-SemSelection-container' or @id='select2-ddlSem-container']")
     public WebElement yearSession; 
     
+    @FindBy(xpath="(//li[@role='option'])[2]")
+    public WebElement role2ndOption; 
+    
     @FindBy(xpath = "//span[@class='select2-selection select2-selection--single']/span[@id='select2-ddlRegulation-container']")
     public WebElement regulation;
 

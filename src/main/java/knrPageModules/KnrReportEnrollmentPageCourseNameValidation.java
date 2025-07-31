@@ -353,12 +353,20 @@ public class KnrReportEnrollmentPageCourseNameValidation extends BasicFunctions 
 
 		try {
 			if (KnrPom.getInstanceEnrollXP().yearSession.isDisplayed()) {
+				while(KnrPom.getInstanceEnrollXP().yearSession.isDisplayed()){
 				implicitWait(3);
 				click(KnrPom.getInstanceEnrollXP().yearSession);
 				implicitWait(3);
 				click(KnrPom.getInstanceEnrollXP().yearSession);
 				implicitWait(3);
 				click(KnrPom.getInstanceEnrollXP().yearSession);
+				
+				if(KnrPom.getInstanceEnrollXP().role2ndOption.isDisplayed()) {
+					break;
+				}
+				}
+
+
 				try {
 					// Try to find the element
 					WebElement yearSessionOption = driver
@@ -682,7 +690,7 @@ public class KnrReportEnrollmentPageCourseNameValidation extends BasicFunctions 
 
 			System.out.println(subjectToFind+"subjectToFind");
 			
-			
+			//Pattern vlaidation
 			coursePatternIdentify.processPdfBasedOnCoursePattern(latestFile, regno,semester,regulation, paper1, paper2, paper3,paper4, theoryExamTotal, practicalExamTotal,
 					grandTotal, subjectToFind, testCaseName);
 		

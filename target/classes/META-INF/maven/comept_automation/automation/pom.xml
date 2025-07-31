@@ -20,7 +20,16 @@
 <version>5.9.1</version>
 </dependency>
 
-
+<dependency>
+    <groupId>software.amazon.awssdk</groupId>
+    <artifactId>textract</artifactId>
+    <version>2.21.1</version>
+</dependency>
+<dependency>
+    <groupId>software.amazon.awssdk</groupId>
+    <artifactId>s3</artifactId>
+    <version>2.21.1</version>
+</dependency>
 <dependency>
 <groupId>org.slf4j</groupId>
 <artifactId>slf4j-simple</artifactId>
@@ -86,7 +95,17 @@
     <version>2.0.29</version>
 </dependency>
 
+<dependency>
+<groupId>net.sourceforge.tess4j</groupId>
+<artifactId>tess4j</artifactId>
+<version>5.4.0</version>
+</dependency><dependency>
 
+
+<groupId>net.sourceforge.tess4j</groupId>
+<artifactId>tess4j</artifactId>
+<version>5.4.0</version>
+</dependency>
 
 </dependencies>
 </project>

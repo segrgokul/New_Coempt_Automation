@@ -1,6 +1,7 @@
 package knrEnrollmentPageReportCardPatternBased;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,7 +22,7 @@ public class KnrReportCard_MDS_CoursePattern  extends BasicFunctions{
 	KnrReportEnrollmentPageValidation PageValidation = new KnrReportEnrollmentPageValidation();
 
 	public void processMDSPatternPdf(File latestFile, String Regno, String semester,String regulation, Object paper1, Object paper2, Object paper3,Object paper4,
-			Object theoryExamTotal, Object practicalExamTotal, Object grandTotal, ExtentTest testCaseName, String subjectToFind) {
+			Object theoryExamTotal, Object practicalExamTotal, Object grandTotal, ExtentTest testCaseName, String subjectToFind) throws IOException {
 		if (latestFile != null) {
 			try (PDDocument document = PDDocument.load(latestFile)) {
 				PDFTextStripper stripper = new PDFTextStripper();
@@ -493,25 +494,7 @@ public class KnrReportCard_MDS_CoursePattern  extends BasicFunctions{
 							
 							
 						}
-					
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-
+		
 					if (page == totalPages) {
 						break;
 					}
@@ -519,6 +502,8 @@ public class KnrReportCard_MDS_CoursePattern  extends BasicFunctions{
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
+				testCaseName.log(Status.FAIL, e.getMessage(),MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
+
 			}
 		} else {
 			System.out.println("No PDF file found.");

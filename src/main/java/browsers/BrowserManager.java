@@ -82,11 +82,14 @@ public class BrowserManager  {
                     return "http://103.154.253.118:81/";
                 case "knr_localhost":
                     return "http://localhost:4599/";
-                case "sctevt_result":  
+                case "sctevt_test_result":  
                	 return "http://sctevt-qa.uonex.in/sn20Yz";
-               case "sctevt_login":  
+               case "sctevt_test_login":  
               	 return "http://sctevt-qa.uonex.in/";  	 
-                	 
+               	case "sctevt_live_result":  
+                 	 return "https://sctevtexams.in/sn20Yz";
+                 case "sctevt_live_login":  
+                	 return "https://sctevtexams.in/";	 
                 default:
                     System.out.println("Invalid login name, defaulting to localhost.");
                     return "Invalid";

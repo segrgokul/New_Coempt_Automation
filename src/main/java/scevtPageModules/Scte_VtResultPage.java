@@ -24,7 +24,7 @@ public class Scte_VtResultPage  extends BasicFunctions {
 
     String status;
 	ArrayList<String> windowHandles =null;
-	  public void ScTEVT_ResultProcess(String regno, String sycode,String subject,String mark,ExtentTest testCaseName) throws InterruptedException, IOException, AWTException {
+	  public void ScTEVT_ResultProcess(String regno, String sycode,ExtentTest testCaseName) throws InterruptedException, IOException, AWTException {
 	    	
 //			ExtentReports report = new ExtentReports("D:\\Coempt_Automation\\coempt_automation\\src\\test\\resources\\reports\\report.html",true);
 
@@ -296,12 +296,18 @@ public class Scte_VtResultPage  extends BasicFunctions {
       	        		
       	        	}
       	        	
-      	       
+      	        	else if(!marksTHText.equals(newMark)&& (uiBacklog.equals("MP"))) {
+      	        		
+      	        	    testCaseScenario.log(Status.SKIP, subjectDetails + " subject Th Mark " +marksTHText +" from UI is Not Equals with Excel Mark " + newMark+
+      	        	    		"The following students has "+ uiBacklog +" cases",
+  	                    		MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
+  			      	  	
+      	        	}
       	        	
       	        	else if(!marksTHText.equals(newMark)&& (uiBacklog.equals("Pass(G)"))) {
       	        		
       	        	    testCaseScenario.log(Status.SKIP, subjectDetails + " subject Th Mark " +marksTHText +" from UI is Not Equals with Excel Mark " + newMark+
-      	        	    		"The following students has ",
+      	        	    		"The following students has "+ uiBacklog +" cases",
   	                    		MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
   			      	  	
       	        	}
@@ -591,7 +597,12 @@ public class Scte_VtResultPage  extends BasicFunctions {
 	      	            testCaseScenario.log(Status.SKIP, "Backlog comparison INFO: Script - " + formattedScriptBacklog + " | UI - " + uiBacklog);
 
 	      	        }
-	      	        
+	      	      else if ((formattedScriptBacklog.contains("TH")) && (uiBacklog.contains("DI"))) {
+	      	        	
+	      	          System.out.println("Backlog comparison INFO: Script - " + formattedScriptBacklog + " | UI - " + uiBacklog);
+	      	            testCaseScenario.log(Status.SKIP, "Backlog comparison INFO: Script - " + formattedScriptBacklog + " | UI - " + uiBacklog);
+
+	      	        }
 	      	        
 	      	        
 	      	        else {

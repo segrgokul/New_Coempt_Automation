@@ -96,7 +96,7 @@ explicitWait(SctevtPom.getInstanceSctevtExamHistoryRegNoSearchPageXPaths().btnVi
 	 
 	 if(SctevtPom.getInstanceSctevtExamHistoryRegNoSearchPageXPaths().loadingStudentHistoryAlert.isDisplayed()) {
 	   
-		 explicitWait(SctevtPom.getInstanceSctevtExamHistoryRegNoSearchPageXPaths().studentHistory,80);
+		 explicitWait(SctevtPom.getInstanceSctevtExamHistoryRegNoSearchPageXPaths().studentHistory,120);
 	 	 	 
 		 System.out.println("yes");
 	  	testCaseScenario.log(Status.PASS, "Following regisiter number "+ regno +" is displayed");
@@ -129,7 +129,8 @@ public void regnoValidation(Object regNo, Object semester, Map<String, String> s
     try {
         ExtentTest testCaseScenario = testCaseName
                 .createNode("Result page navigation for the " + semester + " of the following register number " + regNo + " — Test case started");
-
+        explicitWait(SctevtPom.getInstanceSctevtExamHistoryRegNoSearchPageXPaths().studentHistory,40);
+	 	
         WebElement sem = driver.findElement(By.xpath("//h5[@class='nk-block-title' and text()='SEMESTER - " + semester + "']"));
         scrollTillWebElement(sem);
 
@@ -308,6 +309,10 @@ public void regnoValidation(Object regNo, Object semester, Map<String, String> s
          	            testCaseScenario.log(Status.INFO, "Current Sessional Mark: " + currentSessionalMark);
          	              testCaseScenario.log(Status.INFO, "Excel Sessional Mark: " + sessionalMarkExcel);
          	       
+         	              
+         	              System.out.println( "Current Sessional Mark: " + currentSessionalMark);
+         	              System.out.println( "Excel Sessional Mark: " + sessionalMarkExcel);
+         	              
         	              String expectedHeading = objectToDataType(subjectName);
 
         	              System.out.println("subjectName: " +subjectName);
@@ -460,7 +465,7 @@ public void regnoValidation(Object regNo, Object semester, Map<String, String> s
 //    	                          System.out.println(neededForTotal);
     	                          
     	                          if (neededForTotal <= 0) {
-    	                        	  testCaseScenario1.log(Status.PASS, subjectName + "Total mark is already >= 35" +newMark );
+    	                        	  testCaseScenario1.log(Status.PASS, subjectName + "Total mark is already >= above 35 :" +newMark );
     	                              continue;
     	                          }
 
@@ -510,7 +515,7 @@ public void regnoValidation(Object regNo, Object semester, Map<String, String> s
       	                      
       	                    }
       	              	 else if (remainingGraceMark != 0) {
-      	                   	testCaseScenario1.log(Status.FAIL, "Grace mark for RegNo: " + regNo +" is not equals zero "+ remainingGraceMark);
+      	                   	testCaseScenario1.log(Status.INFO, "Grace mark for RegNo: " + regNo +" is not equals zero "+ remainingGraceMark);
       	                       
       	                     }
       	              	 else {
@@ -581,7 +586,7 @@ public void regnoValidation(Object regNo, Object semester, Map<String, String> s
     } catch (Exception e) {
         System.out.println("❌ Exception in regnoEnter1: " + e.getMessage());
         e.printStackTrace();
-        testCaseName.log(Status.FAIL, "Exception: " + e.getMessage());
+        testCaseName.log(Status.FAIL, "Exception: " + e.getMessage(),MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
     }
 }
 

@@ -155,12 +155,21 @@ public class KnrReportCard_PDF_CoursePattern  extends BasicFunctions{
 
 								System.out.println(text);
 							}
-					}
+				}
 				
-				
-				
-				
-				
-				
-				}}}}
+				if (page == totalPages) {
+					break;
+				}
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			testCaseName.log(Status.FAIL, e.getMessage(),MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
+
+		}
+	} else {
+		System.out.println("No PDF file found.");
+		
+	}
+}
 }

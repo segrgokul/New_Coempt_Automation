@@ -405,6 +405,8 @@ public class KnrReportCard_PG_Diploma_CoursePattern extends BasicFunctions {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			testCaseName.log(Status.FAIL, e.getMessage(),MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
+
 		}
 	} else {
 		System.out.println("No PDF file found.");

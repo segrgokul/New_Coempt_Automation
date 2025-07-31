@@ -1,6 +1,8 @@
 package scevtWebElement;
 
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -66,6 +68,26 @@ public WebElement btn5thSemResult;
 public WebElement btn6thSemResult; 
 
 
+@FindBy(xpath="//table[@id='tbl-results-marks']//tbody/tr/td[1]")
+public List<WebElement> subjectCode; 
+
+@FindBy(xpath="//table[@id='tbl-results-marks']//tbody/tr/td[2]")
+public List<WebElement>subjectNames; 
+
+@FindBy(xpath="//table[@id='tbl-results-marks']//tbody/tr/td[3]")
+public List<WebElement> maxMarksTH; 
+
+@FindBy(xpath="//table[@id='tbl-results-marks']//tbody/tr/td[6]")
+public List<WebElement> passMarks; 
+
+@FindBy(xpath="//table[@id='tbl-results-marks']//tbody/tr/td[7]")
+public List<WebElement> marksTH; 
+
+@FindBy(xpath="//table[@id='tbl-results-marks']//tbody/tr/td[8]")
+public List<WebElement> marksIA; 
+
+@FindBy(xpath="//table[@id='tbl-results-marks']//tbody/tr/td[9]")
+public List<WebElement> marksTotal; 
 
 public Scte_VtResultPageXpaths(WebDriver driver) {
     this.driver = driver;
