@@ -176,7 +176,10 @@ public void gracePaper1SecMarksValidation(Object regno,String markName,String ob
 				ExtentTest testCaseScenario = testCaseName.createNode(
 						markName + " Validation for the Subject " + subjectToFind + "Test case has started running");
 						 
-					 
+				System.out.println("Assigned Minimum Marks for " + markName +" for the Subject " + subjectToFind + "is " + minMark);
+				testCaseScenario.log(Status.INFO, "Assigned Minimum Marks for " + markName +" for the Subject " + subjectToFind + " is " + minMark);
+
+				
 				
 				paper1MinMark = minMark;
 
@@ -315,7 +318,9 @@ public void gracePaper1SecMarksValidation(Object regno,String markName,String ob
 					ExtentTest testCaseScenario = testCaseName.createNode(
 							markName + " Validation for the Subject " + subjectToFind + "Test case has started running");
 		 
-				
+					System.out.println("Assigned Minimum Marks for " + markName +" for the Subject " + subjectToFind + "is " + minMark);
+					testCaseScenario.log(Status.INFO, "Assigned Minimum Marks for " + markName +" for the Subject " + subjectToFind + " is " + minMark);
+
 					Paper2 = objectToDataType(paper2);
 					paper2Mark = Double.parseDouble(obtainedMarks);
 					paper2MinMark = minMark;
@@ -453,7 +458,9 @@ public void gracePaper1SecMarksValidation(Object regno,String markName,String ob
 					ExtentTest testCaseScenario = testCaseName.createNode(
 							markName + " Validation for the Subject " + subjectToFind + "Test case has started running");
 
-						 
+					System.out.println("Assigned Minimum Marks for " + markName +" for the Subject " + subjectToFind + "is " + minMark);
+					testCaseScenario.log(Status.INFO, "Assigned Minimum Marks for " + markName +" for the Subject " + subjectToFind + " is " + minMark);
+		 
 				
 					Paper3 = objectToDataType(paper3);
 					paper3Mark = Double.parseDouble(obtainedMarks);
@@ -594,6 +601,9 @@ public void gracePaper1SecMarksValidation(Object regno,String markName,String ob
 						ExtentTest testCaseScenario = testCaseName.createNode(
 								markName + " Validation for the Subject " + subjectToFind + "Test case has started running");
 
+						System.out.println("Assigned Minimum Marks for " + markName +" for the Subject " + subjectToFind + "is " + minMark);
+						testCaseScenario.log(Status.INFO, "Assigned Minimum Marks for " + markName +" for the Subject " + subjectToFind + " is " + minMark);
+
 						Paper4 = objectToDataType(paper4);
 						paper4Mark = Double.parseDouble(obtainedMarks);
 						paper4MinMark = minMark;
@@ -728,6 +738,10 @@ public void gracePaper1SecMarksValidation(Object regno,String markName,String ob
 					theoryExcelExamTotal = Paper1 + Paper2 + Paper3 + Paper4;
 					System.out.println(theoryExcelExamTotal);
 
+					System.out.println("Assigned Minimum Marks for " + markName +" for the Subject " + subjectToFind + "is " + minMark);
+					testCaseScenario.log(Status.INFO, "Assigned Minimum Marks for " + markName +" for the Subject " + subjectToFind + " is " + minMark);
+
+					
 					theoryPdfExamTotal = paper1Mark + paper2Mark + paper3Mark +paper4Mark;
 					System.out.println(theoryPdfExamTotal);
 					System.out.println(paper1Mark);
@@ -871,7 +885,9 @@ public void gracePaper1SecMarksValidation(Object regno,String markName,String ob
 					PraticalExamTotal = objectToDataType(praticalExam);
 					praticalTotalSecMark = Double.parseDouble(obtainedMarks);
 					
-				
+					System.out.println("Assigned Minimum Marks for " + markName +" for the Subject " + subjectToFind + "is " + minMark);
+					testCaseScenario.log(Status.INFO, "Assigned Minimum Marks for " + markName +" for the Subject " + subjectToFind + " is " + minMark);
+
 			
 				
 					
@@ -1028,6 +1044,10 @@ public void gracePaper1SecMarksValidation(Object regno,String markName,String ob
 
 					pdfGrandTotal = Paper1 + Paper2 + Paper3 + Paper4+ PraticalExamTotal;
 
+					System.out.println("Assigned Minimum Marks for " + markName +" for the Subject " + subjectToFind + "is " + minMark);
+					testCaseScenario.log(Status.INFO, "Assigned Minimum Marks for " + markName +" for the Subject " + subjectToFind + " is " + minMark);
+
+					
 					System.out.println("Paper1Mark:" + paper1Mark);
 					System.out.println("Paper2Mark:" + paper2Mark);
 					System.out.println("Paper3Mark:" + paper3Mark);

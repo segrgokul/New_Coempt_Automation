@@ -143,7 +143,7 @@ public class SctevtExecutionCopy  extends BrowserManager {
 
 		
 //Fpr SCTE&VT_SID_06 result process project
-@Test(priority = 1, enabled = false, dataProvider = "ScTE&VT_Result_Process",description = "ScTE&VT_Result_Process")
+@Test(priority = 1, enabled = true, dataProvider = "ScTE&VT_Result_Process",description = "ScTE&VT_Result_Process")
 public void ScTEandVT_SID_06(String regNo, SctevtResultReadExcelFile.StudentInfo studentInfo,String subjectToFind) throws InterruptedException, IOException, AWTException {
 	
 
@@ -194,7 +194,7 @@ public void ScTEandVT_SID_06(String regNo, SctevtResultReadExcelFile.StudentInfo
 
 
 //Fpr SCTE&VT_SID_07 result process project
-@Test(priority = 2, enabled = true, dataProvider = "ScTE&VT_Result_Process",description = "ScTE&VT_Result_Process")
+@Test(priority = 2, enabled = false, dataProvider = "ScTE&VT_Result_Process",description = "ScTE&VT_Result_Process")
 public void ScTEandVT_SID_07(String regNo, SctevtResultReadExcelFile.StudentInfo studentInfo,String subjectToFind) throws InterruptedException, IOException, AWTException {
 	
 

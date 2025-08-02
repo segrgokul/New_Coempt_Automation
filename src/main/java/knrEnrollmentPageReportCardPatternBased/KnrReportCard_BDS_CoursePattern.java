@@ -704,37 +704,37 @@ public class KnrReportCard_BDS_CoursePattern extends BasicFunctions {
 									}
 
 									// marks
-									String[] parts = bdsY1R16SubjectRegexPatternMatcher.group(2).trim().split("\\s+");
+									String[] marksParts = bdsY1R16SubjectRegexPatternMatcher.group(2).trim().split("\\s+");
 
-									if (parts.length == 12) {
-										theoryThPlusIntVivaMaxMark = parts[0];
-										theoryInt = parts[1];
-										theoryTh = parts[2];
-										theoryViva = parts[3];
-										theoryThPlusIntVivaSecMark = parts[4];
-										practicalPlusIntMaxMark = parts[5];
-										practicalInt = parts[6];
-										practicalPractical = parts[7];
-										practicalVivaPR = parts[8];
-										practicalTotalSecMarks = parts[9];
-										thPlusPracticalMaxMark = parts[10];
-										thPlusPracticalSecMark = parts[11];
+									if (marksParts.length == 12) {
+										theoryThPlusIntVivaMaxMark = marksParts[0];
+										theoryInt = marksParts[1];
+										theoryTh = marksParts[2];
+										theoryViva = marksParts[3];
+										theoryThPlusIntVivaSecMark = marksParts[4];
+										practicalPlusIntMaxMark = marksParts[5];
+										practicalInt = marksParts[6];
+										practicalPractical = marksParts[7];
+										practicalVivaPR = marksParts[8];
+										practicalTotalSecMarks = marksParts[9];
+										thPlusPracticalMaxMark = marksParts[10];
+										thPlusPracticalSecMark = marksParts[11];
 
 									}
 
-									else if (parts.length == 7) {
-										practicalPlusIntMaxMark = parts[0];
-										practicalInt = parts[1];
-										practicalPractical = parts[2];
-										practicalVivaPR = parts[3];
-										practicalTotalSecMarks = parts[4];
-										thPlusPracticalMaxMark = parts[5];
-										thPlusPracticalSecMark = parts[6];
+									else if (marksParts.length == 7) {
+										practicalPlusIntMaxMark = marksParts[0];
+										practicalInt = marksParts[1];
+										practicalPractical = marksParts[2];
+										practicalVivaPR = marksParts[3];
+										practicalTotalSecMarks = marksParts[4];
+										thPlusPracticalMaxMark = marksParts[5];
+										thPlusPracticalSecMark = marksParts[6];
 
 									}
 
 									else {
-										System.out.println("Unexpected number of marks: " + parts.length);
+										System.out.println("Unexpected number of marks: " + marksParts.length);
 									}
 
 									System.out.println("==============");

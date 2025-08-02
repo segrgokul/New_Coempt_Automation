@@ -1,3 +1,4 @@
+
 package scevtPageModules;
 
 import java.awt.AWTException;
@@ -5,6 +6,7 @@ import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +28,6 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 	String status;
 	ArrayList<String> windowHandles = null;
 	Set<String> processedRegNos = new HashSet<>();
-	double remainingGraceMark = 0.0; // Grace calucation with excel
 
 	public void ScTEVT_ResultProcess(String regno, String sycode, ExtentTest testCaseName)
 			throws InterruptedException, IOException, AWTException {
@@ -150,7 +151,7 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 					.createNode(regno + "Result Page action Test case for " + sycode + " semester has started running");
 
 			testCaseScenario.log(Status.FAIL,
-					"Error occurred for the following regno: " + regno + " and semester " + sycode,
+					"Error occurred for the following regno: " + regno + " and semester " + sycode + e.getMessage(),
 					MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
 
 		}
@@ -205,7 +206,10 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 
 				// Find all rows in the table
 				List<WebElement> rows = driver.findElements(By.xpath("//table[@id='tbl-results-marks']//tbody/tr	"));
-				double needed = 0.0;
+				double remainingGraceMark = 0.0; // Grace calucation with excel
+				double neededForGraceMark = 0.0;
+				double uiNeededForGraceMark = 0.0;
+
 				StringBuilder result = new StringBuilder("Result: ");
 				boolean hasBacklog1 = false;
 				List<WebElement> thCells = driver
@@ -214,7 +218,8 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 						.findElements(By.xpath("//table[@id='tbl-results-marks']//tbody/tr/td[2]"));
 				List<WebElement> subjectCodeAndThCells = driver
 						.findElements(By.xpath("//table[@id='tbl-results-marks']//tbody/tr[td[1] and td[7]]"));
-				List<Double> neededList = new ArrayList<>();
+				List<Double> neededForGraceMarkList = new ArrayList<>();
+				List<Double> uiNeededForGraceMarkList = new ArrayList<>();
 				// Find all rows in the table
 
 				int count = 0; // Counter to track rows processed
@@ -227,11 +232,18 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 					// Wait for results
 					explicitWait(uiElement, 50);
 
+					WebElement totalMaxMarks = driver
+							.findElement(By.xpath("//table[@id='tbl-results-marks']//tbody/tr[last()]/td[5]"));
+					// Wait for results
+					explicitWait(uiElement, 50);
+
 					// Extract and parse total marks
 					String totalText = totalMarks.getText().trim();
+					String totalMaxMarkText = totalMaxMarks.getText().trim();
 					int totalMark = Integer.parseInt(totalText);
-
+					int totalMaxMark = Integer.parseInt(totalMaxMarkText);
 					System.out.println("Total Marks: " + totalMark);
+					System.out.println("Total Max Mark:  " + totalMaxMark);
 
 					WebElement uiSessionalMarks = driver
 							.findElement(By.xpath("//table[@id='tbl-results-marks']//tbody/tr[last()-1]/td[last()]"));
@@ -252,7 +264,9 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 					int totalMarksSum = 0; // Track total marks
 					boolean hasMP = false; // Track if MP condition is met
 					boolean comparisonDone = false; // Ensure comparison is done only once
-
+					String subjectName = "";
+					String expectedMark = "";
+					String sessionalMarkExcel = "";
 					count = 0;
 					for (WebElement row : subjectRows) {
 						String subjectCode = row.findElement(By.xpath("./td[1]")).getText().trim(); // e.g., TH1 or PR1
@@ -275,9 +289,6 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 						System.out.println("Theory Marks: " + marksTHText);
 						System.out.println("IA Marks: " + marksIAText);
 						System.out.println("Total Marks: " + marksTotalText);
-						String subjectName = "";
-						String expectedMark = "";
-						String sessionalMarkExcel = "";
 
 						for (Map.Entry<String, String> expectedEntry : subjectsAndMarks.entrySet()) {
 							subjectName = expectedEntry.getKey();
@@ -314,13 +325,13 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 
 								System.out.println(marksTHText.equals((newMark)));
 
-								if (marksTHText.equals((newMark))) {
+								if (marksTHText.equals((newMark)) && !uiBacklog.equals("MP")) {
 									System.out.println(subjectDetails + " subject Th Mark " + marksTHText
 											+ " from UI is Equals with Excel Mark " + newMark);
 									testCaseScenario.log(Status.PASS, subjectDetails + " subject Th Mark " + marksTHText
 											+ " from UI is Equals with Excel Mark " + newMark);
 
-									if (semesters.contains("Semester - Regular Exam")) {
+									if (semesters.contains("Semester - Regular Exam") && !marksTHText.contains("A")) {
 
 										if (Double.parseDouble(newMark) < 28
 												|| Double.parseDouble(marksTotalText) < 35) {
@@ -339,9 +350,10 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 
 											testCaseScenario1.log(Status.INFO, "Regular grace logic.");
 
-											testCaseScenario1.log(Status.INFO, "UI Sessional Mark: " + uiSessionalMark);
 											testCaseScenario1.log(Status.INFO,
-													"Excel Sessional Mark: " + sessionalMarkExcel);
+													"UI Sessional Mark: " + Double.parseDouble(uiSessionalMarkText));
+											testCaseScenario1.log(Status.INFO,
+													"Excel Sessional Mark: " + Double.parseDouble(sessionalMarkExcel));
 
 											if (sessionalMarkExcel != null && uiSessionalMarkText != null) {
 												String regNoWithSemester = regNo + "_SEM" + examSemester;
@@ -352,10 +364,9 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 													testCaseScenario1.log(Status.INFO,
 															"Initial grace marks available in Excel sessional mark: "
 																	+ remainingGraceMark);
-
 													if (Double.parseDouble(sessionalMarkExcel) == Double
 															.parseDouble(uiSessionalMarkText)) {
-														testCaseScenario1.log(Status.WARNING, "Both UI SessionalMark "
+														testCaseScenario1.log(Status.INFO, "Both UI SessionalMark "
 																+ sessionalMarkExcel + " and Excel SessionalMark "
 																+ uiSessionalMarkText
 																+ " are equals: due to that remaining grace mark is : "
@@ -366,12 +377,20 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 																		.build());
 
 													}
+
 												}
 
-												if (remainingGraceMark > 15) {
+												if (totalMaxMark == 750 && remainingGraceMark > 15) {
 
 													testCaseScenario1.log(Status.FAIL,
 															"❌ Sessional mark difference exceeds 15 for RegNo: "
+																	+ regNo);
+													break;
+
+												} else if (totalMaxMark == 700 && remainingGraceMark > 14) {
+
+													testCaseScenario1.log(Status.FAIL,
+															"❌ Sessional mark difference exceeds 14 for RegNo: "
 																	+ regNo);
 													break;
 
@@ -381,21 +400,31 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 											if (marksTHText.equals(newMark)) {
 
 												System.out.println(subjectCode + " subject Th Mark " + marksTHText
-														+ " from UI is MATCH: with Excel Mark " + newMark);
-												testCaseScenario1.log(Status.PASS,
-														subjectCode + " subject Th Mark " + marksTHText
-																+ " from UI is MATCH: with Excel Mark " + newMark);
+														+ " from UI is MATCH: with Excel Mark " + newMark
+														+ " and IA mark = " + subjectMarksIA + " => and Total = "
+														+ (newMark + subjectMarksIA));
+
+												testCaseScenario1.log(Status.PASS, subjectCode + " subject Th Mark "
+														+ marksTHText + " from UI is MATCH: with Excel Mark " + newMark
+														+ " and IA mark = " + subjectMarksIA + " => and Total = "
+														+ (Double.parseDouble(newMark) + subjectMarksIA));
+
 												break;
 											} else {
 
 												System.out.println(subjectCode + " subject Th Mark " + marksTHText
 														+ " from UI is MISMATCH: with Excel Mark " + newMark
-														+ " => Expected: " + newMark + ", Found: " + marksTHText);
+														+ " => Expected: " + newMark + ", Found: " + marksTHText
+														+ " and IA mark = " + subjectMarksIA + " => and Total = "
+														+ (Double.parseDouble(newMark) + subjectMarksIA));
+
 												testCaseScenario1.log(Status.PASS,
 														subjectCode + " subject Th Mark " + marksTHText
 																+ " from UI is MISMATCH: with Excel Mark " + newMark
 																+ " =>  Expected: " + newMark + ", Found: "
-																+ marksTHText);
+																+ marksTHText + " and IA mark = " + subjectMarksIA
+																+ " => and Total = "
+																+ (Double.parseDouble(newMark) + subjectMarksIA));
 
 												double excelMark = Double.parseDouble(newMark);
 												double neededForTH = 28.0 - excelMark;
@@ -415,7 +444,7 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 												}
 
 												testCaseScenario1.log(Status.INFO,
-														"Checking grace for TH mark " + subjectName + ": needed="
+														"Checking grace for TH mark " + subjectName + ": neededForTH="
 																+ neededForTH + ", available=" + remainingGraceMark);
 
 												double adjustedTH = excelMark;
@@ -461,13 +490,12 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 														System.out.println(
 																"IA Mark for " + subjectName + ": " + subjectMarksIA);
 														testCaseScenario1.log(Status.INFO,
-																"IA Mark for " + subjectName + ": " + subjectMarksIA
-																		+ " following register number " + regNo);
+																"IA Mark for " + subjectName + ": " + subjectMarksIA);
+
 														testCaseScenario1.log(Status.PASS, "IA Mark for " + subjectName
 																+ ": before giving grace with adjustedTh mark = "
 																+ adjustedTH + " and IA mark = " + subjectMarksIA
-																+ " => and Total = " + (adjustedTH + subjectMarksIA)
-																+ " following register number " + regNo);
+																+ " => and Total = " + (adjustedTH + subjectMarksIA));
 
 														// You can now use iaMark in your validation here
 													} else {
@@ -495,9 +523,9 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 													}
 
 													testCaseScenario1.log(Status.INFO,
-															"Checking grace for Total mark " + subjectName + ": needed="
-																	+ neededForTotal + ", available="
-																	+ remainingGraceMark);
+															"Checking grace for Total mark " + subjectName
+																	+ ": neededForTotal=" + neededForTotal
+																	+ ", available=" + remainingGraceMark);
 
 													System.out.println("adjustedTH" + adjustedTH);
 													double adjustedTotal = adjustedTH;
@@ -533,8 +561,7 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 																+ subjectName
 																+ ": after giving grace with marksTHText mark = "
 																+ marksTHText + " and IA mark = " + subjectMarksIA
-																+ " => and Total = " + adjustedTotal
-																+ " following register number " + regNo);
+																+ " => and Total = " + adjustedTotal);
 
 														formattedScriptBacklog = "Pass(G)";
 
@@ -578,7 +605,33 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 										}
 									}
 
-								} else {
+								}
+
+								else if (uiBacklog.contains("MP")) {
+									if (!marksTHText.equals(newMark)) {
+										System.out.println(subjectDetails + " subject Th Mark " + marksTHText
+												+ " from UI is Not Equals with Excel Mark " + newMark);
+										testCaseScenario.log(Status.INFO, subjectDetails + " subject Th Mark "
+												+ marksTHText + " from UI is Not Equals with Excel Mark " + newMark
+												+ "The following register number is " + regNo + " has " + uiBacklog,
+
+												MediaEntityBuilder
+														.createScreenCaptureFromPath(BasicFunctions.capture(driver))
+														.build());
+									} else {
+										System.out.println(subjectDetails + " subject Th Mark " + marksTHText
+												+ " from UI is Equals with Excel Mark " + newMark);
+										testCaseScenario.log(Status.INFO, subjectDetails + " subject Th Mark "
+												+ marksTHText + " from UI is Equals with Excel Mark " + newMark
+												+ "The following register number is " + regNo + " has " + uiBacklog,
+
+												MediaEntityBuilder
+														.createScreenCaptureFromPath(BasicFunctions.capture(driver))
+														.build());
+									}
+								}
+
+								else {
 									System.out.println(subjectDetails + " subject Th Mark " + marksTHText
 											+ " from UI is Not Equals with Excel Mark " + newMark);
 									testCaseScenario.log(Status.INFO,
@@ -636,10 +689,17 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 													}
 												}
 
-												if (remainingGraceMark > 15) {
+												if (totalMaxMark == 750 && remainingGraceMark > 15) {
 
 													testCaseScenario1.log(Status.FAIL,
 															"❌ Sessional mark difference exceeds 15 for RegNo: "
+																	+ regNo);
+													break;
+
+												} else if (totalMaxMark == 700 && remainingGraceMark > 14) {
+
+													testCaseScenario1.log(Status.FAIL,
+															"❌ Sessional mark difference exceeds 14 for RegNo: "
 																	+ regNo);
 													break;
 
@@ -649,24 +709,49 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 											if (marksTHText.equals(newMark)) {
 
 												System.out.println(subjectCode + " subject Th Mark " + marksTHText
-														+ " from UI is MATCH: with Excel Mark " + newMark);
+														+ " from UI is MATCH: with Excel Mark " + newMark
+														+ " and IA mark = " + subjectMarksIA + " => and Total = "
+														+ (newMark + subjectMarksIA));
+
 												testCaseScenario1.log(Status.PASS,
 														subjectCode + " subject Th Mark " + marksTHText
-																+ " from UI is MATCH: with Excel Mark " + newMark);
+																+ " from UI is MATCH: with Excel Mark " + newMark
+																+ " and IA mark = " + subjectMarksIA
+																+ " => and Total = " + (newMark + subjectMarksIA));
+
 												break;
 											} else {
 
 												System.out.println(subjectCode + " subject Th Mark " + marksTHText
 														+ " from UI is MISMATCH: with Excel Mark " + newMark
-														+ " => Expected: " + newMark + ", Found: " + marksTHText);
+														+ " => Expected: " + newMark + ", Found: " + marksTHText
+														+ " and IA mark = " + subjectMarksIA + " => and Total = "
+														+ (Double.parseDouble(newMark) + subjectMarksIA));
+
 												testCaseScenario1.log(Status.PASS,
 														subjectCode + " subject Th Mark " + marksTHText
 																+ " from UI is MISMATCH: with Excel Mark " + newMark
 																+ " =>  Expected: " + newMark + ", Found: "
-																+ marksTHText);
+																+ marksTHText + " and IA mark = " + subjectMarksIA
+																+ " => and Total = "
+																+ (Double.parseDouble(newMark) + subjectMarksIA));
 
 												double excelMark = Double.parseDouble(newMark);
-												double neededForTH = 28.0 - excelMark;
+												double neededForTH = 0.0;
+												if ((excelMark >= 28) && (excelMark + subjectMarksIA) < 35) {
+													neededForTH = excelMark - 28.0;
+													testCaseScenario1.log(Status.INFO,
+															"neededForTH is :" + neededForTH);
+												} else if ((excelMark < 28)) {
+													neededForTH = 28.0 - excelMark;
+													testCaseScenario1.log(Status.INFO,
+															"neededForTH is :" + neededForTH);
+												} else {
+													testCaseScenario1.log(Status.FAIL,
+															"neededForTH is :" + neededForTH);
+												}
+
+												System.out.println("neededForTH is :" + neededForTH);
 
 												System.out.println(excelMark + subjectMarksIA);
 												double neededForTotal = 35.0 - (excelMark + subjectMarksIA);
@@ -683,7 +768,7 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 
 												}
 												testCaseScenario1.log(Status.INFO,
-														"Checking grace for TH mark " + subjectName + ": needed="
+														"Checking grace for TH mark " + subjectName + ": neededForTH="
 																+ neededForTH + ", available=" + remainingGraceMark);
 
 												double adjustedTH = excelMark;
@@ -699,11 +784,15 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 
 													System.out.println(subjectName + " subject Th Mark " + marksTHText
 															+ " from UI is MATCH after giving with grace: => "
-															+ adjustedTH);
+															+ adjustedTH + " and IA mark = " + subjectMarksIA
+															+ " => and Total = " + (adjustedTH + subjectMarksIA));
+
 													testCaseScenario1.log(Status.PASS,
 															subjectName + " subject Th Mark " + marksTHText
 																	+ " from UI is MATCH after giving with grace: => "
-																	+ adjustedTH);
+																	+ adjustedTH + " and IA mark = " + subjectMarksIA
+																	+ " => and Total = "
+																	+ (adjustedTH + subjectMarksIA));
 
 													formattedScriptBacklog = "Pass(G)";
 
@@ -729,13 +818,12 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 														System.out.println(
 																"IA Mark for " + subjectName + ": " + subjectMarksIA);
 														testCaseScenario1.log(Status.INFO,
-																"IA Mark for " + subjectName + ": " + subjectMarksIA
-																		+ " following register number " + regNo);
+																"IA Mark for " + subjectName + ": " + subjectMarksIA);
+
 														testCaseScenario1.log(Status.PASS, "IA Mark for " + subjectName
 																+ ": before giving grace with adjustedTh mark = "
 																+ adjustedTH + " and IA mark = " + subjectMarksIA
-																+ " => and Total = " + (adjustedTH + subjectMarksIA)
-																+ " following register number " + regNo);
+																+ " => and Total = " + (adjustedTH + subjectMarksIA));
 
 														// You can now use iaMark in your validation here
 													} else {
@@ -763,9 +851,9 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 													}
 
 													testCaseScenario1.log(Status.INFO,
-															"Checking grace for Total mark " + subjectName + ": needed="
-																	+ neededForTotal + ", available="
-																	+ remainingGraceMark);
+															"Checking grace for Total mark " + subjectName
+																	+ ": neededForTotal=" + neededForTotal
+																	+ ", available=" + remainingGraceMark);
 
 													System.out.println("adjustedTH" + adjustedTH);
 													double adjustedTotal = adjustedTH;
@@ -794,15 +882,14 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 																+ " from UI is MATCH after giving with grace: => "
 																+ adjustedTotal);
 														testCaseScenario1.log(Status.PASS, subjectName
-																+ " subject Total Mark with IT " + uiTotalMark
+																+ " subject Total Mark with IA " + uiTotalMark
 																+ " from UI is MATCH after giving with grace: => "
 																+ adjustedTotal);
 														testCaseScenario1.log(Status.PASS, "Total Mark for "
 																+ subjectName
 																+ ": after giving grace with marksTHText mark = "
 																+ marksTHText + " and IA mark = " + subjectMarksIA
-																+ " => and Total = " + adjustedTotal
-																+ " following register number " + regNo);
+																+ " => and Total = " + adjustedTotal);
 
 														formattedScriptBacklog = "Pass(G)";
 
@@ -839,11 +926,11 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 							if (marksTHText.equalsIgnoreCase("A") || marksIAText.equalsIgnoreCase("A")
 									|| marksTotalText.equalsIgnoreCase("A")) {
 								hasBacklog = true;
-								needed = 0.0;
+								neededForGraceMark = 0.0;
 								backlogSubjects.append(subjectCode).append(",");
 								System.out.println(subjectDetails + " : Absent with Total Mark " + marksTotalText);
-								neededList.add(needed);
-								System.out.println(needed);
+								neededForGraceMarkList.add(neededForGraceMark);
+								System.out.println(neededForGraceMark);
 
 								testCaseScenario.log(Status.PASS,
 										subjectDetails + " : Absent with Total Mark " + marksTotalText);
@@ -855,8 +942,8 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 										+ " and Total Marks " + marksTotalText);
 								testCaseScenario.log(Status.PASS, subjectDetails + " : Failed with Th mark "
 										+ marksTHText + " and Total Marks " + marksTotalText);
-								needed = 0.0;
-								neededList.add(needed);
+								neededForGraceMark = 0.0;
+								neededForGraceMarkList.add(neededForGraceMark);
 							} else {
 								int passMarks = Integer.parseInt(passMarksText);
 								int totalSubjectMarks;
@@ -879,6 +966,8 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 												subjectDetails + " : Failed with Total Marks " + totalSubjectMarks);
 										testCaseScenario.log(Status.PASS,
 												subjectDetails + " : Failed with Total Marks " + totalSubjectMarks);
+										neededForGraceMark = 0.0;
+										neededForGraceMarkList.add(neededForGraceMark);
 									} else {
 										System.out.println(
 												subjectDetails + " : Passed with Total Marks " + totalSubjectMarks);
@@ -893,8 +982,8 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 									totalSubjectMarks = subjectMarksTH + subjectMarksIA;
 
 									if (subjectMarksTH == 0 && uiBacklog.contains("DI")) {
-										if (totalMarksSum > 300
-												&& Integer.parseInt(subjectCode.replaceAll("\\D", "")) > 300) {
+										if (totalMarksSum > 280
+												&& Integer.parseInt(subjectCode.replaceAll("\\D", "")) > 280) {
 											marksTHText = "DI-" + subjectCode;
 										} else {
 											marksTHText = "Fail";
@@ -932,7 +1021,7 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 																+ " and Total Marks " + totalSubjectMarks);
 											}
 										} else if (subjectMaxMarksTH == 70) {
-											if (subjectMarksTH < 25 || totalSubjectMarks < passMarks) {
+											if (subjectMarksTH < 28 || totalSubjectMarks < passMarks) {
 
 												hasBacklog = true;
 												backlogSubjects.append(subjectCode).append(",");
@@ -968,10 +1057,11 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 									} // else if
 
 									else if (semesters.contains("1st Semester - Regular Exam ")) {
-										if (subjectMarksTH < 25 || totalSubjectMarks < passMarks) {
+										if (subjectMarksTH < 28 || totalSubjectMarks < passMarks) {
 
 											hasBacklog = true;
 											backlogSubjects.append(subjectCode).append(",");
+
 											System.out.println(subjectDetails + " : Failed with Th mark "
 													+ subjectMarksTH + " and IA Marks " + subjectMarksIA
 													+ " and Total Marks " + totalSubjectMarks);
@@ -989,20 +1079,25 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 										}
 									} else if (subjectMarksTH < 28 || totalSubjectMarks < passMarks) {
 
-										if (subjectMarksTH >= 20 && subjectMarksTH < 28) {
+										if (subjectMarksTH >= 18 && subjectMarksTH < 28) {
 
-											needed = 28 - subjectMarksTH;
-											System.out.println("needed:" + needed);
-											System.out.println(needed);
+											uiNeededForGraceMark = 28 - subjectMarksTH;
+											neededForGraceMark = 28 - subjectMarksTH;
+											System.out.println("uiNeededForGraceMark:" + uiNeededForGraceMark);
+											System.out.println(uiNeededForGraceMark);
+											System.out.println("neededForGraceMark:" + neededForGraceMark);
+											System.out.println(neededForGraceMark);
+											testCaseScenario.log(Status.INFO, "subjectMarksTH: " + subjectMarksTH
+													+ " uiNeededForGraceMark: " + uiNeededForGraceMark);
 
-											testCaseScenario.log(Status.PASS,
-													"subjectMarksTH: " + subjectMarksTH + " needed: " + needed);
+											testCaseScenario.log(Status.PASS, "subjectMarksTH: " + subjectMarksTH
+													+ " needed: " + neededForGraceMark);
 
-											if (needed <= 8) {
+											if (totalMaxMark == 750 && neededForGraceMark <= 8) {
 												System.out.println("The following student " + subjectCode
-														+ " is lesser than or equal to 8 " + needed);
+														+ " is lesser than or equal to Eight " + neededForGraceMark);
 												testCaseScenario.log(Status.PASS, "The following student " + subjectCode
-														+ " is lesser than or equal to eight " + needed);
+														+ " is lesser than or equal to Eight " + neededForGraceMark);
 
 												hasBacklog = true;
 												backlogSubjects.append(subjectCode).append(",");
@@ -1013,13 +1108,14 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 														subjectDetails + " : Failed with Th mark " + subjectMarksTH
 																+ " and IA Marks " + subjectMarksIA
 																+ " and Total Marks " + totalSubjectMarks);
-												System.out.println("needed:" + needed);
-												neededList.add(needed);
-											} else {
+												System.out.println("needed:" + neededForGraceMark);
+												neededForGraceMarkList.add(neededForGraceMark);
+												uiNeededForGraceMarkList.add(uiNeededForGraceMark);
+											} else if (totalMaxMark == 700 && neededForGraceMark <= 7) {
 												System.out.println("The following student " + subjectCode
-														+ " is not lesser than or equal to 8 " + needed);
+														+ " is lesser than or equal to seven " + neededForGraceMark);
 												testCaseScenario.log(Status.PASS, "The following student " + subjectCode
-														+ " is not lesser than or equal to eight " + needed);
+														+ " is lesser than or equal to Seven " + neededForGraceMark);
 
 												hasBacklog = true;
 												backlogSubjects.append(subjectCode).append(",");
@@ -1030,23 +1126,48 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 														subjectDetails + " : Failed with Th mark " + subjectMarksTH
 																+ " and IA Marks " + subjectMarksIA
 																+ " and Total Marks " + totalSubjectMarks);
-												neededList.add(needed);
-												System.out.println("needed:" + needed);
+												System.out.println("needed:" + neededForGraceMark);
+												neededForGraceMarkList.add(neededForGraceMark);
+												uiNeededForGraceMarkList.add(uiNeededForGraceMark);
+											}
+
+											else {
+												System.out.println("The following student " + subjectCode
+														+ " is not lesser than or equal to Eight "
+														+ neededForGraceMark);
+												testCaseScenario.log(Status.PASS,
+														"The following student " + subjectCode
+																+ " is not lesser than or equal to Eight "
+																+ neededForGraceMark);
+
+												hasBacklog = true;
+												backlogSubjects.append(subjectCode).append(",");
+												System.out.println(subjectDetails + " : Failed with Th mark "
+														+ subjectMarksTH + " and IA Marks " + subjectMarksIA
+														+ " and Total Marks " + totalSubjectMarks);
+												testCaseScenario.log(Status.PASS,
+														subjectDetails + " : Failed with Th mark " + subjectMarksTH
+																+ " and IA Marks " + subjectMarksIA
+																+ " and Total Marks " + totalSubjectMarks);
+												neededForGraceMarkList.add(neededForGraceMark);
+												System.out.println("needed:" + neededForGraceMark);
+												uiNeededForGraceMarkList.add(uiNeededForGraceMark);
 											}
 
 										} else if (subjectMarksTH > 28 && totalSubjectMarks < 35) {
-											needed = 35 - totalSubjectMarks;
-											System.out.println("needed:" + needed);
-											System.out.println(needed);
+											uiNeededForGraceMark = 35 - totalSubjectMarks;
+											neededForGraceMark = 35 - totalSubjectMarks;
+											System.out.println("neededForGraceMark:" + neededForGraceMark);
+											System.out.println(neededForGraceMark);
 
-											testCaseScenario.log(Status.PASS,
-													"subjectMarksTotal: " + totalSubjectMarks + " needed: " + needed);
+											testCaseScenario.log(Status.PASS, "subjectMarksTotal: " + totalSubjectMarks
+													+ " needed: " + neededForGraceMark);
 
-											if (needed <= 8) {
+											if (totalMaxMark == 750 && neededForGraceMark <= 8) {
 												System.out.println("The following student " + subjectCode
-														+ " is lesser than or equal to 8 " + needed);
+														+ " is lesser than or equal to Eight " + neededForGraceMark);
 												testCaseScenario.log(Status.PASS, "The following student " + subjectCode
-														+ " is lesser than or equal to eight " + needed);
+														+ " is lesser than or equal to Eight " + neededForGraceMark);
 
 												hasBacklog = true;
 												backlogSubjects.append(subjectCode).append(",");
@@ -1057,13 +1178,34 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 														subjectDetails + " : Failed with Th mark " + subjectMarksTH
 																+ " and IA Marks " + subjectMarksIA
 																+ " and Total Marks " + totalSubjectMarks);
-												System.out.println("needed:" + needed);
-												neededList.add(needed);
+												System.out.println("needed:" + neededForGraceMark);
+												neededForGraceMarkList.add(neededForGraceMark);
+												uiNeededForGraceMarkList.add(uiNeededForGraceMark);
+											} else if (totalMaxMark == 700 && neededForGraceMark <= 7) {
+												System.out.println("The following student " + subjectCode
+														+ " is lesser than or equal to Eight " + neededForGraceMark);
+												testCaseScenario.log(Status.PASS, "The following student " + subjectCode
+														+ " is lesser than or equal to Eight " + neededForGraceMark);
+
+												hasBacklog = true;
+												backlogSubjects.append(subjectCode).append(",");
+												System.out.println(subjectDetails + " : Failed with Th mark "
+														+ subjectMarksTH + " and IA Marks " + subjectMarksIA
+														+ " and Total Marks " + totalSubjectMarks);
+												testCaseScenario.log(Status.PASS,
+														subjectDetails + " : Failed with Th mark " + subjectMarksTH
+																+ " and IA Marks " + subjectMarksIA
+																+ " and Total Marks " + totalSubjectMarks);
+												System.out.println("needed:" + neededForGraceMark);
+												neededForGraceMarkList.add(neededForGraceMark);
+												uiNeededForGraceMarkList.add(uiNeededForGraceMark);
 											} else {
 												System.out.println("The following student " + subjectCode
-														+ " is not lesser than or equal to 8 " + needed);
-												testCaseScenario.log(Status.PASS, "The following student " + subjectCode
-														+ " is not lesser than or equal to eight " + needed);
+														+ " is not lesser than or equal to 8 " + neededForGraceMark);
+												testCaseScenario.log(Status.PASS,
+														"The following student " + subjectCode
+																+ " is not lesser than or equal to eight "
+																+ neededForGraceMark);
 
 												hasBacklog = true;
 												backlogSubjects.append(subjectCode).append(",");
@@ -1074,14 +1216,16 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 														subjectDetails + " : Failed with Th mark " + subjectMarksTH
 																+ " and IA Marks " + subjectMarksIA
 																+ " and Total Marks " + totalSubjectMarks);
-												neededList.add(needed);
-												System.out.println("needed:" + needed);
+												neededForGraceMarkList.add(neededForGraceMark);
+												System.out.println("needed:" + neededForGraceMark);
+												uiNeededForGraceMarkList.add(uiNeededForGraceMark);
 											}
 										}
 
 										else {
 											hasBacklog = true;
-											needed = 0.0;
+											neededForGraceMark = 0.0;
+											uiNeededForGraceMark = 28 - subjectMarksTH;
 											backlogSubjects.append(subjectCode).append(",");
 											System.out.println(subjectDetails + " : Failed with Th mark "
 													+ subjectMarksTH + " and IA Marks " + subjectMarksIA
@@ -1090,8 +1234,10 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 													subjectDetails + " : Failed with Th mark " + subjectMarksTH
 															+ " and IA Marks " + subjectMarksIA + " and Total Marks "
 															+ totalSubjectMarks);
-											neededList.add(needed);
-											System.out.println("needed:" + needed);
+											neededForGraceMarkList.add(neededForGraceMark);
+											System.out.println("needed:" + neededForGraceMark);
+											uiNeededForGraceMarkList.add(uiNeededForGraceMark);
+											System.out.println("uiNeededForGraceMark:" + uiNeededForGraceMark);
 										}
 
 //	      	                
@@ -1116,22 +1262,118 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 						}
 					}
 
-					testCaseScenario.log(Status.PASS, "neededList " + neededList);
-					double totalNeededList = 0.0;
+					testCaseScenario.log(Status.PASS, "GraceMarkneededList " + neededForGraceMarkList);
+					testCaseScenario.log(Status.PASS, "uiNeededForGraceMarkList " + uiNeededForGraceMarkList);
+					double totalNeededListForGrace = 0.0;
+					double totalUINeededListForGrace = 0.0;
 
-					if (!neededList.contains(0.0)) {
-						for (int i = 0; i < neededList.size(); i++) {
-							totalNeededList += neededList.get(i);
-
-							System.out.println(totalNeededList);
+					if (!neededForGraceMarkList.contains(0.0)) {
+						for (int i = 0; i < neededForGraceMarkList.size(); i++) {
+							totalNeededListForGrace += neededForGraceMarkList.get(i);
 
 						}
-						testCaseScenario.log(Status.PASS, "SummaCheck1 " + totalNeededList);
-						System.out.println(totalNeededList);
-					} else {
-						testCaseScenario.log(Status.PASS, "SummaCheck2 " + totalNeededList);
-						System.out.println(totalNeededList);
+
+						testCaseScenario.log(Status.PASS,
+								"total Needed List For Grace value is  " + totalNeededListForGrace);
+						System.out.println(totalNeededListForGrace);
 					}
+
+					else {
+						testCaseScenario.log(Status.INFO,
+								"total Needed List For Grace value is  " + totalNeededListForGrace);
+						System.out.println(totalNeededListForGrace);
+					}
+
+				
+						for (int i = 0; i < uiNeededForGraceMarkList.size(); i++) {
+							totalUINeededListForGrace += uiNeededForGraceMarkList.get(i);
+
+						}
+						testCaseScenario.log(Status.PASS,
+								"total UI Needed List For Grace value is  " + totalUINeededListForGrace);
+						System.out.println(totalUINeededListForGrace);
+
+
+						if ((Double.parseDouble(sessionalMarkExcel) == Double.parseDouble(uiSessionalMarkText))
+								&&( totalMaxMark ==750 && totalUINeededListForGrace < 15)) {
+							testCaseScenario1.log(Status.FAIL,
+									"Both UI SessionalMark " + sessionalMarkExcel + " and Excel SessionalMark "
+											+ uiSessionalMarkText + " are equals: due to that remaining grace mark is : "
+											+ remainingGraceMark + "and total UI Needed List For Grace "
+											+ totalUINeededListForGrace,
+									MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
+
+							scrollToTop(driver);
+
+							Thread.sleep(1000);
+							testCaseScenario.log(Status.PASS,
+									"Backlog comparison Script - " + formattedScriptBacklog
+											+ " | UI - " + uiBacklog + " Top view",
+									MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver))
+											.build());
+						} 
+						
+						
+						else if ((Double.parseDouble(sessionalMarkExcel) == Double.parseDouble(uiSessionalMarkText))
+								&&( totalMaxMark ==700 && totalUINeededListForGrace < 14)) {
+							testCaseScenario1.log(Status.FAIL,
+									"Both UI SessionalMark " + sessionalMarkExcel + " and Excel SessionalMark "
+											+ uiSessionalMarkText + " are equals: due to that remaining grace mark is : "
+											+ remainingGraceMark + "and total UI Needed List For Grace "
+											+ totalUINeededListForGrace,
+									MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
+
+							scrollToTop(driver);
+
+							Thread.sleep(1000);
+							testCaseScenario.log(Status.PASS,
+									"Backlog comparison Script - " + formattedScriptBacklog
+											+ " | UI - " + uiBacklog + " Top view",
+									MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver))
+											.build());
+						}
+						
+						
+						
+						
+						else if ((Double.parseDouble(sessionalMarkExcel) == Double.parseDouble(uiSessionalMarkText))
+								&&( totalMaxMark ==750 && totalUINeededListForGrace > 15)) {
+							testCaseScenario1.log(Status.PASS,
+									"Both UI SessionalMark " + sessionalMarkExcel + " and Excel SessionalMark "
+											+ uiSessionalMarkText + " are equals: due to that remaining grace mark is : "
+											+ remainingGraceMark + "and total UI Needed List For Grace "
+											+ totalUINeededListForGrace,
+									MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
+
+						} 
+						 else if ((Double.parseDouble(sessionalMarkExcel) == Double.parseDouble(uiSessionalMarkText))
+									&&( totalMaxMark ==700 && totalUINeededListForGrace > 14)) {
+								testCaseScenario1.log(Status.PASS,
+										"Both UI SessionalMark " + sessionalMarkExcel + " and Excel SessionalMark "
+												+ uiSessionalMarkText + " are equals: due to that remaining grace mark is : "
+												+ remainingGraceMark + "and total UI Needed List For Grace "
+												+ totalUINeededListForGrace,
+										MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
+
+							}
+						 else if ((Double.parseDouble(sessionalMarkExcel) != Double.parseDouble(uiSessionalMarkText))
+								&& totalUINeededListForGrace == 0) {
+							testCaseScenario1.log(Status.PASS,
+									"Both UI SessionalMark " + sessionalMarkExcel + " and Excel SessionalMark "
+											+ uiSessionalMarkText + " are equals: due to that remaining grace mark is : "
+											+ remainingGraceMark + " and total UI Needed List For Grace "
+											+ totalUINeededListForGrace,
+									MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
+
+						} else {
+							testCaseScenario1.log(Status.FAIL,
+									"Please check where Both UI SessionalMark " + sessionalMarkExcel
+											+ " and Excel SessionalMark " + uiSessionalMarkText
+											+ " are equals: due to that remaining grace mark is : " + remainingGraceMark
+											+ "and total UI Needed List For Grace " + totalUINeededListForGrace,
+									MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
+						}
+
 					// Process formattedScriptBacklog based on backlogSubjects
 					if (formattedScriptBacklog.isEmpty()) {
 						formattedScriptBacklog = backlogSubjects.toString().trim().replaceAll(", $", "");
@@ -1157,12 +1399,15 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 						formattedScriptBacklog = "Pass";
 					}
 
-					// Check total marks condition only after processing all subjects
 					if (hasMP) {
 						formattedScriptBacklog = "MP";
-					} else if (totalMark < 300) {
+					} else if (totalMaxMark == 750 && totalMark < 300) {
 						formattedScriptBacklog = "Fail";
-					} else if (formattedScriptBacklog.startsWith("Back-") && totalMarksSum >= 300) {
+					} else if (totalMaxMark == 700 && totalMark < 280) {
+						formattedScriptBacklog = "Fail";
+					}
+
+					else if (formattedScriptBacklog.startsWith("Back-") && totalMarksSum >= 280) {
 						formattedScriptBacklog = formattedScriptBacklog.replace("Back-", "");
 					}
 
@@ -1195,7 +1440,25 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 
 					// Compare with UI only once
 					if (!comparisonDone) {
-						if (formattedScriptBacklog.equalsIgnoreCase(uiBacklog)) {
+						if ((formattedScriptBacklog.equals("Pass(G)")) && (uiBacklog.equals("Pass(G)"))) {
+
+							System.out.println("Backlog comparison INFO: Script - " + formattedScriptBacklog
+									+ " | UI - " + uiBacklog);
+							testCaseScenario.log(Status.SKIP, "Backlog comparison INFO: Script - "
+									+ formattedScriptBacklog + " | UI - " + uiBacklog);
+
+						}
+
+						else if ((formattedScriptBacklog.contains("Back")) && (uiBacklog.contains("DI"))) {
+
+							System.out.println("Backlog comparison INFO: Script - " + formattedScriptBacklog
+									+ " | UI - " + uiBacklog);
+							testCaseScenario.log(Status.WARNING, "Backlog comparison INFO: Script - "
+									+ formattedScriptBacklog + " | UI - " + uiBacklog);
+
+						}
+
+						else if (formattedScriptBacklog.equalsIgnoreCase(uiBacklog)) {
 							System.out.println("Backlog comparison PASS: Script - " + formattedScriptBacklog
 									+ " | UI - " + uiBacklog);
 							testCaseScenario.log(Status.PASS, "Backlog comparison PASS: Script - "
@@ -1203,26 +1466,36 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 
 							if (formattedScriptBacklog.contains("Back")) {
 
-								if (totalNeededList > 0 && totalNeededList <= 15) {
+								if (totalNeededListForGrace > 0 && totalNeededListForGrace <= 15) {
 									testCaseScenario.log(Status.FAIL,
 											"Please check the Backlog comparison PASS: Script - "
 													+ formattedScriptBacklog + " | UI - " + uiBacklog
-													+ " Total needed List value is: " + totalNeededList,
+													+ " Total needed List for Grace value is: "
+													+ totalNeededListForGrace,
 											MediaEntityBuilder
 													.createScreenCaptureFromPath(BasicFunctions.capture(driver))
 													.build());
 									System.out.println("Please check the Backlog comparison PASS: Script - "
 											+ formattedScriptBacklog + " | UI - " + uiBacklog
-											+ " Total needed List value is: " + totalNeededList);
+											+ " Total needed List for Grace value is: " + totalNeededListForGrace);
+									scrollToTop(driver);
 
+									Thread.sleep(1000);
+									testCaseScenario.log(Status.PASS,
+											"Backlog comparison Script - " + formattedScriptBacklog
+													+ " | UI - " + uiBacklog + " Top view",
+											MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver))
+													.build());
+
+									
 								} else {
 									testCaseScenario.log(Status.PASS,
 											"The Backlog comparison PASS: Script - " + formattedScriptBacklog
-													+ " | UI - " + uiBacklog + " Total needed List value is: "
-													+ totalNeededList);
+													+ " | UI - " + uiBacklog + " Total needed List For grace value is: "
+													+ totalNeededListForGrace);
 									System.out.println("The Backlog comparison PASS: Script - " + formattedScriptBacklog
-											+ " | UI - " + uiBacklog + " Total needed List value is: "
-											+ totalNeededList);
+											+ " | UI - " + uiBacklog + " Total needed List for grace value is: "
+											+ totalNeededListForGrace);
 
 								}
 
@@ -1239,7 +1512,7 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 
 						}
 
-						else if ((formattedScriptBacklog.equals("Pass")) && (uiBacklog.equals("Pass(G)"))) {
+						else if ((formattedScriptBacklog.equals("Pass(G)")) && (uiBacklog.equals("Pass(G)"))) {
 
 							System.out.println("Backlog comparison INFO: Script - " + formattedScriptBacklog
 									+ " | UI - " + uiBacklog);
@@ -1249,15 +1522,55 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 						}
 
 						else {
-							System.out.println("Backlog comparison FAILED: Script - " + formattedScriptBacklog
-									+ " | UI - " + uiBacklog);
-							testCaseScenario.log(Status.FAIL,
-									"Backlog comparison FAILED: Script - " + formattedScriptBacklog + " | UI - "
-											+ uiBacklog,
-									MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver))
-											.build());
+
+							String script = formattedScriptBacklog;
+							String ui = uiBacklog;
+
+							// Remove "Back-" and split into subjects
+							Set<String> scriptSet = new HashSet<>(
+									Arrays.asList(script.replace("Back-", "").split(",")));
+							Set<String> uiSet = new HashSet<>(Arrays.asList(ui.replace("Back-", "").split(",")));
+
+							if (scriptSet.equals(uiSet)) {
+								System.out.println("Backlog comparison PASSED WITH SET: Script - "
+										+ formattedScriptBacklog + " | UI - " + uiBacklog);
+								testCaseScenario.log(Status.PASS,
+										"Backlog comparison PASEED WITH SET: Script - " + formattedScriptBacklog
+												+ " | UI - " + uiBacklog + " Result View",
+										MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver))
+												.build());
+
+								scrollToTop(driver);
+
+								Thread.sleep(1000);
+								testCaseScenario.log(Status.PASS,
+										"Backlog comparison PASSED WITH SET: Script - " + formattedScriptBacklog
+												+ " | UI - " + uiBacklog + " Top view",
+										MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver))
+												.build());
+
+							} else {
+								System.out.println("Backlog comparison FAILED WITH SET: Script - "
+										+ formattedScriptBacklog + " | UI - " + uiBacklog);
+								testCaseScenario.log(Status.FAIL,
+										"Backlog comparison FAILED: Script - " + formattedScriptBacklog + " | UI - "
+												+ uiBacklog + " Result View",
+										MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver))
+												.build());
+
+								scrollToTop(driver);
+
+								Thread.sleep(1000);
+								testCaseScenario.log(Status.FAIL,
+										"Backlog comparison FAILED: Script - " + formattedScriptBacklog + " | UI - "
+												+ uiBacklog + " Top view",
+										MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver))
+												.build());
+
+							}
+							comparisonDone = true;
 						}
-						comparisonDone = true;
+
 					}
 
 				} catch (Exception e1) {
@@ -1298,7 +1611,8 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 				if (!SctevtPom.getInstanceSctevtResultXpaths().rollNoTB.isDisplayed()) {
 
 					System.out.println("An error occurred for the following regno: " + regNo);
-					testCaseScenario.log(Status.FAIL, "Error occurred for the following regno: " + regNo,
+					testCaseScenario.log(Status.FAIL,
+							"Error occurred for the following regno: " + regNo + e.getMessage(),
 							MediaEntityBuilder.createScreenCaptureFromPath(BasicFunctions.capture(driver)).build());
 
 					driver.navigate().refresh();
@@ -1372,19 +1686,6 @@ public class Scte_VtResultPageSID_06 extends BasicFunctions {
 		} else {
 			throw new IllegalArgumentException("Unsupported object type: " + obj.getClass().getSimpleName());
 		}
-	}
-
-	public void checkingGrace() {
-		List<WebElement> rows = driver.findElements(By.xpath("//table[@id='tbl-results-marks']//tbody/tr	"));
-
-		StringBuilder result = new StringBuilder("Result: ");
-		boolean hasBacklog1 = false;
-		List<WebElement> thCells = driver.findElements(By.xpath("//table[@id='tbl-results-marks']//tbody/tr/td[7]"));
-		List<WebElement> subjectCells = driver
-				.findElements(By.xpath("//table[@id='tbl-results-marks']//tbody/tr/td[2]"));
-		List<WebElement> subjectCodeAndThCells = driver
-				.findElements(By.xpath("//table[@id='tbl-results-marks']//tbody/tr[td[1] and td[7]]"));
-
 	}
 
 }

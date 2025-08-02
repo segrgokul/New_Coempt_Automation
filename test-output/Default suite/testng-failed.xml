@@ -3,19 +3,19 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="knr_runner_Execution.Knr_runner_Execution_Copy">
+      <class name="sctevt_runner_Execution.SctevtExecutionCopy">
         <methods>
-          <include name="testCase6"/>
-          <include name="beforeMethod"/>
-          <include name="afterTest"/>
-          <include name="beforeClass"/>
-          <include name="afterSuite"/>
-          <include name="beforeTest"/>
-          <include name="afterMethod"/>
-          <include name="afterClass"/>
           <include name="beforeSuite"/>
+          <include name="beforeMethod"/>
+          <include name="beforeTest"/>
+          <include name="ScTEandVT_SID_07"/>
+          <include name="afterSuite"/>
+          <include name="beforeClass"/>
+          <include name="afterMethod"/>
+          <include name="afterTest"/>
+          <include name="afterClass"/>
         </methods>
-      </class> <!-- knr_runner_Execution.Knr_runner_Execution_Copy -->
+      </class> <!-- sctevt_runner_Execution.SctevtExecutionCopy -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

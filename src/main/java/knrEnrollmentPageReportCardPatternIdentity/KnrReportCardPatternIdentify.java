@@ -19,6 +19,7 @@ import knrEnrollmentPageReportCardPatternBased.KnrReportCard_BHMS_CoursePattern;
 import knrEnrollmentPageReportCardPatternBased.KnrReportCard_BNYS_CoursePattern;
 import knrEnrollmentPageReportCardPatternBased.KnrReportCard_BUMS_CoursePattern;
 import knrEnrollmentPageReportCardPatternBased.KnrReportCard_Bsc_MLT_CoursePattern;
+import knrEnrollmentPageReportCardPatternBased.KnrReportCard_Bsc_Nursing_CoursePattern;
 import knrEnrollmentPageReportCardPatternBased.KnrReportCard_Bsc_Post_Basic_Nursing_CoursePattern;
 import knrEnrollmentPageReportCardPatternBased.KnrReportCard_MDS_CoursePattern;
 import knrEnrollmentPageReportCardPatternBased.KnrReportCard_MD_Homeo_CoursePattern;
@@ -44,6 +45,19 @@ public class KnrReportCardPatternIdentify extends BasicFunctions{
 	KnrReportCard_MPH_CoursePattern MPH = new KnrReportCard_MPH_CoursePattern();
 	KnrReportCard_BDS_CoursePattern BDS = new KnrReportCard_BDS_CoursePattern();
 	KnrReportCard_Bsc_Post_Basic_Nursing_CoursePattern Bsc_PBN = new KnrReportCard_Bsc_Post_Basic_Nursing_CoursePattern();
+	KnrReportCard_Bsc_Nursing_CoursePattern BSC_Nursing = new KnrReportCard_Bsc_Nursing_CoursePattern();
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public void processPdfBasedOnCoursePattern(File latestFile, String Regno,  String semester,String regulation,Object paper1, Object paper2,
 			Object paper3,Object paper4, Object theoryExamTotal, Object practicalExamTotal, Object grandTotal, String subjectToFind,
 			ExtentTest testCaseName) throws IOException {
@@ -69,8 +83,8 @@ public class KnrReportCardPatternIdentify extends BasicFunctions{
 					
 					String courseNameRegex = "(?i)\\b("
 						    + "MDS|"
-						    + "POST DOCTORAL FELLOWSHIP|"
-						    + "PG Diploma|"
+						    + "POST\\s*DOCTORAL\\s*FELLOWSHIP|"
+						    + "PG\\s*Diploma|"
 						    + "M\\.D\\.\\s*UNANI|"
 						    + "M\\.D\\.\\s*HOMOEOPATHY|"
 						    + "BAMS|"
@@ -78,11 +92,12 @@ public class KnrReportCardPatternIdentify extends BasicFunctions{
 						    + "BUMS|"
 						    + "BNYS|"
 						    + "B\\.?\\s*Sc\\.?\\s*MLT|"
+						    + "B\\.\\s*Sc\\.\\s*Nursing|"
+						    + "Post\\s*Basic\\s*B\\.\\s*Sc\\.\\s*Nursing|"
 						    + "M\\.(?:D(?:\\.A)?\\.?|S\\.)\\s*AYURVEDA\\s*\\([A-Z &]+\\)|"
-						    + "M\\.P\\.H|"
-						    + "BDS|"
-						    +"Post Basic B.Sc.Nursing"
+						    + "M\\.P\\.H"
 						    + ")\\s*";
+
 					// brackets
 					Pattern courseNameRegexPattern = Pattern.compile(courseNameRegex, Pattern.MULTILINE);
 					Matcher courseNameRegexPatternMatcher = courseNameRegexPattern.matcher(text);
@@ -222,6 +237,12 @@ public class KnrReportCardPatternIdentify extends BasicFunctions{
 						System.out.println("Pattern matched: Post Basic B.Sc.Nursing patterns detected.");
 						testCaseScenario1.log(Status.INFO,"Pattern matched: "+courseNameRegexPatternMatcher.group()+ "found");
 						Bsc_PBN.process_Bsc_Post_Basic_NursingPatternPdf(latestFile, Regno, semester, regulation, paper1, paper2, paper3, paper4, theoryExamTotal, practicalExamTotal, grandTotal, testCaseName, subjectToFind);
+						
+					}
+					else if  (courseNameRegexPatternMatcher.group().replaceAll("\\s+", "").equalsIgnoreCase("B.Sc.Nursing")) {
+						System.out.println("Pattern matched: B.Sc.Nursing patterns detected.");
+						testCaseScenario1.log(Status.INFO,"Pattern matched: "+courseNameRegexPatternMatcher.group()+ "found");
+						BSC_Nursing.process_Bsc_NursingPatternPdf(latestFile, Regno, semester, regulation, paper1, paper2, paper3, paper4, theoryExamTotal, practicalExamTotal, grandTotal, testCaseName, subjectToFind);
 						
 					}
 					}
